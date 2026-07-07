@@ -1,0 +1,8 @@
+# local / editor
+.DS_Store
+Thumbs.db
+*.log
+
+# keep the working copy out of the deployed repo (index.html is what ships)
+planner.html
+patio-garage-conversion-planner.html
