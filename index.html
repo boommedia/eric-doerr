@@ -3,510 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏠 Patio &amp; Garage Conversion Planner</title>
+<title>🏠 Home Projects Hub</title>
 <style>
   :root{
     --bg:#0f1419; --panel:#1a2029; --panel-2:#212936; --line:#2c3644;
     --text:#e6edf3; --muted:#8b98a9; --accent:#4cc2ff; --accent-2:#7ee787;
-    --diy:#7ee787; --pro:#ffa657; --warn:#f0883e; --danger:#ff7b72;
-    --good:#3fb950; --over:#f85149; --chip:#263041;
-    --shadow:0 4px 20px rgba(0,0,0,.35);
+    --soon:#8b98a9; --shadow:0 8px 30px rgba(0,0,0,.4);
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
   body{
-    margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    background:linear-gradient(160deg,#0d1117,#131a24);color:var(--text);
-    line-height:1.5;padding-bottom:80px;
+    margin:0;min-height:100vh;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1000px 500px at 70% -10%,rgba(76,194,255,.10),transparent),
+               linear-gradient(160deg,#0d1117,#131a24);
+    color:var(--text);line-height:1.55;
   }
-  header{
-    background:linear-gradient(135deg,#1a2733,#0f1620);
-    border-bottom:1px solid var(--line);padding:26px 20px 20px;position:relative;overflow:hidden;
-  }
-  header::after{content:"";position:absolute;inset:0;background:radial-gradient(600px 200px at 80% -20%,rgba(76,194,255,.15),transparent);pointer-events:none}
-  h1{margin:0 0 4px;font-size:1.75rem;letter-spacing:-.02em}
-  .sub{color:var(--muted);font-size:.9rem}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-  .meta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-  .chip{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:.8rem;color:var(--muted)}
+  .wrap{max-width:960px;margin:0 auto;padding:56px 22px 80px}
+  header{text-align:center;margin-bottom:14px}
+  h1{font-size:2.2rem;margin:0 0 8px;letter-spacing:-.02em}
+  .tagline{color:var(--muted);font-size:1.02rem;max-width:560px;margin:0 auto}
+  .meta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+  .chip{background:#263041;border:1px solid var(--line);border-radius:999px;padding:5px 13px;font-size:.8rem;color:var(--muted)}
   .chip b{color:var(--text)}
 
-  /* Sticky budget bar */
-  .budgetbar{
-    position:sticky;top:0;z-index:50;background:rgba(15,20,25,.92);backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);padding:12px 0;box-shadow:var(--shadow);
+  .section-label{display:flex;align-items:center;gap:10px;margin:44px 0 16px;color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}
+  .section-label::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+  .card{
+    display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);
+    border-radius:16px;padding:22px;text-decoration:none;color:inherit;position:relative;overflow:hidden;
+    transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
   }
-  .budgetbar .wrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-  .grandtotal{font-size:1.6rem;font-weight:700;letter-spacing:-.02em}
-  .grandtotal small{font-size:.75rem;color:var(--muted);font-weight:500;display:block;letter-spacing:0}
-  .gauge{flex:1;min-width:220px}
-  .gauge-track{height:14px;border-radius:8px;background:var(--panel-2);position:relative;overflow:hidden;border:1px solid var(--line)}
-  .gauge-target{position:absolute;top:0;bottom:0;background:linear-gradient(90deg,rgba(63,185,80,.25),rgba(63,185,80,.4));border-left:1px dashed var(--good);border-right:1px dashed var(--good)}
-  .gauge-fill{position:absolute;top:0;bottom:0;left:0;background:linear-gradient(90deg,var(--accent),#2b8fd6);transition:width .3s ease,background .3s}
-  .gauge-labels{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-top:4px}
-  .verdict{font-size:.85rem;padding:5px 12px;border-radius:8px;font-weight:600;white-space:nowrap}
-  .verdict.good{background:rgba(63,185,80,.15);color:var(--good)}
-  .verdict.over{background:rgba(248,81,73,.15);color:var(--over)}
-  .verdict.under{background:rgba(76,194,255,.12);color:var(--accent)}
+  a.card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:var(--shadow)}
+  a.card::before{content:"";position:absolute;inset:0;background:radial-gradient(400px 140px at 100% 0,rgba(76,194,255,.10),transparent);opacity:0;transition:opacity .18s}
+  a.card:hover::before{opacity:1}
+  .card .icon{font-size:2rem;margin-bottom:12px}
+  .card h2{margin:0 0 6px;font-size:1.18rem}
+  .card p{margin:0;color:var(--muted);font-size:.9rem;flex:1}
+  .card .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+  .tag{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 9px;border-radius:7px}
+  .tag.live{background:rgba(126,231,135,.16);color:var(--accent-2)}
+  .tag.info{background:rgba(76,194,255,.14);color:var(--accent)}
+  .card .go{margin-top:16px;font-size:.9rem;color:var(--accent);font-weight:600}
+  .card.soon{border-style:dashed;opacity:.6}
+  .card.soon .icon{filter:grayscale(1)}
+  .tag.soon{background:rgba(139,152,169,.15);color:var(--soon)}
 
-  section{margin-top:28px}
-  .proj-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;border-left:4px solid var(--accent);padding-left:12px;margin-bottom:6px}
-  .proj-head h2{margin:0;font-size:1.3rem}
-  .proj-total{margin-left:auto;font-weight:700;color:var(--accent)}
-  .proj-desc{color:var(--muted);font-size:.88rem;margin:0 0 14px 16px}
-
-  .phase{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:16px;overflow:hidden}
-  .phase-head{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;user-select:none}
-  .phase-head h3{margin:0;font-size:1.02rem;flex:1}
-  .phase-head .sub-total{font-weight:700;font-size:.95rem}
-  .caret{transition:transform .2s;color:var(--muted)}
-  .phase.collapsed .caret{transform:rotate(-90deg)}
-  .phase.collapsed .phase-body{display:none}
-  .phase-body{padding:0 16px 16px}
-
-  table{width:100%;border-collapse:collapse;font-size:.86rem}
-  thead th{text-align:left;color:var(--muted);font-weight:600;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;padding:8px 6px;border-bottom:1px solid var(--line)}
-  th.num,td.num{text-align:right}
-  th.ctr,td.ctr{text-align:center}
-  tbody td{padding:8px 6px;border-bottom:1px solid rgba(44,54,68,.5);vertical-align:middle}
-  tbody tr:last-child td{border-bottom:none}
-  tr.off{opacity:.4}
-  tr.off .lineitem{text-decoration:line-through}
-  .lineitem{font-weight:500}
-  .note{color:var(--muted);font-size:.75rem;display:block;margin-top:1px}
-  input[type=number]{
-    width:70px;background:var(--panel-2);border:1px solid var(--line);color:var(--text);
-    border-radius:7px;padding:5px 7px;font-size:.85rem;text-align:right;font-variant-numeric:tabular-nums;
-  }
-  input[type=number]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(76,194,255,.2)}
-  input[type=checkbox]{width:17px;height:17px;accent-color:var(--accent);cursor:pointer}
-  .linetotal{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
-  .prefix{color:var(--muted);margin-right:2px}
-
-  /* labor row */
-  .labor-row td{background:rgba(255,166,87,.06)}
-  .tag{font-size:.65rem;padding:2px 7px;border-radius:6px;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
-  .tag.diy{background:rgba(126,231,135,.15);color:var(--diy)}
-  .tag.pro{background:rgba(255,166,87,.15);color:var(--pro)}
-  .tasklists{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
-  @media(max-width:640px){.tasklists{grid-template-columns:1fr}.hide-sm{display:none}}
-  .tasklist{background:var(--panel-2);border-radius:10px;padding:10px 12px;font-size:.82rem}
-  .tasklist h4{margin:0 0 6px;font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;display:flex;align-items:center;gap:6px}
-  .tasklist ul{margin:0;padding-left:18px;color:var(--muted)}
-  .tasklist li{margin:2px 0}
-
-  /* summary + tools */
-  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
-  .card h3{margin:0 0 10px;font-size:1rem}
-  .stat{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed rgba(44,54,68,.6);font-size:.88rem}
-  .stat:last-child{border-bottom:none}
-  .stat b{font-variant-numeric:tabular-nums}
-  .split-bar{height:10px;border-radius:6px;display:flex;overflow:hidden;margin-top:8px;border:1px solid var(--line)}
-  .split-bar .diy-seg{background:var(--diy)}
-  .split-bar .pro-seg{background:var(--pro)}
-
-  .check-section{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
-  .check-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-  .check-col h4{margin:0 0 8px;font-size:.85rem;color:var(--accent)}
-  .check-item{display:flex;gap:8px;align-items:flex-start;padding:4px 0;font-size:.85rem;cursor:pointer}
-  .check-item input{margin-top:2px}
-  .check-item.done span{text-decoration:line-through;color:var(--muted)}
-
-  .callout{background:rgba(240,136,62,.08);border:1px solid rgba(240,136,62,.3);border-radius:12px;padding:14px 16px;font-size:.86rem}
-  .callout h3{margin:0 0 6px;color:var(--warn)}
-  .callout a{color:var(--accent)}
-
-  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-  button.btn{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:8px 14px;font-size:.83rem;cursor:pointer;transition:.15s}
-  button.btn:hover{border-color:var(--accent);color:var(--accent)}
-  button.btn.danger:hover{border-color:var(--danger);color:var(--danger)}
-
-  h2.section-title{font-size:1.15rem;border-left:4px solid var(--accent-2);padding-left:12px;margin-bottom:14px}
-  footer{color:var(--muted);font-size:.78rem;text-align:center;margin-top:40px;padding:0 20px}
-  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.78rem;color:var(--muted);margin-top:8px}
-  .legend span{display:inline-flex;align-items:center;gap:5px}
-  .dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+  footer{margin-top:52px;text-align:center;color:var(--muted);font-size:.8rem}
+  footer a{color:var(--accent);text-decoration:none}
 </style>
 </head>
 <body>
-
-<header>
-  <div class="wrap">
-    <h1>🏠 Patio &amp; Garage Conversion Planner</h1>
-    <div class="sub">West Palm Beach, FL · Interactive cost &amp; task tracker</div>
-    <div class="meta-row">
-      <span class="chip">Budget target <b>$1,500–$6,000</b></span>
-      <span class="chip">Sweet spot <b>~$3,000</b></span>
-      <span class="chip">Timeline <b>4–6 weeks</b></span>
-      <span class="chip">Approach <b>Semi-pro DIY mix</b></span>
-    </div>
-    <div class="legend">
-      <span><span class="dot" style="background:var(--diy)"></span> DIY task</span>
-      <span><span class="dot" style="background:var(--pro)"></span> Hire a pro</span>
-      <span>Edit any <b style="color:var(--text)">Qty</b> or <b style="color:var(--text)">Unit&nbsp;$</b>; totals update live &amp; auto-save.</span>
-    </div>
-  </div>
-</header>
-
-<!-- Sticky budget bar -->
-<div class="budgetbar">
-  <div class="wrap">
-    <div class="grandtotal">
-      <span id="grandTotal">$0</span>
-      <small>Total estimated project cost</small>
-    </div>
-    <div class="gauge">
-      <div class="gauge-track">
-        <div class="gauge-target" id="gaugeTarget"></div>
-        <div class="gauge-fill" id="gaugeFill"></div>
-      </div>
-      <div class="gauge-labels"><span>$0</span><span>target $1.5k–$6k</span><span>$8k</span></div>
-    </div>
-    <div class="verdict" id="verdict">—</div>
-  </div>
-</div>
-
-<div class="wrap" id="app"><!-- built by JS --></div>
-
 <div class="wrap">
-  <section>
-    <h2 class="section-title">📊 Budget Summary</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>By Project</h3>
-        <div class="stat"><span>Patio Enclosure</span><b id="sumPatio">$0</b></div>
-        <div class="stat"><span>Garage → Bedroom</span><b id="sumGarage">$0</b></div>
-        <div class="stat"><span>Permits (est.)</span><b id="sumPermits">$0</b></div>
-        <div class="stat" style="font-size:1rem"><span><b>Grand Total</b></span><b id="sumGrand">$0</b></div>
-      </div>
-      <div class="card">
-        <h3>Materials vs Labor</h3>
-        <div class="stat"><span>Materials</span><b id="sumMat">$0</b></div>
-        <div class="stat"><span>Labor (hired)</span><b id="sumLabor">$0</b></div>
-        <div class="split-bar"><div class="diy-seg" id="segMat"></div><div class="pro-seg" id="segLabor"></div></div>
-        <div class="legend"><span><span class="dot" style="background:var(--diy)"></span>Materials <b id="pctMat" style="color:var(--text)">0%</b></span><span><span class="dot" style="background:var(--pro)"></span>Labor <b id="pctLabor" style="color:var(--text)">0%</b></span></div>
-      </div>
-      <div class="card">
-        <h3>Reality Check</h3>
-        <div class="stat"><span>Items included</span><b id="cntItems">0</b></div>
-        <div class="stat"><span>Pro tasks to hire</span><b id="cntPro">0</b></div>
-        <div class="stat"><span>vs. sweet spot ($3k)</span><b id="vsMid">—</b></div>
-      </div>
+  <header>
+    <h1>🏠 Home Projects Hub</h1>
+    <p class="tagline">Planning tools &amp; resources for our home projects — West Palm Beach, FL.</p>
+    <div class="meta">
+      <span class="chip">📍 West Palm Beach</span>
+      <span class="chip">Updated <b>Jul 2026</b></span>
+      <span class="chip">Share with family 👪</span>
     </div>
-    <div class="toolbar">
-      <button class="btn" onclick="setPreset('low')">📉 Budget build (low)</button>
-      <button class="btn" onclick="setPreset('mid')">⚖️ Balanced (mid)</button>
-      <button class="btn" onclick="setPreset('high')">📈 Premium (high)</button>
-      <button class="btn" onclick="window.print()">🖨️ Print / PDF</button>
-      <button class="btn danger" onclick="resetAll()">↺ Reset everything</button>
-    </div>
-  </section>
+  </header>
 
-  <section>
-    <h2 class="section-title">⚠️ Permits &amp; Code — West Palm Beach</h2>
-    <div class="callout">
-      <h3>Don't skip the 10-minute phone check</h3>
-      Enclosing a patio + extending AC likely needs a <b>zoning/building permit</b>. Converting a garage to a bedroom
-      may trigger an <b>occupancy permit</b>, and it needs a legal second egress + light/ventilation to count as a bedroom.
-      Electrical work may require inspection.
-      <br><br>
-      📞 <b>Palm Beach County Building Dept: <a href="tel:5613552990">561-355-2990</a></b> — call for a pre-check before buying materials.
-      Budget <b>$100–$300</b> for permits (adjust the line item above).
-    </div>
-  </section>
+  <div class="section-label">Projects</div>
+  <div class="grid">
 
-  <section>
-    <h2 class="section-title">✅ Project Checklist</h2>
-    <div class="check-section">
-      <div class="check-grid" id="checklist"></div>
+    <!-- ▼▼▼ Add a new card here for each project you build ▼▼▼ -->
+    <a class="card" href="./planner.html">
+      <div class="icon">🧮</div>
+      <h2>Patio &amp; Garage Conversion Planner</h2>
+      <p>Interactive budget planner for the patio enclosure and garage-to-bedroom conversion. Edit costs, toggle options (windows, wall AC units), and watch it track against budget in real time.</p>
+      <div class="tags"><span class="tag live">● Live</span><span class="tag info">Budget tool</span></div>
+      <div class="go">Open planner →</div>
+    </a>
+    <!-- ▲▲▲ copy the block above to add another project ▲▲▲ -->
+
+    <div class="card soon">
+      <div class="icon">📸</div>
+      <h2>Project Photos</h2>
+      <p>Before / progress / after photo gallery for each phase.</p>
+      <div class="tags"><span class="tag soon">Coming soon</span></div>
     </div>
-  </section>
+
+    <div class="card soon">
+      <div class="icon">📋</div>
+      <h2>Contractor Quotes</h2>
+      <p>Side-by-side comparison of AC, electrical &amp; framing quotes.</p>
+      <div class="tags"><span class="tag soon">Coming soon</span></div>
+    </div>
+
+  </div>
 
   <footer>
-    Estimates are planning figures based on the source plan — verify with local quotes. Your edits save automatically in this browser.
-    <br>Data lives only on this device (localStorage). Use “Reset everything” to start over.
+    Private family planning page · built for the Doerr home projects.<br>
+    Questions on permits? Palm Beach County Building Dept · <a href="tel:5613552990">561-355-2990</a>
   </footer>
 </div>
-
-<script>
-/* ---------- DATA MODEL ----------
-   Each item: [id, name, qtyDefault, unitLow, unitHigh, note]
-   Labor lines are separate so we can tag them PRO and split materials vs labor. */
-const DATA = [
- { proj:"patio", icon:"🏗️", title:"Project 1 · Patio Enclosure (12×16 ft)",
-   desc:"Enclose the open patio with polycarbonate panels, add shades + UV tint, and extend AC/electrical.",
-   phases:[
-    { name:"Phase 1 · Structure & Enclosure",
-      items:[
-        ["p1_panels","Polycarbonate panels (UV, 4–6mm)",200,3,6,"per sq ft · panels + hardware"],
-        ["p1_frame","Aluminum frame / extrusion kit",1,150,300,"framing for panels"],
-        ["p1_doors","Hinged access doors (pre-hung)",2,150,250,"aluminum frame"],
-        ["p1_hinges","Stainless hinges & hardware",1,80,120,"weather-resistant"],
-        ["p1_seal","Weather stripping & seals",1,40,60,"gaskets, door seals"],
-      ],
-      labor:[["p1_labor","Structural check + framing tweaks",1,400,800,"pro"]],
-      diy:["Install panels into frame","Apply weather stripping","Hang access doors","Caulk seams"],
-      pro:["Structural assessment of existing roof","Minor framing adjustments"] },
-    { name:"Phase 2 · Shades & Tint",
-      items:[
-        ["p2_shades","Retractable roller shades",4,150,300,"solar/blackout · 12ft spans"],
-        ["p2_tint","Window tint film (UV-blocking)",200,2,4,"per sq ft · DIY adhesive"],
-        ["p2_mount","Shade mounting hardware",4,30,50,"brackets, rails"],
-      ],
-      labor:[],
-      diy:["Apply tint film (test small section first)","Mount hardware & install shades"],
-      pro:["Optional: motorized shade install"] },
-    { name:"Phase 3 · AC Extension & Electrical",
-      items:[
-        ["p3_duct","Flexible ductwork (8\", 25ft)",1,25,50,"extends from main AC"],
-        ["p3_damper","Vent damper (zone control)",1,30,60,"optional airflow control"],
-        ["p3_outlet","Weatherproof outdoor outlets",2,20,40,"fans, lights, appliances"],
-        ["p3_wire","Outdoor wire / conduit (50ft)",1,25,50,"if new circuits"],
-        ["p3_breaker","Breaker / switch",1,25,50,"if new circuit"],
-      ],
-      labor:[["p3_labor","AC duct + electrical (licensed)",1,300,600,"pro"]],
-      diy:["Install outlets (if comfortable)","Drop-in window/wall AC unit (if chosen)"],
-      pro:["Extend AC ductwork from main unit","Extend/add electrical circuits","Cut wall opening for thru-wall/PTAC unit","Ensure code compliance"] },
-    { name:"Phase 3b · Wall AC Units (alternative to ducting) — OPTIONAL",
-      items:[
-        ["w_window","🌬️ Window AC unit (8–12k BTU)",1,150,400,"OPTIONAL · cheapest; DIY drop-in, no wall cut",true],
-        ["w_thruwall","🌬️ Through-the-wall AC (10–14k BTU)",1,400,750,"OPTIONAL · unit + sleeve; needs wall opening",true],
-        ["w_ptac","🌬️ PTAC unit, heat + cool (12–15k BTU)",1,550,950,"OPTIONAL · hotel-style thru-wall, sleeve incl.",true],
-        ["w_mini_diy","🌬️ Ductless mini-split DIY kit (12k BTU)",1,900,1600,"OPTIONAL · e.g. MrCool DIY, precharged, no HVAC tech",true],
-        ["w_mini_pro","🌬️ Mini-split, pro-installed (12–18k BTU)",1,1800,3500,"OPTIONAL · unit + full professional install",true],
-        ["w_sleeve","Wall sleeve / mounting bracket",1,40,120,"OPTIONAL · for thru-wall or mini-split condenser",true],
-      ],
-      labor:[["w_install","Wall-AC / mini-split install (if not DIY)",1,250,900,"pro",true]],
-      diy:["Choose ONE cooling method above","Window/PTAC drop-in (plug & play)","Mount mini-split DIY line set"],
-      pro:["Cut & frame thru-wall opening","Mini-split refrigerant/electrical hookup","220V circuit if unit requires it"] },
-   ]},
- { proj:"garage", icon:"🚪", title:"Project 2 · Garage → Bedroom Conversion (5×20 ft)",
-   desc:"Close off the front garage door, add a compact kitchenette, and cut a new side/back entry behind the fence.",
-   phases:[
-    { name:"Phase 1 · Close Off Front Garage Door",
-      items:[
-        ["g1_studs","2×4 lumber studs",25,4,6,"frame wall"],
-        ["g1_drywall","1/2\" drywall sheets",10,15,25,"cover frame"],
-        ["g1_mud","Tape, compound, primer",1,30,50,"finishing"],
-        ["g1_paint","Interior paint (2 gal)",1,50,70,"color of choice"],
-        ["g1_insul","Insulation R-13 (optional)",60,0.5,1,"per sq ft · comfort/noise"],
-        ["g1_window","🪟 Window (vinyl · egress option)",1,250,650,"OPTIONAL · single/double-hung; egress size legalizes bedroom",true],
-        ["g1_wintrim","Window trim, flashing & seal",1,30,80,"OPTIONAL · interior + exterior casing",true],
-        ["g1_wall_ac","🌬️ Wall/window AC for bedroom (10–12k BTU)",1,180,650,"OPTIONAL · cools the converted room",true],
-      ],
-      labor:[["g1_labor","Framing / drywall finish help",1,300,500,"pro"]],
-      diy:["Remove garage door opener","Frame the wall","Frame the window rough opening (if adding)","Drywall, tape & mud","Set window + flash/seal","Paint"],
-      pro:["Structural check on closure","Header sizing over window opening","Pro-level finishing"] },
-    { name:"Phase 2 · Mini Kitchen (≈5×6 ft)",
-      items:[
-        ["g2_fridge","Mini/compact fridge (3–4 cu ft)",1,200,400,"UL-certified"],
-        ["g2_stove","Compact electric stove",1,300,600,"2–3 burners, 20–24\""],
-        ["g2_micro","Countertop microwave",1,80,150,"700–900W"],
-        ["g2_counter","Counter / work surface",1,150,300,"butcher block / IKEA"],
-        ["g2_shelf","Prep shelving",3,30,60,"wall or free-standing"],
-        ["g2_sink","Compact sink (optional)",1,100,250,"needs plumbing"],
-        ["g2_splash","Peel-stick backsplash",40,2,5,"per sq ft"],
-        ["g2_cab","Pre-fab cabinets",2,150,300,"under-counter/wall"],
-      ],
-      labor:[["g2_labor","Stove circuit + optional plumbing",1,200,400,"pro"]],
-      diy:["Mount shelving","Peel-stick backsplash","Assemble cabinets","Plug-and-play appliances"],
-      pro:["Stove electrical circuit (120/240V)","Sink plumbing (if added)","Countertop install"] },
-    { name:"Phase 3 · New Side / Back Door",
-      items:[
-        ["g3_door","Entry door (36\" prehung)",1,150,300,"exterior-grade"],
-        ["g3_hw","Door hardware (lock, handle)",1,40,80,"keyed or keypad"],
-        ["g3_frame","Framing lumber (2×4/2×6)",15,4,6,"frame opening"],
-        ["g3_trim","Door trim & casing",1,30,60,"finish"],
-        ["g3_seal","Weather stripping & seals",1,15,30,"door seals"],
-        ["g3_thresh","Threshold (optional)",1,20,40,"water entry"],
-        ["g3_pad","Concrete pad/step (if needed)",1,50,150,"uneven ground"],
-      ],
-      labor:[["g3_labor","Structural / HVAC clearance check",1,200,400,"pro"]],
-      diy:["Pick door location behind fence","Cut opening (recip saw)","Frame opening","Install prehung door","Trim + hardware"],
-      pro:["Check for load-bearing wall","Move wiring/duct if in the way"] },
-   ]},
-];
-
-const PERMIT = ["permit","Permits (zoning/building/occupancy)",1,100,300,"Palm Beach County · call 561-355-2990"];
-
-const CHECKLIST = {
- "Before starting":["Measure all spaces again","Photograph current state","Locate electrical/plumbing/HVAC in walls","Get 2–3 contractor quotes","Order long-lead items (door, appliances)","Set up budget tracking","Schedule contractors 1–2 wks ahead"],
- "During project":["Take weekly progress photos","Keep all receipts","Test electrical/AC before closing walls","Get scope-change quotes in writing"],
- "After completion":["Test AC, outlets, locks, appliances","Keep appliance manuals","Touch up paint & caulk","Plan Phase 2 upgrades"],
-};
-
-/* ---------- STATE ---------- */
-const KEY="alhambra_planner_v1";
-let state = load() || {};   // {itemId:{qty,unit,on}}  + {check_...:bool}
-function load(){try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}}
-function save(){localStorage.setItem(KEY,JSON.stringify(state))}
-function money(n){return "$"+Math.round(n).toLocaleString()}
-function mid(lo,hi){return (lo+hi)/2}
-
-/* init defaults for any item not yet in state */
-function ensure(id,qty,unitLo,unitHi,defaultOn){
-  if(defaultOn===undefined)defaultOn=true;
-  if(!state[id]) state[id]={qty:qty,unit:+mid(unitLo,unitHi).toFixed(2),on:defaultOn};
-  return state[id];
-}
-
-/* ---------- RENDER ---------- */
-const app=document.getElementById("app");
-function build(){
-  app.innerHTML="";
-  DATA.forEach(project=>{
-    const sec=document.createElement("section");
-    sec.innerHTML=`<div class="proj-head">
-        <h2>${project.icon} ${project.title}</h2>
-        <span class="proj-total" id="pt_${project.proj}">$0</span>
-      </div>
-      <p class="proj-desc">${project.desc}</p>`;
-    project.phases.forEach((ph,pi)=>{
-      const box=document.createElement("div");box.className="phase";
-      const rows=[...ph.items.map(it=>itemRow(it,false)),...ph.labor.map(it=>itemRow(it,true))].join("");
-      const tasks = (ph.diy.length||ph.pro.length) ? `<div class="tasklists">
-          <div class="tasklist"><h4><span class="tag diy">DIY</span> You can do</h4><ul>${ph.diy.map(t=>`<li>${t}</li>`).join("")}</ul></div>
-          <div class="tasklist"><h4><span class="tag pro">Hire</span> Professional</h4><ul>${ph.pro.map(t=>`<li>${t}</li>`).join("")}</ul></div>
-        </div>`:"";
-      box.innerHTML=`
-        <div class="phase-head" onclick="this.parentNode.classList.toggle('collapsed')">
-          <span class="caret">▾</span><h3>${ph.name}</h3><span class="sub-total" id="st_${project.proj}_${pi}">$0</span>
-        </div>
-        <div class="phase-body">
-          <table>
-            <thead><tr><th class="ctr">On</th><th>Item</th><th class="num">Qty</th><th class="num">Unit&nbsp;$</th><th class="num">Total</th></tr></thead>
-            <tbody>${rows}</tbody>
-          </table>
-          ${tasks}
-        </div>`;
-      sec.appendChild(box);
-    });
-    app.appendChild(sec);
-  });
-  buildChecklist();
-  bindInputs();
-  recalc();
-}
-
-function itemRow(it,isLabor){
-  const [id,name,qty,lo,hi,note,defaultOff]=it;
-  const s=ensure(id,qty,lo,hi,defaultOff?false:true);
-  return `<tr data-id="${id}" data-labor="${isLabor?1:0}" class="${s.on?'':'off'} ${isLabor?'labor-row':''}">
-    <td class="ctr"><input type="checkbox" data-k="on" ${s.on?'checked':''}></td>
-    <td><span class="lineitem">${isLabor?'👷 ':''}${name}</span><span class="note">${note}</span></td>
-    <td class="num"><input type="number" data-k="qty" step="1" min="0" value="${s.qty}"></td>
-    <td class="num"><span class="prefix">$</span><input type="number" data-k="unit" step="0.5" min="0" value="${s.unit}"></td>
-    <td class="num linetotal" data-role="line">$0</td>
-  </tr>`;
-}
-
-function buildChecklist(){
-  const c=document.getElementById("checklist");c.innerHTML="";
-  Object.entries(CHECKLIST).forEach(([col,items])=>{
-    const div=document.createElement("div");div.className="check-col";
-    div.innerHTML=`<h4>${col}</h4>`+items.map((t,i)=>{
-      const k="chk_"+col.replace(/\W/g,'')+i;const on=state[k];
-      return `<label class="check-item ${on?'done':''}"><input type="checkbox" data-chk="${k}" ${on?'checked':''}><span>${t}</span></label>`;
-    }).join("");
-    c.appendChild(div);
-  });
-  c.querySelectorAll("input[data-chk]").forEach(cb=>cb.addEventListener("change",e=>{
-    state[e.target.dataset.chk]=e.target.checked;
-    e.target.closest(".check-item").classList.toggle("done",e.target.checked);
-    save();
-  }));
-}
-
-function bindInputs(){
-  app.querySelectorAll("tr[data-id]").forEach(tr=>{
-    const id=tr.dataset.id;
-    tr.querySelectorAll("input").forEach(inp=>{
-      inp.addEventListener("input",()=>{
-        const k=inp.dataset.k;
-        if(k==="on"){state[id].on=inp.checked;tr.classList.toggle("off",!inp.checked);}
-        else state[id][k]=parseFloat(inp.value)||0;
-        save();recalc();
-      });
-    });
-  });
-}
-
-/* ---------- CALC ---------- */
-function recalc(){
-  let grand=0, mat=0, labor=0, items=0, proCount=0;
-  DATA.forEach(project=>{
-    let ptot=0;
-    project.phases.forEach((ph,pi)=>{
-      let st=0;
-      [...ph.items,...ph.labor].forEach(it=>{
-        const id=it[0], s=state[id];
-        const line=s.on?s.qty*s.unit:0;
-        const cell=app.querySelector(`tr[data-id="${id}"] [data-role=line]`);
-        if(cell)cell.textContent=money(line);
-        st+=line;
-        const isLabor=ph.labor.includes(it);
-        if(s.on){ if(isLabor){labor+=line;proCount++;} else {mat+=line;items++;} }
-      });
-      const el=document.getElementById(`st_${project.proj}_${pi}`);if(el)el.textContent=money(st);
-      ptot+=st;
-    });
-    const pe=document.getElementById(`pt_${project.proj}`);if(pe)pe.textContent=money(ptot);
-    if(project.proj==="patio")document.getElementById("sumPatio").textContent=money(ptot);
-    if(project.proj==="garage")document.getElementById("sumGarage").textContent=money(ptot);
-    grand+=ptot;
-  });
-
-  // permit
-  ensure(PERMIT[0],PERMIT[2],PERMIT[3],PERMIT[4]);
-  const ps=state[PERMIT[0]];const permitTotal=ps.on?ps.qty*ps.unit:0;
-  document.getElementById("sumPermits").textContent=money(permitTotal);
-  if(ps.on){mat+=permitTotal;}
-  grand+=permitTotal;
-
-  // summary
-  document.getElementById("grandTotal").textContent=money(grand);
-  document.getElementById("sumGrand").textContent=money(grand);
-  document.getElementById("sumMat").textContent=money(mat);
-  document.getElementById("sumLabor").textContent=money(labor);
-  const tot=mat+labor||1;
-  document.getElementById("segMat").style.width=(mat/tot*100)+"%";
-  document.getElementById("segLabor").style.width=(labor/tot*100)+"%";
-  document.getElementById("pctMat").textContent=Math.round(mat/tot*100)+"%";
-  document.getElementById("pctLabor").textContent=Math.round(labor/tot*100)+"%";
-  document.getElementById("cntItems").textContent=items;
-  document.getElementById("cntPro").textContent=proCount;
-  const diff=grand-3000;
-  document.getElementById("vsMid").textContent=(diff>=0?"+":"–")+money(Math.abs(diff)).slice(1);
-
-  // gauge (scale 0..8k · target band $1.5k–$6k)
-  const SCALE=8000;
-  const pct=Math.min(grand/SCALE*100,100);
-  document.getElementById("gaugeFill").style.width=pct+"%";
-  document.getElementById("gaugeTarget").style.left=(1500/SCALE*100)+"%";
-  document.getElementById("gaugeTarget").style.width=((6000-1500)/SCALE*100)+"%";
-  const v=document.getElementById("verdict");const f=document.getElementById("gaugeFill");
-  if(grand<1500){v.className="verdict under";v.textContent="Under budget ✓";f.style.background="linear-gradient(90deg,#4cc2ff,#2b8fd6)";}
-  else if(grand<=6000){v.className="verdict good";v.textContent="On target ✓";f.style.background="linear-gradient(90deg,#3fb950,#2ea043)";}
-  else{v.className="verdict over";v.textContent="Over budget";f.style.background="linear-gradient(90deg,#f85149,#da3633)";}
-}
-
-/* ---------- PRESETS ---------- */
-function setPreset(mode){
-  const pick=(lo,hi)=> mode==="low"?lo : mode==="high"?hi : +mid(lo,hi).toFixed(2);
-  DATA.forEach(p=>p.phases.forEach(ph=>[...ph.items,...ph.labor].forEach(it=>{
-    const [id,,,lo,hi]=it; state[id]={qty:state[id]?.qty ?? it[2], unit:pick(lo,hi), on:state[id]?.on ?? true};
-  })));
-  state[PERMIT[0]]={qty:1,unit:pick(PERMIT[3],PERMIT[4]),on:state[PERMIT[0]]?.on ?? true};
-  save();build();
-}
-
-function resetAll(){
-  if(!confirm("Clear all edits, checkboxes, and reset to default estimates?"))return;
-  localStorage.removeItem(KEY);state={};build();
-}
-
-build();
-</script>
 </body>
 </html>

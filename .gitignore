@@ -3,6 +3,5 @@
 Thumbs.db
 *.log
 
-# keep the working copy out of the deployed repo (index.html is what ships)
-planner.html
+# legacy first draft — not part of the site
 patio-garage-conversion-planner.html
