@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏢 Office &amp; Coworking Rentals — West Palm Beach &amp; Palm Beach</title>
+<style>
+  :root{
+    --bg:#0f1419; --panel:#1a2029; --panel-2:#212936; --line:#2c3644;
+    --text:#e6edf3; --muted:#8b98a9; --accent:#4cc2ff; --accent-2:#7ee787;
+    --gold:#ffd479; --shadow:0 8px 30px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1000px 500px at 75% -10%,rgba(76,194,255,.10),transparent),
+               linear-gradient(160deg,#0d1117,#131a24);
+    color:var(--text);line-height:1.55;padding-bottom:70px;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  header{padding:40px 0 8px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.9rem;margin:10px 0 6px;letter-spacing:-.02em}
+  .tagline{color:var(--muted);max-width:640px}
+
+  /* market at a glance */
+  .glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:22px 0 8px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .stat .k{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .stat .v{font-size:1.35rem;font-weight:700;margin-top:3px;font-variant-numeric:tabular-nums}
+  .stat .v small{font-size:.7rem;color:var(--muted);font-weight:500}
+
+  /* controls */
+  .controls{position:sticky;top:0;z-index:20;background:rgba(15,20,25,.94);backdrop-filter:blur(10px);
+    padding:14px 0;margin-top:14px;border-bottom:1px solid var(--line)}
+  .controls .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .controls .row + .row{margin-top:8px}
+  .flabel{font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-right:4px;min-width:44px}
+  .fbtn{background:var(--panel-2);border:1px solid var(--line);color:var(--muted);border-radius:999px;
+    padding:5px 13px;font-size:.8rem;cursor:pointer;transition:.15s;white-space:nowrap}
+  .fbtn:hover{color:var(--text);border-color:var(--accent)}
+  .fbtn.active{background:var(--accent);color:#06121c;border-color:var(--accent);font-weight:600}
+  #search{flex:1;min-width:160px;background:var(--panel-2);border:1px solid var(--line);color:var(--text);
+    border-radius:999px;padding:7px 14px;font-size:.85rem}
+  #search:focus{outline:none;border-color:var(--accent)}
+  .count{color:var(--muted);font-size:.8rem;white-space:nowrap}
+
+  /* cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;margin:20px 0}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column}
+  .card.hidden{display:none}
+  .card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .card h2{margin:0;font-size:1.15rem}
+  .badge{font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 9px;border-radius:7px;white-space:nowrap}
+  .badge.downtown{background:rgba(76,194,255,.15);color:var(--accent)}
+  .badge.cityplace{background:rgba(126,231,135,.15);color:var(--accent-2)}
+  .badge.clematis{background:rgba(255,166,87,.15);color:#ffa657}
+  .badge.island{background:rgba(255,212,121,.15);color:var(--gold)}
+  .badge.greater{background:rgba(139,152,169,.15);color:var(--muted)}
+  .addr{color:var(--muted);font-size:.82rem;margin:6px 0 2px}
+  .addr a{color:var(--muted)}
+  .links{font-size:.8rem;margin:2px 0 12px}
+  .links a{color:var(--accent);text-decoration:none;margin-right:12px}
+
+  .prices{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 0;margin:2px 0 12px}
+  .prow{display:flex;justify-content:space-between;font-size:.85rem;padding:3px 0}
+  .prow .lab{color:var(--muted)}
+  .prow .val{font-weight:600;font-variant-numeric:tabular-nums}
+  .prow .val.call{color:var(--muted);font-weight:500;font-style:italic}
+  .est{color:var(--gold)}
+
+  .amen{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+  .amen span{font-size:.7rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:2px 8px}
+  .bestfor{font-size:.82rem;color:var(--text);margin-top:auto}
+  .bestfor b{color:var(--accent-2)}
+
+  /* table */
+  h3.sec{font-size:1.1rem;border-left:4px solid var(--accent-2);padding-left:12px;margin:36px 0 14px}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+  table{width:100%;border-collapse:collapse;font-size:.83rem;min-width:640px}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+  th{background:var(--panel-2);color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;position:sticky;top:0}
+  tbody tr:hover{background:var(--panel-2)}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .note{color:var(--muted);font-size:.8rem;margin-top:10px}
+  .callout{background:rgba(255,212,121,.06);border:1px solid rgba(255,212,121,.28);border-radius:12px;padding:14px 16px;font-size:.85rem;margin-top:20px}
+  footer{color:var(--muted);font-size:.78rem;margin-top:34px;line-height:1.7}
+  footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./index.html">← Projects</a>
+    <h1>🏢 Office &amp; Coworking Rentals</h1>
+    <p class="tagline">Shared offices, coworking desks, private offices &amp; small-space rentals across
+    <b>West Palm Beach</b> and <b>Palm Beach</b>. Compare monthly costs, day passes &amp; virtual office rates. <span class="est">Prices in gold are estimates</span> — always confirm with a tour.</p>
+  </header>
+
+  <div class="glance">
+    <div class="stat"><div class="k">Hot desk (cheapest)</div><div class="v">$85<small>/mo</small></div></div>
+    <div class="stat"><div class="k">Dedicated desk</div><div class="v">$84–399<small>/mo</small></div></div>
+    <div class="stat"><div class="k">Private office</div><div class="v">$409+<small>/mo · avg ~$700–1,000</small></div></div>
+    <div class="stat"><div class="k">Day pass</div><div class="v">$43–169<small>/day</small></div></div>
+    <div class="stat"><div class="k">Virtual office</div><div class="v">$39–215<small>/mo</small></div></div>
+    <div class="stat"><div class="k">Full lease</div><div class="v">$41–88<small>/sq ft/yr</small></div></div>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="wrap">
+    <div class="row">
+      <span class="flabel">Type</span>
+      <button class="fbtn active" data-type="all">All</button>
+      <button class="fbtn" data-type="hotdesk">Hot desk</button>
+      <button class="fbtn" data-type="dedicated">Dedicated desk</button>
+      <button class="fbtn" data-type="private">Private office</button>
+      <button class="fbtn" data-type="virtual">Virtual office</button>
+      <button class="fbtn" data-type="meeting">Meeting rooms</button>
+    </div>
+    <div class="row">
+      <span class="flabel">Area</span>
+      <button class="fbtn active" data-area="all">All areas</button>
+      <button class="fbtn" data-area="downtown">Downtown WPB</button>
+      <button class="fbtn" data-area="cityplace">CityPlace / Rosemary</button>
+      <button class="fbtn" data-area="clematis">Clematis St</button>
+      <button class="fbtn" data-area="island">Palm Beach Island</button>
+      <button class="fbtn" data-area="greater">Greater WPB</button>
+      <input id="search" type="text" placeholder="Search name / address…">
+      <span class="count" id="count"></span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="grid" id="grid"><!-- cards injected --></div>
+
+  <h3 class="sec">📊 Quick comparison</h3>
+  <div class="tablewrap">
+    <table>
+      <thead><tr>
+        <th>Space</th><th>Area</th><th>Hot desk</th><th>Dedicated</th><th>Private office</th><th>Virtual</th><th>Day pass</th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+  <p class="note">All figures are starting/“from” rates gathered Jul 2026 from provider &amp; listing sites; actual pricing varies by term, room &amp; availability. Values marked <span class="est">gold</span> are market estimates where the provider only quotes on request.</p>
+
+  <div class="callout">
+    💡 <b>Cheapest paths to an office:</b> a <b>virtual office</b> (mailing address + occasional room use) runs $39–99/mo · a <b>hot/flex desk</b> $85–299/mo · a <b>dedicated desk</b> $299–399/mo · the smallest <b>private office for 1</b> typically $700–900/mo all-in. Ask about move-in specials and month-to-month vs. 12-month rates — the advertised “from” price usually assumes a longer term.
+  </div>
+
+  <footer>
+    <b>Sources:</b>
+    <a href="https://questworkspaces.com/west-palm-beach">Quest Workspaces</a> ·
+    <a href="https://venturex.com/locations/usa/fl/west-palm-beach/">Venture X</a> ·
+    <a href="https://www.regus.com/en-us/united-states/florida/west-palm-beach">Regus / IWG</a> ·
+    <a href="https://www.industriousoffice.com/locations/222-lakeview-ave-suite-800">Industrious</a> ·
+    <a href="https://www.officeevolution.com/locations/usa/florida/west-palm-beach/">Office Evolution</a> ·
+    <a href="http://www.flworkplaces.com/">Symphony Workplaces</a> ·
+    <a href="https://www.coworkingcafe.com/coworking-space/us/fl/west-palm-beach/">CoworkingCafe</a> ·
+    <a href="https://www.commercialcafe.com/coworking-space/us/fl/west-palm-beach/">CommercialCafe</a>
+    <br>Compiled July 2026 · verify all pricing directly with each provider before signing.
+  </footer>
+</div>
+
+<script>
+const SPACES=[
+ {name:"Quest Workspaces", area:"downtown", areaLabel:"Downtown · Flagler",
+  addr:"515 N Flagler Dr, Ste 350, West Palm Beach 33401",
+  web:["questworkspaces.com","https://questworkspaces.com/west-palm-beach"], phone:"",
+  types:["hotdesk","dedicated","private","virtual","meeting"],
+  p:{hot:"$299/mo",ded:"$399/mo",priv:"$799+/mo",virt:"$99/mo",day:"$49–149"},
+  amen:["Rooftop garden","Intracoastal views","Espresso bar","Staffed reception","Phone booths"],
+  best:"Polished, client-facing downtown waterfront address."},
+
+ {name:"Venture X — CityPlace", area:"cityplace", areaLabel:"Rosemary Sq / CityPlace",
+  addr:"477 S Rosemary Ave, Rosemary Square, West Palm Beach 33401",
+  web:["venturex.com","https://venturex.com/locations/usa/fl/west-palm-beach/"], phone:"",
+  types:["hotdesk","dedicated","private","virtual","meeting"],
+  p:{hot:"$Call",ded:"$450+/mo*",priv:"$700+/mo*",virt:"$Call",day:"$Call"},
+  amen:["97+ private offices","24/7 access","Café / lounge","Meeting rooms","Member events"],
+  best:"Modern build-out for startups & teams in the heart of CityPlace."},
+
+ {name:"Industrious", area:"downtown", areaLabel:"Downtown · Lakeview",
+  addr:"222 Lakeview Ave, Ste 800, West Palm Beach 33401",
+  web:["industriousoffice.com","https://www.industriousoffice.com/locations/222-lakeview-ave-suite-800"], phone:"",
+  types:["hotdesk","private","meeting"],
+  p:{hot:"$Call",ded:"—",priv:"$700+/mo*",virt:"—",day:"$Call"},
+  amen:["Upscale finishes","Daily breakfast & coffee","Wellness room","Meeting rooms"],
+  best:"Premium boutique feel; hospitality-grade service."},
+
+ {name:"Regus / Spaces (IWG)", area:"downtown", areaLabel:"Downtown (multiple)",
+  addr:"Downtown WPB — Esperante & Flagler (note: Phillips Point closed 2026)",
+  web:["regus.com","https://www.regus.com/en-us/united-states/florida/west-palm-beach"], phone:"",
+  types:["hotdesk","dedicated","private","virtual","meeting"],
+  p:{hot:"$Call",ded:"$389/mo",priv:"$409/person/mo",virt:"$39+/mo",day:"$169/day"},
+  amen:["Global network","Business lounge","Receptionist","Flexible terms","Meeting rooms"],
+  best:"National brand, easiest virtual office & short flexible terms."},
+
+ {name:"Office Evolution", area:"greater", areaLabel:"Greater WPB",
+  addr:"West Palm Beach, FL",
+  web:["officeevolution.com","https://www.officeevolution.com/locations/usa/florida/west-palm-beach/"], phone:"",
+  types:["hotdesk","private","virtual","meeting"],
+  p:{hot:"$43/day*",ded:"—",priv:"$Call",virt:"$Call",day:"~$43/day"},
+  amen:["Staffed reception","Community café","Standing desks","Phone booths","Custom packages"],
+  best:"Boutique franchise; tailored packages, quieter setting."},
+
+ {name:"Symphony Workplaces", area:"island", areaLabel:"Palm Beach Island · Oceanfront",
+  addr:"2875 S Ocean Blvd, Palm Beach 33480",
+  web:["workplacesmail.com","http://www.flworkplaces.com/"], phone:"1-877-539-5100",
+  types:["hotdesk","dedicated","private","meeting"],
+  p:{hot:"$Call (open desk)",ded:"$Call",priv:"$Call (premium)",virt:"—",day:"$Call"},
+  amen:["Oceanfront","Free parking","Starbucks lounge","Soundproof booths","Furnished/unfurnished"],
+  best:"Prestige Palm Beach island address with ocean views."},
+
+ {name:"1909 (Comeau Building)", area:"clematis", areaLabel:"Clematis St",
+  addr:"319 Clematis St, West Palm Beach 33401",
+  web:["1909.co","https://coworkingmag.com/listings/coworking-space/us/fl/west-palm-beach/"], phone:"",
+  types:["hotdesk","dedicated","private","meeting"],
+  p:{hot:"$199+/mo",ded:"$Call",priv:"$Call",virt:"—",day:"$Call"},
+  amen:["15 private offices","3 conference rooms","Kitchens","Founder community","Mentorship"],
+  best:"Entrepreneurs & founders wanting community + low entry price."},
+
+ {name:"Palm Beach Tech Space", area:"clematis", areaLabel:"Downtown · Datura St",
+  addr:"313 Datura St, West Palm Beach 33401",
+  web:["palmbeachtech.org","https://techhubsouthflorida.org/startups/coworking/"], phone:"",
+  types:["hotdesk","dedicated","meeting"],
+  p:{hot:"$Call",ded:"$Call",priv:"—",virt:"—",day:"$Call"},
+  amen:["Tech community","Events & meetups","Meeting rooms","Startup network"],
+  best:"Tech founders, developers & the local startup scene."},
+];
+
+function priceRow(lab,val){
+  if(val==="—")return "";
+  const isCall=/call/i.test(val); const isEst=/\*/.test(val);
+  const cls=isCall?"val call":(isEst?"val est":"val");
+  return `<div class="prow"><span class="lab">${lab}</span><span class="${cls}">${val.replace('*','')}</span></div>`;
+}
+function card(s){
+  const web=`<a href="${s.web[1]}" target="_blank" rel="noopener">${s.web[0]} ↗</a>`;
+  const phone=s.phone?`<a href="tel:${s.phone.replace(/[^0-9]/g,'')}">${s.phone}</a>`:"";
+  return `<div class="card" data-types="${s.types.join(' ')}" data-area="${s.area}" data-name="${(s.name+' '+s.addr).toLowerCase()}">
+    <div class="top"><h2>${s.name}</h2><span class="badge ${s.area}">${s.areaLabel}</span></div>
+    <div class="addr">📍 ${s.addr}</div>
+    <div class="links">${web}${phone?' · '+phone:''}</div>
+    <div class="prices">
+      ${priceRow("Hot / flex desk",s.p.hot)}
+      ${priceRow("Dedicated desk",s.p.ded)}
+      ${priceRow("Private office",s.p.priv)}
+      ${priceRow("Virtual office",s.p.virt)}
+      ${priceRow("Day pass",s.p.day)}
+    </div>
+    <div class="amen">${s.amen.map(a=>`<span>${a}</span>`).join('')}</div>
+    <div class="bestfor"><b>Best for:</b> ${s.best}</div>
+  </div>`;
+}
+document.getElementById("grid").innerHTML=SPACES.map(card).join('');
+
+// comparison table
+document.getElementById("tbody").innerHTML=SPACES.map(s=>{
+  const c=v=>v==="—"?'<span style="color:var(--muted)">—</span>':v.replace('*','');
+  return `<tr><td><b>${s.name}</b></td><td>${s.areaLabel}</td>
+    <td class="num">${c(s.p.hot)}</td><td class="num">${c(s.p.ded)}</td>
+    <td class="num">${c(s.p.priv)}</td><td class="num">${c(s.p.virt)}</td><td class="num">${c(s.p.day)}</td></tr>`;
+}).join('');
+
+// filtering
+let fType="all", fArea="all", fSearch="";
+function apply(){
+  let n=0;
+  document.querySelectorAll(".card").forEach(c=>{
+    const okT = fType==="all" || c.dataset.types.split(' ').includes(fType);
+    const okA = fArea==="all" || c.dataset.area===fArea;
+    const okS = !fSearch || c.dataset.name.includes(fSearch);
+    const show = okT&&okA&&okS;
+    c.classList.toggle("hidden",!show);
+    if(show)n++;
+  });
+  document.getElementById("count").textContent=n+" space"+(n===1?"":"s");
+}
+document.querySelectorAll("[data-type]").forEach(b=>b.addEventListener("click",()=>{
+  fType=b.dataset.type;document.querySelectorAll("[data-type]").forEach(x=>x.classList.toggle("active",x===b));apply();
+}));
+document.querySelectorAll("[data-area]").forEach(b=>b.addEventListener("click",()=>{
+  fArea=b.dataset.area;document.querySelectorAll("[data-area]").forEach(x=>x.classList.toggle("active",x===b));apply();
+}));
+document.getElementById("search").addEventListener("input",e=>{fSearch=e.target.value.toLowerCase().trim();apply();});
+apply();
+</script>
+</body>
+</html>
