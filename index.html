@@ -279,10 +279,12 @@ const DATA = [
         ["g1_mud","Tape, compound, primer",1,30,50,"finishing"],
         ["g1_paint","Interior paint (2 gal)",1,50,70,"color of choice"],
         ["g1_insul","Insulation R-13 (optional)",60,0.5,1,"per sq ft · comfort/noise"],
+        ["g1_window","🪟 Window (vinyl · egress option)",1,250,650,"OPTIONAL · single/double-hung; egress size legalizes bedroom",true],
+        ["g1_wintrim","Window trim, flashing & seal",1,30,80,"OPTIONAL · interior + exterior casing",true],
       ],
       labor:[["g1_labor","Framing / drywall finish help",1,300,500,"pro"]],
-      diy:["Remove garage door opener","Frame the wall","Drywall, tape & mud","Paint"],
-      pro:["Structural check on closure","Pro-level finishing"] },
+      diy:["Remove garage door opener","Frame the wall","Frame the window rough opening (if adding)","Drywall, tape & mud","Set window + flash/seal","Paint"],
+      pro:["Structural check on closure","Header sizing over window opening","Pro-level finishing"] },
     { name:"Phase 2 · Mini Kitchen (≈5×6 ft)",
       items:[
         ["g2_fridge","Mini/compact fridge (3–4 cu ft)",1,200,400,"UL-certified"],
@@ -330,8 +332,9 @@ function money(n){return "$"+Math.round(n).toLocaleString()}
 function mid(lo,hi){return (lo+hi)/2}
 
 /* init defaults for any item not yet in state */
-function ensure(id,qty,unitLo,unitHi){
-  if(!state[id]) state[id]={qty:qty,unit:+mid(unitLo,unitHi).toFixed(2),on:true};
+function ensure(id,qty,unitLo,unitHi,defaultOn){
+  if(defaultOn===undefined)defaultOn=true;
+  if(!state[id]) state[id]={qty:qty,unit:+mid(unitLo,unitHi).toFixed(2),on:defaultOn};
   return state[id];
 }
 
@@ -374,8 +377,8 @@ function build(){
 }
 
 function itemRow(it,isLabor){
-  const [id,name,qty,lo,hi,note]=it;
-  const s=ensure(id,qty,lo,hi);
+  const [id,name,qty,lo,hi,note,defaultOff]=it;
+  const s=ensure(id,qty,lo,hi,defaultOff?false:true);
   return `<tr data-id="${id}" data-labor="${isLabor?1:0}" class="${s.on?'':'off'} ${isLabor?'labor-row':''}">
     <td class="ctr"><input type="checkbox" data-k="on" ${s.on?'checked':''}></td>
     <td><span class="lineitem">${isLabor?'👷 ':''}${name}</span><span class="note">${note}</span></td>
