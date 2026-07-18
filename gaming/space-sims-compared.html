@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🚀 Space Sims Compared — X4 vs Elite vs Star Citizen</title>
+<style>
+  :root{
+    --bg:#0f1419; --panel:#1a2029; --panel-2:#212936; --line:#2c3644;
+    --text:#e6edf3; --muted:#8b98a9; --accent:#4cc2ff; --accent-2:#7ee787;
+    --ed:#ff8c42; --sc:#4cc2ff; --x4:#a371f7; --gold:#ffd479; --shadow:0 8px 30px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1000px 500px at 75% -10%,rgba(163,113,247,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);
+    color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.8rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+
+  h2.sec{font-size:1.15rem;border-left:4px solid var(--x4);padding-left:12px;margin:32px 0 14px}
+
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--x4);color:#0c0618;border-color:var(--x4)}
+
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:10px 0}
+  table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:640px}
+  th,td{padding:9px 13px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  thead th{background:var(--panel-2);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+  tbody tr:hover{background:var(--panel-2)}
+  td.rowh{font-weight:700;color:var(--text);white-space:nowrap}
+  th.g-x4{color:var(--x4)} th.g-ed{color:var(--ed)} th.g-sc{color:var(--sc)}
+  td.ctl{font-weight:600;white-space:nowrap;color:var(--accent)}
+
+  .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:820px){.cards3{grid-template-columns:1fr}}
+  .cards2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:680px){.cards2{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .card.top{border-top:3px solid var(--line)}
+  .card.top.x4{border-top-color:var(--x4)} .card.top.ed{border-top-color:var(--ed)} .card.top.sc{border-top-color:var(--sc)}
+  .card h3{margin:0 0 4px;font-size:1.05rem}
+  .card .tagline{color:var(--muted);font-size:.82rem;margin-bottom:10px}
+  .card ul{margin:0;padding-left:18px;font-size:.86rem;color:var(--muted)}
+  .card ul b{color:var(--text)}
+  .card .verdict{margin-top:12px;font-size:.82rem;padding:9px 11px;border-radius:9px;background:var(--panel-2)}
+  .card .verdict b{color:var(--text)}
+  .pill{display:inline-block;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 9px;border-radius:6px;margin-left:6px}
+  .pill.x4{background:rgba(163,113,247,.16);color:var(--x4)}
+  .pill.ed{background:rgba(255,140,66,.16);color:var(--ed)}
+  .pill.sc{background:rgba(76,194,255,.16);color:var(--sc)}
+
+  ol.steps{padding-left:20px;font-size:.9rem;line-height:1.6}
+  ol.steps li{margin:6px 0}
+  ol.steps b{color:var(--text)}
+  code{background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:.85em;color:var(--accent-2)}
+
+  .tabs{display:flex;gap:8px;margin:8px 0 16px;flex-wrap:wrap}
+  .tab{background:var(--panel-2);border:1px solid var(--line);color:var(--muted);border-radius:10px;padding:9px 16px;font-size:.9rem;cursor:pointer;font-weight:600}
+  .tab.active[data-game=x4]{background:var(--x4);color:#0c0618;border-color:var(--x4)}
+  .tab.active[data-game=ed]{background:var(--ed);color:#1a1206;border-color:var(--ed)}
+  .tab.active[data-game=sc]{background:var(--sc);color:#06121c;border-color:var(--sc)}
+  .game{display:none}
+  .game.show{display:block}
+  .lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:16px 0 6px;font-weight:700}
+
+  .callout{border-radius:12px;padding:13px 16px;font-size:.85rem;margin:14px 0}
+  .callout.tip{background:rgba(255,212,121,.06);border:1px solid rgba(255,212,121,.28)}
+  .callout.warn{background:rgba(255,140,66,.07);border:1px solid rgba(255,140,66,.3)}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout.x4{background:rgba(163,113,247,.07);border:1px solid rgba(163,113,247,.3)}
+  .callout b{color:var(--text)}
+  .callout a{color:var(--accent)}
+  .callout ol{margin:10px 0 0;padding-left:20px;line-height:1.65}
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .links a{font-size:.82rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);text-decoration:none;border-radius:8px;padding:6px 11px}
+  footer{color:var(--muted);font-size:.78rem;margin-top:30px}
+  footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./index.html">← Gaming</a>
+    <h1>🚀 Space Sims Compared — X4 vs Elite vs Star Citizen</h1>
+    <div class="sub">How <span style="color:var(--x4)">X4: Foundations</span> stacks up against <span style="color:var(--ed)">Elite&nbsp;Dangerous</span> &amp; <span style="color:var(--sc)">Star&nbsp;Citizen</span> — plus how-to-use &amp; binding guides for all three on your <b>Thrustmaster T.16000M</b> gear (HOTAS + Space Sim Duo).</div>
+    <div class="guidenav">
+      <a class="gn" href="./index.html">🎮 All Gaming</a>
+      <a class="gn active" href="./space-sims-compared.html">🚀 Space Sims Compared</a>
+      <a class="gn" href="./controls.html">🎯 Controls &amp; Bindings</a>
+      <a class="gn" href="./triple-screen.html">🖥️ Triple-Screen</a>
+      <a class="gn" href="./rig-build.html">🪑 DIY Sim Rig</a>
+    </div>
+  </header>
+
+  <!-- ============ THE 30-SECOND SUMMARY ============ -->
+  <h2 class="sec">⚡ The 30-second summary</h2>
+  <div class="cards3">
+    <div class="card top x4">
+      <h3>X4: Foundations <span class="pill x4">Empire</span></h3>
+      <div class="tagline">A 4X empire-builder wearing a space-sim's cockpit.</div>
+      <ul>
+        <li>Start a lone pilot → end a <b>CEO/admiral</b> running factories &amp; fleets</li>
+        <li><b>Own hundreds of ships</b>, build stations, command from a map</li>
+        <li>Single-player, offline, <b>heavily moddable</b></li>
+        <li>Deepest simulated economy of the three</li>
+      </ul>
+      <div class="verdict"><b>Pick if:</b> you want to <b>build &amp; command</b>, not just fly. Finished &amp; solo.</div>
+    </div>
+    <div class="card top ed">
+      <h3>Elite Dangerous <span class="pill ed">Pilot</span></h3>
+      <div class="tagline">A lone pilot in a 1:1 Milky Way.</div>
+      <ul>
+        <li><b>Best-feeling flight model</b> of the three</li>
+        <li>400 billion star systems, real scale &amp; exploration</li>
+        <li>Online (solo / private / open), released &amp; stable</li>
+        <li>You are basically <b>one person, one ship</b></li>
+      </ul>
+      <div class="verdict"><b>Pick if:</b> flying itself is the point and you love vastness.</div>
+    </div>
+    <div class="card top sc">
+      <h3>Star Citizen <span class="pill sc">Immersion</span></h3>
+      <div class="tagline">Maximum fidelity — walk everywhere, seamless planets.</div>
+      <ul>
+        <li>Get up, walk your ship &amp; stations, land on planets seamlessly</li>
+        <li>Highest graphical fidelity &amp; immersion</li>
+        <li><b>Always-online MMO</b>, perpetual alpha</li>
+        <li>Buggier &amp; unfinished — but nothing else feels like it</li>
+      </ul>
+      <div class="verdict"><b>Pick if:</b> immersion &gt; polish and you don't mind jank.</div>
+    </div>
+  </div>
+
+  <!-- ============ HEAD TO HEAD ============ -->
+  <h2 class="sec">📊 Head-to-head</h2>
+  <div class="tablewrap"><table>
+    <thead><tr>
+      <th></th><th class="g-x4">X4: Foundations</th><th class="g-ed">Elite Dangerous</th><th class="g-sc">Star Citizen</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="rowh">Core loop</td><td>Build a galactic empire</td><td>Personal pilot career</td><td>Personal pilot / immersion</td></tr>
+      <tr><td class="rowh">You can…</td><td>Own 100s of ships, build stations, command fleets from a map</td><td>Fly (mostly) one ship at a time</td><td>Fly &amp; crew your owned ships, walk anywhere</td></tr>
+      <tr><td class="rowh">Multiplayer</td><td>Single-player only</td><td>Online (solo / co-op / open)</td><td>Always-online MMO</td></tr>
+      <tr><td class="rowh">Galaxy</td><td>Handful of detailed sectors</td><td>400 billion systems (1:1 Milky Way)</td><td>Handcrafted, fewer systems</td></tr>
+      <tr><td class="rowh">State</td><td>Complete, released</td><td>Released</td><td>Perpetual alpha</td></tr>
+      <tr><td class="rowh">Automation</td><td>Heavy — delegate to AI captains</td><td>Minimal</td><td>Minimal</td></tr>
+      <tr><td class="rowh">Economy sim</td><td>Deepest — every ware physically produced &amp; hauled</td><td>Dynamic supply/demand</td><td>Developing</td></tr>
+      <tr><td class="rowh">Flight feel</td><td>Solid, sim-lite</td><td>Best of the three</td><td>Very good, physics-heavy</td></tr>
+      <tr><td class="rowh">Get out &amp; walk?</td><td>Limited (ship + station interiors)</td><td>On-foot (Odyssey)</td><td>Yes — full first-person everywhere</td></tr>
+      <tr><td class="rowh">Moddable</td><td>Yes, extensively</td><td>No</td><td>No</td></tr>
+      <tr><td class="rowh">Best HOTAS use</td><td>Single stick + throttle</td><td>Stick + throttle (or dual for FA-off)</td><td>Dual sticks</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout x4">
+    🧭 <b>Where X4 is unique:</b> Elite and Star Citizen are both about <i>being a pilot</i>. X4 lets you <i>become an empire</i> — you'll eventually spend as much time in the management map (assigning captains, planning factories, moving fleets) as in the cockpit. If you loved Elite's flying but wished you could build and command, or came from Star Citizen wanting that in a <b>finished, single-player, moddable</b> package, X4 is the natural pick.
+  </div>
+
+  <!-- ============ WHICH FOR YOU ============ -->
+  <h2 class="sec">🎯 One-line picks</h2>
+  <div class="cards3">
+    <div class="card"><h3 style="color:var(--x4)">Want to build?</h3><p style="color:var(--muted);font-size:.86rem;margin:6px 0 0">→ <b style="color:var(--text)">X4: Foundations.</b> Empire, economy, fleets — and it's done.</p></div>
+    <div class="card"><h3 style="color:var(--ed)">Want to fly?</h3><p style="color:var(--muted);font-size:.86rem;margin:6px 0 0">→ <b style="color:var(--text)">Elite Dangerous.</b> The purest, best-feeling flight in a huge galaxy.</p></div>
+    <div class="card"><h3 style="color:var(--sc)">Want to live in it?</h3><p style="color:var(--muted);font-size:.86rem;margin:6px 0 0">→ <b style="color:var(--text)">Star Citizen.</b> Unmatched immersion — if you can tolerate alpha jank.</p></div>
+  </div>
+
+  <!-- ============ HARDWARE ============ -->
+  <h2 class="sec">🎮 Your hardware</h2>
+  <div class="cards2">
+    <div class="card">
+      <h3>T.16000M FCS HOTAS <span class="pill x4">stick + throttle</span></h3>
+      <div class="tagline">One T.16000M stick + TWCS throttle.</div>
+      <ul>
+        <li><b>Stick:</b> Hall-effect (no drift), 16 buttons, 8-way hat, X/Y + twist-rudder (Z), base throttle slider</li>
+        <li><b>TWCS throttle:</b> throttle axis, analog mini-stick, rocker, plus buttons/hat</li>
+        <li><b>Best for:</b> X4 &amp; Elite — classic fly-by-throttle feel</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>T.16000M FCS Space Sim Duo <span class="pill sc">dual stick</span></h3>
+      <div class="tagline">Two fully ambidextrous T.16000M sticks.</div>
+      <ul>
+        <li><b>32 buttons</b> total (16 each), two 8-way hats, weighted bases</li>
+        <li><b>Ambidextrous:</b> swap the detachable parts + flip the base switch to set one stick left-handed</li>
+        <li><b>Best for:</b> Star Citizen 6-DoF combat — strafe left, aim right</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout info">
+    💡 <b>Match the tool to the game:</b> run the <b>HOTAS (stick + TWCS)</b> for <span style="color:var(--x4)">X4</span> and <span style="color:var(--ed)">Elite</span> (throttle-based flight), and the <b>Dual Sticks</b> for <span style="color:var(--sc)">Star Citizen</span> (twin-stick dogfighting). Full Elite &amp; Star Citizen binding tables live on the <a href="./controls.html">Controls &amp; Bindings</a> page — this page adds the <b>X4</b> guide and the setup steps for all three.
+  </div>
+
+  <!-- ============ HOW TO USE / BINDINGS ============ -->
+  <h2 class="sec">🛠️ How to set up &amp; play each one</h2>
+  <div class="tabs">
+    <button class="tab active" data-game="x4" onclick="showGame('x4')">🟣 X4: Foundations</button>
+    <button class="tab" data-game="ed" onclick="showGame('ed')">🟠 Elite Dangerous</button>
+    <button class="tab" data-game="sc" onclick="showGame('sc')">🔵 Star Citizen</button>
+  </div>
+
+  <!-- ===== X4 ===== -->
+  <div class="game show" id="game-x4">
+    <div class="callout x4">
+      Recommended layout: <b>single T.16000M stick + TWCS throttle</b>. X4 flies great on a HOTAS, but remember it's an <b>empire builder</b> — you'll switch to <b>mouse</b> constantly for the map, trade menus and fleet orders. Bind flight to the stick, leave management on mouse/keyboard.
+    </div>
+
+    <div class="lbl">One-time setup (X4)</div>
+    <ol class="steps">
+      <li><b>Plug in before launching.</b> X4 detects devices at startup — connect the stick &amp; throttle first, then launch.</li>
+      <li><b>Turn on joystick input.</b> <code>Options ▸ Controls ▸ Input Method</code> → enable <b>Joystick / Direct Input</b> (X4 supports mouse, keyboard <i>and</i> joystick at the same time).</li>
+      <li><b>Assign axes.</b> Under <code>Controls ▸ Space</code> map the axes (see table). X4 lets you set <b>sensitivity, deadzone &amp; invert</b> per axis right there — no external tool needed.</li>
+      <li><b>Small deadzones.</b> Hall-effect sticks are precise — start at <b>~3–5%</b> deadzone and a slight curve for fine aim.</li>
+      <li><b>Keep mouse "steering" handy.</b> Many X4 players fly combat on the stick but toggle <b>mouse-steering</b> (default hold <code>Enter</code> / RMB) for docking &amp; menus. Both can coexist.</li>
+    </ol>
+
+    <div class="lbl">Stick — flight &amp; weapons</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Control</th><th>Bind</th></tr></thead>
+      <tbody>
+        <tr><td class="ctl">X / Y axis</td><td>Yaw / Pitch (primary aiming in X4)</td></tr>
+        <tr><td class="ctl">Twist (Z)</td><td>Roll</td></tr>
+        <tr><td class="ctl">Trigger</td><td>Fire primary weapons</td></tr>
+        <tr><td class="ctl">Thumb button</td><td>Fire turrets / launch missiles</td></tr>
+        <tr><td class="ctl">8-way hat</td><td>Target cycling (nearest enemy / next / previous) + look</td></tr>
+        <tr><td class="ctl">Base buttons</td><td>Boost, Travel-drive (long-range cruise), match speed, deploy laser tower/satellite</td></tr>
+      </tbody>
+    </table></div>
+    <div class="lbl">TWCS throttle — speed &amp; systems</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Control</th><th>Bind</th></tr></thead>
+      <tbody>
+        <tr><td class="ctl">Throttle axis</td><td>Forward throttle — X4 has a true throttle so this maps 1:1</td></tr>
+        <tr><td class="ctl">Mini-stick</td><td>Strafe (left/right + up/down)</td></tr>
+        <tr><td class="ctl">Rocker</td><td>Turret target / weapon-group cycle</td></tr>
+        <tr><td class="ctl">Buttons / hat</td><td>Map, comms/hail, docking-computer request, scan mode, SETA (time accel), deploy fighters</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="callout tip">
+      🕹️ <b>X4-specific tips:</b> bind <b>SETA (time acceleration)</b> to a throttle button — you'll use it constantly for travel. Keep <b>Map</b> one button away since it's your command center. <b>Travel drive</b> (boosted cruise) is the in-system fast-travel — put it on a comfortable base button. The <b>docking computer</b> can auto-land, so you don't need perfect stick control to dock.
+    </div>
+    <div class="callout warn">
+      ⚠️ <b>Reality check:</b> X4 is menu-heavy by design. A HOTAS makes <b>combat &amp; direct flying</b> feel excellent, but you can't run an empire from the stick alone — plan to keep the <b>mouse in reach</b> for the map, trading and fleet logistics. Many players even fly with <b>mouse-steering</b> and use the stick just for dogfights.
+    </div>
+    <div class="lbl">Guides &amp; references</div>
+    <div class="links">
+      <a href="https://www.egosoft.com/games/x4/info_en.php" target="_blank" rel="noopener">Egosoft — X4 official ↗</a>
+      <a href="https://steamcommunity.com/app/392160/guides/" target="_blank" rel="noopener">Steam community guides ↗</a>
+      <a href="https://wiki.egosoft.com:1337/X4%20Foundations%20Wiki/" target="_blank" rel="noopener">Official X4 wiki ↗</a>
+    </div>
+  </div>
+
+  <!-- ===== ELITE DANGEROUS ===== -->
+  <div class="game" id="game-ed">
+    <div class="callout info">
+      Recommended layout: <b>HOTAS</b> (T.16000M stick + TWCS throttle). Elite has a built-in "T16000M FCS" preset — a fine start — but the community bindings are more complete. Full tables &amp; the dual-stick FA-off pack are on the <a href="./controls.html">Controls &amp; Bindings</a> page.
+    </div>
+    <div class="lbl">Quick binding overview</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Control</th><th>Bind</th></tr></thead>
+      <tbody>
+        <tr><td class="ctl">Stick X/Y</td><td>Roll / Pitch</td></tr>
+        <tr><td class="ctl">Twist (Z)</td><td>Yaw</td></tr>
+        <tr><td class="ctl">Trigger / thumb</td><td>Primary / secondary fire</td></tr>
+        <tr><td class="ctl">Throttle axis</td><td>Forward throttle (mid-deadzone for reverse)</td></tr>
+        <tr><td class="ctl">Mini-stick</td><td>Lateral + vertical thrust</td></tr>
+        <tr><td class="ctl">Buttons/hat</td><td>Boost, FA toggle, landing gear, FSD/supercruise, heat sink, chaff, PIPs</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout info">Drop <code>.binds</code> files into <code>%LOCALAPPDATA%\Frontier Developments\Elite Dangerous\Options\Bindings</code>, then pick the preset in-game under Controls.</div>
+    <div class="links">
+      <a href="./controls.html">→ Full Elite binding tables &amp; dual-stick pack</a>
+      <a href="https://github.com/jamsoft/CMDRJamski-T16000M-FCS-HOTAS" target="_blank" rel="noopener">CMDR Jamski binds ↗</a>
+    </div>
+  </div>
+
+  <!-- ===== STAR CITIZEN ===== -->
+  <div class="game" id="game-sc">
+    <div class="callout info">
+      Recommended layout: <b>Dual Sticks</b>. Star Citizen uses <b>Master Modes</b> — <b>NAV</b> (speed + Quantum travel) and <b>SCM</b> (combat). Bind the mode switch somewhere easy on the left stick. Full tables are on the <a href="./controls.html">Controls &amp; Bindings</a> page.
+    </div>
+    <div class="lbl">Quick binding overview</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Control</th><th>Bind</th></tr></thead>
+      <tbody>
+        <tr><td class="ctl">Right stick X/Y</td><td>Yaw / Pitch (aiming)</td></tr>
+        <tr><td class="ctl">Right twist</td><td>Roll</td></tr>
+        <tr><td class="ctl">Left stick X/Y</td><td>Strafe left/right + up/down</td></tr>
+        <tr><td class="ctl">Left twist / slider</td><td>Strafe fwd/back / set throttle</td></tr>
+        <tr><td class="ctl">Triggers / hats</td><td>Fire, missiles, targeting, boost, Master-Mode toggle, Quantum</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout tip">⌨️ Use a left-stick button as a <b>modifier (shift)</b> via TARGET or JoyToKey to double your 32 bindings — the standard dual-T16000M trick.</div>
+    <div class="callout info">Place a <code>.xml</code> profile in <code>...\StarCitizen\LIVE\USER\Client\0\Controls\Mappings</code>, then in-game type <code>pp_rebindkeys layoutname</code>.</div>
+    <div class="links">
+      <a href="./controls.html">→ Full Star Citizen binding tables</a>
+      <a href="https://testsquadron.com/threads/my-recommended-dual-t-16000m-bindings.17709/" target="_blank" rel="noopener">TEST Squadron binds ↗</a>
+    </div>
+  </div>
+
+  <footer>
+    <b>Sources:</b>
+    <a href="https://www.egosoft.com/games/x4/info_en.php">Egosoft — X4</a> ·
+    <a href="https://support.thrustmaster.com/en/product/t16000mfcs-en/">T.16000M FCS support</a> ·
+    <a href="https://support.thrustmaster.com/en/product/t-16000m-fcs-space-sim-duo-en/">Space Sim Duo</a> ·
+    <a href="https://elite-dangerous.fandom.com/">Elite Dangerous wiki</a> ·
+    <a href="https://robertsspaceindustries.com/">Star Citizen — RSI</a>
+    <br>Binding tables are starting points — tweak axes, curves &amp; buttons to taste. Star Citizen's Master Modes &amp; mappings change between patches; re-check after major updates.
+  </footer>
+</div>
+
+<script>
+  function showGame(g){
+    document.querySelectorAll(".game").forEach(el=>el.classList.toggle("show",el.id==="game-"+g));
+    document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.game===g));
+  }
+</script>
+</body>
+</html>
