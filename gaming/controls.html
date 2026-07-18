@@ -56,6 +56,8 @@
 
   .callout{border-radius:12px;padding:13px 16px;font-size:.85rem;margin:14px 0}
   .callout.tip{background:rgba(255,212,121,.06);border:1px solid rgba(255,212,121,.28)}
+  .callout.warn{background:rgba(255,140,66,.07);border:1px solid rgba(255,140,66,.3)}
+  .callout ol{color:var(--text)}
   .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
   .callout b{color:var(--text)}
   .callout a{color:var(--accent)}
@@ -157,6 +159,24 @@
       <a href="https://forums.frontier.co.uk/threads/t-16000-m-fcs-hotas-bindings-for-elite-dangerous.461653/" target="_blank" rel="noopener">Frontier forum thread ↗</a>
     </div>
     <div class="callout info">Drop <code>.binds</code> files into <code>%LOCALAPPDATA%\Frontier Developments\Elite Dangerous\Options\Bindings</code>, then pick the preset in-game under Controls.</div>
+
+    <div class="lbl">📦 How to install &amp; use the Marcobaldessari dual-stick pack (exact steps)</div>
+    <div class="callout info">
+      This pack pairs a <b>.binds</b> file with a <b>TARGET script</b> (the script adds the shift-layers, PIP macro &amp; FA-off throttle logic that the binds alone can't do), so you install <b>both</b>.
+      <ol style="margin:10px 0 0;padding-left:20px;line-height:1.65">
+        <li><b>Download</b> the pack from the <a href="https://github.com/Marcobaldessari/Dual-t16000--Elite-Dangerous" target="_blank" rel="noopener">GitHub repo</a> — green <b>Code ▾ → Download ZIP</b> — and unzip it. You'll get <code>dual-t16000m.3.0.binds</code>, <code>TARGET_dual_t16000.tmc</code>, and a <code>cheatsheet.jpg</code>.</li>
+        <li><b>Copy the binds file.</b> Put <code>dual-t16000m.3.0.binds</code> into <code>%LOCALAPPDATA%\Frontier Developments\Elite Dangerous\Options\Bindings</code> (paste that path into the Explorer address bar).</li>
+        <li><b>Run the TARGET script.</b> Open <b>T.A.R.G.E.T Script Editor</b> (installed with the Thrustmaster drivers) → <code>File ▸ Open</code> → load <code>TARGET_dual_t16000.tmc</code> → click the green <b>Run/▶</b> button. Leave TARGET running while you play — it merges both sticks into one virtual device and enables the shift layers.</li>
+        <li><b>Pick the preset in-game.</b> Elite → <code>Options ▸ Controls</code> → set the preset dropdown to <b>dual-t16000m 3.0</b>.</li>
+        <li><b>Keep the cheatsheet handy</b> (<code>cheatsheet.jpg</code>) — it maps every button; the thumb buttons are multi-function (tap = one action, <b>hold + the other stick's hat</b> = a second action).</li>
+      </ol>
+    </div>
+    <div class="callout tip">
+      🎮 <b>What this scheme does:</b> it's built for <b>Flight-Assist-OFF</b> flying — your <b>left stick controls thrust</b> (lateral / vertical / forward) for drifting &amp; reverski, the right stick rotates, and toggling FA-OFF <b>cuts throttle to zero</b> (and restores it when you toggle back). It also includes a <b>PIP power macro</b> for quick shield/weapon/engine balancing. Great for combat once you're past the learning curve.
+    </div>
+    <div class="callout warn">
+      ⚠️ <b>Two gotchas:</b> (1) the TARGET script <b>must be running</b> or half the buttons won't work — the binds expect the virtual combined device it creates. (2) If axes feel reversed/wrong, your two sticks may be enumerated in a different order than the author's — swap them or re-map the axes in Elite.
+    </div>
   </div>
 
   <!-- STAR CITIZEN -->
