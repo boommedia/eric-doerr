@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⌨️ Elite Dangerous — See & Set Your Keybinds (fix Disembark)</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--ed:#ff8c42;--gold:#ffd479;--danger:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 75% -10%,rgba(76,194,255,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:860px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.6rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  h2.sec{font-size:1.12rem;border-left:4px solid var(--accent);padding-left:12px;margin:30px 0 12px}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--accent);color:#06121c;border-color:var(--accent)}
+  .callout{border-radius:12px;padding:14px 16px;font-size:.88rem;margin:14px 0}
+  .callout.go{background:rgba(126,231,135,.08);border:1px solid rgba(126,231,135,.35)}
+  .callout.warn{background:rgba(255,140,66,.08);border:1px solid rgba(255,140,66,.32)}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout b{color:var(--text)} .callout a{color:var(--accent)}
+  ol.steps{padding-left:20px;font-size:.92rem} ol.steps li{margin:7px 0} ol.steps b{color:var(--text)}
+  code{background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:2px 7px;font-size:.85em;color:var(--accent-2);word-break:break-all}
+  .kbd{display:inline-block;background:#0b0f14;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 8px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85em;color:var(--text)}
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin:10px 0}
+  label.chk{display:flex;gap:9px;align-items:flex-start;font-size:.9rem;color:var(--muted);padding:6px 0;cursor:pointer;border-bottom:1px solid var(--line)}
+  label.chk:last-child{border-bottom:none} label.chk input{width:auto;margin-top:3px} label.chk.on{color:var(--text)}
+  label.chk b{color:var(--text)} label.chk .k{color:var(--accent-2);font-weight:600}
+  .btn{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:8px 13px;font-weight:600;font-size:.82rem;cursor:pointer}
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .links a{font-size:.82rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);text-decoration:none;border-radius:8px;padding:6px 11px}
+  footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./elite-mining-combat.html">← Elite Career Hub</a>
+    <h1>⌨️ See &amp; Set Your Keybinds <span style="color:var(--muted);font-size:.95rem">(& fix Disembark)</span></h1>
+    <div class="sub">How to view every current binding, change one, and why "press E" did nothing.</div>
+    <div class="guidenav">
+      <a class="gn" href="./elite-mining-combat.html">🟠 Career Hub</a>
+      <a class="gn" href="./elite-on-foot.html">🥾 On-Foot</a>
+      <a class="gn" href="./elite-keybindings.html">⌨️ Keybind Reference</a>
+      <a class="gn active" href="./elite-set-keybinds.html">🔧 See &amp; Set Binds</a>
+    </div>
+  </header>
+
+  <div class="callout go">🆘 <b>Stuck in the SRV this second?</b> Open your <b>Role Panel</b> (bottom panel, default <span class="kbd">3</span>) → <b>Self-Destruct</b> (hold), or <b>Recall/Dismiss Ship</b> and board it. You respawn in your ship; the SRV rebuilds free. Works with no keybinds at all.</div>
+
+  <!-- WHY E DIDN'T WORK -->
+  <h2 class="sec">❓ Why "press E" did nothing</h2>
+  <div class="callout warn"><b>Pressing a key does nothing unless that action is actually assigned to it.</b> Your preset is <b>Thrustmaster T.16000M FCS HOTAS</b> — a flight-only preset that leaves <b>Disembark (and most on-foot actions) blank</b>. So <span class="kbd">E</span> wasn't "Disembark" — Disembark had <b>no key</b>. You have to open Controls and <b>assign it first</b>. Also: you must be <b>fully stopped</b>, and if <span class="kbd">E</span> is already used by something else the game will flag a <b>conflict (red)</b> — pick a free key.</div>
+
+  <!-- SEE CURRENT BINDS -->
+  <h2 class="sec">👀 See your current binds</h2>
+  <div class="lbl" style="font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin:8px 0 6px">In-game (per action)</div>
+  <ol class="steps">
+    <li><b>Options ▸ Controls</b>. Each action row shows its <b>currently assigned key/button</b> on the right.</li>
+    <li>An <b>empty box = unbound</b> (that's what Disembark looks like right now).</li>
+    <li>Scroll the category list; expand a category with its <b>+</b> to see all its actions and current keys.</li>
+  </ol>
+  <div class="lbl" style="font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin:14px 0 6px">See ALL binds on one sheet (best way)</div>
+  <ol class="steps">
+    <li>Open Windows Explorer and paste this into the address bar:<br><code>%LOCALAPPDATA%\Frontier Developments\Elite Dangerous\Options\Bindings</code></li>
+    <li>Grab your active <code>.binds</code> file (the custom one, e.g. <code>Custom.4.0.binds</code>).</li>
+    <li>Go to <a href="https://edrefcard.info/" target="_blank" rel="noopener">EDRefCard.info</a> → <b>upload</b> that file → it draws a <b>printable reference card</b> of every current binding across ship, SRV &amp; on-foot.</li>
+  </ol>
+  <div class="links">
+    <a href="https://edrefcard.info/" target="_blank" rel="noopener">🖨️ EDRefCard — visual bind sheet ↗</a>
+    <a href="./elite-keybindings.html">⌨️ Editable keybind reference →</a>
+  </div>
+
+  <!-- SET / CHANGE A BIND -->
+  <h2 class="sec">🔧 Set or change a bind</h2>
+  <ol class="steps">
+    <li><b>Options ▸ Controls.</b></li>
+    <li>Find the action (for walking out of the SRV: scroll to the <b>ON FOOT</b> category, expand <b>+</b>, find <b>Disembark</b>).</li>
+    <li><b>Click the empty box</b> next to it → <b>press the key</b> you want (e.g. <span class="kbd">E</span> or <span class="kbd">G</span>).</li>
+    <li>If it turns <b>red / warns of a conflict</b>, that key is already used — pick a different free key.</li>
+    <li>Do the same for <b>Embark</b> (to get back in). Back out — it saves automatically.</li>
+  </ol>
+  <div class="callout info">💡 Because your HOTAS preset skipped on-foot, bind the whole on-foot basics once. Tick them off as you set each (saves in your browser):</div>
+
+  <!-- INTERACTIVE CHECKLIST -->
+  <div class="tool" id="bindTool"></div>
+  <div style="margin-top:8px"><button class="btn" onclick="resetBinds()">↺ Uncheck all</button></div>
+
+  <div class="callout go">✅ Once <b>Disembark</b> shows a key in Options, stop the SRV/ship fully and press that key — you'll step out on foot.</div>
+
+  <footer>Part of the <a href="./elite-mining-combat.html">Elite Career Hub</a>. The authoritative binds list is always <b>Options ▸ Controls</b> in-game; EDRefCard just visualises your saved file. Checklist saves in this browser only.</footer>
+</div>
+
+<script>
+  const $=s=>document.querySelector(s);
+  const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const BINDS=[
+    ['Disembark','get out of ship/SRV on foot','e.g. E'],
+    ['Embark','get back into ship/SRV','e.g. E'],
+    ['Move Forward / Back','walk','W / S'],
+    ['Move Left / Right','strafe','A / D'],
+    ['Sprint','run','Left Shift'],
+    ['Jump','jump','Space'],
+    ['Crouch','crouch','Left Ctrl'],
+    ['Primary Fire','shoot','Left Mouse'],
+    ['Aim / Zoom','ADS','Right Mouse'],
+    ['Reload','reload','R'],
+    ['Interact / Use','doors, terminals, loot','E or F'],
+    ['Melee','melee attack','B'],
+    ['Select Tool / Utility','Energylink, E-Breach…','hold a key'],
+    ['Throw Grenade','grenade','G']
+  ];
+  const KK=i=>'ed_setbind_'+i;
+  function toggleBind(i){const v=localStorage.getItem(KK(i))==='1'?'0':'1';localStorage.setItem(KK(i),v);render();}
+  function resetBinds(){BINDS.forEach((_,i)=>localStorage.removeItem(KK(i)));render();}
+  function render(){
+    $('#bindTool').innerHTML=BINDS.map((b,i)=>{const on=localStorage.getItem(KK(i))==='1';
+      return `<label class="chk ${on?'on':''}"><input type="checkbox" ${on?'checked':''} onchange="toggleBind(${i})"><span><b>${esc(b[0])}</b> — ${esc(b[1])} <span class="k">(${esc(b[2])})</span></span></label>`;
+    }).join('');
+  }
+  render();
+</script>
+</body>
+</html>
