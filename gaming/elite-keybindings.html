@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⌨️ Elite Dangerous — Keybindings (Ship / SRV / On-Foot)</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--ed:#ff8c42;--foot:#c792ea;--gold:#ffd479;--danger:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 75% -10%,rgba(76,194,255,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:900px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.7rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--accent);color:#06121c;border-color:var(--accent)}
+  .callout{border-radius:12px;padding:13px 16px;font-size:.85rem;margin:14px 0}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout.warn{background:rgba(255,140,66,.08);border:1px solid rgba(255,140,66,.32)}
+  .callout b{color:var(--text)} .callout a{color:var(--accent)}
+  code{background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:.85em;color:var(--accent-2)}
+  .tabs{display:flex;gap:8px;margin:16px 0 12px;flex-wrap:wrap}
+  .tab{background:var(--panel-2);border:1px solid var(--line);color:var(--muted);border-radius:10px;padding:9px 15px;font-size:.88rem;cursor:pointer;font-weight:600}
+  .tab.active{background:var(--accent);color:#06121c;border-color:var(--accent)}
+  .tab.active[data-m=srv]{background:var(--ed);color:#1a1206;border-color:var(--ed)}
+  .tab.active[data-m=foot]{background:var(--foot);color:#170a1e;border-color:var(--foot)}
+  .bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+  .bar input.search{flex:1;min-width:180px;background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 12px;font:inherit;font-size:.9rem}
+  .bar input.search:focus{outline:none;border-color:var(--accent)}
+  .btn{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 13px;font-weight:600;font-size:.82rem;cursor:pointer}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+  table{width:100%;border-collapse:collapse;font-size:.88rem}
+  th,td{padding:9px 13px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+  tbody tr:last-child td{border-bottom:none}
+  thead th{background:var(--panel-2);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+  td.act{font-weight:600;color:var(--text);width:58%}
+  td.act .hint{display:block;font-weight:400;color:var(--muted);font-size:.78rem}
+  input.kb{width:100%;background:var(--panel-2);border:1px solid var(--line);color:var(--accent-2);border-radius:8px;padding:7px 10px;font:inherit;font-size:.85rem;font-weight:600}
+  input.kb:focus{outline:none;border-color:var(--accent)}
+  tr.urgent td.act{color:var(--gold)}
+  tr.hide{display:none}
+  footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./elite-mining-combat.html">← Elite Career Hub</a>
+    <h1>⌨️ Elite Dangerous — Keybindings</h1>
+    <div class="sub">Ship, SRV &amp; On-Foot key reference — <b>editable</b>: correct any key to match your game and it saves in your browser.</div>
+    <div class="guidenav">
+      <a class="gn" href="./elite-mining-combat.html">🟠 Career Hub</a>
+      <a class="gn" href="./elite-on-foot.html">🥾 On-Foot</a>
+      <a class="gn active" href="./elite-keybindings.html">⌨️ Keybindings</a>
+      <a class="gn" href="./controls.html">🎯 HOTAS Setup</a>
+    </div>
+  </header>
+
+  <div class="callout warn">🛞➡️🥾 <b>Can't get out of the SRV?</b> Stop fully (handbrake <code>Space</code>), then press <b>Disembark</b> (must be stationary &amp; not under fire).
+    <br><b>Don't see a "Disembark" binding?</b> ① Make sure you actually own <b>Odyssey</b> — no Odyssey = no on-foot, and no disembark. ② In <b>Options ▸ Controls</b> use the <b>search box</b> and type <code>disembark</code> / <code>embark</code> / <code>exit</code> — it's usually in a <b>General/Misc</b> section, not with the SRV driving keys. ③ Stuck right now? <b>Recall your ship</b> and board it, or <b>self-destruct the SRV</b> (from its functions) — you respawn in your ship; SRVs rebuild cheaply.</div>
+  <div class="callout info">ℹ️ These are the <b>common defaults</b> — Elite lets you rebind everything, so treat this as a starting cheat-sheet and <b>edit any key</b> below to match your own <b>Options ▸ Controls</b>. Your edits save locally. On foot &amp; in the SRV, Elite uses <b>mouse + keyboard</b> — your T16000M HOTAS is ship-only.</div>
+
+  <div class="tabs">
+    <button class="tab active" data-m="ship" onclick="showMode('ship')">🚀 Ship</button>
+    <button class="tab" data-m="srv" onclick="showMode('srv')">🛞 SRV</button>
+    <button class="tab" data-m="foot" onclick="showMode('foot')">🥾 On Foot</button>
+    <button class="tab" data-m="ui" onclick="showMode('ui')">🖥️ UI &amp; General</button>
+  </div>
+
+  <div class="bar">
+    <input class="search" id="kbSearch" placeholder="🔍 Filter actions… (e.g. gear, fire, disembark)" oninput="render()">
+    <button class="btn" onclick="resetMode()">↺ Reset this tab to defaults</button>
+  </div>
+
+  <div class="tablewrap"><table>
+    <thead><tr><th>Action</th><th style="width:150px">Key</th></tr></thead>
+    <tbody id="kbBody"></tbody>
+  </table></div>
+
+  <footer>Part of the <a href="./elite-mining-combat.html">Elite Career Hub</a>. Defaults are a best-effort starting point — the authoritative list is always <b>Options ▸ Controls</b> in-game, where you can also rebind. Your edits save in this browser only.</footer>
+</div>
+
+<script>
+  const $=s=>document.querySelector(s);
+  const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const DEF={
+    ship:[
+      ['Throttle up / down','W / S'],['Roll left / right','A / D'],['Pitch up / down','Mouse / ↓ ↑'],
+      ['Yaw left / right','Q / E'],['Boost','Tab'],['Toggle Flight Assist','Z'],
+      ['Landing gear','L'],['Cargo scoop','Home'],['Deploy / retract hardpoints','U'],
+      ['Target ahead','T'],['Next / previous target','G / (bind)'],['Select highest threat','H'],
+      ['Supercruise / Frame Shift Drive','J'],['Hyperspace jump (route)','J (hold)'],
+      ['Ship lights','Insert'],['Silent running','Delete'],['Deploy heat sink','(bind)'],
+      ['Analysis / Combat mode','M','toggles blue (scan/mine) ⇄ red (weapons)'],
+      ['Disembark → go on foot','⚠ bind it','Options ▸ Controls ▸ Disembark']
+    ],
+    srv:[
+      ['Drive forward / back','W / S'],['Steer left / right','A / D'],['Handbrake','Space'],
+      ['Vertical thrusters (jump)','Space (hold)'],['Toggle drive assist','(bind)'],
+      ['Turret mode','(bind)'],['Primary fire (turret)','LMB'],['Secondary fire','RMB'],
+      ['Headlights','Insert'],['Target ahead','T'],['Recall / dismiss ship','(bind)'],
+      ['Disembark → exit SRV on foot','⚠ bind it','Must be stopped; Options ▸ Controls ▸ Disembark'],
+      ['Board SRV from foot','⚠ bind "Embark"','stand by the SRV']
+    ],
+    foot:[
+      ['Move','W A S D'],['Sprint','Left Shift'],['Jump','Space'],['Crouch','Left Ctrl'],
+      ['Primary fire','LMB'],['Aim / zoom (ADS)','RMB'],['Reload','R'],['Melee','(bind / B)'],
+      ['Switch weapon','1 / 2 / 3'],['Holster weapon','(bind)'],
+      ['Tool wheel (Energylink, E-Breach…)','hold (bind)'],['Use tool','LMB / (bind)'],
+      ['Throw grenade','G'],['Flashlight / torch','T'],['Night vision','N'],
+      ['Interact / Use','E'],['Enter ship / SRV (Embark)','E / (bind)'],
+      ['Item wheel / consumables','hold (bind)']
+    ],
+    ui:[
+      ['Target panel (left)','1'],['Comms panel','2'],['Role panel (bottom)','3'],['Systems panel (right)','4'],
+      ['Pips → Systems (SYS)','← Left arrow'],['Pips → Engines (ENG)','↑ Up arrow'],['Pips → Weapons (WEP)','→ Right arrow'],['Reset pips (balance)','↓ Down arrow'],
+      ['Next fire group','N'],['UI select','Space'],['UI back','Backspace / (bind)'],
+      ['Galaxy map','(bind)'],['System map','(bind)'],['Toggle HUD / cockpit mode','(bind)']
+    ]
+  };
+  let mode='ship';
+  const KK=(m,i)=>'ed_kb_'+m+'_'+i;
+  function setKey(i,v){localStorage.setItem(KK(mode,i),v);}
+  function resetMode(){DEF[mode].forEach((_,i)=>localStorage.removeItem(KK(mode,i)));render();}
+  function showMode(m){mode=m;document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.m===m));render();}
+  function render(){
+    const q=($('#kbSearch').value||'').trim().toLowerCase();
+    $('#kbBody').innerHTML=DEF[mode].map((row,i)=>{
+      const [action,def,hint]=row;
+      const val=localStorage.getItem(KK(mode,i)); const v=val==null?def:val;
+      const urgent=/disembark|embark/i.test(action);
+      const show=!q||action.toLowerCase().includes(q)||(hint||'').toLowerCase().includes(q);
+      return `<tr class="${urgent?'urgent':''} ${show?'':'hide'}">
+        <td class="act">${esc(action)}${hint?`<span class="hint">${esc(hint)}</span>`:''}</td>
+        <td><input class="kb" value="${esc(v)}" oninput="setKey(${i},this.value)"></td>
+      </tr>`;
+    }).join('');
+  }
+  render();
+</script>
+</body>
+</html>
