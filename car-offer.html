@@ -32,6 +32,8 @@
   .val{background:#f7f9fb;border:1px solid #e6eaef;border-radius:8px;padding:14px 16px;font-size:.88rem}
   .fill{background:#fff5cc;border-bottom:1px dashed #d9b400;padding:0 3px;border-radius:2px;outline:none}
   .fill:focus{background:#fff}
+  .editnum{border-bottom:2px dashed #b8e0d2;outline:none;cursor:text}
+  .editnum:focus{border-bottom-color:#178a5f}
   .sigs{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:26px}
   @media(max-width:560px){.sigs{grid-template-columns:1fr}}
   .sig .line{border-bottom:1.5px solid #1c2430;height:34px}
@@ -46,6 +48,7 @@
     .toolbar,.hint{display:none}
     .sheet{box-shadow:none;margin:0;max-width:none;border-radius:0}
     .fill{background:none;border-bottom:1px solid #999}
+    .editnum{border-bottom:none}
   }
 </style>
 </head>
@@ -55,7 +58,7 @@
   <button class="btn sec" onclick="location.reload()">↺ Reset</button>
   <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
 </div>
-<div class="hint">Tip: click the <span style="background:#fff5cc;padding:0 3px">highlighted fields</span> to type your details (mileage, color, etc.), then Print / Save as PDF and email it to Danny.</div>
+<div class="hint">Tip: click the <span style="background:#fff5cc;padding:0 3px">highlighted fields</span> to type your details, and click the <span style="border-bottom:2px dashed #b8e0d2">price</span> to change it (the written amount updates automatically). Then Print / Save as PDF and email it to Danny.</div>
 
 <div class="sheet">
   <div class="band"></div>
@@ -105,8 +108,8 @@
     <h2>Offer Terms</h2>
     <div class="price">
       <span class="p-lbl">Cash purchase price</span>
-      <span class="p-amt">$6,200</span>
-      <span class="p-sub">Six thousand two hundred dollars, U.S., paid in cash or bank cashier's check at closing.</span>
+      <span class="p-amt editnum" id="price" contenteditable="true" spellcheck="false">$6,200</span>
+      <span class="p-sub" id="priceWords">Six Thousand Two Hundred dollars, U.S., paid in cash or bank cashier's check at closing.</span>
     </div>
     <table>
       <tr><td class="k">Payment</td><td>Cash or verified cashier's check, in full at closing.</td></tr>
@@ -117,7 +120,7 @@
 
     <h2>Value &amp; Justification</h2>
     <div class="val">
-      Independent guides (KBB &amp; Edmunds, 2026) appraise the 2015 Veloster from roughly <b>$1,900 up to ~$7,300</b> depending on trim, mileage, and condition, with clean private-party examples commonly in the <b>$5,600–$7,000</b> range. Given this vehicle's condition and features noted above, <b>$6,200 cash</b> is a fair, market-supported price for an immediate, hassle-free sale — no auction fees, financing contingencies, or delays.
+      Independent guides (KBB &amp; Edmunds, 2026) appraise the 2015 Veloster from roughly <b>$1,900 up to ~$7,300</b> depending on trim, mileage, and condition, with clean private-party examples commonly in the <b>$5,600–$7,000</b> range. Given this vehicle's condition and features noted above, <b>$<span id="justPrice">6,200</span> cash</b> is a fair, market-supported price for an immediate, hassle-free sale — no auction fees, financing contingencies, or delays.
     </div>
 
     <p style="margin-top:20px">If these terms work for you, please sign below to accept, and we can arrange closing at your convenience. I'm happy to answer any questions or let you inspect the vehicle. Thank you for considering my offer.</p>
@@ -141,6 +144,40 @@
 
   </div>
 </div>
+
+<script>
+  const priceEl=document.getElementById("price");
+  const wordsEl=document.getElementById("priceWords");
+  const justEl=document.getElementById("justPrice");
+
+  function numToWords(num){
+    num=Math.round(num);
+    if(num===0) return "Zero";
+    const a=["","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"];
+    const b=["","","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"];
+    function three(n){
+      let s="";
+      if(n>=100){ s+=a[Math.floor(n/100)]+" Hundred"; n%=100; if(n)s+=" "; }
+      if(n>=20){ s+=b[Math.floor(n/10)]; n%=10; if(n)s+="-"+a[n]; }
+      else if(n>0){ s+=a[n]; }
+      return s;
+    }
+    let s="", th=Math.floor(num/1000), rest=num%1000;
+    if(th){ s+=three(th)+" Thousand"; if(rest)s+=" "; }
+    if(rest){ s+=three(rest); }
+    return s;
+  }
+  function parsePrice(){ return parseInt((priceEl.textContent||"").replace(/[^0-9]/g,""),10)||0; }
+  function sync(){
+    const n=parsePrice();
+    const fmt=n.toLocaleString();
+    justEl.textContent=fmt;
+    wordsEl.textContent=numToWords(n)+" dollars, U.S., paid in cash or bank cashier's check at closing.";
+  }
+  priceEl.addEventListener("input",sync);
+  priceEl.addEventListener("blur",()=>{ priceEl.textContent="$"+parsePrice().toLocaleString(); sync(); });
+  sync();
+</script>
 
 </body>
 </html>
