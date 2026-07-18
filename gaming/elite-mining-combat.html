@@ -141,6 +141,12 @@
   .typepill.explore{background:rgba(126,231,135,.16);color:var(--explore)}
   .typepill.trade{background:rgba(255,212,121,.16);color:var(--trade)}
   .pcard.explore{border-left-color:var(--explore)} .pcard.trade{border-left-color:var(--trade)}
+  .searchbar{position:sticky;top:0;z-index:30;display:flex;gap:8px;align-items:center;background:rgba(13,17,23,.93);backdrop-filter:blur(6px);padding:12px 0;margin-bottom:4px;border-bottom:1px solid var(--line)}
+  .searchbar input{flex:1;background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 12px;font:inherit;font-size:.9rem}
+  .searchbar input:focus{outline:none;border-color:var(--accent)}
+  .scount{font-size:.78rem;color:var(--muted);white-space:nowrap}
+  mark.hl{background:rgba(255,212,121,.32);color:var(--text);border-radius:3px;padding:0 1px}
+  mark.hl.cur{background:var(--gold);color:#1a1400}
   footer{color:var(--muted);font-size:.78rem;margin-top:34px}
   footer a{color:var(--accent)}
   details{margin-top:10px} summary{cursor:pointer;color:var(--accent);font-size:.85rem}
@@ -160,8 +166,29 @@
     </div>
   </header>
 
+  <div id="searchWrap" class="searchbar">
+    <input id="searchBox" placeholder="🔍 Search this guide… (e.g. Painite, RES, suit, limpet)" oninput="doSearch()" onkeydown="if(event.key==='Enter'){event.preventDefault();nextHL(event.shiftKey?-1:1);}">
+    <span id="searchCount" class="scount"></span>
+    <button class="mini" type="button" onclick="nextHL(-1)">▲</button>
+    <button class="mini" type="button" onclick="nextHL(1)">▼</button>
+    <button class="mini" type="button" onclick="document.getElementById('searchBox').value='';doSearch();">✕</button>
+  </div>
+
   <div class="callout tip">
     🎓 <b>New to a play-style? Use in-game Training first.</b> Main Menu → <b>Training</b> has free, risk-free scenarios for Combat, Mining, and more — the fastest way to learn without losing a ship. Then plan the real run below.
+  </div>
+
+  <!-- ============ CURRENT LOCATION ============ -->
+  <h2 class="sec">📍 Where are you right now?</h2>
+  <div class="callout info">Set your <b>current system</b> — the finders then list the <b>closest</b> hotspots, RES sites &amp; missions (they sort by distance from the system you give them), and the planner can anchor new adventures near you. Saved in your browser &amp; shared with your ship pages.</div>
+  <div class="tool">
+    <div class="row" style="align-items:flex-end">
+      <label class="fld" style="flex:1;min-width:200px">Current system
+        <input id="locInput" placeholder="e.g. Pacheco" onkeydown="if(event.key==='Enter'){event.preventDefault();saveLoc();}"></label>
+      <button class="btn" type="button" onclick="saveLoc()">📍 Set location</button>
+      <button class="btn alt" type="button" onclick="copyLoc()">Copy</button>
+    </div>
+    <div id="locLinks" class="run-links" style="margin-top:12px"></div>
   </div>
 
   <!-- ============ CAREER PICKER ============ -->
@@ -722,7 +749,7 @@
         <option value="trade">💰 Trading</option>
       </select></label>
       <label class="fld">Ship<select id="planShip"></select></label>
-      <label class="fld">System<input id="planSystem" placeholder="e.g. Borann, HIP 21991"></label>
+      <label class="fld">System<input id="planSystem" placeholder="e.g. Borann, HIP 21991"><button type="button" class="mini" style="margin-top:6px;align-self:flex-start" onclick="useMyLoc()">📍 use my location</button></label>
       <label class="fld">Location / site<input id="planLoc" placeholder="e.g. Icy ring hotspot / Hazardous RES / Settlement" list="sites"></label>
       <label class="fld">Goal<input id="planGoal" placeholder="e.g. Fill 256t hold; ~200M cr"></label>
       <div class="row full"><button class="btn" id="planBtn" type="submit">Add adventure</button>
@@ -811,6 +838,50 @@
     document.querySelectorAll('.rungroup').forEach(g=>g.classList.toggle('hide',cat!=='all'&&g.dataset.cat!==cat));
     document.querySelectorAll('.rf').forEach(b=>b.classList.toggle('active',b.dataset.cat===cat));
   }
+  /* ---- LOCATION ---- */
+  const K_LOC='ed_location';
+  function saveLoc(){localStorage.setItem(K_LOC,($('#locInput').value||'').trim());renderLoc();}
+  function copyLoc(){const v=(localStorage.getItem(K_LOC)||$('#locInput').value||'').trim();if(v&&navigator.clipboard)navigator.clipboard.writeText(v);}
+  function useMyLoc(){const v=localStorage.getItem(K_LOC)||'';if(v)$('#planSystem').value=v;}
+  function renderLoc(){
+    const v=localStorage.getItem(K_LOC)||'';
+    if($('#locInput'))$('#locInput').value=v;
+    const box=$('#locLinks'); if(!box)return;
+    if(!v){box.innerHTML='<span style="color:var(--muted);font-size:.8rem">Set your system to get near-you finder links &amp; anchor the planner.</span>';}
+    else{const e=encodeURIComponent(v);
+      box.innerHTML=`<a href="https://www.edsm.net/en/system?systemName=${e}" target="_blank" rel="noopener">🗺️ ${esc(v)} on EDSM ↗</a><a href="https://inara.cz/elite/starsystem/?search=${e}" target="_blank" rel="noopener">📊 on Inara ↗</a><a href="https://edtools.cc/hotspot" target="_blank" rel="noopener">⛏️ nearest hotspots ↗</a><a href="https://edtools.cc/res" target="_blank" rel="noopener">🎯 nearest RES ↗</a>`;
+      const ps=$('#planSystem'); if(ps)ps.placeholder='e.g. near '+v;}
+  }
+  /* ---- SEARCH ---- */
+  let hlNodes=[],hlIdx=-1;
+  function clearHL(){document.querySelectorAll('mark.hl').forEach(m=>{const p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize();});hlNodes=[];hlIdx=-1;}
+  function doSearch(){
+    const q=($('#searchBox').value||'').trim(); clearHL();
+    if(q.length<2){$('#searchCount').textContent='';return;}
+    const rx=new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');
+    const skip=new Set(['SCRIPT','STYLE','INPUT','TEXTAREA','SELECT','MARK','OPTION','BUTTON']);
+    const walker=document.createTreeWalker(document.querySelector('.wrap'),NodeFilter.SHOW_TEXT,{acceptNode(n){
+      if(!n.nodeValue.trim())return 2; let p=n.parentNode;
+      while(p){if(p.nodeName&&skip.has(p.nodeName))return 2; if(p.id==='searchWrap')return 2; p=p.parentNode;}
+      rx.lastIndex=0; return rx.test(n.nodeValue)?1:2;}});
+    const targets=[]; let node; while(node=walker.nextNode())targets.push(node);
+    targets.forEach(n=>{const s=n.nodeValue,frag=document.createDocumentFragment();let last=0,m;rx.lastIndex=0;
+      while(m=rx.exec(s)){if(m.index>last)frag.appendChild(document.createTextNode(s.slice(last,m.index)));
+        const mk=document.createElement('mark');mk.className='hl';mk.textContent=m[0];frag.appendChild(mk);hlNodes.push(mk);
+        last=m.index+m[0].length; if(m.index===rx.lastIndex)rx.lastIndex++;}
+      if(last<s.length)frag.appendChild(document.createTextNode(s.slice(last)));
+      n.parentNode.replaceChild(frag,n);});
+    $('#searchCount').textContent=hlNodes.length?`${hlNodes.length} match${hlNodes.length>1?'es':''}`:'no matches';
+    if(hlNodes.length){hlIdx=0;focusHL();}
+  }
+  function focusHL(){
+    hlNodes.forEach((m,i)=>m.classList.toggle('cur',i===hlIdx));
+    const el=hlNodes[hlIdx]; if(!el)return;
+    const pane=el.closest&&el.closest('.pane'); if(pane&&!pane.classList.contains('show'))showPane(pane.id.replace('pane-',''));
+    const grp=el.closest&&el.closest('.rungroup'); if(grp&&grp.classList.contains('hide'))filterRuns('all');
+    el.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  function nextHL(d){if(!hlNodes.length)return;hlIdx=(hlIdx+d+hlNodes.length)%hlNodes.length;focusHL();}
 
   /* FLEET */
   function submitShip(e){
@@ -934,7 +1005,7 @@
     }catch(e){ alert('That doesn\'t look like valid exported JSON.'); }
   }
 
-  renderFleet(); renderPlans();
+  renderFleet(); renderPlans(); renderLoc();
 </script>
 </body>
 </html>

@@ -46,6 +46,13 @@
   .mini{font-size:.74rem;background:var(--panel-2);border:1px solid var(--line);color:var(--danger);border-radius:7px;padding:4px 9px;cursor:pointer}
   .empty{color:var(--muted);font-size:.86rem;text-align:center;padding:14px}
   footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
+  .searchbar{position:sticky;top:0;z-index:30;display:flex;gap:8px;align-items:center;background:rgba(13,17,23,.93);backdrop-filter:blur(6px);padding:12px 0;margin-bottom:4px;border-bottom:1px solid var(--line)}
+  .searchbar input{flex:1;background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 12px;font:inherit;font-size:.9rem}
+  .searchbar input:focus{outline:none;border-color:var(--accent)}
+  .searchbar button{font-size:.8rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);border-radius:7px;padding:6px 10px;cursor:pointer}
+  .scount{font-size:.78rem;color:var(--muted);white-space:nowrap}
+  mark.hl{background:rgba(255,212,121,.32);color:var(--text);border-radius:3px;padding:0 1px}
+  mark.hl.cur{background:var(--gold);color:#1a1400}
 </style>
 </head>
 <body>
@@ -61,6 +68,14 @@
       <a class="gn" href="./elite-anaconda.html">🛥️ Anaconda</a>
     </div>
   </header>
+
+  <div id="searchWrap" class="searchbar">
+    <input id="searchBox" placeholder="🔍 Search this page…" oninput="doSearch()" onkeydown="if(event.key==='Enter'){event.preventDefault();nextHL(event.shiftKey?-1:1);}">
+    <span id="searchCount" class="scount"></span>
+    <button type="button" onclick="nextHL(-1)">▲</button>
+    <button type="button" onclick="nextHL(1)">▼</button>
+    <button type="button" onclick="document.getElementById('searchBox').value='';doSearch();">✕</button>
+  </div>
 
   <div class="callout info">🛥️ <b>Why the Python?</b> It fits large optional modules yet lands on <b>medium pads</b>, so one ship handles bounty hunting, a solid mining fit, or ~280t of cargo. Pick a job below.</div>
 
@@ -135,6 +150,31 @@
     else $('#logList').innerHTML='<table class="logtable"><thead><tr><th>Activity</th><th style="text-align:right">Credits</th><th></th></tr></thead><tbody>'+log.map(r=>`<tr><td>${esc(r.act)}</td><td class="n">${fmt(r.cr)} cr</td><td style="text-align:right"><button class="mini" onclick="delLog('${r.id}')">✕</button></td></tr>`).join('')+'</tbody></table>';
     $('#totCr').textContent=fmt(log.reduce((a,r)=>a+r.cr,0))+' cr';
   }
+  /* ---- SEARCH ---- */
+  let hlNodes=[],hlIdx=-1;
+  function clearHL(){document.querySelectorAll('mark.hl').forEach(m=>{const p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize();});hlNodes=[];hlIdx=-1;}
+  function doSearch(){
+    const q=($('#searchBox').value||'').trim(); clearHL();
+    if(q.length<2){$('#searchCount').textContent='';return;}
+    const rx=new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');
+    const skip=new Set(['SCRIPT','STYLE','INPUT','TEXTAREA','SELECT','MARK','OPTION','BUTTON']);
+    const walker=document.createTreeWalker(document.querySelector('.wrap'),NodeFilter.SHOW_TEXT,{acceptNode(n){
+      if(!n.nodeValue.trim())return 2; let p=n.parentNode;
+      while(p){if(p.nodeName&&skip.has(p.nodeName))return 2; if(p.id==='searchWrap')return 2; p=p.parentNode;}
+      rx.lastIndex=0; return rx.test(n.nodeValue)?1:2;}});
+    const targets=[]; let node; while(node=walker.nextNode())targets.push(node);
+    targets.forEach(n=>{const s=n.nodeValue,frag=document.createDocumentFragment();let last=0,m;rx.lastIndex=0;
+      while(m=rx.exec(s)){if(m.index>last)frag.appendChild(document.createTextNode(s.slice(last,m.index)));
+        const mk=document.createElement('mark');mk.className='hl';mk.textContent=m[0];frag.appendChild(mk);hlNodes.push(mk);
+        last=m.index+m[0].length; if(m.index===rx.lastIndex)rx.lastIndex++;}
+      if(last<s.length)frag.appendChild(document.createTextNode(s.slice(last)));
+      n.parentNode.replaceChild(frag,n);});
+    $('#searchCount').textContent=hlNodes.length?`${hlNodes.length} match${hlNodes.length>1?'es':''}`:'no matches';
+    if(hlNodes.length){hlIdx=0;focusHL();}
+  }
+  function focusHL(){hlNodes.forEach((m,i)=>m.classList.toggle('cur',i===hlIdx));const el=hlNodes[hlIdx];if(el)el.scrollIntoView({behavior:'smooth',block:'center'});}
+  function nextHL(d){if(!hlNodes.length)return;hlIdx=(hlIdx+d+hlNodes.length)%hlNodes.length;focusHL();}
+
   renderFit(); renderLog();
 </script>
 </body>
