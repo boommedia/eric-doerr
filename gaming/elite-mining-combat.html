@@ -147,6 +147,8 @@
   .scount{font-size:.78rem;color:var(--muted);white-space:nowrap}
   mark.hl{background:rgba(255,212,121,.32);color:var(--text);border-radius:3px;padding:0 1px}
   mark.hl.cur{background:var(--gold);color:#1a1400}
+  .locgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(max-width:640px){.locgrid{grid-template-columns:1fr}}
   footer{color:var(--muted);font-size:.78rem;margin-top:34px}
   footer a{color:var(--accent)}
   details{margin-top:10px} summary{cursor:pointer;color:var(--accent);font-size:.85rem}
@@ -182,14 +184,19 @@
   <h2 class="sec">📍 Where are you right now?</h2>
   <div class="callout info">Set your <b>current system</b> — the finders then list the <b>closest</b> hotspots, RES sites &amp; missions (they sort by distance from the system you give them), and the planner can anchor new adventures near you. Saved in your browser &amp; shared with your ship pages.</div>
   <div class="tool">
-    <div class="row" style="align-items:flex-end">
-      <label class="fld" style="flex:1;min-width:200px">Current system
-        <input id="locInput" placeholder="e.g. Pacheco" onkeydown="if(event.key==='Enter'){event.preventDefault();saveLoc();}"></label>
+    <div class="locgrid">
+      <label class="fld">🛰️ Station / Hub<input id="locHub" placeholder="e.g. Pacheco Hub"></label>
+      <label class="fld">⭐ Star system<input id="locInput" placeholder="e.g. Pacheco" onkeydown="if(event.key==='Enter'){event.preventDefault();saveLoc();}"></label>
+      <label class="fld">🌌 Region<input id="locRegion" placeholder="e.g. Inner Orion Spur" list="regions"></label>
+    </div>
+    <div class="row" style="margin-top:10px">
       <button class="btn" type="button" onclick="saveLoc()">📍 Set location</button>
-      <button class="btn alt" type="button" onclick="copyLoc()">Copy</button>
+      <button class="btn alt" type="button" onclick="copyLoc()">Copy system</button>
+      <span id="locNow" class="scount"></span>
     </div>
     <div id="locLinks" class="run-links" style="margin-top:12px"></div>
   </div>
+  <datalist id="regions"><option>Inner Orion Spur</option><option>Outer Orion Spur</option><option>Sagittarius-Carina Arm</option><option>Galactic Centre</option><option>Empyrean Straits</option><option>Ryker's Hope</option><option>Odin's Hold</option><option>Newton's Vault</option><option>The Conduit</option><option>Hawking's Gap</option><option>Colonia</option></datalist>
 
   <!-- ============ CAREER PICKER ============ -->
   <h2 class="sec">🧭 Pick your play-style</h2>
@@ -423,6 +430,36 @@
   <div class="callout tip">🤖 <b>Best solo setup:</b> 2–3 Collector Limpet Controllers for a scoop-swarm + 1 Prospector Controller, and — if pirates bother you — a small <b>Fighter Hangar with a hired gunner</b>. That turns a solo miner into a little fleet.</div>
   <div class="callout warn">⚠️ NPC crew take a <b>share of the credits you earn</b> while active, and you keep them only if they survive — but a good pilot pays for itself by keeping pirates off you.</div>
 
+  <!-- ============ VOICEATTACK ============ -->
+  <h2 class="sec">🎙️ Go hands-free with VoiceAttack</h2>
+  <div class="callout info"><a href="https://voiceattack.com/" target="_blank" rel="noopener">VoiceAttack</a> lets you control Elite <b>with your voice</b> — it listens for a spoken phrase and presses the key you'd normally press. Pair it with a voice pack (e.g. HCS) for a talking AI co-pilot. Perfect for keeping both hands on the T16000M while you fire off pip presets, deploy limpets or request docking.</div>
+  <div class="lbl">Set it up</div>
+  <ol class="steps">
+    <li><b>Install VoiceAttack</b> (~$10) from <a href="https://voiceattack.com/" target="_blank" rel="noopener">voiceattack.com</a> and set up your Windows microphone.</li>
+    <li><b>(Optional) add a voice pack</b> — an HCS pack gives a co-pilot personality plus hundreds of ready-made Elite commands.</li>
+    <li><b>Import a profile</b> — voice packs &amp; community profiles ship a <code>.vap</code> Elite command set; import it in VoiceAttack.</li>
+    <li><b>Match the keybinds</b> — VoiceAttack just presses keys, so every command's target key must be <b>bound in Elite</b> (and on your HOTAS).</li>
+    <li><b>Pick push-to-talk or always-listening</b>, then test a command and watch it fire.</li>
+  </ol>
+  <div class="lbl">Handy commands (with a pack)</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Say…</th><th>Does</th></tr></thead>
+    <tbody>
+      <tr><td class="k">"Landing gear" / "Hardpoints"</td><td>Toggle gear / deploy weapons</td></tr>
+      <tr><td class="k">"Power to engines / weapons / systems"</td><td>Pip presets mid-fight</td></tr>
+      <tr><td class="k">"Request docking"</td><td>Calls the docking computer</td></tr>
+      <tr><td class="k">"Discovery scan" / "Honk"</td><td>Fires the Discovery Scanner</td></tr>
+      <tr><td class="k">"Analysis mode" / "Night vision"</td><td>Toggle modes — great for mining</td></tr>
+      <tr><td class="k">"Target nearest hostile" / "Heat sink"</td><td>Combat helpers</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip">💡 <b>Tip:</b> because VoiceAttack only simulates keypresses, keep a copy of your Elite keybinds handy so every phrase maps to a real bind. <a href="https://voiceattack.com/Default.aspx#support-1" target="_blank" rel="noopener">VoiceAttack support &amp; docs ↗</a> cover mic setup &amp; profile importing.</div>
+  <div class="links">
+    <a href="https://voiceattack.com/" target="_blank" rel="noopener">🎙️ VoiceAttack ↗</a>
+    <a href="https://voiceattack.com/Default.aspx#support-1" target="_blank" rel="noopener">📘 Support &amp; how-to ↗</a>
+    <a href="https://www.hcsvoicepacks.com/" target="_blank" rel="noopener">🗣️ HCS Voice Packs ↗</a>
+  </div>
+
   <!-- ============ RESOURCES HUB ============ -->
   <h2 class="sec">🌐 Resources &amp; tools — all in one place</h2>
   <div class="callout tip">💡 <b>Must-haves to improve the experience:</b> run <b>EDMarketConnector</b> (feeds live prices to Inara/EDSM), plan builds in <b>Coriolis/EDSY</b>, route with <b>Spansh</b>, and add <b>VoiceAttack + a voice pack</b> for hands-free commands. Elite's own <b>Training</b> scenarios teach each career risk-free.</div>
@@ -439,7 +476,8 @@
       <div class="rd">Prices, hotspots &amp; route planners.</div>
       <a href="https://inara.cz/" target="_blank" rel="noopener"><span>Inara — prices &amp; hotspots</span><span class="go">open ↗</span></a>
       <a href="https://spansh.co.uk/" target="_blank" rel="noopener"><span>Spansh — routers &amp; mining</span><span class="go">open ↗</span></a>
-      <a href="https://edtools.cc/" target="_blank" rel="noopener"><span>EDTools — hotspot &amp; RES finder</span><span class="go">open ↗</span></a>
+      <a href="https://edtools.cc/miner" target="_blank" rel="noopener"><span>EDTools — hotspot &amp; RES finder</span><span class="go">open ↗</span></a>
+      <a href="https://edmining.com/" target="_blank" rel="noopener"><span>EDMining — mining guides &amp; hotspots</span><span class="go">open ↗</span></a>
       <a href="https://www.edsm.net/" target="_blank" rel="noopener"><span>EDSM — star map</span><span class="go">open ↗</span></a>
     </div>
     <div class="rescard">
@@ -448,6 +486,7 @@
       <a href="https://github.com/EDCD/EDMarketConnector" target="_blank" rel="noopener"><span>EDMarketConnector (EDMC)</span><span class="go">open ↗</span></a>
       <a href="https://github.com/EDDiscovery/EDDiscovery" target="_blank" rel="noopener"><span>EDDiscovery</span><span class="go">open ↗</span></a>
       <a href="https://github.com/jixxed/ed-odyssey-materials-helper" target="_blank" rel="noopener"><span>Odyssey Materials Helper</span><span class="go">open ↗</span></a>
+      <a href="https://cmdrs-toolbox.com/" target="_blank" rel="noopener"><span>CMDRs Toolbox</span><span class="go">open ↗</span></a>
       <a href="https://observatory.xjph.net/" target="_blank" rel="noopener"><span>Elite Observatory</span><span class="go">open ↗</span></a>
     </div>
     <div class="rescard">
@@ -554,7 +593,7 @@
         <li>Crack cores, blast &amp; scoop chunks, refine until full.</li>
         <li>Sell to the highest-demand market within ~50 ly.</li>
       </ol>
-      <div class="run-links"><a href="https://edtools.cc/hotspot" target="_blank" rel="noopener">🔗 Plot live: hotspot finder ↗</a> <a href="https://inara.cz/elite/commodities/" target="_blank" rel="noopener">best sell price ↗</a></div>
+      <div class="run-links"><a href="https://edtools.cc/miner" target="_blank" rel="noopener">🔗 Plot live: hotspot finder ↗</a> <a href="https://inara.cz/elite/commodities/" target="_blank" rel="noopener">best sell price ↗</a></div>
       <button class="mini" onclick="addRun('mining','💎 The Opal Rush','Borann (or EDTools hotspot)','Icy ring — Void Opal / LTD hotspot','Fill the hold with Void Opals & LTDs, sell in one loop')">➕ Add to planner</button>
     </div>
     <div class="runcard mining">
@@ -567,7 +606,7 @@
         <li>Let collector limpets &amp; the refinery do the work.</li>
         <li>Repeat until full, then sell.</li>
       </ol>
-      <div class="run-links"><a href="https://edtools.cc/hotspot" target="_blank" rel="noopener">🔗 Plot live: LTD hotspots ↗</a></div>
+      <div class="run-links"><a href="https://edtools.cc/miner" target="_blank" rel="noopener">🔗 Plot live: LTD hotspots ↗</a></div>
       <button class="mini" onclick="addRun('mining','🧊 Diamond Cruise','EDTools LTD hotspot','Icy ring — laser mining LTDs','Relaxed laser-mining loop; fill hold with LTDs')">➕ Add to planner</button>
     </div>
     <div class="runcard mining">
@@ -579,7 +618,7 @@
         <li>Prospect for high-% rocks; laser or crack cores.</li>
         <li>Fill up and sell where Painite demand spikes.</li>
       </ol>
-      <div class="run-links"><a href="https://edtools.cc/hotspot" target="_blank" rel="noopener">🔗 Plot live: Painite hotspots ↗</a></div>
+      <div class="run-links"><a href="https://edtools.cc/miner" target="_blank" rel="noopener">🔗 Plot live: Painite hotspots ↗</a></div>
       <button class="mini" onclick="addRun('mining','⚙️ Painite Payday','EDTools Painite hotspot','Metallic ring — Painite','Bulk-mine Painite and sell to a high-demand market')">➕ Add to planner</button>
     </div>
   </div>
@@ -840,17 +879,21 @@
   }
   /* ---- LOCATION ---- */
   const K_LOC='ed_location';
-  function saveLoc(){localStorage.setItem(K_LOC,($('#locInput').value||'').trim());renderLoc();}
-  function copyLoc(){const v=(localStorage.getItem(K_LOC)||$('#locInput').value||'').trim();if(v&&navigator.clipboard)navigator.clipboard.writeText(v);}
-  function useMyLoc(){const v=localStorage.getItem(K_LOC)||'';if(v)$('#planSystem').value=v;}
+  function loadLoc(){try{const r=JSON.parse(localStorage.getItem(K_LOC));if(r&&typeof r==='object')return r;}catch(e){}const s=localStorage.getItem(K_LOC);return s?{system:s}:{};}
+  function saveLoc(){localStorage.setItem(K_LOC,JSON.stringify({hub:($('#locHub')?$('#locHub').value:'').trim(),system:($('#locInput').value||'').trim(),region:($('#locRegion')?$('#locRegion').value:'').trim()}));renderLoc();}
+  function copyLoc(){const o=loadLoc();const v=(o.system||$('#locInput').value||'').trim();if(v&&navigator.clipboard)navigator.clipboard.writeText(v);}
+  function useMyLoc(){const o=loadLoc();if(o.system)$('#planSystem').value=o.system;}
   function renderLoc(){
-    const v=localStorage.getItem(K_LOC)||'';
-    if($('#locInput'))$('#locInput').value=v;
+    const o=loadLoc();
+    if($('#locHub'))$('#locHub').value=o.hub||'';
+    if($('#locInput'))$('#locInput').value=o.system||'';
+    if($('#locRegion'))$('#locRegion').value=o.region||'';
+    const now=$('#locNow'); if(now)now.textContent=o.system?('📍 '+[o.hub,o.system,o.region].filter(Boolean).join(' · ')):'';
     const box=$('#locLinks'); if(!box)return;
-    if(!v){box.innerHTML='<span style="color:var(--muted);font-size:.8rem">Set your system to get near-you finder links &amp; anchor the planner.</span>';}
-    else{const e=encodeURIComponent(v);
-      box.innerHTML=`<a href="https://www.edsm.net/en/system?systemName=${e}" target="_blank" rel="noopener">🗺️ ${esc(v)} on EDSM ↗</a><a href="https://inara.cz/elite/starsystem/?search=${e}" target="_blank" rel="noopener">📊 on Inara ↗</a><a href="https://edtools.cc/hotspot" target="_blank" rel="noopener">⛏️ nearest hotspots ↗</a><a href="https://edtools.cc/res" target="_blank" rel="noopener">🎯 nearest RES ↗</a>`;
-      const ps=$('#planSystem'); if(ps)ps.placeholder='e.g. near '+v;}
+    if(!o.system){box.innerHTML='<span style="color:var(--muted);font-size:.8rem">Set your system to get near-you finder links &amp; anchor the planner.</span>';}
+    else{const e=encodeURIComponent(o.system);
+      box.innerHTML=`<a href="https://www.edsm.net/en/system?systemName=${e}" target="_blank" rel="noopener">🗺️ ${esc(o.system)} on EDSM ↗</a><a href="https://inara.cz/elite/starsystem/?search=${e}" target="_blank" rel="noopener">📊 on Inara ↗</a><a href="https://edtools.cc/miner" target="_blank" rel="noopener">⛏️ nearest hotspots ↗</a><a href="https://edtools.cc/res" target="_blank" rel="noopener">🎯 nearest RES ↗</a>`;
+      const ps=$('#planSystem'); if(ps)ps.placeholder='e.g. near '+o.system;}
   }
   /* ---- SEARCH ---- */
   let hlNodes=[],hlIdx=-1;

@@ -60,6 +60,8 @@
   .scount{font-size:.78rem;color:var(--muted);white-space:nowrap}
   mark.hl{background:rgba(255,212,121,.32);color:var(--text);border-radius:3px;padding:0 1px}
   mark.hl.cur{background:var(--gold);color:#1a1400}
+  .locgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(max-width:640px){.locgrid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -95,22 +97,27 @@
   <!-- WHERE TO GO -->
   <h2 class="sec">🗺️ Where to go &amp; make money</h2>
   <div class="tool">
-    <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap">
-      <label style="flex:1;min-width:180px;display:flex;flex-direction:column;gap:4px;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700">📍 Your current system
-        <input id="locInput" placeholder="e.g. Pacheco" onkeydown="if(event.key==='Enter'){event.preventDefault();saveLoc();}"></label>
-      <button class="btn" type="button" onclick="saveLoc()">Set</button>
+    <div class="locgrid">
+      <label class="fld">🛰️ Station / Hub<input id="locHub" placeholder="e.g. Pacheco Hub"></label>
+      <label class="fld">⭐ Star system<input id="locInput" placeholder="e.g. Pacheco" onkeydown="if(event.key==='Enter'){event.preventDefault();saveLoc();}"></label>
+      <label class="fld">🌌 Region<input id="locRegion" placeholder="e.g. Inner Orion Spur" list="regions"></label>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px">
+      <button class="btn" type="button" onclick="saveLoc()">📍 Set</button>
+      <span id="locNow" class="scount"></span>
     </div>
     <div id="locLinks" class="links" style="margin-top:12px"></div>
   </div>
+  <datalist id="regions"><option>Inner Orion Spur</option><option>Outer Orion Spur</option><option>Sagittarius-Carina Arm</option><option>Galactic Centre</option><option>Empyrean Straits</option><option>Ryker's Hope</option><option>Odin's Hold</option><option>Newton's Vault</option><option>The Conduit</option><option>Hawking's Gap</option><option>Colonia</option></datalist>
   <ol class="steps">
-    <li><b>Find the nearest hotspot.</b> Open the <a href="https://edtools.cc/hotspot" target="_blank" rel="noopener">EDTools hotspot finder</a>, enter your current system (e.g. <b>Pacheco</b>), and sort for <b>Void Opals</b> or <b>Low Temp. Diamonds</b> in <b>icy</b> rings (best money), or <b>Painite</b> in metallic rings.</li>
+    <li><b>Find the nearest hotspot.</b> Open the <a href="https://edtools.cc/miner" target="_blank" rel="noopener">EDTools hotspot finder</a>, enter your current system (e.g. <b>Pacheco</b>), and sort for <b>Void Opals</b> or <b>Low Temp. Diamonds</b> in <b>icy</b> rings (best money), or <b>Painite</b> in metallic rings.</li>
     <li><b>Map the ring.</b> Jump in, honk, fire a <b>DSS</b> probe at the ring, and fly to where the <b>hotspots overlap</b> (richer spawns).</li>
     <li><b>Mine.</b> Pulse Wave Analyser on → prospect glowing rocks → crack cores (Seismic + Abrasion) or laser deposits → collector limpets scoop → refinery fills the hold.</li>
     <li><b>Sell high.</b> Check the <a href="https://inara.cz/elite/commodities/" target="_blank" rel="noopener">best sell price on Inara</a> (or <a href="https://edtools.cc/" target="_blank" rel="noopener">EDTools</a>) for your material within ~50 ly and haul it there.</li>
   </ol>
   <div class="callout info">💎 <b>Classic anchor:</b> <b>Borann A 2</b> has long been a famous Void Opal / LTD icy-ring mining spot — a solid destination if nothing closer shows up. Always confirm current prices &amp; hotspots on the tools above (they shift).</div>
   <div class="links">
-    <a href="https://edtools.cc/hotspot" target="_blank" rel="noopener">🔗 Hotspot finder ↗</a>
+    <a href="https://edtools.cc/miner" target="_blank" rel="noopener">🔗 Hotspot finder ↗</a>
     <a href="https://inara.cz/elite/commodities/" target="_blank" rel="noopener">💰 Best sell prices ↗</a>
     <a href="https://coriolis.io/" target="_blank" rel="noopener">🔧 Build in Coriolis ↗</a>
   </div>
@@ -261,13 +268,18 @@
 
   /* ---- LOCATION ---- */
   const K_LOC='ed_location';
-  function saveLoc(){localStorage.setItem(K_LOC,($('#locInput').value||'').trim());renderLoc();}
+  function loadLoc(){try{const r=JSON.parse(localStorage.getItem(K_LOC));if(r&&typeof r==='object')return r;}catch(e){}const s=localStorage.getItem(K_LOC);return s?{system:s}:{};}
+  function saveLoc(){localStorage.setItem(K_LOC,JSON.stringify({hub:($('#locHub')?$('#locHub').value:'').trim(),system:($('#locInput').value||'').trim(),region:($('#locRegion')?$('#locRegion').value:'').trim()}));renderLoc();}
   function renderLoc(){
-    const v=localStorage.getItem(K_LOC)||''; if($('#locInput'))$('#locInput').value=v;
+    const o=loadLoc();
+    if($('#locHub'))$('#locHub').value=o.hub||'';
+    if($('#locInput'))$('#locInput').value=o.system||'';
+    if($('#locRegion'))$('#locRegion').value=o.region||'';
+    const now=$('#locNow'); if(now)now.textContent=o.system?('📍 '+[o.hub,o.system,o.region].filter(Boolean).join(' · ')):'';
     const box=$('#locLinks'); if(!box)return;
-    if(!v){box.innerHTML='<span style="color:var(--muted);font-size:.8rem">Set your system for near-you finder links.</span>';return;}
-    const e=encodeURIComponent(v);
-    box.innerHTML=`<a href="https://www.edsm.net/en/system?systemName=${e}" target="_blank" rel="noopener">🗺️ ${esc(v)} on EDSM ↗</a> <a href="https://inara.cz/elite/starsystem/?search=${e}" target="_blank" rel="noopener">📊 on Inara ↗</a> <a href="https://edtools.cc/hotspot" target="_blank" rel="noopener">⛏️ nearest hotspots ↗</a>`;
+    if(!o.system){box.innerHTML='<span style="color:var(--muted);font-size:.8rem">Set your system for near-you finder links.</span>';return;}
+    const e=encodeURIComponent(o.system);
+    box.innerHTML=`<a href="https://www.edsm.net/en/system?systemName=${e}" target="_blank" rel="noopener">🗺️ ${esc(o.system)} on EDSM ↗</a> <a href="https://inara.cz/elite/starsystem/?search=${e}" target="_blank" rel="noopener">📊 on Inara ↗</a> <a href="https://edtools.cc/miner" target="_blank" rel="noopener">⛏️ nearest hotspots ↗</a> <a href="https://edmining.com/" target="_blank" rel="noopener">🪨 EDMining ↗</a>`;
   }
   /* ---- SEARCH ---- */
   let hlNodes=[],hlIdx=-1;
