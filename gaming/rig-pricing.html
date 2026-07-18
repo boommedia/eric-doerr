@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💰 Ideal Sim Rig — Research &amp; Pricing</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--space:#4cc2ff;--race:#ff8c42;--good:#3fb950;--gold:#ffd479;--shadow:0 8px 30px rgba(0,0,0,.4)}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 75% -10%,rgba(76,194,255,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.75rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--accent);color:#06121c;border-color:var(--accent)}
+
+  .totalbar{position:sticky;top:0;z-index:30;background:rgba(15,20,25,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px 0;margin-top:14px}
+  .totalbar .row{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .grand{font-size:1.9rem;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .grand small{display:block;font-size:.72rem;color:var(--muted);font-weight:500;letter-spacing:0}
+  .subtotals{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--muted)}
+  .subtotals b{color:var(--text);font-variant-numeric:tabular-nums}
+  .presets{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+  .pbtn{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:7px 13px;font-size:.82rem;cursor:pointer}
+  .pbtn:hover{border-color:var(--accent);color:var(--accent)}
+
+  .intro{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:18px 0;font-size:.9rem}
+  .intro b{color:var(--text)}
+
+  .builder{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+  .cat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .cat .head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .cat h3{margin:0;font-size:1rem;flex:1}
+  .tag{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;border-radius:5px;padding:2px 7px}
+  .tag.space{background:rgba(76,194,255,.15);color:var(--space)}
+  .tag.race{background:rgba(255,140,66,.15);color:var(--race)}
+  .tag.both{background:rgba(126,231,135,.15);color:var(--accent-2)}
+  .cat .price{font-weight:700;font-variant-numeric:tabular-nums;min-width:64px;text-align:right}
+  .cat select{width:100%;margin-top:10px;background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 11px;font-size:.9rem}
+  .cat select:focus{outline:none;border-color:var(--accent)}
+  .cat .note{color:var(--muted);font-size:.8rem;margin-top:8px}
+  .cat .note a{color:var(--accent)}
+
+  h2.sec{font-size:1.1rem;border-left:4px solid var(--accent-2);padding-left:12px;margin:30px 0 12px}
+  .callout{border-radius:12px;padding:13px 16px;font-size:.85rem;margin:14px 0}
+  .callout.tip{background:rgba(255,212,121,.06);border:1px solid rgba(255,212,121,.28)}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout b{color:var(--text)}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:480px}
+  th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:var(--panel-2);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+  td.part{font-weight:600;white-space:nowrap}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .btn{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:8px 14px;font-size:.83rem;cursor:pointer}
+  .btn:hover{border-color:var(--accent);color:var(--accent)}
+  footer{color:var(--muted);font-size:.78rem;margin-top:26px}
+  footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./index.html">← Gaming</a>
+    <h1>💰 Ideal Sim Rig — Research &amp; Pricing</h1>
+    <div class="sub">Build a <b>convertible flight + racing</b> cockpit (like the one you shared) with 3 screens or one big one. Pick each part → see the live total.</div>
+    <div class="guidenav">
+      <a class="gn" href="./index.html">🎮 All Gaming</a>
+      <a class="gn" href="./controls.html">🎯 Controls</a>
+      <a class="gn" href="./triple-screen.html">🖥️ Triple-Screen</a>
+      <a class="gn" href="./rig-build.html">🪑 DIY Rig</a>
+      <a class="gn active" href="./rig-pricing.html">💰 Pricing</a>
+    </div>
+  </header>
+</div>
+
+<div class="totalbar">
+  <div class="wrap row">
+    <div class="grand"><span id="grand">$0</span><small>Estimated build total</small></div>
+    <div class="subtotals">
+      <span>Flight side <b id="subSpace">$0</b></span>
+      <span>Racing side <b id="subRace">$0</b></span>
+      <span>Screens <b id="subScreen">$0</b></span>
+    </div>
+    <div class="presets">
+      <button class="pbtn" onclick="preset('budget')">📉 Budget</button>
+      <button class="pbtn" onclick="preset('balanced')">⚖️ Balanced</button>
+      <button class="pbtn" onclick="preset('premium')">📈 Premium</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="intro">
+    🎯 The rig you shared is a <b>convertible cockpit</b>: one frame + seat that flips between a <span style="color:var(--space)">flight</span> layout (HOTAS + throttle + pedals) and a <span style="color:var(--race)">racing</span> layout (wheel + shifter + pedals). You already own the <b>T16000M sticks &amp; throttle</b> ($0 below), so the spend is the frame, a wheel/pedals for racing, and screens. Toggle parts to fit your budget.
+  </div>
+
+  <div class="builder" id="builder"></div>
+
+  <div class="toolbar">
+    <button class="btn" onclick="window.print()">🖨️ Print / PDF</button>
+    <button class="btn" onclick="resetAll()">↺ Reset</button>
+  </div>
+
+  <h2 class="sec">🔄 Swapping space ↔ racing on the rig</h2>
+  <p style="font-size:.9rem">A convertible rig keeps your <b>seat, pedals &amp; screens</b> in place — you only change the front controls. Mount both sets on <b>quick-release / thumb-screw plates</b> and it's a <b>1–2 minute</b> swap, no tools.</p>
+  <div class="callout info">
+    <b>🚀 Flight mode (Elite / Star Citizen):</b> HOTAS side-mounts swung in — right stick + left stick (or TWCS throttle) at armrest height; wheel deck removed or folded down. Optional rudder pedals; many just leave racing pedals on. Load your <b>T16000M control profile</b> in-game.
+  </div>
+  <div class="callout info" style="border-color:rgba(255,140,66,.3);background:rgba(255,140,66,.07)">
+    <b>🏎️ Racing mode (iRacing / Forza / etc.):</b> wheel clamps onto the front deck, shifter on the side rail, racing pedals under foot. Swing the HOTAS arms out of the way. Load your <b>wheel profile</b> in the racing game.
+  </div>
+  <b style="font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">The swap, step by step</b>
+  <ol style="font-size:.9rem;line-height:1.6;padding-left:20px;margin-top:8px">
+    <li><b>Loosen the front deck</b> (thumb-screws or quick-release pins) and lift the wheel off — or fold/swing the HOTAS side-mounts out.</li>
+    <li><b>Attach the other set</b> to the same rails: wheel on the front plate for racing, or sticks/throttle on the side plates for flight.</li>
+    <li><b>Pedals:</b> simplest is to leave racing pedals on for both; for authentic flight, swap to rudder pedals (optional).</li>
+    <li><b>Cables:</b> keep everything on a <b>powered USB hub</b> mounted to the frame so nothing gets unplugged during the swap.</li>
+    <li><b>In software:</b> launch the right game and load the matching profile — T16000M for space, wheel for racing.</li>
+  </ol>
+  <div class="callout tip">
+    ⏱️ <b>Make it fast:</b> the difference between a 10-minute wrestle and a 1-minute swap is <b>quick-release mounts</b> on both the wheel and the HOTAS. Budget for those (or the MonsterTech-style plates) if you'll switch often. If you swap daily, a rig with a <b>hinged/folding wheel deck</b> is ideal.
+  </div>
+
+  <h2 class="sec">🪜 Start cheap, add over time</h2>
+  <p style="font-size:.9rem">You don't buy it all at once — each phase is fully playable on its own. Start with what you own, upgrade when you want.</p>
+  <div class="callout info">
+    <b>Phase 1 — Play today · $0–$215.</b> Your current PC + your 3 monitors + the <b>T16000M you already own</b>. Desk-clamp or board-mount the sticks, or grab the <a href="./rig-build.html">Marada chair-mount ($215)</a> for instant armrest mounting. → You're flying Elite / Star Citizen tonight. <i>Running total: ~$0–$215</i>
+  </div>
+  <div class="callout info">
+    <b>Phase 2 — Real cockpit · +$300–$550.</b> Add a convertible frame + bucket seat so it feels like a ship; move the monitors onto a stand. <i>Running total: ~$450–$900</i>
+  </div>
+  <div class="callout info">
+    <b>Phase 3 — Add racing · +$400–$700.</b> Wheel + pedals (+ optional shifter) turns it into a convertible flight/racing rig. <i>Running total: ~$1,000–$1,600</i>
+  </div>
+  <div class="callout info">
+    <b>Phase 4 — Dream screens · +$400–$660.</b> Three <b>matching</b> monitors for seamless NVIDIA Surround wraparound; your current mixed screens move to secondary/streaming duty. <i>Running total: ~$1,400–$2,200</i>
+  </div>
+
+  <h2 class="sec">🖥️ Use the 3 monitors you already have — $0 (Phase 1)</h2>
+  <p style="font-size:.9rem">Your screens are different sizes, so you can't do a seamless <b>Surround</b> "one image" wrap (that needs identical panels) — but a <b>mixed multi-monitor cockpit</b> is great and costs nothing. Run them as <b>extended displays</b>: game on the big/fast one, info on the others.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Your monitor</th><th>Best job</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td class="part">42" Fire TV</td><td><b>Main immersion screen</b></td><td>Big cockpit view for Elite / Star Citizen. ~60Hz is perfect for space sims.</td></tr>
+      <tr><td class="part">32" AOC 240Hz</td><td><b>Speed / racing screen</b></td><td>Buttery 240Hz — make it the driving screen for racing, or the main for SC dogfights.</td></tr>
+      <tr><td class="part">24" HP (rotates)</td><td><b>Vertical info panel</b></td><td>Stand it vertical for Elite role panels, target/route info, EDMC/EDDiscovery, maps, Discord, or SC mobiGlas reference.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip">
+    ⭐ <b>Set it up now:</b> in Windows Display settings, set all three <b>Extended</b>, drag them to match their physical layout, and rotate the HP to <b>Portrait</b>. In-game, run Elite/SC on the <b>42"</b> (immersion) or <b>32" 240Hz</b> (smoothness), and keep tools/panels on the vertical 24". Zero dollars, and you're flying today. Chase the matching-triple wraparound later in Phase 4.
+  </div>
+
+  <h2 class="sec">📓 Quick research notes</h2>
+  <div class="callout info">
+    <b>Convertible cockpit</b> (the shared rig): brands like <b>Next Level Racing (GTtrack / Flight Sim)</b>, <b>Trak Racer</b>, and <b>SimFab</b> make frames that hold both a wheel deck and HOTAS side-mounts. Budget clones on Amazon run ~$300–550; premium aluminum rigs $700–1,500+.<br><br>
+    <b>Wheel + pedals</b> tiers: entry <b>Thrustmaster T248</b> (~$300) → mid <b>Logitech G923</b> (~$400, great value) → enthusiast <b>Fanatec CSL DD</b> (~$700+, direct-drive, what's pictured). All need a wheel deck the convertible frame provides.<br><br>
+    <b>Screens:</b> three matching 27" panels wrap around you (best immersion in Elite) via NVIDIA Surround; one 34–49" ultrawide or a 4K TV is simpler. See the <a href="./triple-screen.html">triple-screen guide</a>. 3× the pixels = you'll want a solid GPU.
+  </div>
+  <div class="callout tip">
+    ⭐ <b>Sweet spot for you:</b> convertible cockpit (~$550) + bucket seat + your owned T16000M ($0) + Logitech G923 (~$400) + three 27" 1080p + triple stand ≈ a do-everything rig around <b>$1,500</b> (before PC/screens if you already own monitors). Start flight-only (skip the wheel) and it drops to well under <b>$1,000</b>.
+  </div>
+
+  <footer>
+    <b>Sources / shop:</b>
+    <a href="https://www.nextlevelracing.com/">Next Level Racing</a> ·
+    <a href="https://trakracer.com/collections/flight-simulators">Trak Racer</a> ·
+    <a href="https://simfab.com/flight-sim/">SimFab</a> ·
+    <a href="https://fanatec.com/">Fanatec</a>
+    <br>Prices are 2026 ballpark estimates and exclude the PC/GPU — confirm current pricing before buying. Your saved build stays on this device.
+  </footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const money=n=>"$"+Math.round(n).toLocaleString();
+const KEY="rig_build_v1";
+
+// category: {key,name,tag,group(space|race|screen|both),note,options:[{label,price}]}
+const CATS=[
+ {key:"cockpit",name:"Cockpit / Frame",tag:"both",group:"both",note:"The convertible frame that holds both flight & racing gear.",
+  options:[
+    {label:"Reuse a desk (no frame)",price:0},
+    {label:"Anman folding flight cockpit",price:119},
+    {label:"Marada chair-mounted HOTAS",price:215},
+    {label:"Convertible flight + racing cockpit (Next Level-style)",price:550},
+    {label:"Marada aluminum cockpit + monitor stand",price:595},
+    {label:"Premium modular (Trak Racer / SimFab)",price:1000},
+  ]},
+ {key:"seat",name:"Seat",tag:"both",group:"both",note:"Some cockpits include one.",
+  options:[
+    {label:"Included with cockpit / office chair",price:0},
+    {label:"Racing bucket seat + sliders",price:130},
+    {label:"Premium sim seat",price:260},
+  ]},
+ {key:"flight",name:"Flight controls",tag:"space",group:"space",note:"You already own the T16000M — keep it at $0, or upgrade.",
+  options:[
+    {label:"T16000M HOTAS / Space Sim Duo — you own it",price:0},
+    {label:"Buy a 2nd T16000M (dual-stick)",price:70},
+    {label:"Add TWCS throttle",price:60},
+    {label:"Upgrade: Thrustmaster Warthog HOTAS",price:520},
+  ]},
+ {key:"stickmount",name:"HOTAS side-mounts",tag:"space",group:"space",note:"Bolt the sticks to the frame.",
+  options:[
+    {label:"DIY board / aluminum angle",price:25},
+    {label:"MonsterTech-style plates (pair)",price:110},
+    {label:"Included with cockpit",price:0},
+  ]},
+ {key:"wheel",name:"Racing wheel + pedals",tag:"race",group:"race",note:"Skip for a flight-only rig.",
+  options:[
+    {label:"None (flight only)",price:0},
+    {label:"Thrustmaster T248 (entry)",price:300},
+    {label:"Logitech G923 (best value)",price:400},
+    {label:"Fanatec CSL DD Ready2Race (direct-drive)",price:700},
+  ]},
+ {key:"shifter",name:"Shifter (racing)",tag:"race",group:"race",note:"Optional.",
+  options:[
+    {label:"None",price:0},
+    {label:"Logitech shifter",price:60},
+    {label:"Fanatec shifter",price:150},
+  ]},
+ {key:"screens",name:"Displays",tag:"both",group:"screen",note:"Three screens = most immersion; one big = simplest.",
+  options:[
+    {label:"Use monitors I own",price:0},
+    {label:"One 43\" 4K TV",price:320},
+    {label:"One 34\" ultrawide",price:420},
+    {label:"Three 27\" 1080p",price:400},
+    {label:"Three 27\" 1440p",price:660},
+    {label:"One 49\" super-ultrawide",price:800},
+  ]},
+ {key:"stand",name:"Monitor stand",tag:"both",group:"screen",note:"Holds the screens on/near the rig.",
+  options:[
+    {label:"Included with cockpit / desk",price:0},
+    {label:"Single monitor arm",price:60},
+    {label:"Freestanding triple stand",price:130},
+  ]},
+ {key:"extras",name:"Cables, USB hub, mat",tag:"both",group:"both",note:"The little stuff.",
+  options:[
+    {label:"Minimal",price:30},
+    {label:"Cables + powered USB hub + floor mat",price:70},
+  ]},
+];
+
+const PRESETS={
+  budget:   {cockpit:1,seat:0,flight:0,stickmount:0,wheel:0,shifter:0,screens:1,stand:1,extras:0},
+  balanced: {cockpit:3,seat:1,flight:0,stickmount:0,wheel:2,shifter:1,screens:3,stand:2,extras:1},
+  premium:  {cockpit:5,seat:2,flight:2,stickmount:1,wheel:3,shifter:2,screens:4,stand:2,extras:1},
+};
+
+let sel = load() || defaults();
+function defaults(){ // "the ideal" default = convertible + owned controls + G923 + triples
+  return {cockpit:3,seat:1,flight:0,stickmount:0,wheel:2,shifter:1,screens:3,stand:2,extras:1};
+}
+function load(){try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}}
+function save(){localStorage.setItem(KEY,JSON.stringify(sel))}
+
+function render(){
+  $("builder").innerHTML=CATS.map(c=>{
+    const i=sel[c.key]??0, opt=c.options[i];
+    const opts=c.options.map((o,idx)=>`<option value="${idx}" ${idx===i?"selected":""}>${o.label} — ${o.price===0?"$0":money(o.price)}</option>`).join("");
+    return `<div class="cat">
+      <div class="head">
+        <h3>${c.name}</h3>
+        <span class="tag ${c.tag}">${c.tag}</span>
+        <span class="price" id="p_${c.key}">${money(opt.price)}</span>
+      </div>
+      <select data-key="${c.key}">${opts}</select>
+      <div class="note">${c.note}</div>
+    </div>`;
+  }).join("");
+  document.querySelectorAll("select[data-key]").forEach(s=>s.addEventListener("change",e=>{
+    sel[e.target.dataset.key]=+e.target.value; save(); recalc();
+  }));
+  recalc();
+}
+function recalc(){
+  let grand=0, g={space:0,race:0,screen:0,both:0};
+  CATS.forEach(c=>{
+    const price=c.options[sel[c.key]??0].price;
+    grand+=price; g[c.group]+=price;
+    const el=$("p_"+c.key); if(el)el.textContent=money(price);
+  });
+  $("grand").textContent=money(grand);
+  $("subSpace").textContent=money(g.space);
+  $("subRace").textContent=money(g.race);
+  $("subScreen").textContent=money(g.screen);
+}
+function preset(name){ sel={...PRESETS[name]}; save(); render(); }
+function resetAll(){ sel=defaults(); save(); render(); }
+render();
+</script>
+</body>
+</html>
