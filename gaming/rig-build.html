@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🪑 DIY Space + Racing Sim Rig</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--gold:#ffd479;--space:#4cc2ff;--race:#ff8c42;--shadow:0 8px 30px rgba(0,0,0,.4)}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 75% -10%,rgba(76,194,255,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.75rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--accent);color:#06121c;border-color:var(--accent)}
+  h2.sec{font-size:1.15rem;border-left:4px solid var(--accent);padding-left:12px;margin:30px 0 12px}
+  p{font-size:.92rem}
+
+  .tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:8px 0}
+  .tier{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column}
+  .tier.pick{border-color:var(--accent-2)}
+  .tier .lvl{font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+  .tier h3{margin:3px 0 2px;font-size:1.02rem}
+  .tier .cost{font-size:1.25rem;font-weight:800;color:var(--accent-2);font-variant-numeric:tabular-nums}
+  .tier p{font-size:.82rem;color:var(--muted);margin:8px 0 0;flex:1}
+  .tier .badge{font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:rgba(126,231,135,.15);color:var(--accent-2);border-radius:6px;padding:2px 8px;align-self:flex-start;margin-top:10px}
+
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:640px}
+  th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:var(--panel-2);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  td.part{font-weight:600;white-space:nowrap}
+  .chip{display:inline-block;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;border-radius:5px;padding:1px 7px;margin-left:4px}
+  .chip.space{background:rgba(76,194,255,.15);color:var(--space)}
+  .chip.race{background:rgba(255,140,66,.15);color:var(--race)}
+  .chip.both{background:rgba(126,231,135,.15);color:var(--accent-2)}
+
+  ol.steps{padding-left:20px;font-size:.9rem;line-height:1.6}
+  ol.steps li{margin:6px 0}
+  ol.steps b{color:var(--text)}
+  code{background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:.85em;color:var(--accent-2)}
+  .callout{border-radius:12px;padding:13px 16px;font-size:.85rem;margin:14px 0}
+  .callout.tip{background:rgba(255,212,121,.06);border:1px solid rgba(255,212,121,.28)}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout.warn{background:rgba(255,140,66,.07);border:1px solid rgba(255,140,66,.3)}
+  .callout b{color:var(--text)}
+  .callout a{color:var(--accent)}
+  .sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:8px}
+  .sc{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+  .sc .k{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .sc .v{font-size:1.3rem;font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums}
+  footer{color:var(--muted);font-size:.78rem;margin-top:28px}
+  footer a{color:var(--accent)}
+  ul.feat{margin:6px 0 0;padding-left:18px;font-size:.87rem;color:var(--muted)}
+  ul.feat b{color:var(--text)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="../index.html">← Projects</a>
+    <h1>🪑 DIY Space + Racing Sim Rig</h1>
+    <div class="sub">Build one cockpit that does both — <span style="color:var(--space)">HOTAS space sim</span> and <span style="color:var(--race)">racing</span> — for a fraction of a pre-built rig.</div>
+    <div class="guidenav">
+      <a class="gn" href="./index.html">🎯 Controls &amp; Bindings</a>
+      <a class="gn" href="./triple-screen.html">🖥️ Triple-Screen Setup</a>
+      <a class="gn active" href="./rig-build.html">🪑 DIY Sim Rig</a>
+    </div>
+  </header>
+
+  <div class="callout info">
+    🎯 <b>Goal:</b> the look &amp; sturdiness of an aluminum-profile rig like the <b>Marada ($595)</b> — seat + integrated monitor stand — but cheaper, and set up to mount your <b>T.16000M sticks/throttle</b> for space <i>and</i> a wheel + pedals for racing. Premium rigs (<b>TrakRacer, SimFab, Next Level</b>) are the inspiration; we borrow their ideas, not their price.
+  </div>
+
+  <h2 class="sec">Pick your path</h2>
+  <div class="tiers">
+    <div class="tier">
+      <div class="lvl">Tier 1 · Cheapest</div>
+      <h3>Budget cockpit + mods</h3>
+      <div class="cost">$150–380</div>
+      <p>Grab a folding flight cockpit (<b>Anman 3.0 ~$119</b>) or racing cockpit (<b>Dardoo ~$250</b>), add a DIY monitor stand and stick mounts.</p>
+      <span class="badge">Fast &amp; simple</span>
+    </div>
+    <div class="tier pick">
+      <div class="lvl">Tier 2 · Best value</div>
+      <h3>DIY aluminum profile</h3>
+      <div class="cost">$300–500</div>
+      <p>Build a <b>2040 aluminum-extrusion</b> frame yourself — same rigid "Marada look," fully custom stick/wheel/monitor mounts, cheaper than buying one.</p>
+      <span class="badge">Recommended</span>
+    </div>
+    <div class="tier">
+      <div class="lvl">Tier 3 · Buy it made</div>
+      <h3>Marada-style cockpit</h3>
+      <div class="cost">$450–650</div>
+      <p>Aluminum cockpit with seat + monitor stand out of the box (e.g. <b>Marada $595</b>). Just bolt on your gear.</p>
+      <span class="badge">No fabrication</span>
+    </div>
+    <div class="tier">
+      <div class="lvl">Tier 4 · Endgame</div>
+      <h3>Premium modular</h3>
+      <div class="cost">$700–2,500+</div>
+      <p><b>TrakRacer / SimFab / Sim-Lab</b> — beautiful, infinitely modular. Overkill, but great for borrowing design ideas.</p>
+      <span class="badge">Aspirational</span>
+    </div>
+  </div>
+
+  <h2 class="sec">🛒 Parts list (Amazon)</h2>
+  <p style="color:var(--muted);font-size:.85rem;margin-top:0">Tags: <span class="chip space">space</span> for HOTAS, <span class="chip race">racing</span> for wheel, <span class="chip both">both</span> shared. Prices are ballparks — shop sales &amp; used.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Part</th><th>Budget pick</th><th class="num">~Price</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td class="part">Frame <span class="chip both">both</span></td><td>2040 aluminum extrusion + corner brackets (DIY) — or Anman/Dardoo cockpit</td><td class="num">$120–250</td><td>Extrusion = the "Marada look" for less &amp; fully custom</td></tr>
+      <tr><td class="part">Seat <span class="chip both">both</span></td><td>Universal racing bucket seat + sliders — or reuse an office chair ($0)</td><td class="num">$0–160</td><td>Sliders let you share it between flight &amp; racing posture</td></tr>
+      <tr><td class="part">Monitor stand <span class="chip both">both</span></td><td>Extrusion uprights + VESA arms — or a freestanding triple stand</td><td class="num">$100–150</td><td>Ties into the <a href="./triple-screen.html">triple-screen setup</a></td></tr>
+      <tr><td class="part">Stick side-mounts <span class="chip space">space</span></td><td>MonsterTech-style plates ($90–120/pr) — or DIY aluminum angle + board</td><td class="num">$20–120</td><td>T.16000M base has 4 screw holes; mount at seat-arm height, one per side for dual-stick</td></tr>
+      <tr><td class="part">Throttle mount <span class="chip space">space</span></td><td>Same board/plate as the sticks (TWCS bolts down)</td><td class="num">incl.</td><td>Left side for HOTAS mode</td></tr>
+      <tr><td class="part">Wheel + pedals <span class="chip race">racing</span></td><td>Logitech G920/G923 — or budget Thrustmaster T248/TMX</td><td class="num">$200–400</td><td>You'll need these for racing; the T.16000M is joystick-only</td></tr>
+      <tr><td class="part">Wheel/pedal deck <span class="chip race">racing</span></td><td>Included on racing cockpits — or an extrusion cross-member</td><td class="num">$0–40</td><td>Front-mounted; swap out for a keyboard tray in space mode</td></tr>
+      <tr><td class="part">Cables &amp; management <span class="chip both">both</span></td><td>DP/HDMI cables, velcro ties, USB hub</td><td class="num">$30–50</td><td>A powered USB hub keeps all the sticks on one port</td></tr>
+      <tr><td class="part">Casters / feet <span class="chip both">both</span></td><td>Locking caster set (optional)</td><td class="num">$15–30</td><td>Roll it out of the way</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="sum">
+    <div class="sc"><div class="k">Space-only DIY</div><div class="v">~$300–500</div></div>
+    <div class="sc"><div class="k">Space + racing combo</div><div class="v">~$800–1,200</div></div>
+    <div class="sc"><div class="k">vs. Marada + wheel</div><div class="v">~$945</div></div>
+    <div class="sc"><div class="k">(excludes monitors)</div><div class="v" style="font-size:.9rem;color:var(--muted)">see triple-screen</div></div>
+  </div>
+
+  <h2 class="sec">🔧 Mounting the T.16000M</h2>
+  <ol class="steps">
+    <li><b>Use the base screw holes.</b> Each T.16000M base has mounting holes underneath — bolt it to a plate or board instead of relying on the rubber feet.</li>
+    <li><b>Dual-stick = both sides.</b> Put a side plate at seat-arm height on the left and right; set the left stick to its <b>left-hand ambidextrous config</b> (see <a href="./index.html">Controls guide</a>).</li>
+    <li><b>Cheapest mount:</b> a strip of <b>aluminum angle</b> or a plywood board clamped to the frame, sticks screwed on. <b>Cleanest:</b> MonsterTech-style adjustable plates.</li>
+    <li><b>Make it swappable.</b> Mount the sticks and the wheel on <b>quick-release</b> plates (or thumb-screws) so you can switch from space to racing in a minute.</li>
+  </ol>
+
+  <h2 class="sec">💡 Ideas worth stealing from the pro rigs</h2>
+  <ul class="feat">
+    <li><b>Adjustable side-mount arms</b> (SimFab/MonsterTech) — angle the sticks to your wrists</li>
+    <li><b>Integrated monitor upright</b> so screens move with the rig — no separate desk</li>
+    <li><b>Overhead / sub-mount monitor bracket</b> (SimFab) — a screen <i>above</i> for overhead panels &amp; situational awareness, or <i>below</i> for MFD/system displays. Easy to copy with an extra extrusion arm + VESA mount.</li>
+    <li><b>Fully modular "flight pit" rails</b> (SimFab DCS Edition) — every mount slides on the extrusion T-slot, so sticks, throttle &amp; screens reposition without drilling</li>
+    <li><b>Seat sliders</b> to change distance for flight vs racing posture</li>
+    <li><b>Keyboard/mouse tray</b> that swaps in where the wheel deck goes</li>
+    <li><b>Cable channels</b> along the extrusion to hide the wiring</li>
+  </ul>
+
+  <div class="callout tip">
+    ⭐ <b>My pick for you:</b> a <b>2040 aluminum-extrusion frame (Tier 2, ~$350–450)</b> gets you the Marada's rigid look, holds both sticks + a wheel, and includes a monitor upright — cheaper than buying the Marada and infinitely tweakable. If you'd rather not cut/assemble extrusion, the <b>Dardoo racing cockpit (~$250) + a $130 triple monitor stand + DIY stick plates</b> is the fastest combo.
+  </div>
+
+  <div class="callout warn">
+    ⚠️ <b>Reality check:</b> the T.16000M is a <b>joystick</b> — perfect for Elite/Star Citizen, but you <b>can't race with it</b>. A true "space + racing" rig means adding a <b>wheel + pedals</b> and swapping peripherals. Budget for that if racing matters to you.
+  </div>
+
+  <footer>
+    <b>Inspiration / sources:</b>
+    <a href="https://simfab.com/flight-sim/">SimFab flight sim rigs</a> ·
+    <a href="https://simfab.com/product/dcs-edition-modular-flight-pit/">SimFab modular flight pit</a> ·
+    <a href="https://simfab.com/product/simfab-overhead-or-submount-monitor-mount-bracket-kit/">SimFab overhead/sub monitor mount</a> ·
+    <a href="https://trakracer.com/collections/flight-simulators">TrakRacer flight simulators</a> ·
+    <a href="https://8020.net/">80/20 aluminum extrusion</a> ·
+    <a href="https://www.monstertech.de/en/">MonsterTech mounts</a>
+    <br>Prices are ballpark estimates (2026) and vary by retailer/sales — confirm current Amazon pricing before buying. Measure your space first.
+  </footer>
+</div>
+</body>
+</html>

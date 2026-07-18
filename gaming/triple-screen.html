@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🖥️ Triple-Screen Setup — Elite Dangerous</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--gold:#ffd479;--shadow:0 8px 30px rgba(0,0,0,.4)}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 75% -10%,rgba(76,194,255,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.75rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--accent);color:#06121c;border-color:var(--accent)}
+  h2.sec{font-size:1.15rem;border-left:4px solid var(--accent);padding-left:12px;margin:28px 0 12px}
+  .verdict{background:linear-gradient(135deg,rgba(63,185,80,.12),rgba(76,194,255,.06));border:1px solid rgba(63,185,80,.35);border-radius:14px;padding:16px 20px;margin:18px 0}
+  .verdict h3{margin:0 0 4px;font-size:1.1rem}
+  .cards2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:680px){.cards2{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .card h3{margin:0 0 6px;font-size:1.05rem}
+  .card .price{color:var(--accent-2);font-weight:700;font-size:.85rem}
+  .card ul{margin:8px 0 0;padding-left:18px;font-size:.86rem;color:var(--muted)}
+  .card ul b{color:var(--text)}
+  ol.steps{padding-left:20px;font-size:.9rem;line-height:1.6}
+  ol.steps li{margin:6px 0}
+  ol.steps b{color:var(--text)}
+  code{background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:.85em;color:var(--accent-2)}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:520px}
+  th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:var(--panel-2);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .callout{border-radius:12px;padding:13px 16px;font-size:.85rem;margin:14px 0}
+  .callout.tip{background:rgba(255,212,121,.06);border:1px solid rgba(255,212,121,.28)}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout.warn{background:rgba(255,140,66,.07);border:1px solid rgba(255,140,66,.3)}
+  .callout b{color:var(--text)}
+  footer{color:var(--muted);font-size:.78rem;margin-top:28px}
+  footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="../index.html">← Projects</a>
+    <h1>🖥️ Triple-Screen Setup</h1>
+    <div class="sub">Making three monitors act as one big screen for Elite Dangerous &amp; Star Citizen.</div>
+    <div class="guidenav">
+      <a class="gn" href="./index.html">🎯 Controls &amp; Bindings</a>
+      <a class="gn active" href="./triple-screen.html">🖥️ Triple-Screen Setup</a>
+      <a class="gn" href="./rig-build.html">🪑 DIY Sim Rig</a>
+    </div>
+  </header>
+
+  <div class="verdict">
+    <h3>✅ Yes — and Elite Dangerous is one of the best games for it.</h3>
+    Elite natively supports triple monitors and ultrawide, rendering a true wraparound cockpit view — the side screens become your side windows. Star Citizen works too (with a stretched HUD). The trick is telling Windows to treat your three screens as <b>one giant display</b>.
+  </div>
+
+  <h2 class="sec">Two ways to get "one big screen"</h2>
+  <div class="cards2">
+    <div class="card">
+      <h3>A · Three monitors → Surround</h3>
+      <div class="price">Best immersion</div>
+      <ul>
+        <li>Combine 3 monitors into <b>one wide resolution</b> (e.g. 5760×1080) with <b>NVIDIA Surround</b> or <b>AMD Eyefinity</b></li>
+        <li>The game sees a single ultra-wide screen and wraps the cockpit around you</li>
+        <li>Best with <b>3 identical monitors</b> (same size/res/refresh)</li>
+        <li>Needs a GPU with <b>3+ outputs</b> (most modern cards)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>B · One big display</h3>
+      <div class="price">Simplest</div>
+      <ul>
+        <li>A single <b>ultrawide</b> (34"/49" 21:9 or 32:9) or a big <b>4K TV</b></li>
+        <li>No Surround setup, no bezels, way less hassle</li>
+        <li>Less peripheral vision than triples, but plug-and-play</li>
+        <li>Great if you don't already own three matching panels</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="sec">Setting up triple (Surround / Eyefinity)</h2>
+  <ol class="steps">
+    <li><b>Plug all three into the same GPU</b> (not the motherboard). Use DisplayPort where possible; mixing HDMI/DP is fine if resolutions match.</li>
+    <li><b>NVIDIA:</b> Control Panel → <code>Configure Surround, PhysX</code> → tick <b>Span displays with Surround</b> → arrange the three in order → Apply. <b>AMD:</b> Adrenalin → <code>Eyefinity</code> → Quick Setup.</li>
+    <li><b>Set bezel correction</b> so objects line up across the gaps between monitors (looks like thin black slivers behind the frames — correct, not wrong).</li>
+    <li><b>In-game:</b> pick the new wide resolution (e.g. 5760×1080) at fullscreen.</li>
+    <li><b>Elite Dangerous:</b> raise the <b>FOV</b> so the side monitors show correct peripheral view (Graphics → Field of View). Community <code>GraphicsConfiguration</code> tweaks exist for precise per-monitor geometry.</li>
+    <li><b>Star Citizen:</b> it'll run at the wide res; the HUD/menus stretch toward the outer screens. Totally playable — many pilots keep SC on a single ultrawide and save triples for Elite.</li>
+  </ol>
+
+  <div class="callout warn">
+    ⚙️ <b>Performance reality:</b> triple 1080p ≈ <b>5760×1080</b> (~3× the pixels of one screen) and triple 1440p is heavier still. Elite runs it well on a mid-range GPU; Star Citizen is demanding, so expect to drop settings. If your GPU is modest, <b>Option B (one big display)</b> is the smoother path.
+  </div>
+
+  <h2 class="sec">🛒 Parts (Amazon)</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Part</th><th>Example</th><th class="num">~Price</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><b>3× monitors</b></td><td>Matching 24–27" 1080p (or 1440p) 75Hz+ IPS</td><td class="num">$100–180 ea</td><td>Identical models = clean Surround; thin bezels help</td></tr>
+      <tr><td><b>Triple monitor stand</b></td><td>VIVO / Mount-It / HUANUO freestanding triple mount</td><td class="num">$100–150</td><td>Curves them around you; or use your rig's monitor stand</td></tr>
+      <tr><td><b>Cables</b></td><td>3× DisplayPort 1.4 (or HDMI 2.0)</td><td class="num">$8–15 ea</td><td>Match your GPU's outputs</td></tr>
+      <tr><td>Single-screen alt</td><td>34"/49" ultrawide <i>or</i> 43–55" 4K TV</td><td class="num">$300–700</td><td>Replaces all of the above — simplest route</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip">💡 <b>Money-saver:</b> three good <b>used</b> 1080p monitors (Facebook Marketplace) + a $130 triple stand can beat the price of one new ultrawide — and give more wraparound for Elite. They just need to be the same model for a seamless image.</div>
+
+  <div class="callout info">🪑 Mounting these on your cockpit? See the <a href="./rig-build.html">DIY Sim Rig guide</a> — the aluminum-profile builds there include a monitor stand upright so the screens move with the rig.</div>
+
+  <footer>
+    <b>Sources:</b>
+    <a href="https://www.nvidia.com/en-us/geforce/technologies/surround/">NVIDIA Surround</a> ·
+    <a href="https://www.amd.com/en/products/software/adrenalin/eyefinity.html">AMD Eyefinity</a> ·
+    <a href="https://forums.frontier.co.uk/">Frontier forums (Elite triple/FOV)</a>
+    <br>Elite Dangerous has first-class triple-screen support; Star Citizen supports wide resolutions with a stretched HUD. Verify your GPU's output count before buying monitors.
+  </footer>
+</div>
+</body>
+</html>
