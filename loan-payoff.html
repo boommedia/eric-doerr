@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🚗 Veloster Loan Payoff &amp; Sell Calculator</title>
+<style>
+  :root{
+    --bg:#0f1419; --panel:#1a2029; --panel-2:#212936; --line:#2c3644;
+    --text:#e6edf3; --muted:#8b98a9; --accent:#4cc2ff; --good:#3fb950; --gold:#ffd479;
+    --pink:#ff5c8a; --teal:#2fbf9f; --shadow:0 8px 30px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1000px 500px at 75% -10%,rgba(76,194,255,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);
+    color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+  header{padding:36px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.75rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  .vchips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .chip{background:var(--panel-2);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:.78rem;color:var(--muted)}
+  .chip b{color:var(--text)}
+
+  .layout{display:grid;grid-template-columns:300px 1fr;gap:20px;margin-top:22px}
+  @media(max-width:760px){.layout{grid-template-columns:1fr}}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}
+  .panel h3{margin:0 0 14px;font-size:1rem}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:.78rem;color:var(--muted);margin-bottom:5px}
+  .inp{width:100%;background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 11px;font-size:.95rem;font-variant-numeric:tabular-nums}
+  .inp:focus{outline:none;border-color:var(--accent)}
+  .with-prefix{position:relative}
+  .with-prefix .pfx{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.9rem}
+  .with-prefix .inp{padding-left:24px}
+  input[type=range]{width:100%;accent-color:var(--accent);margin-top:6px}
+  .rangeval{font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+
+  .results{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:520px){.results{grid-template-columns:1fr}}
+  .rcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;position:relative;overflow:hidden}
+  .rcard.hl{border-color:var(--accent)}
+  .rcard.pay{border-color:var(--good)}
+  .rcard.sell{border-color:var(--gold)}
+  .rcard .t{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .rcard .big{font-size:1.7rem;font-weight:700;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+  .rcard .lines{margin-top:8px;font-size:.83rem}
+  .rcard .lines div{display:flex;justify-content:space-between;padding:2px 0;color:var(--muted)}
+  .rcard .lines b{color:var(--text);font-variant-numeric:tabular-nums}
+  .save{color:var(--good);font-weight:700}
+  .pos{color:var(--good)} .neg{color:var(--pink)}
+
+  /* donut */
+  .progwrap{display:flex;align-items:center;gap:16px;margin-top:14px}
+  .donut{--p:37;width:96px;height:96px;border-radius:50%;flex:none;
+    background:conic-gradient(var(--teal) 0 calc(var(--p)*1%),var(--pink) 0);
+    display:flex;align-items:center;justify-content:center;position:relative}
+  .donut::before{content:"";position:absolute;width:66px;height:66px;border-radius:50%;background:var(--panel)}
+  .donut span{position:relative;font-size:.8rem;text-align:center;line-height:1.1}
+  .donut span b{display:block;font-size:1.2rem}
+  .leg{font-size:.82rem}
+  .leg div{display:flex;align-items:center;gap:7px;padding:2px 0}
+  .dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+  h3.sec{font-size:1.05rem;border-left:4px solid var(--accent);padding-left:12px;margin:30px 0 12px}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+  table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:560px}
+  th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}
+  th:first-child,td:first-child{text-align:left}
+  th{background:var(--panel-2);color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.04em}
+  tbody tr:hover{background:var(--panel-2)}
+  tr.current{background:rgba(76,194,255,.08)}
+
+  .callout{border-radius:12px;padding:13px 16px;font-size:.85rem;margin-top:16px}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout.warn{background:rgba(255,212,121,.06);border:1px solid rgba(255,212,121,.28)}
+  .callout b{color:var(--text)}
+  footer{color:var(--muted);font-size:.78rem;margin-top:26px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./index.html">← Projects</a>
+    <h1>🚗 Veloster Loan Payoff &amp; Sell Calculator</h1>
+    <div class="sub">2015 Hyundai Veloster · pre-filled from your account. Adjust anything to see payoff timing, savings, and resale equity.</div>
+    <div class="vchips">
+      <span class="chip">Original balance <b>$7,750.83</b></span>
+      <span class="chip">Term <b>48 mo</b></span>
+      <span class="chip">Contract <b>Jun 2024</b></span>
+      <span class="chip">Paid off <b>37%</b></span>
+      <span class="chip">Payments remaining <b>26</b></span>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- INPUTS -->
+    <div class="panel">
+      <h3>Your numbers</h3>
+      <div class="field"><label>Payoff balance today</label>
+        <div class="with-prefix"><span class="pfx">$</span><input class="inp" id="bal" type="number" step="0.01" value="4903.20"></div></div>
+      <div class="field"><label>APR (%)</label>
+        <input class="inp" id="apr" type="number" step="0.01" value="12.99"></div>
+      <div class="field"><label>Monthly payment</label>
+        <div class="with-prefix"><span class="pfx">$</span><input class="inp" id="pay" type="number" step="0.01" value="207.93"></div></div>
+      <div class="field"><label>Extra payment / month: <span class="rangeval" id="extraLbl">$0</span></label>
+        <input id="extra" type="range" min="0" max="500" step="5" value="0"></div>
+      <div class="field"><label>Next payment date</label>
+        <input class="inp" id="start" type="date" value="2026-09-05"></div>
+      <div class="field"><label>Car market value (resale) — <span style="color:var(--gold)">estimate, check KBB/Carvana</span></label>
+        <div class="with-prefix"><span class="pfx">$</span><input class="inp" id="mkt" type="number" step="100" value="7000"></div></div>
+    </div>
+
+    <!-- RESULTS -->
+    <div>
+      <div class="results">
+        <div class="rcard hl">
+          <div class="t">Pay on schedule</div>
+          <div class="big" id="baseDate">—</div>
+          <div class="lines">
+            <div>Payments left <b id="baseN">—</b></div>
+            <div>Interest remaining <b id="baseInt">—</b></div>
+            <div>Total remaining <b id="baseTot">—</b></div>
+          </div>
+        </div>
+        <div class="rcard hl" id="extraCard">
+          <div class="t">With your extra payment</div>
+          <div class="big" id="exDate">—</div>
+          <div class="lines">
+            <div>Payments left <b id="exN">—</b></div>
+            <div>Interest remaining <b id="exInt">—</b></div>
+            <div>You save <b class="save" id="exSave">—</b></div>
+          </div>
+        </div>
+        <div class="rcard pay">
+          <div class="t">💵 Pay off in full today</div>
+          <div class="big" id="lumpAmt">—</div>
+          <div class="lines">
+            <div>Interest you'd skip <b class="save" id="lumpSave">—</b></div>
+            <div>Frees up per month <b>$207.93</b></div>
+            <div>Debt-free <b>immediately</b></div>
+          </div>
+        </div>
+        <div class="rcard sell">
+          <div class="t">🏷️ Sell it now</div>
+          <div class="big" id="equity">—</div>
+          <div class="lines">
+            <div>Market value <b id="mktOut">—</b></div>
+            <div>Minus payoff <b id="payoffOut">—</b></div>
+            <div id="equityNote">—</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="progwrap">
+        <div class="donut" id="donut"><span id="donutTxt">Paid off<b>37%</b></span></div>
+        <div class="leg">
+          <div><span class="dot" style="background:var(--teal)"></span> Paid off: <b id="legPaid">$2,847.63</b></div>
+          <div><span class="dot" style="background:var(--pink)"></span> Left to pay: <b id="legLeft">$4,903.20</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sec">📊 Extra-payment scenarios</h3>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Extra / mo</th><th>Payments left</th><th>Payoff date</th><th>Interest paid</th><th>Interest saved</th><th>Months sooner</th></tr></thead>
+      <tbody id="scen"></tbody>
+    </table>
+  </div>
+
+  <div class="callout info">
+    💡 <b>The honest take:</b> you're 37% paid with only about <b>$500 of interest left</b> on the whole loan, so paying faster saves very little in interest. The real reasons to pay it off or sell are <b>cash flow</b> (reclaim $207.93/mo) and being <b>debt-free</b> — not interest savings. A <b>biweekly</b> plan (half-payment every 2 weeks = one extra full payment/year) shaves a couple months painlessly.
+  </div>
+  <div class="callout warn">
+    🏷️ <b>On "selling for profit":</b> a car depreciates, so there's no true profit — you'll pay roughly <b>$10,600 total</b> for a car worth ~$7,000. Selling only makes sense if you (a) want the monthly payment gone, (b) don't need the car, or (c) can get more than your payoff and want that cash. Positive equity shown above is money you'd walk away with after clearing the loan, <i>not</i> a gain over what you paid.
+  </div>
+
+  <footer>
+    Figures from your loan account (payoff $4,903.20 · 12.99% APR · $207.93/mo · 26 payments remaining, next due Sep 5 2026).
+    Calculator uses standard amortization; small differences vs. your statement come from accrued interest, fees &amp; rounding — confirm the exact payoff with your lender before sending a final payment. Resale value is a placeholder — check KBB, Carvana &amp; Edmunds for your trim/mileage.
+  </footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const money=n=>(n<0?"-$":"$")+Math.abs(n).toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:0});
+const money2=n=>"$"+n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function simulate(balance, apr, payment, extra){
+  const r=apr/100/12, pmt=payment+extra;
+  let b=balance, months=0, interest=0;
+  if(pmt<=b*r) return {months:Infinity, interest:Infinity};
+  while(b>0 && months<1200){
+    const i=b*r;
+    if(b+i<=pmt){ interest+=i; months++; b=0; break; }
+    b=b+i-pmt; interest+=i; months++;
+  }
+  return {months, interest};
+}
+function addMonths(dateStr, n){
+  const d=new Date(dateStr+"T00:00:00");
+  const total=d.getMonth()+ (n-1); // Nth payment lands (n-1) months after the first
+  const y=d.getFullYear()+Math.floor(total/12);
+  const m=((total%12)+12)%12;
+  return MONTHS[m]+" "+y;
+}
+function yrsMos(n){ if(!isFinite(n))return "—"; const y=Math.floor(n/12),m=n%12; return (y?y+"y ":"")+m+"mo"; }
+
+function recalc(){
+  const bal=+$("bal").value||0, apr=+$("apr").value||0, pay=+$("pay").value||0, extra=+$("extra").value||0, start=$("start").value, mkt=+$("mkt").value||0;
+  $("extraLbl").textContent="$"+extra;
+
+  const base=simulate(bal,apr,pay,0);
+  const ex=simulate(bal,apr,pay,extra);
+
+  // base card
+  $("baseN").textContent=base.months+" ("+yrsMos(base.months)+")";
+  $("baseDate").textContent=addMonths(start,base.months);
+  $("baseInt").textContent=money2(base.interest);
+  $("baseTot").textContent=money2(bal+base.interest);
+
+  // extra card
+  const saved=base.interest-ex.interest, mSaved=base.months-ex.months;
+  $("exN").textContent=ex.months+" ("+yrsMos(ex.months)+")";
+  $("exDate").textContent=extra>0?addMonths(start,ex.months):"—";
+  $("exInt").textContent=money2(ex.interest);
+  $("exSave").textContent=extra>0?money2(saved)+" · "+mSaved+" mo sooner":"add extra →";
+  $("extraCard").style.opacity=extra>0?1:.6;
+
+  // lump sum
+  $("lumpAmt").textContent=money2(bal);
+  $("lumpSave").textContent=money2(base.interest);
+
+  // sell / equity
+  const equity=mkt-bal;
+  $("equity").textContent=money(equity);
+  $("equity").className="big "+(equity>=0?"pos":"neg");
+  $("mktOut").textContent=money2(mkt);
+  $("payoffOut").textContent="−"+money2(bal);
+  $("equityNote").innerHTML=equity>=0
+    ? '<span class="pos">Cash in your pocket after payoff ✓</span>'
+    : '<span class="neg">Underwater — you\'d owe '+money2(-equity)+' to sell</span>';
+
+  // donut (paid off %)
+  const orig=7750.83, paid=orig-bal>0?orig-bal:0;
+  const pct=Math.max(0,Math.min(100,Math.round(paid/orig*100)));
+  $("donut").style.setProperty("--p",pct);
+  $("donutTxt").innerHTML="Paid off<b>"+pct+"%</b>";
+  $("legPaid").textContent=money2(paid);
+  $("legLeft").textContent=money2(bal);
+
+  // scenario table
+  const rows=[0,25,50,100,150,200,300].map(e=>{
+    const s=simulate(bal,apr,pay,e);
+    const sv=base.interest-s.interest, ms=base.months-s.months;
+    return `<tr class="${e===extra?'current':''}">
+      <td>${e===0?'$0 (base)':'+$'+e}</td>
+      <td>${s.months}</td>
+      <td>${addMonths(start,s.months)}</td>
+      <td>${money2(s.interest)}</td>
+      <td>${e===0?'—':money2(sv)}</td>
+      <td>${e===0?'—':ms}</td></tr>`;
+  }).join('');
+  $("scen").innerHTML=rows;
+}
+["bal","apr","pay","extra","start","mkt"].forEach(id=>{
+  $(id).addEventListener("input",recalc);
+});
+recalc();
+</script>
+</body>
+</html>
