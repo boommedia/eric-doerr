@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⛏️ Type-11 Prospector — Mining Loadout & Runs</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--ed:#ff8c42;--mine:#4cc2ff;--gold:#ffd479;--danger:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 75% -10%,rgba(76,194,255,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.7rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  h2.sec{font-size:1.12rem;border-left:4px solid var(--mine);padding-left:12px;margin:30px 0 12px}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--mine);color:#06121c;border-color:var(--mine)}
+  .callout{border-radius:12px;padding:13px 16px;font-size:.85rem;margin:14px 0}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout.tip{background:rgba(255,212,121,.06);border:1px solid rgba(255,212,121,.28)}
+  .callout.warn{background:rgba(255,140,66,.07);border:1px solid rgba(255,140,66,.3)}
+  .callout b{color:var(--text)} .callout a{color:var(--accent)}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:10px 0}
+  table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:520px}
+  th,td{padding:9px 13px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  thead th{background:var(--panel-2);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+  td.k{font-weight:600;color:var(--accent);white-space:nowrap}
+  ol.steps{padding-left:20px;font-size:.9rem} ol.steps li{margin:6px 0} ol.steps b{color:var(--text)}
+  code{background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:.85em;color:var(--accent-2)}
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .links a{font-size:.82rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);text-decoration:none;border-radius:8px;padding:6px 11px}
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin:10px 0}
+  label.chk{display:flex;gap:9px;align-items:flex-start;font-size:.86rem;color:var(--muted);padding:5px 0;cursor:pointer;border-bottom:1px solid var(--line)}
+  label.chk:last-child{border-bottom:none}
+  label.chk input{width:auto;margin-top:3px}
+  label.chk.on{color:var(--text)} label.chk .role{color:var(--muted);font-size:.78rem}
+  .fitrow{display:flex;justify-content:space-between;gap:10px;width:100%}
+  .btn{background:var(--mine);color:#06121c;border:none;border-radius:9px;padding:9px 15px;font-weight:700;font-size:.86rem;cursor:pointer}
+  .btn.alt{background:var(--panel-2);color:var(--text);border:1px solid var(--line)}
+  .logform{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;align-items:end}
+  @media(max-width:560px){.logform{grid-template-columns:1fr 1fr}}
+  label.fld{display:flex;flex-direction:column;gap:4px;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700}
+  input,select{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 11px;font:inherit;font-size:.9rem;width:100%}
+  input:focus,select:focus{outline:none;border-color:var(--accent)}
+  .logtable{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:12px}
+  .logtable th,.logtable td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left}
+  .logtable td.n{text-align:right;font-variant-numeric:tabular-nums}
+  .totbar{display:flex;justify-content:space-between;gap:12px;margin-top:12px;padding:12px 14px;background:var(--panel-2);border-radius:10px;font-size:.9rem}
+  .totbar b{color:var(--accent-2);font-size:1.05rem}
+  .mini{font-size:.74rem;background:var(--panel-2);border:1px solid var(--line);color:var(--danger);border-radius:7px;padding:4px 9px;cursor:pointer}
+  .empty{color:var(--muted);font-size:.86rem;text-align:center;padding:14px}
+  footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./elite-mining-combat.html">← Elite Career Hub</a>
+    <h1>⛏️ Type-11 Prospector — Mining Loadout &amp; Runs</h1>
+    <div class="sub">Your dedicated <b>mining</b> checklist for the Type-11: what to load, where to go from your current station, and a live earnings log.</div>
+    <div class="guidenav">
+      <a class="gn" href="./elite-mining-combat.html">🟠 Career Hub</a>
+      <a class="gn active" href="./elite-type11-prospector.html">⛏️ Type-11 (mining)</a>
+      <a class="gn" href="./elite-python.html">🛥️ Python</a>
+      <a class="gn" href="./elite-anaconda.html">🛥️ Anaconda</a>
+    </div>
+  </header>
+
+  <div class="callout info">📍 <b>At Pacheco Hub (or wherever you are)?</b> Fit the mining loadout below at <b>Outfitting</b>, load up on limpets, then use the <b>hotspot finder</b> to plot the nearest Void Opal / LTD ring from your current system. Log your haul as you sell.</div>
+
+  <!-- WHAT TO LOAD -->
+  <h2 class="sec">🔧 What to load — mining fit</h2>
+  <div class="callout tip">A hybrid <b>core + laser</b> miner: cores for the big Void Opal / LTD payouts, lasers for steady surface deposits. Tick each as you buy it in Outfitting — it saves in your browser.</div>
+  <div class="tool" id="fitTool"></div>
+  <div class="callout warn">⚠️ <b>Load limpets!</b> Buy a stack of <b>Limpets</b> from the station's Restock/Cargo before you leave — they're consumed as you mine, and no limpets = no auto-scooping.</div>
+
+  <!-- WHERE TO GO -->
+  <h2 class="sec">🗺️ Where to go &amp; make money</h2>
+  <ol class="steps">
+    <li><b>Find the nearest hotspot.</b> Open the <a href="https://edtools.cc/hotspot" target="_blank" rel="noopener">EDTools hotspot finder</a>, enter your current system (e.g. <b>Pacheco</b>), and sort for <b>Void Opals</b> or <b>Low Temp. Diamonds</b> in <b>icy</b> rings (best money), or <b>Painite</b> in metallic rings.</li>
+    <li><b>Map the ring.</b> Jump in, honk, fire a <b>DSS</b> probe at the ring, and fly to where the <b>hotspots overlap</b> (richer spawns).</li>
+    <li><b>Mine.</b> Pulse Wave Analyser on → prospect glowing rocks → crack cores (Seismic + Abrasion) or laser deposits → collector limpets scoop → refinery fills the hold.</li>
+    <li><b>Sell high.</b> Check the <a href="https://inara.cz/elite/commodities/" target="_blank" rel="noopener">best sell price on Inara</a> (or <a href="https://edtools.cc/" target="_blank" rel="noopener">EDTools</a>) for your material within ~50 ly and haul it there.</li>
+  </ol>
+  <div class="callout info">💎 <b>Classic anchor:</b> <b>Borann A 2</b> has long been a famous Void Opal / LTD icy-ring mining spot — a solid destination if nothing closer shows up. Always confirm current prices &amp; hotspots on the tools above (they shift).</div>
+  <div class="links">
+    <a href="https://edtools.cc/hotspot" target="_blank" rel="noopener">🔗 Hotspot finder ↗</a>
+    <a href="https://inara.cz/elite/commodities/" target="_blank" rel="noopener">💰 Best sell prices ↗</a>
+    <a href="https://coriolis.io/" target="_blank" rel="noopener">🔧 Build in Coriolis ↗</a>
+  </div>
+
+  <!-- HOW TO MINE -->
+  <h2 class="sec">🪨 How to mine — step by step</h2>
+  <div class="callout tip">Mining tools only work in <b>Analysis Mode</b> (the HUD turns blue). Toggle it, deploy hardpoints, and set your fire groups once — then it's the same rhythm every time.</div>
+
+  <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin:14px 0 6px">1 · Set your fire groups (right-hand panel)</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Group</th><th>Primary fire</th><th>Secondary fire</th></tr></thead>
+    <tbody>
+      <tr><td class="k">A</td><td>Mining Lasers</td><td>Prospector Limpet</td></tr>
+      <tr><td class="k">B</td><td>Seismic Charge Launcher</td><td>Abrasion Blaster</td></tr>
+      <tr><td class="k">C</td><td>Sub-surface Displacement Missile</td><td>Pulse Wave Analyser</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout info">🕹️ <b>On your T16000M:</b> bind <b>Analysis/Combat mode toggle</b>, <b>next fire group</b>, and <b>primary/secondary fire</b> to the stick trigger, thumb button &amp; hat so you can cycle tools without the keyboard. Collector limpets auto-launch when fragments are nearby (with a controller fitted).</div>
+
+  <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin:16px 0 6px">2 · Laser mining (steady income)</div>
+  <ol class="steps">
+    <li><b>Enter the ring</b>, switch to <b>Analysis Mode</b> (blue HUD) and deploy hardpoints.</li>
+    <li><b>Fire the Pulse Wave Analyser</b> — asteroids flash; the bright/orange ones have the good stuff.</li>
+    <li>Fly to a promising rock and <b>fire a Prospector Limpet</b> at it — it reports the contents &amp; %. Look for your target material at a healthy percentage.</li>
+    <li>Switch to <b>Mining Lasers</b> (Group A) and hold fire on the coloured <b>surface deposits</b> until they shatter into fragments.</li>
+    <li><b>Collector limpets auto-scoop</b> the fragments into the <b>Refinery</b>, which bins them into 1-tonne units.</li>
+    <li>Move to the next rock and repeat until the hold is full.</li>
+  </ol>
+
+  <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin:16px 0 6px">3 · Core mining (the big Void Opal / LTD money)</div>
+  <ol class="steps">
+    <li>Pulse Wave Analyser on → look for a rock with a bright, <b>rotating fissure glow</b> — that's a core.</li>
+    <li><b>Prospect it</b> to confirm the material (Void Opals, LTDs, Alexandrite…).</li>
+    <li>Switch to the <b>Seismic Charge Launcher</b> (Group B). Fire charges into the glowing <b>fissures</b> — a meter fills; stop in the <b>blue "optimal" zone</b> (don't overcharge into red).</li>
+    <li><b>Back off ~1 km and wait</b> — the asteroid cracks open and flings out chunks.</li>
+    <li>Switch to the <b>Abrasion Blaster</b> and shoot the glowing <b>deposits</b> stuck to the surface &amp; chunks to knock them loose.</li>
+    <li>Grab any <b>sub-surface</b> deposits with the Displacement Missile (fire, then detonate at the right depth on the meter).</li>
+    <li><b>Collector limpets scoop</b> everything; the refinery fills. One good core can be worth tens of millions.</li>
+  </ol>
+  <div class="callout warn">⚠️ <b>Common gotchas:</b> tools do nothing in Combat Mode — stay in <b>Analysis</b> (blue). Out of limpets = no auto-scoop. If the refinery hopper is full of low-value bits, <b>vent</b> them so good material has a bin.</div>
+
+  <!-- SESSION LOG -->
+  <h2 class="sec">💰 Mining session log</h2>
+  <div class="callout info">Log each material as you refine/sell to track your haul &amp; estimated payout. Enter cr/tonne (from the market) for a live credit total.</div>
+  <div class="tool">
+    <form class="logform" onsubmit="addLog(event)">
+      <label class="fld">Material<input id="lgMat" placeholder="e.g. Void Opals" list="mats" required></label>
+      <label class="fld">Tonnes<input id="lgTons" type="number" min="0" step="1" placeholder="128" required></label>
+      <label class="fld">cr / tonne<input id="lgCr" type="number" min="0" step="1000" placeholder="1200000"></label>
+      <button class="btn" type="submit">Add</button>
+    </form>
+    <div id="logList"></div>
+    <div class="totbar"><span>Total mined: <b id="totTons">0 t</b></span><span>Est. earnings: <b id="totCr">0 cr</b></span></div>
+    <div style="margin-top:10px"><button class="btn alt" onclick="clearLog()">Clear log</button></div>
+  </div>
+  <datalist id="mats"><option>Void Opals</option><option>Low Temp. Diamonds</option><option>Alexandrite</option><option>Grandidierite</option><option>Painite</option><option>Platinum</option><option>Tritium</option><option>Musgravite</option><option>Benitoite</option></datalist>
+
+  <footer>
+    Part of the <a href="./elite-mining-combat.html">Elite Career Hub</a>. Loadout is role-based (fit the biggest class each slot allows). Hotspots &amp; prices shift with the live game — always confirm on <a href="https://edtools.cc/">EDTools</a> / <a href="https://inara.cz/">Inara</a>. Saved in this browser only.
+  </footer>
+</div>
+
+<script>
+  const $=s=>document.querySelector(s);
+  const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const fmt=n=>n.toLocaleString('en-US');
+
+  /* ---- FIT CHECKLIST ---- */
+  const LOADOUT=[
+    ['Mining Lasers','Hardpoints','Chip surface deposits into chunks (2 medium is plenty)'],
+    ['Seismic Charge Launcher','Hardpoint','Crack asteroid cores for the motherlode'],
+    ['Abrasion Blaster','Hardpoint','Knock the glowing chunks off a cracked core'],
+    ['Sub-surface Displacement Missile','Hardpoint (optional)','Blast sub-surface deposits (Alexandrite/LTD)'],
+    ['Pulse Wave Analyser','Utility','Makes high-value asteroids glow — essential'],
+    ['Detailed Surface Scanner','Optional','Probe & map the ring to find hotspots'],
+    ['Prospector Limpet Controller','Optional','Survey rocks & boost yield'],
+    ['Collector Limpet Controller ×2–3','Optional','Auto-scoop chunks — more = faster'],
+    ['Refinery','Optional','Turns fragments into sellable tonnes (max bins)'],
+    ['Cargo Racks (max)','Optional','Fill remaining slots — this is your payday'],
+    ['Fuel Scoop','Optional','Refuel at stars so you never strand'],
+    ['Shield Generator','Optional','Bumps with asteroids & pirate insurance'],
+    ['Limpets ×200+','Cargo','Buy from Restock — consumed as you mine']
+  ];
+  const K_FIT='ed_t11_fit';
+  let fit=(()=>{try{return JSON.parse(localStorage.getItem(K_FIT))||{}}catch(e){return{}}})();
+  function renderFit(){
+    $('#fitTool').innerHTML=LOADOUT.map((m,i)=>`<label class="chk ${fit[i]?'on':''}"><input type="checkbox" ${fit[i]?'checked':''} onchange="toggleFit(${i})"><span class="fitrow"><span><b>${esc(m[0])}</b> <span class="role">— ${esc(m[2])}</span></span><span class="role">${esc(m[1])}</span></span></label>`).join('');
+  }
+  function toggleFit(i){ fit[i]=!fit[i]; localStorage.setItem(K_FIT,JSON.stringify(fit)); renderFit(); }
+
+  /* ---- SESSION LOG ---- */
+  const K_LOG='ed_t11_log';
+  let log=(()=>{try{return JSON.parse(localStorage.getItem(K_LOG))||[]}catch(e){return[]}})();
+  const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+  function addLog(e){
+    e.preventDefault();
+    const mat=$('#lgMat').value.trim(), tons=+$('#lgTons').value||0, cr=+$('#lgCr').value||0;
+    if(!mat||!tons)return;
+    log.push({id:uid(),mat,tons,cr}); localStorage.setItem(K_LOG,JSON.stringify(log));
+    e.target.reset(); renderLog();
+  }
+  function delLog(id){ log=log.filter(x=>x.id!==id); localStorage.setItem(K_LOG,JSON.stringify(log)); renderLog(); }
+  function clearLog(){ if(log.length&&!confirm('Clear the whole session log?'))return; log=[]; localStorage.setItem(K_LOG,JSON.stringify(log)); renderLog(); }
+  function renderLog(){
+    if(!log.length){ $('#logList').innerHTML='<div class="empty">No entries yet — add a material above as you sell.</div>'; }
+    else $('#logList').innerHTML='<table class="logtable"><thead><tr><th>Material</th><th style="text-align:right">Tonnes</th><th style="text-align:right">Subtotal</th><th></th></tr></thead><tbody>'+
+      log.map(r=>`<tr><td>${esc(r.mat)}</td><td class="n">${fmt(r.tons)} t</td><td class="n">${r.cr?fmt(r.tons*r.cr)+' cr':'—'}</td><td style="text-align:right"><button class="mini" onclick="delLog('${r.id}')">✕</button></td></tr>`).join('')+
+      '</tbody></table>';
+    const tons=log.reduce((a,r)=>a+r.tons,0), cr=log.reduce((a,r)=>a+r.tons*r.cr,0);
+    $('#totTons').textContent=fmt(tons)+' t'; $('#totCr').textContent=fmt(cr)+' cr';
+  }
+
+  renderFit(); renderLog();
+</script>
+</body>
+</html>

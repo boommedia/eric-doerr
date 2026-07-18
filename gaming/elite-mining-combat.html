@@ -110,11 +110,37 @@
   .rolepill.multi{background:rgba(126,231,135,.16);color:var(--multi)}
   .typepill.onfoot{background:rgba(199,146,234,.16);color:var(--foot)}
   .pmeta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-top:8px}
+  .stepwrap{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+  ol.plan-steps{margin:6px 0 0;padding-left:20px;font-size:.84rem;color:var(--text)}
+  ol.plan-steps li{margin:4px 0}
   .checkwrap{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
   .checkhdr{font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700;margin-bottom:6px}
   label.chk{display:flex;gap:8px;align-items:flex-start;font-size:.83rem;color:var(--muted);padding:3px 0;cursor:pointer}
   label.chk input{width:auto;margin-top:3px}
   label.chk.on{color:var(--text);text-decoration:line-through;text-decoration-color:var(--line)}
+  /* ready-to-run cards */
+  .runcard{background:var(--panel);border:1px solid var(--line);border-left-width:4px;border-radius:12px;padding:14px}
+  .runcard.mining{border-left-color:var(--mine)} .runcard.bounty{border-left-color:var(--combat)} .runcard.onfoot{border-left-color:var(--foot)}
+  .run-h{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:1rem}
+  .run-meta{color:var(--muted);font-size:.78rem;margin:6px 0 2px}
+  .runcard p{font-size:.85rem;color:var(--text);margin:8px 0}
+  .runcard ol.mini-steps{padding-left:18px;font-size:.82rem;color:var(--muted);margin:0 0 10px}
+  .runcard ol.mini-steps li{margin:3px 0}
+  .runcard ol.mini-steps b{color:var(--text)}
+  .diff{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 8px;border-radius:6px;white-space:nowrap}
+  .diff.easy{background:rgba(126,231,135,.16);color:var(--explore)}
+  .diff.med{background:rgba(255,212,121,.16);color:var(--gold)}
+  .diff.hard{background:rgba(255,107,107,.16);color:var(--danger)}
+  .runfilter{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px}
+  .rf{background:var(--panel-2);border:1px solid var(--line);color:var(--muted);border-radius:20px;padding:7px 14px;font-size:.83rem;font-weight:600;cursor:pointer}
+  .rf.active{background:var(--ed);color:#1a1206;border-color:var(--ed)}
+  .rungroup.hide{display:none}
+  .run-links{margin:2px 0 10px;display:flex;gap:6px;flex-wrap:wrap}
+  .run-links a{font-size:.77rem;color:var(--accent);text-decoration:none;background:var(--panel-2);border:1px solid var(--line);border-radius:7px;padding:4px 9px}
+  .runcard.explore{border-left-color:var(--explore)} .runcard.trade{border-left-color:var(--trade)}
+  .typepill.explore{background:rgba(126,231,135,.16);color:var(--explore)}
+  .typepill.trade{background:rgba(255,212,121,.16);color:var(--trade)}
+  .pcard.explore{border-left-color:var(--explore)} .pcard.trade{border-left-color:var(--trade)}
   footer{color:var(--muted);font-size:.78rem;margin-top:34px}
   footer a{color:var(--accent)}
   details{margin-top:10px} summary{cursor:pointer;color:var(--accent);font-size:.85rem}
@@ -341,6 +367,35 @@
     <div class="callout warn">⚠️ Watch for <b>interdictions</b> — big traders get pulled by pirates. Run a decent shield &amp; submit-then-boost to escape, or fit a defensive weapon.</div>
   </div>
 
+  <!-- ============ TEAM & CO-OP ============ -->
+  <h2 class="sec">🤝 Level up mining — with friends or bots</h2>
+  <div class="callout info">Mining is faster &amp; safer as a team. Bring real players in a <b>Wing</b>, or add AI helpers — limpet swarms and a hired fighter pilot — to your own ship.</div>
+
+  <div class="lbl">With other players</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Method</th><th>How</th><th>Payoff</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Wing (up to 4)</td><td>Invite friends to a Wing; all drop in the same ring/hotspot</td><td>Split roles and clear rocks far faster</td></tr>
+      <tr><td class="k">Role split</td><td>One player core-cracks (Seismic + Abrasion), others run collectors &amp; sell runs</td><td>Assembly-line mining — nobody sits idle</td></tr>
+      <tr><td class="k">Fleet Carrier base</td><td>Park a Carrier near the hotspot with buy orders set</td><td>Sell &amp; restock on-site — no long hauls to a station</td></tr>
+      <tr><td class="k">Multicrew (share a ship)</td><td>A friend joins your ship as crew</td><td>Limited for mining itself — best as a <b>gunner/fighter</b> guarding you from pirates</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip">👥 <b>Wing tip:</b> everyone collects their <i>own</i> cargo, so agree who mines what. A dedicated combat-fit <b>guard ship</b> makes Hazardous rings &amp; pirate-heavy hotspots painless.</div>
+
+  <div class="lbl">With AI "bots"</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Bot</th><th>How to add</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Limpet swarm</td><td>Fit <b>multiple Collector Limpet Controllers</b> + carry lots of limpets</td><td>More collectors auto-scoop chunks at once — huge time saver</td></tr>
+      <tr><td class="k">Prospector limpets</td><td>One Prospector Limpet Controller</td><td>Auto-survey rocks &amp; boost yield before you mine</td></tr>
+      <tr><td class="k">Hired NPC crew + SLF</td><td>Recruit a pilot at a station <b>Crew Lounge</b>; fit a <b>Fighter Hangar</b></td><td>Your NPC launches a fighter to <b>fight off pirates</b> while you mine</td></tr>
+      <tr><td class="k">Other limpet types</td><td>Fuel, Hatch-breaker, Repair &amp; Decontamination controllers</td><td>Situational helpers — repair on long trips, refuel a stranded ship</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip">🤖 <b>Best solo setup:</b> 2–3 Collector Limpet Controllers for a scoop-swarm + 1 Prospector Controller, and — if pirates bother you — a small <b>Fighter Hangar with a hired gunner</b>. That turns a solo miner into a little fleet.</div>
+  <div class="callout warn">⚠️ NPC crew take a <b>share of the credits you earn</b> while active, and you keep them only if they survive — but a good pilot pays for itself by keeping pirates off you.</div>
+
   <!-- ============ RESOURCES HUB ============ -->
   <h2 class="sec">🌐 Resources &amp; tools — all in one place</h2>
   <div class="callout tip">💡 <b>Must-haves to improve the experience:</b> run <b>EDMarketConnector</b> (feeds live prices to Inara/EDSM), plan builds in <b>Coriolis/EDSY</b>, route with <b>Spansh</b>, and add <b>VoiceAttack + a voice pack</b> for hands-free commands. Elite's own <b>Training</b> scenarios teach each career risk-free.</div>
@@ -357,6 +412,7 @@
       <div class="rd">Prices, hotspots &amp; route planners.</div>
       <a href="https://inara.cz/" target="_blank" rel="noopener"><span>Inara — prices &amp; hotspots</span><span class="go">open ↗</span></a>
       <a href="https://spansh.co.uk/" target="_blank" rel="noopener"><span>Spansh — routers &amp; mining</span><span class="go">open ↗</span></a>
+      <a href="https://edtools.cc/" target="_blank" rel="noopener"><span>EDTools — hotspot &amp; RES finder</span><span class="go">open ↗</span></a>
       <a href="https://www.edsm.net/" target="_blank" rel="noopener"><span>EDSM — star map</span><span class="go">open ↗</span></a>
     </div>
     <div class="rescard">
@@ -418,6 +474,13 @@
     </tbody>
   </table></div>
 
+  <div class="lbl">📄 Dedicated ship guides (interactive)</div>
+  <div class="links">
+    <a href="./elite-type11-prospector.html">⛏️ Type-11 Prospector — mining loadout &amp; runs →</a>
+    <a href="./elite-python.html">🛥️ Python — multi-role →</a>
+    <a href="./elite-anaconda.html">🛥️ Anaconda — explore &amp; combat →</a>
+  </div>
+
   <!-- ============ MY FLEET ============ -->
   <h2 class="sec">🚀 My fleet</h2>
   <div class="callout info">Add your ships &amp; roles. Paste a <b>Coriolis or EDSY link</b> in the Build field to save &amp; share the exact loadout.</div>
@@ -439,6 +502,212 @@
     <div class="cardlist" id="fleetList"></div>
   </div>
 
+  <!-- ============ READY-TO-RUN ADVENTURES ============ -->
+  <h2 class="sec">🎬 Ready-to-run adventures</h2>
+  <div class="callout info">Pick a play-style below, follow a run, and <b>🔗 Plot it live</b> with the linked tool for a <i>current</i> hotspot / RES / route. Hit <b>➕ Add to planner</b> to drop it into your planner with its checklist.</div>
+  <div class="runfilter">
+    <button class="rf active" data-cat="all" onclick="filterRuns('all')">✦ All</button>
+    <button class="rf" data-cat="mining" onclick="filterRuns('mining')">⛏️ Mining</button>
+    <button class="rf" data-cat="bounty" onclick="filterRuns('bounty')">🎯 Bounty</button>
+    <button class="rf" data-cat="onfoot" onclick="filterRuns('onfoot')">🥾 On-foot</button>
+    <button class="rf" data-cat="explore" onclick="filterRuns('explore')">🔭 Exploration</button>
+    <button class="rf" data-cat="trade" onclick="filterRuns('trade')">💰 Trading</button>
+  </div>
+
+  <div class="rungroup" data-cat="mining">
+  <div class="lbl">⛏️ Mining runs</div>
+  <div class="cardlist">
+    <div class="runcard mining">
+      <div class="run-h"><b>💎 The Opal Rush</b><span class="diff med">Easy–Med</span></div>
+      <div class="run-meta">🚀 Type-11 Prospector / Python · 💰 big single-loop payout</div>
+      <p>Core-mine Void Opals &amp; Low Temp. Diamonds in an icy hotspot, fill the hold, cash out in one loop.</p>
+      <ol class="mini-steps">
+        <li>Find a Void Opal / LTD icy hotspot — classic anchor: <b>Borann A 2</b>.</li>
+        <li>Fit Seismic Charge + Abrasion Blaster + Pulse Wave Analyser.</li>
+        <li>Crack cores, blast &amp; scoop chunks, refine until full.</li>
+        <li>Sell to the highest-demand market within ~50 ly.</li>
+      </ol>
+      <div class="run-links"><a href="https://edtools.cc/hotspot" target="_blank" rel="noopener">🔗 Plot live: hotspot finder ↗</a> <a href="https://inara.cz/elite/commodities/" target="_blank" rel="noopener">best sell price ↗</a></div>
+      <button class="mini" onclick="addRun('mining','💎 The Opal Rush','Borann (or EDTools hotspot)','Icy ring — Void Opal / LTD hotspot','Fill the hold with Void Opals & LTDs, sell in one loop')">➕ Add to planner</button>
+    </div>
+    <div class="runcard mining">
+      <div class="run-h"><b>🧊 Diamond Cruise</b><span class="diff easy">Easy</span></div>
+      <div class="run-meta">🚀 Type-11 Prospector · 💰 steady &amp; low-stress</div>
+      <p>Chill laser-mining loop on Low Temp. Diamonds — no core cracking, just lasers, limpets &amp; podcasts.</p>
+      <ol class="mini-steps">
+        <li>Drop into an <b>LTD icy hotspot</b>, Pulse Wave Analyser on.</li>
+        <li>Prospect glowing rocks, laser the surface deposits.</li>
+        <li>Let collector limpets &amp; the refinery do the work.</li>
+        <li>Repeat until full, then sell.</li>
+      </ol>
+      <div class="run-links"><a href="https://edtools.cc/hotspot" target="_blank" rel="noopener">🔗 Plot live: LTD hotspots ↗</a></div>
+      <button class="mini" onclick="addRun('mining','🧊 Diamond Cruise','EDTools LTD hotspot','Icy ring — laser mining LTDs','Relaxed laser-mining loop; fill hold with LTDs')">➕ Add to planner</button>
+    </div>
+    <div class="runcard mining">
+      <div class="run-h"><b>⚙️ Painite Payday</b><span class="diff med">Medium</span></div>
+      <div class="run-meta">🚀 Python / Prospector · 💰 reliable bulk income</div>
+      <p>Work a metallic ring for Painite — laser or core — the old-school miner's bread &amp; butter.</p>
+      <ol class="mini-steps">
+        <li>Find a <b>Painite metallic hotspot</b>.</li>
+        <li>Prospect for high-% rocks; laser or crack cores.</li>
+        <li>Fill up and sell where Painite demand spikes.</li>
+      </ol>
+      <div class="run-links"><a href="https://edtools.cc/hotspot" target="_blank" rel="noopener">🔗 Plot live: Painite hotspots ↗</a></div>
+      <button class="mini" onclick="addRun('mining','⚙️ Painite Payday','EDTools Painite hotspot','Metallic ring — Painite','Bulk-mine Painite and sell to a high-demand market')">➕ Add to planner</button>
+    </div>
+  </div>
+  </div>
+
+  <div class="rungroup" data-cat="bounty">
+  <div class="lbl">🎯 Bounty-hunting runs</div>
+  <div class="cardlist">
+    <div class="runcard bounty">
+      <div class="run-h"><b>🚨 RES Warm-Up</b><span class="diff easy">Easy</span></div>
+      <div class="run-meta">🚀 Python · 💰 safe, steady bounties</div>
+      <p>Learn the ropes at a Low/Standard RES where system security fights alongside you.</p>
+      <ol class="mini-steps">
+        <li>Go to a ringed planet in a <b>high-security system</b> (e.g. Deciat) and drop at a <b>Low RES</b>.</li>
+        <li>Scan ships; only engage <b>Wanted</b> ones — let cops soak damage.</li>
+        <li>Lasers to drop shields, multi-cannons on hull.</li>
+        <li>Cash bounties at a station's Contacts.</li>
+      </ol>
+      <div class="run-links"><a href="https://edtools.cc/res" target="_blank" rel="noopener">🔗 Plot live: RES finder ↗</a></div>
+      <button class="mini" onclick="addRun('bounty','🚨 RES Warm-Up','Deciat (or EDTools RES finder)','Low / Standard RES','Rack up starter bounties with cop backup')">➕ Add to planner</button>
+    </div>
+    <div class="runcard bounty">
+      <div class="run-h"><b>☠️ Hazardous Payday</b><span class="diff hard">Med–Hard</span></div>
+      <div class="run-meta">🚀 Anaconda / Python · 💰 top bounties, no cops</div>
+      <p>Solo the big money at a Hazardous RES — no security to help, so bring a tank build.</p>
+      <ol class="mini-steps">
+        <li>Drop at a <b>Hazardous RES</b> in a ringed system.</li>
+        <li>Pick off single targets, keep 4 pips to SYS.</li>
+        <li>Use chaff/heat sinks; boost out if swarmed.</li>
+        <li>Stack Kill Warrant Scanner bounties before cashing in.</li>
+      </ol>
+      <div class="run-links"><a href="https://edtools.cc/res" target="_blank" rel="noopener">🔗 Plot live: Haz RES finder ↗</a></div>
+      <button class="mini" onclick="addRun('bounty','☠️ Hazardous Payday','EDTools RES finder','Hazardous RES','Tank build; stack big bounties with KWS, no cop help')">➕ Add to planner</button>
+    </div>
+    <div class="runcard bounty">
+      <div class="run-h"><b>⚔️ Pick a Side</b><span class="diff hard">Hard</span></div>
+      <div class="run-meta">🚀 Anaconda · 💰 combat bonds + rep</div>
+      <p>Join a war at a Conflict Zone, choose a faction, and farm combat bonds in the chaos.</p>
+      <ol class="mini-steps">
+        <li>Find a system <b>at War</b> (galaxy map / Inara).</li>
+        <li>Drop at a <b>Conflict Zone</b>, pick a side at the menu.</li>
+        <li>Target enemy ships; focus wings, watch friendly fire.</li>
+        <li>Redeem combat bonds with the winning faction's Contact.</li>
+      </ol>
+      <div class="run-links"><a href="https://inara.cz/elite/galaxy-factions/" target="_blank" rel="noopener">🔗 Plot live: systems at war ↗</a></div>
+      <button class="mini" onclick="addRun('bounty','⚔️ Pick a Side','A system currently at War (Inara)','Conflict Zone','Farm combat bonds for a faction in a war')">➕ Add to planner</button>
+    </div>
+  </div>
+  </div>
+
+  <div class="rungroup" data-cat="onfoot">
+  <div class="lbl">🥾 On-foot (FPS) runs</div>
+  <div class="cardlist">
+    <div class="runcard onfoot">
+      <div class="run-h"><b>🥾 Boots on the Ground</b><span class="diff med">Medium</span></div>
+      <div class="run-meta">🥽 Dominator suit · 💰 merc pay</div>
+      <p>Your first on-foot firefight — sign up for a ground Conflict Zone and get paid to fight.</p>
+      <ol class="mini-steps">
+        <li>At a Concourse, visit <b>Frontline Solutions</b> and take an on-foot CZ.</li>
+        <li>Kit a <b>Dominator</b> with a laser + a kinetic weapon.</li>
+        <li>Use cover; strip shields (laser) then finish (kinetic); headshots.</li>
+        <li>Hold objectives, recharge with energy cells, extract for pay.</li>
+      </ol>
+      <div class="run-links"><a href="https://inara.cz/elite/nearest-stations/" target="_blank" rel="noopener">🔗 Plot live: nearest Concourse ↗</a></div>
+      <button class="mini" onclick="addRun('onfoot','🥾 Boots on the Ground','Concourse w/ Frontline Solutions','On-foot Conflict Zone','Win a ground CZ for merc pay (Dominator suit)')">➕ Add to planner</button>
+    </div>
+    <div class="runcard onfoot">
+      <div class="run-h"><b>🕵️ The Data Heist</b><span class="diff med">Medium</span></div>
+      <div class="run-meta">🥽 Maverick suit · 💰 data &amp; loot</div>
+      <p>Infiltrate a settlement quietly — clone a profile, hack the doors, grab the data, slip out.</p>
+      <ol class="mini-steps">
+        <li>Take a theft/collect mission targeting a settlement.</li>
+        <li><b>Maverick</b> suit: use the <b>Profile Analyser</b> to clone clearance.</li>
+        <li><b>E-Breach</b> locked doors/containers; grab data &amp; components.</li>
+        <li>Avoid alarms; extract before security &amp; skimmers arrive.</li>
+      </ol>
+      <div class="run-links"><a href="https://elite-dangerous.fandom.com/wiki/On_Foot" target="_blank" rel="noopener">🔗 Guide: on-foot tactics ↗</a></div>
+      <button class="mini" onclick="addRun('onfoot','🕵️ The Data Heist','Any occupied settlement','Settlement — stealth infiltration','Clone profile, e-breach, steal data & extract (Maverick)')">➕ Add to planner</button>
+    </div>
+    <div class="runcard onfoot">
+      <div class="run-h"><b>🌿 Alien Botanist</b><span class="diff easy">Easy</span></div>
+      <div class="run-meta">🥽 Artemis suit · 💰 very lucrative</div>
+      <p>Chill, wholesome, and surprisingly rich — sample alien flora and sell the genetic data.</p>
+      <ol class="mini-steps">
+        <li>Find a planet with <b>biological signals</b> (composition scanner + DSS).</li>
+        <li><b>Artemis</b> suit + <b>Genetic Sampler</b>: scan 3 of each species (stay spaced apart).</li>
+        <li>Log finds, avoid the wildlife.</li>
+        <li>Sell samples at <b>Vista Genomics</b> for a fat payout.</li>
+      </ol>
+      <div class="run-links"><a href="https://spansh.co.uk/" target="_blank" rel="noopener">🔗 Plot live: bio-signal bodies (Spansh) ↗</a></div>
+      <button class="mini" onclick="addRun('onfoot','🌿 Alien Botanist','Planet w/ biological signals','Planet surface — exobiology','Scan 3 of each species, sell at Vista Genomics (Artemis)')">➕ Add to planner</button>
+    </div>
+  </div>
+  </div>
+
+  <div class="rungroup" data-cat="explore">
+  <div class="lbl">🔭 Exploration runs</div>
+  <div class="cardlist">
+    <div class="runcard explore">
+      <div class="run-h"><b>🌌 Road to Riches</b><span class="diff easy">Easy–Med</span></div>
+      <div class="run-meta">🚀 Anaconda · 💰 fast exploration cash</div>
+      <p>Let a planner route you star-to-star through the most valuable bodies to scan &amp; map.</p>
+      <ol class="mini-steps">
+        <li>Plot a <b>Road-to-Riches</b> route (Spansh) from your system.</li>
+        <li>At each stop: honk, FSS the money bodies, DSS-map them.</li>
+        <li>Bank the data every so often at a station's Universal Cartographics.</li>
+      </ol>
+      <div class="run-links"><a href="https://spansh.co.uk/riches" target="_blank" rel="noopener">🔗 Plot live: Road to Riches ↗</a></div>
+      <button class="mini" onclick="addRun('explore','🌌 Road to Riches','Spansh route from home','High-value bodies along route','Scan & map the route, sell cartographic data')">➕ Add to planner</button>
+    </div>
+    <div class="runcard explore">
+      <div class="run-h"><b>🧬 First Footfalls</b><span class="diff med">Medium</span></div>
+      <div class="run-meta">🚀 Anaconda + Artemis suit · 💰 discovery + exobio</div>
+      <p>Head off the beaten path for un-scanned systems — your name on the discoveries + exobiology money.</p>
+      <ol class="mini-steps">
+        <li>Plot a long neutron-boosted route into sparse space (Spansh).</li>
+        <li>Map untouched systems for the <b>first-mapped</b> bonus.</li>
+        <li>Drop to bio-signal planets and sample with the Artemis suit.</li>
+      </ol>
+      <div class="run-links"><a href="https://www.spansh.co.uk/plotter" target="_blank" rel="noopener">🔗 Plot live: neutron router ↗</a> <a href="https://www.edsm.net/" target="_blank" rel="noopener">EDSM map ↗</a></div>
+      <button class="mini" onclick="addRun('explore','🧬 First Footfalls','Sparse/unexplored region','Untouched systems + bio planets','Grab first-discovered tags & exobiology samples')">➕ Add to planner</button>
+    </div>
+  </div>
+  </div>
+
+  <div class="rungroup" data-cat="trade">
+  <div class="lbl">💰 Trading runs</div>
+  <div class="cardlist">
+    <div class="runcard trade">
+      <div class="run-h"><b>📦 The Milk Run</b><span class="diff easy">Easy</span></div>
+      <div class="run-meta">🚀 Type-11 Prospector / Anaconda · 💰 steady credits</div>
+      <p>Find a tight two-station loop with a fat price gap and just haul back and forth.</p>
+      <ol class="mini-steps">
+        <li>Find a profitable <b>A↔B commodity loop</b> near you.</li>
+        <li>Fill the hold, jump, sell, buy the return cargo, repeat.</li>
+        <li>Fit a shield in case of interdictions.</li>
+      </ol>
+      <div class="run-links"><a href="https://inara.cz/elite/market-traderoutes/" target="_blank" rel="noopener">🔗 Plot live: trade routes ↗</a></div>
+      <button class="mini" onclick="addRun('trade','📦 The Milk Run','Inara trade-route pair','2-station commodity loop','Haul the loop for steady profit per trip')">➕ Add to planner</button>
+    </div>
+    <div class="runcard trade">
+      <div class="run-h"><b>🎁 Rare Goods Circuit</b><span class="diff med">Medium</span></div>
+      <div class="run-meta">🚀 Python / Anaconda · 💰 premium margins</div>
+      <p>Buy limited rare commodities and sell them 150+ ly away where the price balloons.</p>
+      <ol class="mini-steps">
+        <li>Plan a loop of <b>rare-goods</b> sellers (each has a limited stock).</li>
+        <li>Buy out each rare as you pass, hauling a mixed hold.</li>
+        <li>Sell the lot far away for the distance premium.</li>
+      </ol>
+      <div class="run-links"><a href="https://inara.cz/elite/market-traderoutes/" target="_blank" rel="noopener">🔗 Plot live: rare-goods routes ↗</a></div>
+      <button class="mini" onclick="addRun('trade','🎁 Rare Goods Circuit','Rare-goods loop','Rare commodity sellers 150+ ly apart','Buy rares, sell far away for premium margins')">➕ Add to planner</button>
+    </div>
+  </div>
+  </div>
+
   <!-- ============ ADVENTURE PLANNER ============ -->
   <h2 class="sec">🗺️ Adventure planner</h2>
   <div class="callout info">Plan a <b>mining run</b>, <b>bounty hunt</b> or <b>on-foot op</b> — assign a ship, set the target, and tick the auto-generated pre-flight checklist before you launch.</div>
@@ -449,6 +718,8 @@
         <option value="mining">⛏️ Mining</option>
         <option value="bounty">🎯 Bounty hunting</option>
         <option value="onfoot">🥾 On-foot (FPS)</option>
+        <option value="explore">🔭 Exploration</option>
+        <option value="trade">💰 Trading</option>
       </select></label>
       <label class="fld">Ship<select id="planShip"></select></label>
       <label class="fld">System<input id="planSystem" placeholder="e.g. Borann, HIP 21991"></label>
@@ -503,14 +774,42 @@
   const CHECK={
     mining:['Refinery + collector & prospector limpet controllers fitted','Cargo racks maxed; plenty of limpets loaded','Pulse Wave Analyser fitted','Core tools fitted (Seismic Charge + Abrasion Blaster) if core mining','Hotspot found & ring mapped with DSS','Best sell price checked on Inara'],
     bounty:['Shields + shield boosters fitted','Weapons: thermal (vs shields) + kinetic (vs hull) mix','Kill Warrant Scanner fitted','Heat Sink / Chaff fitted','Pip plan ready (e.g. 4 SYS / 2 WEP)','Interstellar Factors located in case I get fined'],
-    onfoot:['Suit chosen (Dominator combat / Maverick scavenger / Artemis exobio)','Weapons: laser/plasma for shields + kinetic for flesh','Grenades & consumables (energy cells, medkits) stocked','Suit battery topped; know where to refill O2','Mission / CZ selected (Frontline or Concourse board)','Switched to on-foot control scheme (HOTAS is ship-only)']
+    onfoot:['Suit chosen (Dominator combat / Maverick scavenger / Artemis exobio)','Weapons: laser/plasma for shields + kinetic for flesh','Grenades & consumables (energy cells, medkits) stocked','Suit battery topped; know where to refill O2','Mission / CZ selected (Frontline or Concourse board)','Switched to on-foot control scheme (HOTAS is ship-only)'],
+    explore:['Fuel scoop + Detailed Surface Scanner fitted','Long-range FSD; ship stripped for jump range','AFMU / repair limpets for the deep black','Route plotted (Spansh Road to Riches / neutron)','Cartographic data sale point noted','(Odyssey) Artemis suit + Genetic Sampler for exobio'],
+    trade:['Cargo racks maxed; hold empty for the run','Profitable A↔B loop found (Inara / EDTools)','Enough credits to fill the hold','Shield fitted (interdiction insurance)','Restock/sell stations & pads confirmed','Rare-goods loop ≥150 ly apart if hauling rares']
   };
-  const TYPEMETA={mining:'⛏️ Mining',bounty:'🎯 Bounty',onfoot:'🥾 On-foot'};
+  const TYPEMETA={mining:'⛏️ Mining',bounty:'🎯 Bounty',onfoot:'🥾 On-foot',explore:'🔭 Exploration',trade:'💰 Trading'};
+  const STEPS={
+    mining:['Fit mining tools & limpet controllers, load limpets','Fly to your hotspot ring and drop in','Prospect rocks; mine the good ones (laser or crack cores)','Scoop & refine until the hold is full','Fly to the best market and sell'],
+    bounty:['Fit combat modules; go to a RES or Nav Beacon','Scan targets — only engage Wanted ships','Drop shields with lasers, finish hull with kinetics','Manage pips & heat; boost/chaff when focused','Cash bounties at a station Contacts'],
+    onfoot:['Buy/kit your suit & weapons at Pioneer Supplies','Pick a Conflict Zone or settlement mission','Travel there (Apex shuttle or your own ship + SRV)','Fight from cover: strip shields, finish with kinetic','Loot & complete the objective, then extract','Sell loot to the bartender / exobio to Vista Genomics'],
+    explore:['Strip weight; fit fuel scoop, FSD & DSS','Plot your route (Spansh)','At each stop: honk, FSS the value bodies, DSS-map them','Sample bio-signals with the Artemis suit (Odyssey)','Bank the data at Universal Cartographics'],
+    trade:['Find a profitable loop (Inara / EDTools)','Buy the cheap commodity, fill the hold','Jump to the sell station and cash out','Buy the return cargo and repeat','Watch for interdictions — submit then boost away']
+  };
+  const RUNSTEPS={
+    '💎 The Opal Rush':['Find a Void Opal / LTD icy hotspot (classic anchor: Borann A 2)','Fit Seismic Charge + Abrasion Blaster + Pulse Wave Analyser','Crack cores, blast & scoop chunks, refine until full','Sell to the highest-demand market within ~50 ly'],
+    '🧊 Diamond Cruise':['Drop into an LTD icy hotspot, Pulse Wave Analyser on','Prospect glowing rocks, laser the surface deposits','Let collector limpets & the refinery do the work','Repeat until full, then sell'],
+    '⚙️ Painite Payday':['Find a Painite metallic hotspot','Prospect for high-% rocks; laser or crack cores','Fill up and sell where Painite demand spikes'],
+    '🚨 RES Warm-Up':['Drop at a Low RES by a ringed planet in a high-sec system (e.g. Deciat)','Scan ships; only engage Wanted ones — let cops soak damage','Lasers to drop shields, multi-cannons on hull','Cash bounties at a station Contacts'],
+    '☠️ Hazardous Payday':['Drop at a Hazardous RES in a ringed system','Pick off single targets, keep 4 pips to SYS','Use chaff/heat sinks; boost out if swarmed','Stack Kill Warrant Scanner bounties before cashing in'],
+    '⚔️ Pick a Side':['Find a system at War (galaxy map / Inara)','Drop at a Conflict Zone, pick a side at the menu','Target enemy ships; focus wings, watch friendly fire','Redeem combat bonds with the winning faction Contact'],
+    '🥾 Boots on the Ground':['At a Concourse, visit Frontline Solutions and take an on-foot CZ','Kit a Dominator with a laser + a kinetic weapon','Use cover; strip shields (laser) then finish (kinetic); headshots','Hold objectives, recharge with energy cells, extract for pay'],
+    '🕵️ The Data Heist':['Take a theft/collect mission targeting a settlement','Maverick suit: use the Profile Analyser to clone clearance','E-Breach locked doors/containers; grab data & components','Avoid alarms; extract before security & skimmers arrive'],
+    '🌿 Alien Botanist':['Find a planet with biological signals (composition scanner + DSS)','Artemis suit + Genetic Sampler: scan 3 of each species (stay spaced apart)','Log finds, avoid the wildlife','Sell samples at Vista Genomics for a fat payout'],
+    '🌌 Road to Riches':['Plot a Road-to-Riches route (Spansh) from your system','At each stop: honk, FSS the money bodies, DSS-map them','Bank the data periodically at Universal Cartographics'],
+    '🧬 First Footfalls':['Plot a long neutron-boosted route into sparse space (Spansh)','Map untouched systems for the first-mapped bonus','Drop to bio-signal planets and sample with the Artemis suit'],
+    '📦 The Milk Run':['Find a profitable A↔B commodity loop near you','Fill the hold, jump, sell, buy the return cargo, repeat','Fit a shield in case of interdictions'],
+    '🎁 Rare Goods Circuit':['Plan a loop of rare-goods sellers (each has limited stock)','Buy out each rare as you pass, hauling a mixed hold','Sell the lot 150+ ly away for the distance premium']
+  };
 
   function showPane(g){
     document.querySelectorAll('.pane').forEach(el=>el.classList.toggle('show',el.id==='pane-'+g));
     document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.g===g));
     document.querySelector('.tabs').scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+  function filterRuns(cat){
+    document.querySelectorAll('.rungroup').forEach(g=>g.classList.toggle('hide',cat!=='all'&&g.dataset.cat!==cat));
+    document.querySelectorAll('.rf').forEach(b=>b.classList.toggle('active',b.dataset.cat===cat));
   }
 
   /* FLEET */
@@ -576,7 +875,7 @@
       const i=plans.findIndex(x=>x.id===editPlan);
       if(i>-1){const old=plans[i]; const check=old.type===type?old.check:CHECK[type].map(t=>({t,done:false})); plans[i]={...old,...base,check};}
       editPlan=null; $('#planBtn').textContent='Add adventure';
-    } else plans.push({id:uid(),done:false,check:CHECK[type].map(t=>({t,done:false})),...base});
+    } else plans.push({id:uid(),done:false,steps:STEPS[type]||[],check:CHECK[type].map(t=>({t,done:false})),...base});
     save(K_PLANS,plans); e.target.reset(); renderPlans();
   }
   function startEditPlan(id){
@@ -586,6 +885,12 @@
     editPlan=id; $('#planBtn').textContent='Update adventure'; $('#planForm').scrollIntoView({behavior:'smooth',block:'center'});
   }
   function cancelPlan(){editPlan=null;$('#planForm').reset();$('#planBtn').textContent='Add adventure';}
+  function addRun(type,title,system,location,goal){
+    const steps=RUNSTEPS[title]||STEPS[type]||[];
+    plans.push({id:uid(),done:false,type,title,shipId:'',system,location,goal,steps,check:CHECK[type].map(t=>({t,done:false}))});
+    save(K_PLANS,plans); renderPlans();
+    $('#planList').scrollIntoView({behavior:'smooth',block:'center'});
+  }
   function delPlan(id){ if(!confirm('Delete this adventure?'))return; plans=plans.filter(x=>x.id!==id); save(K_PLANS,plans); renderPlans(); }
   function togglePlanDone(id){ const p=plans.find(x=>x.id===id); if(p){p.done=!p.done; save(K_PLANS,plans); renderPlans();} }
   function toggleCheck(id,i){ const p=plans.find(x=>x.id===id); if(p&&p.check[i]){p.check[i].done=!p.check[i].done; save(K_PLANS,plans); renderPlans();} }
@@ -606,6 +911,7 @@
           <span>🚀 ${ship?esc(ship.name):'<i>unassigned</i>'}</span>
         </div>
         ${p.goal?`<div class="fnotes">🎯 ${esc(p.goal)}</div>`:''}
+        ${(()=>{const st=(p.steps&&p.steps.length)?p.steps:(STEPS[p.type]||[]);return st.length?`<div class="stepwrap"><div class="checkhdr">📋 Step-by-step</div><ol class="plan-steps">${st.map(s=>`<li>${esc(s)}</li>`).join('')}</ol></div>`:'';})()}
         <div class="checkwrap">
           <div class="checkhdr">Pre-flight checklist &nbsp;<span class="muted">${done}/${p.check.length}</span></div>
           ${p.check.map((c,i)=>`<label class="chk ${c.done?'on':''}"><input type="checkbox" ${c.done?'checked':''} onchange="toggleCheck('${p.id}',${i})"> ${esc(c.t)}</label>`).join('')}

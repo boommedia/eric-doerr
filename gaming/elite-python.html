@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🛥️ Python — Multi-Role Loadout & Runs</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--ed:#ff8c42;--gold:#ffd479;--danger:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 75% -10%,rgba(255,140,66,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.7rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  h2.sec{font-size:1.12rem;border-left:4px solid var(--ed);padding-left:12px;margin:30px 0 12px}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--ed);color:#1a1206;border-color:var(--ed)}
+  .callout{border-radius:12px;padding:13px 16px;font-size:.85rem;margin:14px 0}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout.tip{background:rgba(255,212,121,.06);border:1px solid rgba(255,212,121,.28)}
+  .callout b{color:var(--text)} .callout a{color:var(--accent)}
+  ol.steps{padding-left:20px;font-size:.9rem} ol.steps li{margin:6px 0} ol.steps b{color:var(--text)}
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .links a{font-size:.82rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);text-decoration:none;border-radius:8px;padding:6px 11px}
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin:10px 0}
+  .rolehdr{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin:6px 0 2px}
+  label.chk{display:flex;gap:9px;align-items:flex-start;font-size:.86rem;color:var(--muted);padding:5px 0;cursor:pointer;border-bottom:1px solid var(--line)}
+  label.chk:last-child{border-bottom:none}
+  label.chk input{width:auto;margin-top:3px} label.chk.on{color:var(--text)}
+  .fitrow{display:flex;justify-content:space-between;gap:10px;width:100%} .role{color:var(--muted);font-size:.78rem}
+  .btn{background:var(--ed);color:#1a1206;border:none;border-radius:9px;padding:9px 15px;font-weight:700;font-size:.86rem;cursor:pointer}
+  .btn.alt{background:var(--panel-2);color:var(--text);border:1px solid var(--line)}
+  .logform{display:grid;grid-template-columns:2fr 1fr auto;gap:8px;align-items:end}
+  @media(max-width:560px){.logform{grid-template-columns:1fr 1fr}}
+  label.fld{display:flex;flex-direction:column;gap:4px;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700}
+  input,select{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 11px;font:inherit;font-size:.9rem;width:100%}
+  input:focus,select:focus{outline:none;border-color:var(--accent)}
+  .logtable{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:12px}
+  .logtable th,.logtable td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left}
+  .logtable td.n{text-align:right;font-variant-numeric:tabular-nums}
+  .totbar{display:flex;justify-content:space-between;margin-top:12px;padding:12px 14px;background:var(--panel-2);border-radius:10px;font-size:.9rem}
+  .totbar b{color:var(--accent-2);font-size:1.05rem}
+  .mini{font-size:.74rem;background:var(--panel-2);border:1px solid var(--line);color:var(--danger);border-radius:7px;padding:4px 9px;cursor:pointer}
+  .empty{color:var(--muted);font-size:.86rem;text-align:center;padding:14px}
+  footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./elite-mining-combat.html">← Elite Career Hub</a>
+    <h1>🛥️ Python — Multi-Role Loadout &amp; Runs</h1>
+    <div class="sub">The great all-rounder: bounty hunting, mining &amp; medium-pad trading in one hull. What to load, where to go, and an earnings log.</div>
+    <div class="guidenav">
+      <a class="gn" href="./elite-mining-combat.html">🟠 Career Hub</a>
+      <a class="gn" href="./elite-type11-prospector.html">⛏️ Type-11 (mining)</a>
+      <a class="gn active" href="./elite-python.html">🛥️ Python</a>
+      <a class="gn" href="./elite-anaconda.html">🛥️ Anaconda</a>
+    </div>
+  </header>
+
+  <div class="callout info">🛥️ <b>Why the Python?</b> It fits large optional modules yet lands on <b>medium pads</b>, so one ship handles bounty hunting, a solid mining fit, or ~280t of cargo. Pick a job below.</div>
+
+  <h2 class="sec">🔧 What to load</h2>
+  <div class="callout tip">Tick each module as you fit it — saves in your browser. Two profiles: a bounty-hunter core, plus swap-in mining modules when you'd rather dig.</div>
+  <div class="tool" id="fitTool"></div>
+
+  <h2 class="sec">🗺️ Where to go &amp; make money</h2>
+  <div class="rolehdr">🎯 Bounty hunting</div>
+  <ol class="steps">
+    <li>Use the <a href="https://edtools.cc/res" target="_blank" rel="noopener">RES finder</a> to find a ringed high-security system near you; drop at a <b>Low/High RES</b>.</li>
+    <li>Scan &amp; engage only <b>Wanted</b> ships; lasers for shields, multi-cannons for hull.</li>
+    <li>Add a <b>Kill Warrant Scanner</b> to stack extra bounties, then cash in at Contacts.</li>
+  </ol>
+  <div class="rolehdr">⛏️ Mining</div>
+  <ol class="steps">
+    <li>Swap in the mining modules, find a hotspot on the <a href="https://edtools.cc/hotspot" target="_blank" rel="noopener">hotspot finder</a>.</li>
+    <li>Prospect &amp; mine; sell where <a href="https://inara.cz/elite/commodities/" target="_blank" rel="noopener">demand is highest</a>.</li>
+  </ol>
+  <div class="links">
+    <a href="https://edtools.cc/res" target="_blank" rel="noopener">🔗 RES finder ↗</a>
+    <a href="https://edtools.cc/hotspot" target="_blank" rel="noopener">🔗 Hotspot finder ↗</a>
+    <a href="https://coriolis.io/" target="_blank" rel="noopener">🔧 Build in Coriolis ↗</a>
+  </div>
+
+  <h2 class="sec">💰 Earnings log</h2>
+  <div class="callout info">Log each payout — bounties, mining sales, trade profit — to track a session.</div>
+  <div class="tool">
+    <form class="logform" onsubmit="addLog(event)">
+      <label class="fld">Activity<input id="lgAct" placeholder="e.g. Haz RES bounties" required></label>
+      <label class="fld">Credits<input id="lgCr" type="number" min="0" step="1000" placeholder="4500000" required></label>
+      <button class="btn" type="submit">Add</button>
+    </form>
+    <div id="logList"></div>
+    <div class="totbar"><span>Session earnings</span><b id="totCr">0 cr</b></div>
+    <div style="margin-top:10px"><button class="btn alt" onclick="clearLog()">Clear log</button></div>
+  </div>
+
+  <footer>Part of the <a href="./elite-mining-combat.html">Elite Career Hub</a>. Loadout is role-based — fit the biggest class each slot allows &amp; engineer to taste. Saved in this browser only.</footer>
+</div>
+
+<script>
+  const $=s=>document.querySelector(s);
+  const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const fmt=n=>n.toLocaleString('en-US');
+  const LOADOUT=[
+    ['Pulse / Burst / Beam Lasers','Combat','Thermal — strip enemy shields'],
+    ['Multi-cannons','Combat','Kinetic — chew hull once shields drop'],
+    ['Shield Generator + Boosters','Combat','Your survivability — bi-weave is popular'],
+    ['Kill Warrant Scanner','Combat','Stack extra-jurisdiction bounties'],
+    ['Chaff / Heat Sink Launcher','Combat','Break locks & dump heat'],
+    ['Hull / Module Reinforcement','Combat','Backup when shields fail'],
+    ['Mining Lasers + Seismic/Abrasion','Mining','Swap in when you want to dig'],
+    ['Prospector + Collector Controllers','Mining','Survey & auto-scoop'],
+    ['Refinery + Cargo Racks','Mining/Trade','Refine & haul the payday'],
+    ['Good Power Distributor','All','Sustains weapons + boosting'],
+    ['Limpets ×150 (if mining)','Cargo','Buy from Restock before leaving']
+  ];
+  const K_FIT='ed_py_fit';
+  let fit=(()=>{try{return JSON.parse(localStorage.getItem(K_FIT))||{}}catch(e){return{}}})();
+  function renderFit(){$('#fitTool').innerHTML=LOADOUT.map((m,i)=>`<label class="chk ${fit[i]?'on':''}"><input type="checkbox" ${fit[i]?'checked':''} onchange="toggleFit(${i})"><span class="fitrow"><span><b>${esc(m[0])}</b> <span class="role">— ${esc(m[2])}</span></span><span class="role">${esc(m[1])}</span></span></label>`).join('');}
+  function toggleFit(i){fit[i]=!fit[i];localStorage.setItem(K_FIT,JSON.stringify(fit));renderFit();}
+
+  const K_LOG='ed_py_log';
+  let log=(()=>{try{return JSON.parse(localStorage.getItem(K_LOG))||[]}catch(e){return[]}})();
+  const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+  function addLog(e){e.preventDefault();const act=$('#lgAct').value.trim(),cr=+$('#lgCr').value||0;if(!act||!cr)return;log.push({id:uid(),act,cr});localStorage.setItem(K_LOG,JSON.stringify(log));e.target.reset();renderLog();}
+  function delLog(id){log=log.filter(x=>x.id!==id);localStorage.setItem(K_LOG,JSON.stringify(log));renderLog();}
+  function clearLog(){if(log.length&&!confirm('Clear the log?'))return;log=[];localStorage.setItem(K_LOG,JSON.stringify(log));renderLog();}
+  function renderLog(){
+    if(!log.length){$('#logList').innerHTML='<div class="empty">No entries yet — add a payout above.</div>';}
+    else $('#logList').innerHTML='<table class="logtable"><thead><tr><th>Activity</th><th style="text-align:right">Credits</th><th></th></tr></thead><tbody>'+log.map(r=>`<tr><td>${esc(r.act)}</td><td class="n">${fmt(r.cr)} cr</td><td style="text-align:right"><button class="mini" onclick="delLog('${r.id}')">✕</button></td></tr>`).join('')+'</tbody></table>';
+    $('#totCr').textContent=fmt(log.reduce((a,r)=>a+r.cr,0))+' cr';
+  }
+  renderFit(); renderLog();
+</script>
+</body>
+</html>
