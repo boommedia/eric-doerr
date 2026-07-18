@@ -185,8 +185,8 @@
   <div class="callout info">Set your <b>current system</b> — the finders then list the <b>closest</b> hotspots, RES sites &amp; missions (they sort by distance from the system you give them), and the planner can anchor new adventures near you. Saved in your browser &amp; shared with your ship pages.</div>
   <div class="tool">
     <div class="locgrid">
-      <label class="fld">🛰️ Station / Hub<input id="locHub" placeholder="e.g. Pacheco Hub"></label>
-      <label class="fld">⭐ Star system<input id="locInput" placeholder="e.g. Pacheco" onkeydown="if(event.key==='Enter'){event.preventDefault();saveLoc();}"></label>
+      <label class="fld">🛰️ Station / Hub<input id="locHub" placeholder="e.g. Pacheco Hub" list="hubList"></label>
+      <label class="fld">⭐ Star system<input id="locInput" placeholder="e.g. Pacheco" list="sysList" oninput="sysType()" onchange="fillHubs()" onkeydown="if(event.key==='Enter'){event.preventDefault();saveLoc();}"></label>
       <label class="fld">🌌 Region<input id="locRegion" placeholder="e.g. Inner Orion Spur" list="regions"></label>
     </div>
     <div class="row" style="margin-top:10px">
@@ -197,6 +197,7 @@
     <div id="locLinks" class="run-links" style="margin-top:12px"></div>
   </div>
   <datalist id="regions"><option>Inner Orion Spur</option><option>Outer Orion Spur</option><option>Sagittarius-Carina Arm</option><option>Galactic Centre</option><option>Empyrean Straits</option><option>Ryker's Hope</option><option>Odin's Hold</option><option>Newton's Vault</option><option>The Conduit</option><option>Hawking's Gap</option><option>Colonia</option></datalist>
+  <datalist id="sysList"></datalist><datalist id="hubList"></datalist>
 
   <!-- ============ CAREER PICKER ============ -->
   <h2 class="sec">🧭 Pick your play-style</h2>
@@ -306,7 +307,7 @@
 
   <!-- ON-FOOT FPS -->
   <div class="pane" id="pane-onfoot">
-    <div class="callout foot"><b>Requires the Odyssey expansion.</b> Leave your ship and fight on foot at settlements, ports &amp; planet surfaces. It's a proper FPS with suits, shields, gadgets &amp; loot.</div>
+    <div class="callout foot"><b>Requires the Odyssey expansion.</b> Leave your ship and fight on foot at settlements, ports &amp; planet surfaces. It's a proper FPS with suits, shields, gadgets &amp; loot. &nbsp;→ <a href="./elite-on-foot.html"><b>Full On-Foot Operations guide</b> (every mission type, tactics &amp; kit)</a>.</div>
     <div class="callout tip">🎮 <b>Controls:</b> On foot, Elite switches to <b>mouse + keyboard</b> (or a gamepad) — your <b>T16000M HOTAS is ship-only</b>. Set up a separate on-foot control scheme in Options.</div>
     <div class="lbl">The three suits</div>
     <div class="tablewrap"><table>
@@ -540,8 +541,9 @@
     </tbody>
   </table></div>
 
-  <div class="lbl">📄 Dedicated ship guides (interactive)</div>
+  <div class="lbl">📄 Dedicated interactive guides</div>
   <div class="links">
+    <a href="./elite-on-foot.html">🥾 On-Foot Operations — all mission types →</a>
     <a href="./elite-type11-prospector.html">⛏️ Type-11 Prospector — mining loadout &amp; runs →</a>
     <a href="./elite-python.html">🛥️ Python — multi-role →</a>
     <a href="./elite-anaconda.html">🛥️ Anaconda — explore &amp; combat →</a>
@@ -894,6 +896,25 @@
     else{const e=encodeURIComponent(o.system);
       box.innerHTML=`<a href="https://www.edsm.net/en/system?systemName=${e}" target="_blank" rel="noopener">🗺️ ${esc(o.system)} on EDSM ↗</a><a href="https://inara.cz/elite/starsystem/?search=${e}" target="_blank" rel="noopener">📊 on Inara ↗</a><a href="https://edtools.cc/miner" target="_blank" rel="noopener">⛏️ nearest hotspots ↗</a><a href="https://edtools.cc/res" target="_blank" rel="noopener">🎯 nearest RES ↗</a>`;
       const ps=$('#planSystem'); if(ps)ps.placeholder='e.g. near '+o.system;}
+  }
+  /* ---- SYSTEM / STATION AUTOCOMPLETE (EDSM) ---- */
+  let _sysT;
+  function sysType(){
+    const q=($('#locInput').value||'').trim(); clearTimeout(_sysT);
+    if(q.length<3)return;
+    _sysT=setTimeout(()=>{
+      fetch('https://www.edsm.net/typeahead/systems/query/'+encodeURIComponent(q))
+        .then(r=>r.ok?r.json():[]).then(list=>{const dl=$('#sysList');if(!dl)return;
+          dl.innerHTML=(Array.isArray(list)?list:[]).slice(0,10).map(n=>`<option value="${esc(typeof n==='string'?n:(n.value||n.name||''))}">`).join('');
+        }).catch(()=>{});
+    },300);
+  }
+  function fillHubs(){
+    const sys=($('#locInput').value||'').trim(); if(sys.length<2)return;
+    fetch('https://www.edsm.net/api-system-v1/stations?systemName='+encodeURIComponent(sys))
+      .then(r=>r.ok?r.json():null).then(d=>{const dl=$('#hubList');if(!dl||!d||!d.stations)return;
+        dl.innerHTML=d.stations.slice(0,40).map(s=>`<option value="${esc(s.name)}">`).join('');
+      }).catch(()=>{});
   }
   /* ---- SEARCH ---- */
   let hlNodes=[],hlIdx=-1;

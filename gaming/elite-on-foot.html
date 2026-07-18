@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🥾 Elite Dangerous — On-Foot Operations (Odyssey)</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--foot:#c792ea;--ed:#ff8c42;--gold:#ffd479;--danger:#ff6b6b;--combat:#ff8c42;--scav:#4cc2ff;--exo:#7ee787}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 75% -10%,rgba(199,146,234,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.7rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  h2.sec{font-size:1.15rem;border-left:4px solid var(--foot);padding-left:12px;margin:32px 0 12px}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--foot);color:#170a1e;border-color:var(--foot)}
+  .callout{border-radius:12px;padding:13px 16px;font-size:.85rem;margin:14px 0}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout.tip{background:rgba(255,212,121,.06);border:1px solid rgba(255,212,121,.28)}
+  .callout.warn{background:rgba(255,140,66,.07);border:1px solid rgba(255,140,66,.3)}
+  .callout.foot{background:rgba(199,146,234,.07);border:1px solid rgba(199,146,234,.3)}
+  .callout b{color:var(--text)} .callout a{color:var(--accent)}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:10px 0}
+  table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:520px}
+  th,td{padding:9px 13px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  thead th{background:var(--panel-2);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+  td.k{font-weight:600;color:var(--accent);white-space:nowrap}
+  ol.steps{padding-left:20px;font-size:.88rem} ol.steps li{margin:5px 0} ol.steps b{color:var(--text)}
+  .lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin:16px 0 6px}
+  code{background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:.85em;color:var(--accent-2)}
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .links a{font-size:.82rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);text-decoration:none;border-radius:8px;padding:6px 11px}
+  .cards2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:680px){.cards2{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .card h3{margin:0 0 4px;font-size:1.02rem} .card .tagline{color:var(--muted);font-size:.82rem;margin-bottom:8px}
+  .card ul{margin:0;padding-left:18px;font-size:.85rem;color:var(--muted)} .card ul b{color:var(--text)}
+
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin:10px 0}
+  .locgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(max-width:640px){.locgrid{grid-template-columns:1fr}}
+  label.fld{display:flex;flex-direction:column;gap:4px;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700}
+  input{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 11px;font:inherit;font-size:.9rem;width:100%}
+  input:focus{outline:none;border-color:var(--accent)}
+  .btn{background:var(--foot);color:#170a1e;border:none;border-radius:9px;padding:9px 15px;font-weight:700;font-size:.86rem;cursor:pointer}
+  label.chk{display:flex;gap:9px;align-items:flex-start;font-size:.86rem;color:var(--muted);padding:5px 0;cursor:pointer;border-bottom:1px solid var(--line)}
+  label.chk:last-child{border-bottom:none} label.chk input{width:auto;margin-top:3px} label.chk.on{color:var(--text)}
+  .fitrow{display:flex;justify-content:space-between;gap:10px;width:100%} .role{color:var(--muted);font-size:.78rem}
+
+  .filter{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 14px}
+  .fbtn{background:var(--panel-2);border:1px solid var(--line);color:var(--muted);border-radius:20px;padding:7px 14px;font-size:.83rem;font-weight:600;cursor:pointer}
+  .fbtn.active{background:var(--foot);color:#170a1e;border-color:var(--foot)}
+  details.mission{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--foot);border-radius:12px;margin:10px 0}
+  details.mission.combat{border-left-color:var(--combat)} details.mission.scav{border-left-color:var(--scav)} details.mission.exo{border-left-color:var(--exo)}
+  details.mission.hide{display:none}
+  details.mission>summary{list-style:none;cursor:pointer;padding:13px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:600;font-size:.98rem}
+  details.mission>summary::-webkit-details-marker{display:none}
+  details.mission[open]>summary{border-bottom:1px solid var(--line)}
+  .mission-body{padding:12px 16px}
+  .mission-body .goal{font-size:.85rem;color:var(--muted);margin:0 0 8px} .mission-body .goal b{color:var(--text)}
+  .diff{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 8px;border-radius:6px;white-space:nowrap}
+  .diff.easy{background:rgba(126,231,135,.16);color:var(--exo)} .diff.med{background:rgba(255,212,121,.16);color:var(--gold)} .diff.hard{background:rgba(255,107,107,.16);color:var(--danger)}
+  .msuit{font-size:.7rem;color:var(--muted);white-space:nowrap}
+
+  .searchbar{position:sticky;top:0;z-index:30;display:flex;gap:8px;align-items:center;background:rgba(13,17,23,.93);backdrop-filter:blur(6px);padding:12px 0;margin-bottom:4px;border-bottom:1px solid var(--line)}
+  .searchbar input{flex:1} .searchbar button{font-size:.8rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);border-radius:7px;padding:6px 10px;cursor:pointer}
+  .scount{font-size:.78rem;color:var(--muted);white-space:nowrap}
+  mark.hl{background:rgba(255,212,121,.32);color:var(--text);border-radius:3px;padding:0 1px} mark.hl.cur{background:var(--gold);color:#1a1400}
+  footer{color:var(--muted);font-size:.78rem;margin-top:34px} footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./elite-mining-combat.html">← Elite Career Hub</a>
+    <h1>🥾 On-Foot Operations <span style="color:var(--muted);font-size:1rem">(Odyssey)</span></h1>
+    <div class="sub">Every on-foot mission type and how to play it — plus suits, weapons, gadgets, tactics, and using your <b>Anaconda / Python</b> as the dropship.</div>
+    <div class="guidenav">
+      <a class="gn" href="./elite-mining-combat.html">🟠 Career Hub</a>
+      <a class="gn active" href="./elite-on-foot.html">🥾 On-Foot Ops</a>
+      <a class="gn" href="./elite-type11-prospector.html">⛏️ Type-11</a>
+      <a class="gn" href="./elite-python.html">🛥️ Python</a>
+      <a class="gn" href="./elite-anaconda.html">🛥️ Anaconda</a>
+    </div>
+  </header>
+
+  <div id="searchWrap" class="searchbar">
+    <input id="searchBox" placeholder="🔍 Search on-foot guide… (e.g. reactivate, Maverick, alarm)" oninput="doSearch()" onkeydown="if(event.key==='Enter'){event.preventDefault();nextHL(event.shiftKey?-1:1);}">
+    <span id="searchCount" class="scount"></span>
+    <button type="button" onclick="nextHL(-1)">▲</button>
+    <button type="button" onclick="nextHL(1)">▼</button>
+    <button type="button" onclick="document.getElementById('searchBox').value='';doSearch();">✕</button>
+  </div>
+
+  <div class="callout foot">🥾 <b>On foot needs the Odyssey expansion.</b> You leave your ship and play a true FPS at settlements, ports &amp; planet surfaces — with suits, shields, gadgets &amp; loot. Your ship is your <b>ride, armoury &amp; storage</b>, not a weapon on the ground.</div>
+  <div class="callout tip">🎮 <b>Controls:</b> on foot Elite switches to <b>mouse + keyboard</b> (or a gamepad) — your <b>T16000M HOTAS is ship-only</b>. Set up a separate on-foot control scheme in Options ▸ Controls.</div>
+
+  <!-- LOCATION -->
+  <h2 class="sec">📍 Where are you right now?</h2>
+  <div class="callout info">Set your location — it's shared with your other Elite pages and powers near-you finder links.</div>
+  <div class="tool">
+    <div class="locgrid">
+      <label class="fld">🛰️ Station / Hub<input id="locHub" placeholder="e.g. Pacheco Hub" list="hubList"></label>
+      <label class="fld">⭐ Star system<input id="locInput" placeholder="e.g. Pacheco" list="sysList" oninput="sysType()" onchange="fillHubs()" onkeydown="if(event.key==='Enter'){event.preventDefault();saveLoc();}"></label>
+      <label class="fld">🌌 Region<input id="locRegion" placeholder="e.g. Inner Orion Spur" list="regions"></label>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px">
+      <button class="btn" type="button" onclick="saveLoc()">📍 Set</button>
+      <span id="locNow" class="scount"></span>
+    </div>
+    <div id="locLinks" class="links" style="margin-top:12px"></div>
+  </div>
+  <datalist id="regions"><option>Inner Orion Spur</option><option>Outer Orion Spur</option><option>Sagittarius-Carina Arm</option><option>Galactic Centre</option><option>Empyrean Straits</option><option>Ryker's Hope</option><option>Odin's Hold</option><option>Newton's Vault</option><option>The Conduit</option><option>Hawking's Gap</option><option>Colonia</option></datalist>
+  <datalist id="sysList"></datalist><datalist id="hubList"></datalist>
+
+  <!-- GAME MODES -->
+  <h2 class="sec">🎛️ Game modes (quick primer)</h2>
+  <div class="cards2">
+    <div class="card">
+      <h3>Play modes</h3>
+      <ul>
+        <li><b>Open Play:</b> shared galaxy with all players — PvP possible</li>
+        <li><b>Private Group:</b> invite-only server (friends / squadrons)</li>
+        <li><b>Solo:</b> same galaxy, no other players — safest for learning on foot</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>In-ship flight modes</h3>
+      <ul>
+        <li><b>NAV mode:</b> high speed + Quantum/Frame-Shift travel</li>
+        <li><b>SCM mode:</b> combat speed, weapons &amp; shields online</li>
+        <li><b>Analysis vs Combat HUD:</b> blue = scanners/mining, red = weapons</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout tip">💡 Learning on foot? Switch to <b>Solo</b> or a <b>Private Group</b> so you're not ambushed while you get the hang of settlement layouts &amp; combat.</div>
+
+  <!-- SHIP AS BASE -->
+  <h2 class="sec">🚀 Your ship as a dropship — Anaconda vs Python</h2>
+  <div class="cards2">
+    <div class="card">
+      <h3>🛥️ Python <span class="diff easy">friendlier taxi</span></h3>
+      <div class="tagline">Medium pad — lands at far more settlements.</div>
+      <ul>
+        <li>Fits an <b>SRV Hangar</b> + a decent shield; good all-round on-foot carrier</li>
+        <li>Lands directly at most settlement pads, so you disembark on-site</li>
+        <li>Best default for regular on-foot missions</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>🛥️ Anaconda <span class="diff med">large pad only</span></h3>
+      <div class="tagline">Huge range &amp; storage — but needs a large pad.</div>
+      <ul>
+        <li>Many settlements have <b>no large pad</b> → land nearby &amp; drive an <b>SRV</b>, or take an <b>Apex</b> shuttle</li>
+        <li>Shines when combining on-foot with <b>deep-space exobiology</b> (top jump range)</li>
+        <li>Fit an SRV Hangar + shields against settlement <b>skimmers/turrets</b></li>
+      </ul>
+    </div>
+  </div>
+  <div class="lbl">Three ways to reach a settlement</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Method</th><th>How</th><th>When</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Land your ship</td><td>Request the settlement pad, dock, disembark</td><td>Pad fits your ship (Python usually yes)</td></tr>
+      <tr><td class="k">SRV drive-in</td><td>Land nearby, drop the SRV, drive to the settlement</td><td>No pad for your ship (common with Anaconda)</td></tr>
+      <tr><td class="k">Apex shuttle</td><td>Book an Apex Interstellar taxi from a Concourse</td><td>No suitable ship / quick hops</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn">⚠️ Some settlements are <b>hostile</b> — their defence turrets &amp; skimmers will shoot your parked ship. Bring a shield, park at range, or clear defences first.</div>
+
+  <!-- GEAR: SUITS -->
+  <h2 class="sec">🥽 Suits — pick your role</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Suit</th><th>Role</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Dominator</td><td>Combat</td><td>Most weapon slots + grenade capacity — the fighter's suit (CZ, assault, massacre)</td></tr>
+      <tr><td class="k">Maverick</td><td>Scavenger</td><td>Extra tool slot &amp; backpack; carries an Arc Cutter — best for theft, salvage &amp; raids</td></tr>
+      <tr><td class="k">Artemis</td><td>Explorer</td><td>Genetic Sampler for exobiology; light utility suit</td></tr>
+      <tr><td class="k">Flight Suit</td><td>Default</td><td>Free starter — one sidearm, no specialist tools</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip">🛠️ <b>Upgrading suits &amp; weapons:</b> raise them to Grade 5 and add <b>mods</b> at a station <b>Bartender</b> using materials you loot. Good suit mods: <b>Improved Battery Capacity</b>, <b>Extra Ammo Capacity</b>, <b>Enhanced Tracking</b>, <b>Damage Resistance</b>, <b>Faster Shield Regen</b>, <b>Night Vision</b>.</div>
+
+  <!-- GEAR: WEAPONS -->
+  <h2 class="sec">🔫 Weapons &amp; damage types</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Type</th><th>Examples</th><th>Good vs</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Laser</td><td>TK Aphelion, TK Zenith</td><td>Shields</td><td>No ammo pickups; can overheat if spammed</td></tr>
+      <tr><td class="k">Plasma</td><td>Manticore Executioner, Oppressor</td><td>Both</td><td>High damage, slower — great once mastered</td></tr>
+      <tr><td class="k">Kinetic</td><td>Karma AR-50/P-15, C-44</td><td>Flesh / hull</td><td>Finishes enemies after shields drop</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout info">🎯 <b>Golden rule:</b> <b>laser/plasma to strip shields</b>, then <b>kinetic to finish</b>. Carry one of each. Good weapon mods: <b>Magazine Size</b>, <b>Headshot Damage</b>, <b>Stability</b>, <b>Faster Handling</b>, <b>Scope</b>, <b>Noise Suppressor</b> (for stealth).</div>
+
+  <!-- GEAR: GADGETS -->
+  <h2 class="sec">🛠️ Gadgets &amp; consumables</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Item</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Energylink</td><td>Recharge or drain power points &amp; battery consoles; power buildings on/off</td></tr>
+      <tr><td class="k">E-Breach</td><td>Hack locked doors &amp; containers (consumed per use)</td></tr>
+      <tr><td class="k">Profile Analyser</td><td>Scan an NPC to <b>clone their authorisation</b> — walk through restricted areas unnoticed</td></tr>
+      <tr><td class="k">Genetic Sampler</td><td>Artemis suit tool — take biological samples for exobiology</td></tr>
+      <tr><td class="k">Arc Cutter</td><td>Maverick tool — cut open locked panels &amp; access points</td></tr>
+      <tr><td class="k">Grenades</td><td><b>Frag</b> (damage), <b>Shield Disruptor</b> (drop enemy shields), <b>EMP</b> (disable alarms/turrets)</td></tr>
+      <tr><td class="k">Energy Cell</td><td>Recharge your suit shields &amp; battery mid-fight</td></tr>
+      <tr><td class="k">Medkit</td><td>Restore health</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- INTERACTIVE KIT CHECKLIST -->
+  <h2 class="sec">✅ Pre-drop kit checklist</h2>
+  <div class="callout info">Tick each as you pack it before an op — saves in your browser.</div>
+  <div class="tool" id="kitTool"></div>
+
+  <!-- MISSION TYPES -->
+  <h2 class="sec">🎯 Mission types — how to play each</h2>
+  <div class="callout info">Filter by style, then expand a mission for its goal, step-by-step &amp; tips. Pick these up at station <b>mission boards</b>, <b>Frontline Solutions</b>, or as freelance activities.</div>
+  <div class="filter">
+    <button class="fbtn active" data-c="all" onclick="filterM('all')">✦ All</button>
+    <button class="fbtn" data-c="combat" onclick="filterM('combat')">⚔️ Combat</button>
+    <button class="fbtn" data-c="scav" onclick="filterM('scav')">🕵️ Stealth / Salvage</button>
+    <button class="fbtn" data-c="exo" onclick="filterM('exo')">🌿 Support / Exobio</button>
+  </div>
+
+  <details class="mission combat">
+    <summary><span>⚔️ On-Foot Conflict Zone</span><span><span class="diff hard">Combat</span> <span class="msuit">Dominator</span></span></summary>
+    <div class="mission-body">
+      <p class="goal"><b>Goal:</b> join a ground war for a faction and earn Combat Bonds + merc rewards.</p>
+      <ol class="steps">
+        <li>Go to a <b>Concourse in a system at war</b> and talk to <b>Frontline Solutions</b>; pick a side &amp; intensity (Low/Med/High).</li>
+        <li>You're dropped at the CZ in a <b>Dominator</b> (bring a laser + kinetic + grenades).</li>
+        <li><b>Capture control points</b> (stand in the zone to flip it) and kill enemy soldiers &amp; their reinforcements.</li>
+        <li>Restock <b>ammo, energy cells &amp; grenades</b> from your team's supply crates and downed enemies.</li>
+        <li>Win the zone, then hand in <b>Combat Bonds</b> at Frontline Solutions.</li>
+      </ol>
+      <div class="callout tip">🎯 Use cover &amp; corners; shield-disruptor grenade then a kinetic burst melts tough troopers. Bring spare weapons — you can grab dropped ones.</div>
+    </div>
+  </details>
+
+  <details class="mission combat">
+    <summary><span>💥 Massacre / Settlement Raid</span><span><span class="diff hard">Combat</span> <span class="msuit">Dominator</span></span></summary>
+    <div class="mission-body">
+      <p class="goal"><b>Goal:</b> eliminate the personnel or clear a settlement (often illegal — expect a bounty).</p>
+      <ol class="steps">
+        <li>Accept from a mission board (or go rogue at any occupied settlement).</li>
+        <li>Approach quietly; consider disabling <b>alarms</b> first at a security terminal (or EMP them).</li>
+        <li>Clear the settlement — strip shields with laser/plasma, finish with kinetic; watch for a <b>security dropship</b> if alarms trip.</li>
+        <li>Loot bodies &amp; containers, then extract before reinforcements pile in.</li>
+      </ol>
+      <div class="callout warn">⚠️ Killing non-hostiles flags you <b>Wanted</b> — clear fines/notoriety at an <b>Interstellar Factors</b> contact afterward.</div>
+    </div>
+  </details>
+
+  <details class="mission combat">
+    <summary><span>🎯 Assassination</span><span><span class="diff med">Combat</span> <span class="msuit">Dominator / Maverick</span></span></summary>
+    <div class="mission-body">
+      <p class="goal"><b>Goal:</b> kill one specific target at a settlement.</p>
+      <ol class="steps">
+        <li>Travel to the settlement; use the <b>Profile Analyser</b> to identify people &amp; find your target.</li>
+        <li>Approach — stealth (silenced kinetic / melee) or loud (rush them).</li>
+        <li>Eliminate the target, then <b>extract</b> before security locks the area down.</li>
+      </ol>
+      <div class="callout tip">🕵️ Cloning a profile lets you walk right up to the target in restricted zones without aggro.</div>
+    </div>
+  </details>
+
+  <details class="mission scav">
+    <summary><span>🕵️ Theft / Data Heist</span><span><span class="diff med">Stealth</span> <span class="msuit">Maverick</span></span></summary>
+    <div class="mission-body">
+      <p class="goal"><b>Goal:</b> steal specific <b>data</b> or <b>goods</b> from a settlement without raising the alarm.</p>
+      <ol class="steps">
+        <li>Take a theft/collect mission; travel to the settlement in a <b>Maverick</b> suit.</li>
+        <li><b>Profile Analyser</b> → clone an NPC's clearance so restricted doors read you as authorised.</li>
+        <li><b>E-Breach</b> or <b>Arc Cutter</b> locked doors &amp; containers; grab the target item + any loose materials/data.</li>
+        <li>Keep off cameras &amp; avoid alarms; slip out the way you came and <b>extract</b>.</li>
+      </ol>
+      <div class="callout tip">🔇 A <b>Noise Suppressor</b> weapon mod &amp; crouch-walking keep you quiet. If an alarm trips, hit a <b>security terminal</b> to reset it or EMP the panel.</div>
+    </div>
+  </details>
+
+  <details class="mission scav">
+    <summary><span>🧰 Retrieve / Recover</span><span><span class="diff easy">Stealth</span> <span class="msuit">Maverick</span></span></summary>
+    <div class="mission-body">
+      <p class="goal"><b>Goal:</b> find a specific item (canister, data, component) and bring it back.</p>
+      <ol class="steps">
+        <li>Head to the marked settlement or POI.</li>
+        <li>Search containers, lockers &amp; the ground; <b>E-Breach</b> anything locked.</li>
+        <li>Grab the item and return it to the mission-giver.</li>
+      </ol>
+    </div>
+  </details>
+
+  <details class="mission scav">
+    <summary><span>♻️ Scavenging / Salvage (freelance)</span><span><span class="diff easy">Salvage</span> <span class="msuit">Maverick</span></span></summary>
+    <div class="mission-body">
+      <p class="goal"><b>Goal:</b> loot abandoned or damaged settlements for materials &amp; data to sell or fund upgrades.</p>
+      <ol class="steps">
+        <li>Find an <b>abandoned / damaged</b> settlement (little to no security).</li>
+        <li>Loot every container, locker &amp; body; <b>E-Breach / Arc Cutter</b> the locked ones.</li>
+        <li>Use the <b>Energylink</b> to power up dead consoles &amp; unlock more rooms.</li>
+        <li>Sell components &amp; data to a station <b>Bartender</b>; keep rare mats for suit/weapon upgrades.</li>
+      </ol>
+      <div class="callout tip">💡 Scavenging is the main way to stockpile the <b>materials</b> you need to engineer your suits &amp; weapons to Grade 5.</div>
+    </div>
+  </details>
+
+  <details class="mission exo">
+    <summary><span>⚡ Reactivation / Restore</span><span><span class="diff med">Support</span> <span class="msuit">Maverick</span></span></summary>
+    <div class="mission-body">
+      <p class="goal"><b>Goal:</b> bring a powered-down settlement back online.</p>
+      <ol class="steps">
+        <li>Travel in; there may be <b>scavengers</b> to clear first.</li>
+        <li>Find the <b>Power Centre</b> and insert/enable the <b>Power Regulator</b> (bring one, or find it on-site).</li>
+        <li>Use the <b>Energylink</b> to route power to each building's panel until everything's green.</li>
+        <li>Complete any sub-objectives (reboot consoles, restore comms) and hand in.</li>
+      </ol>
+    </div>
+  </details>
+
+  <details class="mission exo">
+    <summary><span>🔌 Sabotage</span><span><span class="diff med">Support</span> <span class="msuit">Maverick</span></span></summary>
+    <div class="mission-body">
+      <p class="goal"><b>Goal:</b> the opposite of restore — disable a settlement's power or systems.</p>
+      <ol class="steps">
+        <li>Sneak in (clone a profile to move freely).</li>
+        <li>Use the <b>Energylink</b> to drain the power regulator, or plant/enable the sabotage device.</li>
+        <li>Leave before security responds to the outage.</li>
+      </ol>
+    </div>
+  </details>
+
+  <details class="mission exo">
+    <summary><span>🌿 Exobiology (freelance)</span><span><span class="diff easy">Exobio</span> <span class="msuit">Artemis</span></span></summary>
+    <div class="mission-body">
+      <p class="goal"><b>Goal:</b> sample alien flora and sell the genetic data — chill &amp; very lucrative.</p>
+      <ol class="steps">
+        <li>Find a planet with <b>biological signals</b> (composition scanner + DSS mapping).</li>
+        <li>Land, disembark in the <b>Artemis</b> suit with the <b>Genetic Sampler</b>.</li>
+        <li>Scan <b>3 samples of each species</b>, spaced the required distance apart (the tool shows the range).</li>
+        <li>Avoid the wildlife; return and sell at <b>Vista Genomics</b>.</li>
+      </ol>
+      <div class="callout tip">🌌 Pair this with the <b>Anaconda</b> — its jump range gets you to untouched systems where samples (and first-footfall bonuses) are worth the most.</div>
+    </div>
+  </details>
+
+  <!-- COMBAT TACTICS -->
+  <h2 class="sec">🥊 On-foot combat tactics</h2>
+  <ol class="steps">
+    <li><b>Shields first.</b> Everyone (you &amp; enemies) has a rechargeable shield — strip it with laser/plasma, then kinetic to the body/head.</li>
+    <li><b>Use cover &amp; angles.</b> Peek, fire, re-cover; your shield regenerates when you're not being hit.</li>
+    <li><b>Manage battery.</b> Sprinting, shields, night-vision &amp; tools all drain your suit battery — carry spare <b>energy cells</b>.</li>
+    <li><b>Grenades win fights.</b> <b>Shield-disruptor</b> to crack a tough enemy, <b>EMP</b> to kill alarms &amp; turrets, <b>frag</b> for groups.</li>
+    <li><b>Handle alarms.</b> Tripping one summons security + a <b>dropship</b>. Reset alarms at a security terminal, or EMP the panel; clone a profile to avoid tripping them at all.</li>
+    <li><b>Watch oxygen.</b> On airless worlds your O2 is limited — refill at consumable points, your ship, or an SRV.</li>
+  </ol>
+
+  <!-- SELLING & UPGRADES -->
+  <h2 class="sec">💰 Loot, selling &amp; upgrades</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Where</th><th>For</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Bartender</td><td>Sell looted components &amp; data; buy/apply <b>suit &amp; weapon upgrades</b> (needs materials)</td></tr>
+      <tr><td class="k">Pioneer Supplies</td><td>Buy suits &amp; weapons</td></tr>
+      <tr><td class="k">Vista Genomics</td><td>Sell exobiology samples</td></tr>
+      <tr><td class="k">Frontline Solutions</td><td>Sign up for Conflict Zones; hand in Combat Bonds</td></tr>
+      <tr><td class="k">Apex Interstellar</td><td>Shuttle taxi between ports &amp; settlements</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- RESOURCES -->
+  <h2 class="sec">🌐 On-foot resources</h2>
+  <div class="links">
+    <a href="https://inara.cz/" target="_blank" rel="noopener">Inara — nearest services ↗</a>
+    <a href="https://github.com/jixxed/ed-odyssey-materials-helper" target="_blank" rel="noopener">Odyssey Materials Helper ↗</a>
+    <a href="https://cmdrs-toolbox.com/" target="_blank" rel="noopener">CMDRs Toolbox ↗</a>
+    <a href="https://elite-dangerous.fandom.com/wiki/Odyssey" target="_blank" rel="noopener">Odyssey wiki ↗</a>
+  </div>
+
+  <footer>Part of the <a href="./elite-mining-combat.html">Elite Career Hub</a>. On-foot mechanics evolve with the live game — check Inara &amp; the wiki for current details. Your kit checklist &amp; location save in this browser only.</footer>
+</div>
+
+<script>
+  const $=s=>document.querySelector(s);
+  const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+  /* ---- KIT CHECKLIST ---- */
+  const KIT=[
+    ['Suit chosen','Dominator (combat) / Maverick (stealth-salvage) / Artemis (exobio)'],
+    ['Primary: laser or plasma','Strips enemy shields'],
+    ['Secondary: kinetic','Finishes hull/flesh once shields drop'],
+    ['Grenades','Frag + Shield-disruptor + EMP (for alarms/turrets)'],
+    ['Energy Cells','Recharge suit shields & battery mid-fight'],
+    ['Medkits','Restore health'],
+    ['E-Breach / Arc Cutter','Open locked doors & containers'],
+    ['Profile Analyser','Clone clearance for restricted areas'],
+    ['Power Regulator (restore jobs)','Needed to re-power a settlement'],
+    ['Genetic Sampler (exobio)','Artemis tool for samples'],
+    ['Ship prep: SRV Hangar + shield','Reach no-pad settlements & survive skimmers'],
+    ['On-foot control scheme set','HOTAS is ship-only — bind M&KB/gamepad']
+  ];
+  const K_KIT='ed_onfoot_kit';
+  let kit=(()=>{try{return JSON.parse(localStorage.getItem(K_KIT))||{}}catch(e){return{}}})();
+  function renderKit(){$('#kitTool').innerHTML=KIT.map((m,i)=>`<label class="chk ${kit[i]?'on':''}"><input type="checkbox" ${kit[i]?'checked':''} onchange="toggleKit(${i})"><span class="fitrow"><span><b>${esc(m[0])}</b> <span class="role">— ${esc(m[1])}</span></span></span></label>`).join('');}
+  function toggleKit(i){kit[i]=!kit[i];localStorage.setItem(K_KIT,JSON.stringify(kit));renderKit();}
+
+  /* ---- MISSION FILTER ---- */
+  function filterM(c){
+    document.querySelectorAll('details.mission').forEach(d=>d.classList.toggle('hide',c!=='all'&&!d.classList.contains(c)));
+    document.querySelectorAll('.fbtn').forEach(b=>b.classList.toggle('active',b.dataset.c===c));
+  }
+
+  /* ---- LOCATION (shared key) ---- */
+  const K_LOC='ed_location';
+  function loadLoc(){try{const r=JSON.parse(localStorage.getItem(K_LOC));if(r&&typeof r==='object')return r;}catch(e){}const s=localStorage.getItem(K_LOC);return s?{system:s}:{};}
+  function saveLoc(){localStorage.setItem(K_LOC,JSON.stringify({hub:($('#locHub')?$('#locHub').value:'').trim(),system:($('#locInput').value||'').trim(),region:($('#locRegion')?$('#locRegion').value:'').trim()}));renderLoc();}
+  function renderLoc(){
+    const o=loadLoc();
+    if($('#locHub'))$('#locHub').value=o.hub||'';
+    if($('#locInput'))$('#locInput').value=o.system||'';
+    if($('#locRegion'))$('#locRegion').value=o.region||'';
+    const now=$('#locNow'); if(now)now.textContent=o.system?('📍 '+[o.hub,o.system,o.region].filter(Boolean).join(' · ')):'';
+    const box=$('#locLinks'); if(!box)return;
+    if(!o.system){box.innerHTML='<span style="color:var(--muted);font-size:.8rem">Set your system for near-you finder links.</span>';return;}
+    const e=encodeURIComponent(o.system);
+    box.innerHTML=`<a href="https://www.edsm.net/en/system?systemName=${e}" target="_blank" rel="noopener">🗺️ ${esc(o.system)} on EDSM ↗</a> <a href="https://inara.cz/elite/nearest-stations/" target="_blank" rel="noopener">🛰️ nearest services ↗</a> <a href="https://inara.cz/elite/starsystem/?search=${e}" target="_blank" rel="noopener">📊 on Inara ↗</a>`;
+  }
+
+  /* ---- SYSTEM / STATION AUTOCOMPLETE (EDSM) ---- */
+  let _sysT;
+  function sysType(){
+    const q=($('#locInput').value||'').trim(); clearTimeout(_sysT);
+    if(q.length<3)return;
+    _sysT=setTimeout(()=>{
+      fetch('https://www.edsm.net/typeahead/systems/query/'+encodeURIComponent(q))
+        .then(r=>r.ok?r.json():[]).then(list=>{const dl=$('#sysList');if(!dl)return;
+          dl.innerHTML=(Array.isArray(list)?list:[]).slice(0,10).map(n=>`<option value="${esc(typeof n==='string'?n:(n.value||n.name||''))}">`).join('');
+        }).catch(()=>{});
+    },300);
+  }
+  function fillHubs(){
+    const sys=($('#locInput').value||'').trim(); if(sys.length<2)return;
+    fetch('https://www.edsm.net/api-system-v1/stations?systemName='+encodeURIComponent(sys))
+      .then(r=>r.ok?r.json():null).then(d=>{const dl=$('#hubList');if(!dl||!d||!d.stations)return;
+        dl.innerHTML=d.stations.slice(0,40).map(s=>`<option value="${esc(s.name)}">`).join('');
+      }).catch(()=>{});
+  }
+  /* ---- SEARCH ---- */
+  let hlNodes=[],hlIdx=-1;
+  function clearHL(){document.querySelectorAll('mark.hl').forEach(m=>{const p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize();});hlNodes=[];hlIdx=-1;}
+  function doSearch(){
+    const q=($('#searchBox').value||'').trim(); clearHL();
+    if(q.length<2){$('#searchCount').textContent='';return;}
+    const rx=new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');
+    const skip=new Set(['SCRIPT','STYLE','INPUT','TEXTAREA','SELECT','MARK','OPTION','BUTTON']);
+    const walker=document.createTreeWalker(document.querySelector('.wrap'),NodeFilter.SHOW_TEXT,{acceptNode(n){
+      if(!n.nodeValue.trim())return 2; let p=n.parentNode;
+      while(p){if(p.nodeName&&skip.has(p.nodeName))return 2; if(p.id==='searchWrap')return 2; p=p.parentNode;}
+      rx.lastIndex=0; return rx.test(n.nodeValue)?1:2;}});
+    const targets=[]; let node; while(node=walker.nextNode())targets.push(node);
+    targets.forEach(n=>{const s=n.nodeValue,frag=document.createDocumentFragment();let last=0,m;rx.lastIndex=0;
+      while(m=rx.exec(s)){if(m.index>last)frag.appendChild(document.createTextNode(s.slice(last,m.index)));
+        const mk=document.createElement('mark');mk.className='hl';mk.textContent=m[0];frag.appendChild(mk);hlNodes.push(mk);
+        last=m.index+m[0].length; if(m.index===rx.lastIndex)rx.lastIndex++;}
+      if(last<s.length)frag.appendChild(document.createTextNode(s.slice(last)));
+      n.parentNode.replaceChild(frag,n);});
+    $('#searchCount').textContent=hlNodes.length?`${hlNodes.length} match${hlNodes.length>1?'es':''}`:'no matches';
+    if(hlNodes.length){hlIdx=0;focusHL();}
+  }
+  function focusHL(){
+    hlNodes.forEach((m,i)=>m.classList.toggle('cur',i===hlIdx));
+    const el=hlNodes[hlIdx]; if(!el)return;
+    const det=el.closest&&el.closest('details.mission'); if(det){det.open=true;det.classList.remove('hide');}
+    el.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  function nextHL(d){if(!hlNodes.length)return;hlIdx=(hlIdx+d+hlNodes.length)%hlNodes.length;focusHL();}
+
+  renderKit(); renderLoc();
+</script>
+</body>
+</html>
