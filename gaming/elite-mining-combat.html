@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🟠 Elite Dangerous — Career Hub & Planner</title>
+<style>
+  :root{
+    --bg:#0f1419; --panel:#1a2029; --panel-2:#212936; --line:#2c3644;
+    --text:#e6edf3; --muted:#8b98a9; --accent:#4cc2ff; --accent-2:#7ee787;
+    --ed:#ff8c42; --mine:#4cc2ff; --combat:#ff8c42; --foot:#c792ea; --explore:#7ee787; --trade:#ffd479;
+    --multi:#7ee787; --gold:#ffd479; --danger:#ff6b6b; --shadow:0 8px 30px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1000px 500px at 75% -10%,rgba(255,140,66,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);
+    color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.8rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  h2.sec{font-size:1.15rem;border-left:4px solid var(--ed);padding-left:12px;margin:34px 0 14px;display:flex;align-items:center;gap:10px}
+
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--ed);color:#1a1206;border-color:var(--ed)}
+
+  /* career picker */
+  .careers{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:6px 0 4px}
+  @media(max-width:820px){.careers{grid-template-columns:repeat(2,1fr)}}
+  .cc{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;text-align:left;color:inherit;font:inherit;transition:transform .15s,border-color .15s}
+  .cc:hover{transform:translateY(-3px)}
+  .cc .ico{font-size:1.5rem} .cc b{display:block;margin-top:6px;font-size:.95rem}
+  .cc small{color:var(--muted);font-size:.76rem}
+  .cc.mine{border-top-color:var(--mine)} .cc.bounty{border-top-color:var(--combat)}
+  .cc.onfoot{border-top-color:var(--foot)} .cc.explore{border-top-color:var(--explore)} .cc.trade{border-top-color:var(--trade)}
+
+  .tabs{display:flex;gap:8px;margin:14px 0 16px;flex-wrap:wrap}
+  .tab{background:var(--panel-2);border:1px solid var(--line);color:var(--muted);border-radius:10px;padding:9px 15px;font-size:.88rem;cursor:pointer;font-weight:600}
+  .tab.active[data-g=mine]{background:var(--mine);color:#06121c;border-color:var(--mine)}
+  .tab.active[data-g=bounty]{background:var(--combat);color:#1a1206;border-color:var(--combat)}
+  .tab.active[data-g=onfoot]{background:var(--foot);color:#170a1e;border-color:var(--foot)}
+  .tab.active[data-g=explore]{background:var(--explore);color:#06180a;border-color:var(--explore)}
+  .tab.active[data-g=trade]{background:var(--trade);color:#1a1400;border-color:var(--trade)}
+  .pane{display:none} .pane.show{display:block}
+
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:10px 0}
+  table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:560px}
+  th,td{padding:9px 13px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  thead th{background:var(--panel-2);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+  tbody tr:hover{background:var(--panel-2)}
+  td.k{font-weight:600;color:var(--accent);white-space:nowrap}
+  .lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:16px 0 6px;font-weight:700}
+  ol.steps{padding-left:20px;font-size:.9rem;line-height:1.6}
+  ol.steps li{margin:6px 0} ol.steps b{color:var(--text)}
+  code{background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:.85em;color:var(--accent-2)}
+
+  .callout{border-radius:12px;padding:13px 16px;font-size:.85rem;margin:14px 0}
+  .callout.tip{background:rgba(255,212,121,.06);border:1px solid rgba(255,212,121,.28)}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout.warn{background:rgba(255,140,66,.07);border:1px solid rgba(255,140,66,.3)}
+  .callout.foot{background:rgba(199,146,234,.07);border:1px solid rgba(199,146,234,.3)}
+  .callout b{color:var(--text)} .callout a{color:var(--accent)}
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .links a{font-size:.82rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);text-decoration:none;border-radius:8px;padding:6px 11px}
+
+  /* resource hub */
+  .rescols{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(max-width:720px){.rescols{grid-template-columns:1fr}}
+  .rescard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .rescard h3{margin:0 0 4px;font-size:1rem}
+  .rescard .rd{color:var(--muted);font-size:.8rem;margin-bottom:10px}
+  .rescard a{display:flex;justify-content:space-between;gap:8px;align-items:center;text-decoration:none;color:var(--text);font-size:.86rem;padding:7px 10px;border-radius:8px;border:1px solid transparent}
+  .rescard a:hover{background:var(--panel-2);border-color:var(--line)}
+  .rescard a span{color:var(--muted);font-size:.74rem}
+  .rescard a .go{color:var(--accent)}
+
+  /* forms */
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin:10px 0}
+  form.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media(max-width:640px){form.grid{grid-template-columns:1fr}}
+  .full{grid-column:1/-1}
+  label.fld{display:flex;flex-direction:column;gap:4px;font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700}
+  input,select,textarea{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 11px;font:inherit;font-size:.9rem;width:100%}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+  textarea{resize:vertical;min-height:44px}
+  .btn{background:var(--ed);color:#1a1206;border:none;border-radius:9px;padding:10px 18px;font-weight:700;font-size:.9rem;cursor:pointer}
+  .btn.alt{background:var(--panel-2);color:var(--text);border:1px solid var(--line)}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:4px}
+
+  .empty{color:var(--muted);font-size:.88rem;background:var(--panel);border:1px dashed var(--line);border-radius:12px;padding:20px;text-align:center}
+  .cardlist{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+  @media(max-width:640px){.cardlist{grid-template-columns:1fr}}
+  .fcard,.pcard{background:var(--panel);border:1px solid var(--line);border-left-width:4px;border-radius:12px;padding:14px}
+  .fcard.mining,.pcard.mining{border-left-color:var(--mine)}
+  .fcard.combat,.pcard.bounty{border-left-color:var(--combat)}
+  .fcard.multi{border-left-color:var(--multi)} .pcard.onfoot{border-left-color:var(--foot)}
+  .pcard.complete{opacity:.62}
+  .fcard-h,.pcard-h{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+  .muted{color:var(--muted);font-weight:400;font-size:.85rem}
+  .fnotes{color:var(--muted);font-size:.83rem;margin-top:8px}
+  .fcard-a{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+  .mini{font-size:.76rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);text-decoration:none;border-radius:7px;padding:5px 10px;cursor:pointer}
+  .mini.danger{color:var(--danger)}
+  .rolepill,.typepill{font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 9px;border-radius:6px;white-space:nowrap}
+  .rolepill.mining,.typepill.mining{background:rgba(76,194,255,.16);color:var(--mine)}
+  .rolepill.combat,.typepill.bounty{background:rgba(255,140,66,.16);color:var(--combat)}
+  .rolepill.multi{background:rgba(126,231,135,.16);color:var(--multi)}
+  .typepill.onfoot{background:rgba(199,146,234,.16);color:var(--foot)}
+  .pmeta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-top:8px}
+  .checkwrap{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+  .checkhdr{font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700;margin-bottom:6px}
+  label.chk{display:flex;gap:8px;align-items:flex-start;font-size:.83rem;color:var(--muted);padding:3px 0;cursor:pointer}
+  label.chk input{width:auto;margin-top:3px}
+  label.chk.on{color:var(--text);text-decoration:line-through;text-decoration-color:var(--line)}
+  footer{color:var(--muted);font-size:.78rem;margin-top:34px}
+  footer a{color:var(--accent)}
+  details{margin-top:10px} summary{cursor:pointer;color:var(--accent);font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./index.html">← Gaming</a>
+    <h1>🟠 Elite Dangerous — Career Hub &amp; Planner</h1>
+    <div class="sub">Everything in one place: dedicated how-to guides for <b>mining</b>, <b>bounty hunting</b>, <b>on-foot FPS</b>, <b>exploration</b> &amp; <b>trading</b>, a full <b>resources hub</b>, plus an interactive <b>fleet</b> &amp; <b>adventure planner</b>. Saves in your browser.</div>
+    <div class="guidenav">
+      <a class="gn" href="./index.html">🎮 All Gaming</a>
+      <a class="gn" href="./space-sims-compared.html">🚀 Space Sims Compared</a>
+      <a class="gn active" href="./elite-mining-combat.html">🟠 Elite Career Hub</a>
+      <a class="gn" href="./controls.html">🎯 Controls &amp; Bindings</a>
+    </div>
+  </header>
+
+  <div class="callout tip">
+    🎓 <b>New to a play-style? Use in-game Training first.</b> Main Menu → <b>Training</b> has free, risk-free scenarios for Combat, Mining, and more — the fastest way to learn without losing a ship. Then plan the real run below.
+  </div>
+
+  <!-- ============ CAREER PICKER ============ -->
+  <h2 class="sec">🧭 Pick your play-style</h2>
+  <div class="careers">
+    <button class="cc mine" onclick="showPane('mine')"><div class="ico">⛏️</div><b>Mining</b><small>Rocks → riches</small></button>
+    <button class="cc bounty" onclick="showPane('bounty')"><div class="ico">🎯</div><b>Bounty Hunting</b><small>Ship combat</small></button>
+    <button class="cc onfoot" onclick="showPane('onfoot')"><div class="ico">🥾</div><b>On-Foot FPS</b><small>Odyssey combat</small></button>
+    <button class="cc explore" onclick="showPane('explore')"><div class="ico">🔭</div><b>Exploration</b><small>The black</small></button>
+    <button class="cc trade" onclick="showPane('trade')"><div class="ico">💰</div><b>Trading</b><small>Buy low, sell high</small></button>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-g="mine" onclick="showPane('mine')">⛏️ Mining</button>
+    <button class="tab" data-g="bounty" onclick="showPane('bounty')">🎯 Bounty Hunting</button>
+    <button class="tab" data-g="onfoot" onclick="showPane('onfoot')">🥾 On-Foot FPS</button>
+    <button class="tab" data-g="explore" onclick="showPane('explore')">🔭 Exploration</button>
+    <button class="tab" data-g="trade" onclick="showPane('trade')">💰 Trading</button>
+  </div>
+
+  <!-- MINING -->
+  <div class="pane show" id="pane-mine">
+    <div class="callout info"><b>Goal:</b> shoot rocks → refine valuable materials → sell for millions. Big money is <b>core mining</b> (cracking asteroids for Void Opals / Low Temp. Diamonds); <b>laser mining</b> is simpler &amp; steadier.</div>
+    <div class="lbl">The four methods</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Method</th><th>You use</th><th>Best for</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Laser mining</td><td>Mining Lasers → chunks → collector limpets</td><td>Steady income; Painite, Platinum, LTDs</td></tr>
+        <tr><td class="k">Core (motherlode)</td><td>Seismic Charge Launcher to crack, Abrasion Blaster for chunks</td><td>Highest value — Void Opals, LTDs, Alexandrite</td></tr>
+        <tr><td class="k">Sub-surface</td><td>Sub-surface Displacement Missile</td><td>Deposits inside the rock</td></tr>
+        <tr><td class="k">Surface</td><td>Abrasion Blaster</td><td>Deposits on the rock surface</td></tr>
+      </tbody>
+    </table></div>
+    <div class="lbl">Loadout essentials</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Module</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Mining Laser(s)</td><td>Chip surface deposits into collectable chunks</td></tr>
+        <tr><td class="k">Prospector Limpet Ctrl</td><td>See an asteroid's contents &amp; boost yield</td></tr>
+        <tr><td class="k">Collector Limpet Ctrl</td><td>Auto-scoop chunks so you don't fly into each</td></tr>
+        <tr><td class="k">Refinery</td><td>Turns fragments into sellable tonnes</td></tr>
+        <tr><td class="k">Pulse Wave Analyser</td><td>Highlights high-value asteroids — vital for cores</td></tr>
+        <tr><td class="k">Detailed Surface Scanner</td><td>Map a ring to find hotspots</td></tr>
+        <tr><td class="k">Cargo Racks + Limpets</td><td>Hold the loot; bring plenty of limpets</td></tr>
+      </tbody>
+    </table></div>
+    <div class="lbl">What to mine (check live prices)</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Material</th><th>Ring</th><th>Value</th><th>Method</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Void Opals</td><td>Icy</td><td>Very high</td><td>Core</td></tr>
+        <tr><td class="k">Low Temp. Diamonds</td><td>Icy</td><td>Very high</td><td>Core / Laser</td></tr>
+        <tr><td class="k">Alexandrite</td><td>Icy</td><td>High</td><td>Core / Sub-surface</td></tr>
+        <tr><td class="k">Painite</td><td>Metallic</td><td>High</td><td>Laser / Core</td></tr>
+        <tr><td class="k">Platinum</td><td>Metallic</td><td>Medium</td><td>Laser</td></tr>
+        <tr><td class="k">Tritium</td><td>Icy</td><td>Medium</td><td>Laser (Fleet Carrier fuel)</td></tr>
+      </tbody>
+    </table></div>
+    <div class="lbl">Step-by-step</div>
+    <ol class="steps">
+      <li><b>Find a hotspot:</b> honk the system, fire a <b>DSS</b> probe at a ring to reveal <b>hotspots</b> (overlaps = richer), or look one up on Inara.</li>
+      <li><b>Drop into the ring</b> and switch on the <b>Pulse Wave Analyser</b> — good rocks glow.</li>
+      <li><b>Prospect</b> a rock with a limpet to confirm contents/%.</li>
+      <li><b>Mine:</b> laser deposits, or for cores drop a <b>Seismic Charge</b>, let it crack, then <b>Abrasion Blaster</b> the chunks.</li>
+      <li><b>Scoop &amp; refine</b> with collector limpets + refinery.</li>
+      <li><b>Sell</b> where demand is high (Inara shows best buyers).</li>
+    </ol>
+  </div>
+
+  <!-- BOUNTY -->
+  <div class="pane" id="pane-bounty">
+    <div class="callout info"><b>Goal:</b> find <b>Wanted</b> ships, scan to claim the bounty, destroy them, cash in. Safest income is at <b>Resource Extraction Sites</b> where security forces fight with you.</div>
+    <div class="lbl">Where to hunt</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Location</th><th>What</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Nav Beacon</td><td>Scan passing ships</td><td>Easy warm-up</td></tr>
+        <tr><td class="k">Low / Standard RES</td><td>Wanted ships in rings</td><td>Cops help — great for learning</td></tr>
+        <tr><td class="k">High RES</td><td>Tougher, richer targets</td><td>Cops present, more heat</td></tr>
+        <tr><td class="k">Hazardous RES</td><td>Hardest, best bounties</td><td><b>No cops</b> — go in tanky</td></tr>
+        <tr><td class="k">Conflict Zones</td><td>Faction wars → combat bonds</td><td>Pick a side; strong payouts</td></tr>
+      </tbody>
+    </table></div>
+    <div class="lbl">Loadout essentials</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Module</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Thermal weapons (lasers)</td><td>Strip <b>shields</b> — pulse/burst/beam</td></tr>
+        <tr><td class="k">Kinetic (multi-cannon)</td><td>Chew <b>hull</b>; low heat, uses ammo</td></tr>
+        <tr><td class="k">Kill Warrant Scanner</td><td>Reveals other-jurisdiction bounties — often doubles pay</td></tr>
+        <tr><td class="k">Shield Gen + Boosters</td><td>Your main survivability</td></tr>
+        <tr><td class="k">Chaff / Heat Sink / Point Defence</td><td>Break locks, dump heat, kill missiles</td></tr>
+        <tr><td class="k">Good Power Distributor</td><td>Sustains WEP fire + boosting</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout tip">⚡ <b>Pips:</b> juggle <b>SYS</b> (shields) / <b>ENG</b> (speed) / <b>WEP</b> (guns). Common combat balance ~<b>4 SYS / 2 WEP</b>; shift to ENG to boost &amp; reposition. Bind pips to your T16000M hat.</div>
+    <div class="lbl">Step-by-step</div>
+    <ol class="steps">
+      <li><b>Drop into a RES / Nav Beacon.</b></li>
+      <li><b>Scan the target</b> — must be <b>Wanted</b> to pay. Add a <b>Kill Warrant Scanner</b> for the full amount.</li>
+      <li><b>Engage:</b> lasers to drop shields, multi-cannons on hull; optionally target the <b>Power Plant</b>.</li>
+      <li><b>Manage heat &amp; pips;</b> boost/chaff when focused.</li>
+      <li><b>Bounties auto-credit</b> on the kill.</li>
+      <li><b>Cash in</b> at a station → Contacts (or <b>Interstellar Factors</b> if you're wanted).</li>
+    </ol>
+    <div class="callout warn">⚠️ Don't fire on non-Wanted or authority ships — you'll get bountied and the cops turn on you.</div>
+  </div>
+
+  <!-- ON-FOOT FPS -->
+  <div class="pane" id="pane-onfoot">
+    <div class="callout foot"><b>Requires the Odyssey expansion.</b> Leave your ship and fight on foot at settlements, ports &amp; planet surfaces. It's a proper FPS with suits, shields, gadgets &amp; loot.</div>
+    <div class="callout tip">🎮 <b>Controls:</b> On foot, Elite switches to <b>mouse + keyboard</b> (or a gamepad) — your <b>T16000M HOTAS is ship-only</b>. Set up a separate on-foot control scheme in Options.</div>
+    <div class="lbl">The three suits</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Suit</th><th>Role</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Dominator</td><td>Combat</td><td>Most weapon slots + grenades — the FPS suit</td></tr>
+        <tr><td class="k">Maverick</td><td>Scavenger</td><td>Extra tool slot &amp; backpack; best for looting/theft</td></tr>
+        <tr><td class="k">Artemis</td><td>Explorer</td><td>Genetic Sampler for exobiology money</td></tr>
+      </tbody>
+    </table></div>
+    <div class="lbl">Weapons &amp; damage</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Type</th><th>Good vs</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Laser (Aphelion, Zenith)</td><td>Shields</td><td>No ammo pickups; overheats if spammed</td></tr>
+        <tr><td class="k">Plasma (Executioner, Oppressor)</td><td>Both</td><td>High damage, harder to use</td></tr>
+        <tr><td class="k">Kinetic (Karma AR-50, C-44)</td><td>Flesh / hull</td><td>Finish enemies once shields are down</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout tip">🛠️ <b>Gadgets:</b> <b>Energylink</b> (power/recharge panels), <b>E-Breach</b> (hack doors/containers), <b>Profile Analyser</b> (clone an NPC's clearance to walk around unnoticed), <b>grenades</b> (frag / shield-disruptor / EMP), plus <b>energy cells</b> (recharge shields) &amp; <b>medkits</b>.</div>
+    <div class="lbl">Where the action is</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Place</th><th>What</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Frontline Solutions</td><td>Sign up for <b>On-Foot Conflict Zones</b> — merc combat for pay</td></tr>
+        <tr><td class="k">Concourse mission board</td><td>Settlement missions: restore, reactivate, sabotage, theft, assassination</td></tr>
+        <tr><td class="k">Abandoned settlements</td><td>Scavenge loot &amp; data with little resistance</td></tr>
+        <tr><td class="k">Pioneer Supplies</td><td>Buy/upgrade suits &amp; weapons</td></tr>
+        <tr><td class="k">Bartender / Vista Genomics</td><td>Sell loot &amp; components / sell exobiology samples</td></tr>
+      </tbody>
+    </table></div>
+    <div class="lbl">Step-by-step (first FPS run)</div>
+    <ol class="steps">
+      <li><b>At a station Concourse</b>, buy a <b>Dominator</b> suit + a laser and a kinetic weapon from Pioneer Supplies (or grab a pre-fit at a CZ).</li>
+      <li><b>Pick a fight:</b> Frontline Solutions for a Conflict Zone, or take settlement missions from the board.</li>
+      <li><b>Get there</b> via an <b>Apex</b> shuttle or fly your own ship &amp; drop an SRV / land nearby.</li>
+      <li><b>Fight smart:</b> use cover, strip shields with laser/plasma, finish with kinetic, aim for headshots; recharge with energy cells.</li>
+      <li><b>Loot</b> bodies &amp; containers (E-Breach locked ones); complete the objective &amp; extract.</li>
+      <li><b>Cash in:</b> sell loot to the bartender, exobio to Vista Genomics; <b>upgrade suits/weapons</b> at the bartender using collected materials.</li>
+    </ol>
+    <div class="callout warn">⚠️ Watch your <b>battery &amp; oxygen</b> — the suit powers sprint, shields, night-vision &amp; tools; O2 is limited on airless worlds. Refill at consumable points or your ship.</div>
+  </div>
+
+  <!-- EXPLORATION -->
+  <div class="pane" id="pane-explore">
+    <div class="callout info"><b>Goal:</b> jump into the unknown, scan systems &amp; bodies, and sell the data. Add <b>exobiology</b> (Odyssey) for huge payouts. Peaceful, meditative, and very profitable on a long trip.</div>
+    <div class="lbl">Core loop</div>
+    <ol class="steps">
+      <li><b>Honk</b> the system (Discovery Scanner) to reveal bodies.</li>
+      <li>Open the <b>FSS</b> to resolve each signal; interesting bodies (ELWs, water worlds, terraformables) are worth the most.</li>
+      <li>Fire <b>DSS</b> probes to map high-value bodies for a bonus + <b>first-mapped</b> tag.</li>
+      <li>On foot (Odyssey) use the <b>Artemis suit + Genetic Sampler</b> for <b>exobiology</b> — scan 3 of each species, sell at <b>Vista Genomics</b>.</li>
+      <li>Sell cartographic data at any station's <b>Universal Cartographics</b> (get your name on the discoveries).</li>
+    </ol>
+    <div class="lbl">Kit</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Module</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Detailed Surface Scanner</td><td>Probe/map bodies for max value</td></tr>
+        <tr><td class="k">Fuel Scoop (big)</td><td>Refuel at stars — no fuel = stranded</td></tr>
+        <tr><td class="k">Long-range FSD + light build</td><td>Max jump range; strip weight</td></tr>
+        <tr><td class="k">AFMU + Repair Limpets</td><td>Self-repair far from stations</td></tr>
+        <tr><td class="k">SRV (Scarab/Scorpion)</td><td>Drive planet surfaces for materials</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout tip">🌌 Plot efficient routes (incl. <b>neutron-star boosting</b> for +50% jump range) with <b>Spansh</b>. Good explorers: Diamondback Explorer (budget), Asp Explorer (classic), Anaconda (max range), Krait Phantom.</div>
+  </div>
+
+  <!-- TRADING -->
+  <div class="pane" id="pane-trade">
+    <div class="callout info"><b>Goal:</b> buy commodities cheap, sell them dear. Low-stress, scalable income that funds every other career. Bigger holds = bigger profit per trip.</div>
+    <div class="lbl">Ways to trade</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Style</th><th>How</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Commodity loops</td><td>Find a 2-station A↔B route with big price gaps (use Inara/EDDB)</td></tr>
+        <tr><td class="k">Rare goods</td><td>Buy limited rares, sell 150+ ly away for a premium</td></tr>
+        <tr><td class="k">Mining-as-trade</td><td>Mine high-value materials, sell to the best market</td></tr>
+        <tr><td class="k">Passenger runs</td><td>Sightseeing/VIP missions (e.g. Robigo loops) for fast credits</td></tr>
+      </tbody>
+    </table></div>
+    <div class="lbl">Hauler progression</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Ship</th><th>Cargo</th><th>Stage</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Type-6 Transporter</td><td>~100t</td><td>Starter hauler</td></tr>
+        <tr><td class="k">Python</td><td>~280t</td><td>Great all-rounder, docks small pads</td></tr>
+        <tr><td class="k">Type-9 Heavy</td><td>~700t</td><td>Dedicated freighter</td></tr>
+        <tr><td class="k">Imperial Cutter</td><td>~700t+</td><td>Fast &amp; huge (needs Imperial rank)</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout warn">⚠️ Watch for <b>interdictions</b> — big traders get pulled by pirates. Run a decent shield &amp; submit-then-boost to escape, or fit a defensive weapon.</div>
+  </div>
+
+  <!-- ============ RESOURCES HUB ============ -->
+  <h2 class="sec">🌐 Resources &amp; tools — all in one place</h2>
+  <div class="callout tip">💡 <b>Must-haves to improve the experience:</b> run <b>EDMarketConnector</b> (feeds live prices to Inara/EDSM), plan builds in <b>Coriolis/EDSY</b>, route with <b>Spansh</b>, and add <b>VoiceAttack + a voice pack</b> for hands-free commands. Elite's own <b>Training</b> scenarios teach each career risk-free.</div>
+  <div class="rescols">
+    <div class="rescard">
+      <h3>🔧 Ship building &amp; loadouts</h3>
+      <div class="rd">Plan, share &amp; import exact builds.</div>
+      <a href="https://coriolis.io/" target="_blank" rel="noopener"><span>Coriolis</span><span class="go">open ↗</span></a>
+      <a href="https://edsy.org/" target="_blank" rel="noopener"><span>EDSY</span><span class="go">open ↗</span></a>
+      <a href="https://inara.cz/elite/" target="_blank" rel="noopener"><span>Inara — builds &amp; DB</span><span class="go">open ↗</span></a>
+    </div>
+    <div class="rescard">
+      <h3>💰 Trade, mining &amp; routes</h3>
+      <div class="rd">Prices, hotspots &amp; route planners.</div>
+      <a href="https://inara.cz/" target="_blank" rel="noopener"><span>Inara — prices &amp; hotspots</span><span class="go">open ↗</span></a>
+      <a href="https://spansh.co.uk/" target="_blank" rel="noopener"><span>Spansh — routers &amp; mining</span><span class="go">open ↗</span></a>
+      <a href="https://www.edsm.net/" target="_blank" rel="noopener"><span>EDSM — star map</span><span class="go">open ↗</span></a>
+    </div>
+    <div class="rescard">
+      <h3>🛠️ Quality-of-life apps</h3>
+      <div class="rd">Third-party companions (free).</div>
+      <a href="https://github.com/EDCD/EDMarketConnector" target="_blank" rel="noopener"><span>EDMarketConnector (EDMC)</span><span class="go">open ↗</span></a>
+      <a href="https://github.com/EDDiscovery/EDDiscovery" target="_blank" rel="noopener"><span>EDDiscovery</span><span class="go">open ↗</span></a>
+      <a href="https://github.com/jixxed/ed-odyssey-materials-helper" target="_blank" rel="noopener"><span>Odyssey Materials Helper</span><span class="go">open ↗</span></a>
+      <a href="https://observatory.xjph.net/" target="_blank" rel="noopener"><span>Elite Observatory</span><span class="go">open ↗</span></a>
+    </div>
+    <div class="rescard">
+      <h3>🎙️ Immersion &amp; voice</h3>
+      <div class="rd">Hands-free control &amp; HUD tweaks.</div>
+      <a href="https://voiceattack.com/" target="_blank" rel="noopener"><span>VoiceAttack</span><span class="go">open ↗</span></a>
+      <a href="https://www.hcsvoicepacks.com/" target="_blank" rel="noopener"><span>HCS Voice Packs</span><span class="go">open ↗</span></a>
+      <a href="https://github.com/BlueMystical/EDHM_UI" target="_blank" rel="noopener"><span>EDHM — HUD colour mod</span><span class="go">open ↗</span></a>
+    </div>
+    <div class="rescard">
+      <h3>📚 Wikis &amp; reference</h3>
+      <div class="rd">Look anything up.</div>
+      <a href="https://elite-dangerous.fandom.com/" target="_blank" rel="noopener"><span>Elite Dangerous Wiki</span><span class="go">open ↗</span></a>
+      <a href="https://www.elitedangerous.com/" target="_blank" rel="noopener"><span>Official site</span><span class="go">open ↗</span></a>
+      <a href="https://forums.frontier.co.uk/forums/elite-dangerous.20/" target="_blank" rel="noopener"><span>Frontier forums</span><span class="go">open ↗</span></a>
+    </div>
+    <div class="rescard">
+      <h3>👥 Community</h3>
+      <div class="rd">Ask, share &amp; find wing-mates.</div>
+      <a href="https://www.reddit.com/r/EliteDangerous/" target="_blank" rel="noopener"><span>r/EliteDangerous</span><span class="go">open ↗</span></a>
+      <a href="https://www.reddit.com/r/EliteMiners/" target="_blank" rel="noopener"><span>r/EliteMiners</span><span class="go">open ↗</span></a>
+      <a href="https://www.reddit.com/r/EliteExplorers/" target="_blank" rel="noopener"><span>r/EliteExplorers</span><span class="go">open ↗</span></a>
+    </div>
+  </div>
+
+  <!-- ============ MY FLEET ============ -->
+  <h2 class="sec">🚀 My fleet</h2>
+  <div class="callout info">Add your ships &amp; roles. Paste a <b>Coriolis or EDSY link</b> in the Build field to save &amp; share the exact loadout.</div>
+  <div class="tool">
+    <form class="grid" onsubmit="submitShip(event)" id="shipForm">
+      <label class="fld">Ship name / callsign<input id="shipName" placeholder="e.g. Rock Muncher" required></label>
+      <label class="fld">Model<input id="shipModel" placeholder="e.g. Python, Krait Mk II" list="models"></label>
+      <label class="fld">Role<select id="shipPurpose">
+        <option value="mining">Mining</option>
+        <option value="combat">Combat / Bounty</option>
+        <option value="multi">Multi-role</option>
+      </select></label>
+      <label class="fld">Build link (Coriolis / EDSY)<input id="shipBuild" placeholder="https://coriolis.io/… or https://edsy.org/…" type="url"></label>
+      <label class="fld full">Notes<textarea id="shipNotes" placeholder="Engineering, jump range, cargo, quirks…"></textarea></label>
+      <div class="row full"><button class="btn" id="shipBtn" type="submit">Add ship</button>
+        <button class="btn alt" type="button" onclick="cancelShip()">Clear</button></div>
+    </form>
+    <div class="cardlist" id="fleetList"></div>
+  </div>
+
+  <!-- ============ ADVENTURE PLANNER ============ -->
+  <h2 class="sec">🗺️ Adventure planner</h2>
+  <div class="callout info">Plan a <b>mining run</b>, <b>bounty hunt</b> or <b>on-foot op</b> — assign a ship, set the target, and tick the auto-generated pre-flight checklist before you launch.</div>
+  <div class="tool">
+    <form class="grid" onsubmit="submitPlan(event)" id="planForm">
+      <label class="fld">Adventure title<input id="planTitle" placeholder="e.g. Void Opal run @ Borann" required></label>
+      <label class="fld">Type<select id="planType">
+        <option value="mining">⛏️ Mining</option>
+        <option value="bounty">🎯 Bounty hunting</option>
+        <option value="onfoot">🥾 On-foot (FPS)</option>
+      </select></label>
+      <label class="fld">Ship<select id="planShip"></select></label>
+      <label class="fld">System<input id="planSystem" placeholder="e.g. Borann, HIP 21991"></label>
+      <label class="fld">Location / site<input id="planLoc" placeholder="e.g. Icy ring hotspot / Hazardous RES / Settlement" list="sites"></label>
+      <label class="fld">Goal<input id="planGoal" placeholder="e.g. Fill 256t hold; ~200M cr"></label>
+      <div class="row full"><button class="btn" id="planBtn" type="submit">Add adventure</button>
+        <button class="btn alt" type="button" onclick="cancelPlan()">Clear</button></div>
+    </form>
+    <div id="planList"></div>
+  </div>
+
+  <datalist id="models">
+    <option>Sidewinder</option><option>Cobra Mk III</option><option>Asp Explorer</option>
+    <option>Diamondback Explorer</option><option>Type-6 Transporter</option><option>Krait Mk II</option>
+    <option>Krait Phantom</option><option>Python</option><option>Type-9 Heavy</option><option>Anaconda</option>
+    <option>Imperial Cutter</option><option>Vulture</option><option>Fer-de-Lance</option>
+    <option>Federal Corvette</option><option>Alliance Chieftain</option><option>Viper Mk III</option>
+  </datalist>
+  <datalist id="sites">
+    <option>Icy ring hotspot</option><option>Metallic ring hotspot</option><option>Low RES</option>
+    <option>High RES</option><option>Hazardous RES</option><option>Nav Beacon</option>
+    <option>Conflict Zone</option><option>On-foot Conflict Zone</option><option>Settlement</option>
+  </datalist>
+
+  <details>
+    <summary>💾 Back up / share your data (export &amp; import)</summary>
+    <div class="tool">
+      <div class="row"><button class="btn alt" onclick="doExport()">Export ↓</button>
+        <button class="btn alt" onclick="doImport()">Import ↑</button></div>
+      <textarea id="ioBox" style="margin-top:10px;min-height:120px;font-family:monospace;font-size:.8rem" placeholder="Click Export to dump your fleet + plans as JSON (copy to back up or move devices). Paste JSON and click Import to load it."></textarea>
+    </div>
+  </details>
+
+  <footer>
+    <b>Tools:</b>
+    <a href="https://coriolis.io/">Coriolis</a> · <a href="https://edsy.org/">EDSY</a> ·
+    <a href="https://inara.cz/">Inara</a> · <a href="https://spansh.co.uk/">Spansh</a> ·
+    <a href="https://www.edsm.net/">EDSM</a>
+    <br>Your fleet &amp; plans are stored in <b>this browser only</b> (localStorage) — use Export to back them up. Values, sites &amp; mechanics shift with the live game; check Inara &amp; the wiki for current details.
+  </footer>
+</div>
+
+<script>
+  const K_FLEET='ed_fleet_v1', K_PLANS='ed_plans_v1';
+  const $=s=>document.querySelector(s);
+  const load=k=>{try{return JSON.parse(localStorage.getItem(k))||[]}catch(e){return[]}};
+  const save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+  const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+  const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  let fleet=load(K_FLEET), plans=load(K_PLANS), editShip=null, editPlan=null;
+
+  const CHECK={
+    mining:['Refinery + collector & prospector limpet controllers fitted','Cargo racks maxed; plenty of limpets loaded','Pulse Wave Analyser fitted','Core tools fitted (Seismic Charge + Abrasion Blaster) if core mining','Hotspot found & ring mapped with DSS','Best sell price checked on Inara'],
+    bounty:['Shields + shield boosters fitted','Weapons: thermal (vs shields) + kinetic (vs hull) mix','Kill Warrant Scanner fitted','Heat Sink / Chaff fitted','Pip plan ready (e.g. 4 SYS / 2 WEP)','Interstellar Factors located in case I get fined'],
+    onfoot:['Suit chosen (Dominator combat / Maverick scavenger / Artemis exobio)','Weapons: laser/plasma for shields + kinetic for flesh','Grenades & consumables (energy cells, medkits) stocked','Suit battery topped; know where to refill O2','Mission / CZ selected (Frontline or Concourse board)','Switched to on-foot control scheme (HOTAS is ship-only)']
+  };
+  const TYPEMETA={mining:'⛏️ Mining',bounty:'🎯 Bounty',onfoot:'🥾 On-foot'};
+
+  function showPane(g){
+    document.querySelectorAll('.pane').forEach(el=>el.classList.toggle('show',el.id==='pane-'+g));
+    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.g===g));
+    document.querySelector('.tabs').scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+
+  /* FLEET */
+  function submitShip(e){
+    e.preventDefault();
+    const name=$('#shipName').value.trim(); if(!name)return;
+    const data={name,model:$('#shipModel').value.trim(),purpose:$('#shipPurpose').value,build:$('#shipBuild').value.trim(),notes:$('#shipNotes').value.trim()};
+    if(editShip){const i=fleet.findIndex(x=>x.id===editShip); if(i>-1)fleet[i]={...fleet[i],...data}; editShip=null; $('#shipBtn').textContent='Add ship';}
+    else fleet.push({id:uid(),...data});
+    save(K_FLEET,fleet); e.target.reset(); renderFleet();
+  }
+  function startEditShip(id){
+    const s=fleet.find(x=>x.id===id); if(!s)return;
+    $('#shipName').value=s.name; $('#shipModel').value=s.model||''; $('#shipPurpose').value=s.purpose;
+    $('#shipBuild').value=s.build||''; $('#shipNotes').value=s.notes||'';
+    editShip=id; $('#shipBtn').textContent='Update ship'; $('#shipForm').scrollIntoView({behavior:'smooth',block:'center'}); $('#shipName').focus();
+  }
+  function cancelShip(){editShip=null;$('#shipForm').reset();$('#shipBtn').textContent='Add ship';}
+  function delShip(id){ if(!confirm('Delete this ship?'))return; fleet=fleet.filter(x=>x.id!==id); save(K_FLEET,fleet); renderFleet(); }
+  function renderFleet(){
+    const w=$('#fleetList');
+    if(!fleet.length){w.innerHTML='<div class="empty" style="grid-column:1/-1">No ships yet — add your first above. Tip: paste a Coriolis/EDSY link to save the exact build.</div>';}
+    else w.innerHTML=fleet.map(s=>`
+      <div class="fcard ${s.purpose}">
+        <div class="fcard-h">
+          <div><b>${esc(s.name)}</b>${s.model?` <span class="muted">${esc(s.model)}</span>`:''}</div>
+          <span class="rolepill ${s.purpose}">${s.purpose==='combat'?'Bounty':s.purpose}</span>
+        </div>
+        ${s.notes?`<div class="fnotes">${esc(s.notes)}</div>`:''}
+        <div class="fcard-a">
+          ${s.build?`<a class="mini" href="${esc(s.build)}" target="_blank" rel="noopener">🔧 Build</a>`:''}
+          <button class="mini" onclick="startEditShip('${s.id}')">Edit</button>
+          <button class="mini danger" onclick="delShip('${s.id}')">Delete</button>
+        </div>
+      </div>`).join('');
+    populateShipSelect();
+  }
+  function populateShipSelect(){
+    const sel=$('#planShip'), cur=sel.value;
+    sel.innerHTML='<option value="">— unassigned —</option>'+fleet.map(s=>`<option value="${s.id}">${esc(s.name)}${s.model?' ('+esc(s.model)+')':''}</option>`).join('');
+    sel.value=cur;
+  }
+
+  /* PLANS */
+  function submitPlan(e){
+    e.preventDefault();
+    const title=$('#planTitle').value.trim(); if(!title)return;
+    const type=$('#planType').value;
+    const base={title,type,shipId:$('#planShip').value,system:$('#planSystem').value.trim(),location:$('#planLoc').value.trim(),goal:$('#planGoal').value.trim()};
+    if(editPlan){
+      const i=plans.findIndex(x=>x.id===editPlan);
+      if(i>-1){const old=plans[i]; const check=old.type===type?old.check:CHECK[type].map(t=>({t,done:false})); plans[i]={...old,...base,check};}
+      editPlan=null; $('#planBtn').textContent='Add adventure';
+    } else plans.push({id:uid(),done:false,check:CHECK[type].map(t=>({t,done:false})),...base});
+    save(K_PLANS,plans); e.target.reset(); renderPlans();
+  }
+  function startEditPlan(id){
+    const p=plans.find(x=>x.id===id); if(!p)return;
+    $('#planTitle').value=p.title; $('#planType').value=p.type; $('#planShip').value=p.shipId||'';
+    $('#planSystem').value=p.system||''; $('#planLoc').value=p.location||''; $('#planGoal').value=p.goal||'';
+    editPlan=id; $('#planBtn').textContent='Update adventure'; $('#planForm').scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  function cancelPlan(){editPlan=null;$('#planForm').reset();$('#planBtn').textContent='Add adventure';}
+  function delPlan(id){ if(!confirm('Delete this adventure?'))return; plans=plans.filter(x=>x.id!==id); save(K_PLANS,plans); renderPlans(); }
+  function togglePlanDone(id){ const p=plans.find(x=>x.id===id); if(p){p.done=!p.done; save(K_PLANS,plans); renderPlans();} }
+  function toggleCheck(id,i){ const p=plans.find(x=>x.id===id); if(p&&p.check[i]){p.check[i].done=!p.check[i].done; save(K_PLANS,plans); renderPlans();} }
+  function renderPlans(){
+    const w=$('#planList');
+    if(!plans.length){w.innerHTML='<div class="empty">No adventures planned yet — create a mining run, bounty hunt or on-foot op above.</div>';return;}
+    w.innerHTML=plans.map(p=>{
+      const ship=fleet.find(f=>f.id===p.shipId);
+      const done=p.check.filter(c=>c.done).length;
+      return `<div class="pcard ${p.type} ${p.done?'complete':''}" style="margin-top:12px">
+        <div class="pcard-h">
+          <div><span class="typepill ${p.type}">${TYPEMETA[p.type]||p.type}</span> <b>${esc(p.title)}</b></div>
+          <button class="mini" onclick="togglePlanDone('${p.id}')">${p.done?'✅ Done':'Mark done'}</button>
+        </div>
+        <div class="pmeta">
+          ${p.system?`<span>📍 ${esc(p.system)}</span>`:''}
+          ${p.location?`<span>🛰️ ${esc(p.location)}</span>`:''}
+          <span>🚀 ${ship?esc(ship.name):'<i>unassigned</i>'}</span>
+        </div>
+        ${p.goal?`<div class="fnotes">🎯 ${esc(p.goal)}</div>`:''}
+        <div class="checkwrap">
+          <div class="checkhdr">Pre-flight checklist &nbsp;<span class="muted">${done}/${p.check.length}</span></div>
+          ${p.check.map((c,i)=>`<label class="chk ${c.done?'on':''}"><input type="checkbox" ${c.done?'checked':''} onchange="toggleCheck('${p.id}',${i})"> ${esc(c.t)}</label>`).join('')}
+        </div>
+        <div class="fcard-a">
+          <button class="mini" onclick="startEditPlan('${p.id}')">Edit</button>
+          <button class="mini danger" onclick="delPlan('${p.id}')">Delete</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  /* EXPORT / IMPORT */
+  function doExport(){ $('#ioBox').value=JSON.stringify({fleet,plans},null,2); }
+  function doImport(){
+    try{ const d=JSON.parse($('#ioBox').value);
+      if(Array.isArray(d.fleet)) fleet=d.fleet;
+      if(Array.isArray(d.plans)) plans=d.plans;
+      save(K_FLEET,fleet); save(K_PLANS,plans); renderFleet(); renderPlans(); alert('Imported ✓');
+    }catch(e){ alert('That doesn\'t look like valid exported JSON.'); }
+  }
+
+  renderFleet(); renderPlans();
+</script>
+</body>
+</html>
