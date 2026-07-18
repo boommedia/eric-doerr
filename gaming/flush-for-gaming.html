@@ -1,0 +1,192 @@
+<!-- flush-for-gaming.html — launcher + explainer. Keep in the same folder as the .bat/.ps1 so the relative links work. -->
+<meta charset="utf-8">
+<title>Flush for Gaming</title>
+<style>
+  :root {
+    --bg: #0f1216;
+    --panel: #171b22;
+    --panel-2: #1e242d;
+    --text: #e6edf3;
+    --muted: #9aa7b4;
+    --accent: #58d6a0;
+    --accent-2: #4aa3ff;
+    --warn: #ffcf5c;
+    --border: #2a323d;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    background: radial-gradient(1200px 600px at 70% -10%, #1a2230 0%, var(--bg) 55%);
+    color: var(--text);
+    line-height: 1.5;
+    padding: 32px 16px 64px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  h1 {
+    font-size: 2rem;
+    margin: 0 0 4px;
+    letter-spacing: -0.02em;
+  }
+  h1 .emoji { filter: saturate(1.2); }
+  .sub { color: var(--muted); margin: 0 0 28px; }
+
+  .launch {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 0 0 28px;
+  }
+  a.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    padding: 16px 22px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    border: 1px solid var(--border);
+    transition: transform .08s ease, border-color .15s ease, background .15s ease;
+  }
+  a.btn:hover { transform: translateY(-2px); }
+  a.btn.primary {
+    background: linear-gradient(180deg, #1f6f4f, #17553d);
+    border-color: #2e8f66;
+    color: #eafff5;
+  }
+  a.btn.primary:hover { border-color: var(--accent); }
+  a.btn.secondary { background: var(--panel-2); color: var(--text); }
+  a.btn.secondary:hover { border-color: var(--accent-2); }
+  a.btn .big { font-size: 1.4rem; line-height: 1; }
+
+  .note {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--warn);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 0 0 28px;
+    color: var(--muted);
+    font-size: .95rem;
+  }
+  .note strong { color: var(--warn); }
+
+  section {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 24px;
+    margin: 0 0 20px;
+  }
+  section h2 {
+    margin: 0 0 14px;
+    font-size: 1.15rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  ol.steps { margin: 0; padding: 0; list-style: none; counter-reset: step; }
+  ol.steps li {
+    position: relative;
+    padding: 10px 0 10px 44px;
+    border-bottom: 1px solid var(--border);
+    counter-increment: step;
+  }
+  ol.steps li:last-child { border-bottom: none; }
+  ol.steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0; top: 10px;
+    width: 28px; height: 28px;
+    display: grid; place-items: center;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    color: var(--accent);
+    font-size: .85rem;
+    font-weight: 700;
+  }
+  ol.steps b { color: var(--text); }
+  ol.steps span { color: var(--muted); }
+  code {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 1px 6px;
+    font-family: "Cascadia Code", Consolas, monospace;
+    font-size: .88em;
+    color: #d7e3ef;
+  }
+  .files { display: flex; flex-wrap: wrap; gap: 10px; }
+  .files a {
+    color: var(--accent-2);
+    text-decoration: none;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-family: "Cascadia Code", Consolas, monospace;
+    font-size: .9rem;
+  }
+  .files a:hover { border-color: var(--accent-2); }
+  footer { color: var(--muted); font-size: .85rem; text-align: center; margin-top: 32px; }
+</style>
+
+<div class="wrap">
+  <h1><span class="emoji">🎮</span> Flush for Gaming</h1>
+  <p class="sub">Free up RAM &amp; CPU after a long VS Code + AI session, then launch your game on a clean machine.</p>
+
+  <div class="launch">
+    <a class="btn primary" href="flush-for-gaming.bat">
+      <span class="big">▶</span> Run the Flush
+    </a>
+    <a class="btn secondary" href="flush-for-gaming.ps1">
+      <span class="big">⚙</span> Open the PowerShell script
+    </a>
+  </div>
+
+  <div class="note">
+    <strong>Before you click:</strong> the flush <b>force-closes VS Code</b> — save your work first.
+    Clicking <em>Run the Flush</em> may show a browser download/security prompt (it's just a local <code>.bat</code>);
+    choose <b>Keep</b> / <b>Open</b>, then approve the Windows <b>UAC</b> prompt so it can empty standby RAM.
+  </div>
+
+  <section>
+    <h2>🧹 What it does, in order</h2>
+    <ol class="steps">
+      <li><b>Elevates to Admin</b> <span>— relaunches with a UAC prompt (needed to empty standby RAM).</span></li>
+      <li><b>Shows top 10 RAM users BEFORE</b> <span>— the "before" snapshot.</span></li>
+      <li><b>Closes VS Code &amp; AI/dev helpers</b> <span>— <code>Code</code>, <code>node</code>, <code>esbuild</code>, <code>rg</code>, <code>tsserver</code>, Copilot, language servers, <code>vsls-agent</code>.</span></li>
+      <li><b>Clears temp files</b> <span>— wipes <code>%TEMP%</code>.</span></li>
+      <li><b>Empties standby RAM</b> <span>— via RAMMap / EmptyStandbyList if present in <code>C:\Tools</code> (skipped otherwise).</span></li>
+      <li><b>Restarts Explorer</b> <span>— clears accumulated <code>explorer.exe</code> bloat.</span></li>
+      <li><b>Shows top 10 RAM users AFTER</b> <span>— the "after" snapshot so you can see what you freed.</span></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>⚡ Enable the standby-RAM flush (optional)</h2>
+    <p style="margin:0 0 10px;color:var(--muted)">
+      Step 5 only runs if one of these Sysinternals tools sits in <code>C:\Tools</code>. Grab either one, drop the
+      <code>.exe</code> there, and the flush gets stronger automatically:
+    </p>
+    <div class="files">
+      <a href="https://learn.microsoft.com/sysinternals/downloads/rammap" target="_blank" rel="noopener">RAMMap64.exe ↗</a>
+      <a href="https://learn.microsoft.com/sysinternals/downloads/pstools" target="_blank" rel="noopener">Sysinternals ↗</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>📁 The files</h2>
+    <div class="files">
+      <a href="flush-for-gaming.bat">flush-for-gaming.bat</a>
+      <a href="flush-for-gaming.ps1">flush-for-gaming.ps1</a>
+    </div>
+    <p style="margin:12px 0 0;color:var(--muted);font-size:.9rem">
+      Prefer a shortcut? Right-click <code>flush-for-gaming.bat</code> → <b>Send to → Desktop</b>, or pin it to your taskbar.
+    </p>
+  </section>
+
+  <footer>Keep this page in the same folder as the two scripts so the links resolve.</footer>
+</div>

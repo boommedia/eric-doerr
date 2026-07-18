@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Mango Recipes Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe4b5 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff9500 0%, #ffb84d 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .nav {
+            background: #fff9e6;
+            padding: 20px;
+            border-bottom: 2px solid #ff9500;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav a {
+            padding: 10px 20px;
+            background: #ff9500;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav a:hover {
+            background: #ff7f00;
+        }
+
+        .content {
+            padding: 40px 20px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            color: #ff9500;
+            border-bottom: 3px solid #ff9500;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .recipe {
+            background: #fff9e6;
+            border-left: 5px solid #ff9500;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+
+        .recipe h3 {
+            color: #ff7f00;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .recipe-meta {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+            color: #666;
+        }
+
+        .meta-item {
+            display: flex;
+            gap: 5px;
+        }
+
+        .meta-item strong {
+            color: #ff9500;
+        }
+
+        .ingredients {
+            margin-bottom: 20px;
+        }
+
+        .ingredients h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            border-bottom: 2px solid #ffe4b5;
+            padding-bottom: 5px;
+        }
+
+        .ingredients ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .ingredients li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .ingredients li:before {
+            content: "🥭";
+            position: absolute;
+            left: 0;
+        }
+
+        .instructions {
+            margin-top: 20px;
+        }
+
+        .instructions h4 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            border-bottom: 2px solid #ffe4b5;
+            padding-bottom: 5px;
+        }
+
+        .instructions ol {
+            padding-left: 25px;
+        }
+
+        .instructions li {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .instructions li strong {
+            color: #ff9500;
+        }
+
+        .tips {
+            background: #fff0e6;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            border-left: 4px solid #ffb84d;
+        }
+
+        .tips strong {
+            color: #ff7f00;
+        }
+
+        footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 2px solid #ff9500;
+        }
+
+        .difficulty {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .easy {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .advanced {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🥭 Complete Mango Recipes Guide 🥭</h1>
+            <p>Sauces, Dressings, Marinades & Main Dishes</p>
+        </header>
+
+        <div class="nav">
+            <a href="#sauces">Sauces</a>
+            <a href="#dressings">Dressings</a>
+            <a href="#chicken">Chicken</a>
+            <a href="#shrimp">Shrimp</a>
+        </div>
+
+        <div class="content">
+            <!-- SAUCES SECTION -->
+            <div class="section" id="sauces">
+                <h2>Mango Sauces</h2>
+
+                <div class="recipe">
+                    <h3>Mango Chutney <span class="difficulty easy">Easy</span></h3>
+                    <div class="recipe-meta">
+                        <div class="meta-item"><strong>Prep:</strong> 15 min</div>
+                        <div class="meta-item"><strong>Cook:</strong> 20 min</div>
+                        <div class="meta-item"><strong>Yield:</strong> 2 cups</div>
+                    </div>
+
+                    <div class="ingredients">
+                        <h4>Ingredients:</h4>
+                        <ul>
+                            <li>3 ripe mangoes, peeled and diced</li>
+                            <li>1 red onion, finely chopped</li>
+                            <li>3 cloves garlic, minced</li>
+                            <li>1 tablespoon fresh ginger, minced</li>
+                            <li>1/2 cup apple cider vinegar</li>
+                            <li>1/4 cup brown sugar</li>
+                            <li>1/4 teaspoon cayenne pepper</li>
+                            <li>1/4 teaspoon turmeric</li>
+                            <li>Salt and pepper to taste</li>
+                            <li>1/4 teaspoon mustard seeds (optional)</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>Instructions:</h4>
+                        <ol>
+                            <li><strong>Prepare base:</strong> Heat 1 tablespoon oil in a medium saucepan over medium heat. Add mustard seeds and listen for them to pop (about 30 seconds).</li>
+                            <li><strong>Sauté aromatics:</strong> Add chopped red onion, garlic, and ginger. Sauté for 3-4 minutes until fragrant and onion begins to soften.</li>
+                            <li><strong>Add mangoes:</strong> Stir in diced mangoes and cook for 3 minutes, stirring occasionally.</li>
+                            <li><strong>Add liquids and spices:</strong> Pour in apple cider vinegar and add brown sugar, cayenne pepper, and turmeric. Stir well to combine.</li>
+                            <li><strong>Simmer:</strong> Reduce heat to medium-low and simmer for 12-15 minutes, stirring occasionally, until mixture thickens and mango breaks down slightly.</li>
+                            <li><strong>Season:</strong> Taste and adjust with salt, pepper, or more sugar for balance.</li>
+                            <li><strong>Cool:</strong> Transfer to a jar and cool completely. Store in refrigerator for up to 3 weeks.</li>
+                        </ol>
+                    </div>
+
+                    <div class="tips">
+                        <strong>💡 Tip:</strong> Serve with grilled meats, on cheese boards, or with Indian dishes. For a smoother consistency, blend partially or completely with an immersion blender.
+                    </div>
+                </div>
+
+                <div class="recipe">
+                    <h3>Mango BBQ Sauce <span class="difficulty easy">Easy</span></h3>
+                    <div class="recipe-meta">
+                        <div class="meta-item"><strong>Prep:</strong> 10 min</div>
+                        <div class="meta-item"><strong>Cook:</strong> 15 min</div>
+                        <div class="meta-item"><strong>Yield:</strong> 1.5 cups</div>
+                    </div>
+
+                    <div class="ingredients">
+                        <h4>Ingredients:</h4>
+                        <ul>
+                            <li>2 cups mango puree (fresh or frozen)</li>
+                            <li>1/2 cup ketchup</li>
+                            <li>1/4 cup apple cider vinegar</li>
+                            <li>3 tablespoons honey</li>
+                            <li>2 tablespoons Worcestershire sauce</li>
+                            <li>1 tablespoon soy sauce</li>
+                            <li>2 cloves garlic, minced</li>
+                            <li>1 teaspoon smoked paprika</li>
+                            <li>1/2 teaspoon cumin</li>
+                            <li>1/4 teaspoon cayenne (adjust to taste)</li>
+                            <li>Salt and pepper to taste</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>Instructions:</h4>
+                        <ol>
+                            <li><strong>Combine wet ingredients:</strong> In a medium saucepan, whisk together mango puree, ketchup, apple cider vinegar, honey, Worcestershire sauce, and soy sauce.</li>
+                            <li><strong>Add aromatics and spices:</strong> Stir in minced garlic, smoked paprika, cumin, and cayenne pepper. Mix until well combined.</li>
+                            <li><strong>Heat:</strong> Bring to a gentle simmer over medium heat, stirring occasionally.</li>
+                            <li><strong>Simmer:</strong> Continue simmering for 12-15 minutes to allow flavors to blend and sauce to thicken slightly.</li>
+                            <li><strong>Season:</strong> Taste and adjust seasoning with salt, pepper, or more cayenne for heat.</li>
+                            <li><strong>Cool and store:</strong> Transfer to a jar and cool. Use immediately or refrigerate for up to 2 weeks.</li>
+                        </ol>
+                    </div>
+
+                    <div class="tips">
+                        <strong>💡 Tip:</strong> Brush on grilled chicken, ribs, or shrimp during the last 3-5 minutes of cooking. Also excellent as a dipping sauce for spring rolls.
+                    </div>
+                </div>
+
+                <div class="recipe">
+                    <h3>Spicy Mango Habanero Sauce <span class="difficulty medium">Medium</span></h3>
+                    <div class="recipe-meta">
+                        <div class="meta-item"><strong>Prep:</strong> 15 min</div>
+                        <div class="meta-item"><strong>Cook:</strong> 25 min</div>
+                        <div class="meta-item"><strong>Yield:</strong> 1.5 cups</div>
+                    </div>
+
+                    <div class="ingredients">
+                        <h4>Ingredients:</h4>
+                        <ul>
+                            <li>3 ripe mangoes, peeled and diced</li>
+                            <li>2-3 habanero peppers, seeds removed (for less heat)</li>
+                            <li>1 red bell pepper, chopped</li>
+                            <li>4 cloves garlic, minced</li>
+                            <li>1 tablespoon fresh lime juice</li>
+                            <li>1/4 cup rice vinegar</li>
+                            <li>2 tablespoons honey</li>
+                            <li>1 teaspoon salt</li>
+                            <li>1/2 teaspoon black pepper</li>
+                            <li>1/4 teaspoon cloves</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>Instructions:</h4>
+                        <ol>
+                            <li><strong>Prepare peppers:</strong> Carefully remove seeds and membranes from habaneros (wear gloves!). This reduces heat while keeping flavor.</li>
+                            <li><strong>Combine ingredients:</strong> In a saucepan, add mango pieces, habanero peppers, red bell pepper, garlic, lime juice, and rice vinegar.</li>
+                            <li><strong>Cook:</strong> Bring to a boil over medium-high heat, then reduce to medium-low and simmer for 20 minutes, stirring occasionally.</li>
+                            <li><strong>Blend:</strong> Use an immersion blender to reach desired consistency (chunky or smooth). For smoother sauce, transfer to food processor.</li>
+                            <li><strong>Season:</strong> Add honey, salt, black pepper, and cloves. Stir and taste, adjusting heat or sweetness as needed.</li>
+                            <li><strong>Final simmer:</strong> Simmer for another 2-3 minutes if needed to reach desired thickness.</li>
+                            <li><strong>Cool and store:</strong> Cool completely and transfer to jars. Refrigerate for up to 3 weeks.</li>
+                        </ol>
+                    </div>
+
+                    <div class="tips">
+                        <strong>💡 Tip:</strong> Perfect for tacos, grilled fish, or as a spicy condiment. Add less habanero for milder sauce. For extra heat, keep seeds in.
+                    </div>
+                </div>
+
+                <div class="recipe">
+                    <h3>Sweet Mango Reduction <span class="difficulty easy">Easy</span></h3>
+                    <div class="recipe-meta">
+                        <div class="meta-item"><strong>Prep:</strong> 10 min</div>
+                        <div class="meta-item"><strong>Cook:</strong> 20 min</div>
+                        <div class="meta-item"><strong>Yield:</strong> 1 cup</div>
+                    </div>
+
+                    <div class="ingredients">
+                        <h4>Ingredients:</h4>
+                        <ul>
+                            <li>3 cups mango puree</li>
+                            <li>1/4 cup honey or agave</li>
+                            <li>2 tablespoons lime juice</li>
+                            <li>1 vanilla bean, split (or 1/2 teaspoon vanilla extract)</li>
+                            <li>Pinch of salt</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>Instructions:</h4>
+                        <ol>
+                            <li><strong>Combine:</strong> Pour mango puree into a heavy-bottomed saucepan. Add honey and lime juice.</li>
+                            <li><strong>Add vanilla:</strong> If using vanilla bean, scrape seeds into mixture and add the pod. If using extract, set aside for later.</li>
+                            <li><strong>Reduce:</strong> Bring to a boil over medium-high heat, then reduce to medium. Simmer uncovered for 15-20 minutes, stirring occasionally.</li>
+                            <li><strong>Test consistency:</strong> Sauce should coat the back of a spoon. It will thicken more as it cools.</li>
+                            <li><strong>Add vanilla extract:</strong> If using extract instead of bean, stir in now. Add a pinch of salt.</li>
+                            <li><strong>Cool:</strong> Remove from heat and let cool completely in the pan. Transfer to jars.</li>
+                        </ol>
+                    </div>
+
+                    <div class="tips">
+                        <strong>💡 Tip:</strong> Drizzle over vanilla ice cream, desserts, cheesecake, or use as a glaze for roasted duck. Can be made ahead and frozen for up to 3 months.
+                    </div>
+                </div>
+
+                <div class="recipe">
+                    <h3>Spicy Mango Lime Sauce <span class="difficulty easy">Easy</span></h3>
+                    <div class="recipe-meta">
+                        <div class="meta-item"><strong>Prep:</strong> 10 min</div>
+                        <div class="meta-item"><strong>Cook:</strong> 0 min (No cook)</div>
+                        <div class="meta-item"><strong>Yield:</strong> 1.5 cups</div>
+                    </div>
+
+                    <div class="ingredients">
+                        <h4>Ingredients:</h4>
+                        <ul>
+                            <li>2 cups mango puree or finely diced mango</li>
+                            <li>Juice of 2 limes</li>
+                            <li>1/4 cup fresh cilantro, chopped</li>
+                            <li>1-2 jalapeños, minced (seeds removed for less heat)</li>
+                            <li>2 cloves garlic, minced</li>
+                            <li>1/2 teaspoon cumin</li>
+                            <li>1/4 teaspoon red pepper flakes</li>
+                            <li>Salt and pepper to taste</li>
+                            <li>1 tablespoon honey (optional)</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>Instructions:</h4>
+                        <ol>
+                            <li><strong>Combine mango and lime:</strong> In a bowl, mix mango puree with lime juice.</li>
+                            <li><strong>Add herbs and spices:</strong> Stir in cilantro, minced jalapeños, minced garlic, cumin, and red pepper flakes.</li>
+                            <li><strong>Season:</strong> Add salt, pepper, and honey if desired for sweetness balance.</li>
+                            <li><strong>Chill:</strong> Cover and refrigerate for at least 30 minutes before serving to let flavors meld.</li>
+                            <li><strong>Taste and adjust:</strong> Before serving, taste and adjust lime, heat, or salt as needed.</li>
+                        </ol>
+                    </div>
+
+                    <div class="tips">
+                        <strong>💡 Tip:</strong> Perfect fresh sauce for fish tacos, grilled fish, or quesadillas. Best served fresh within 2-3 days. Can be made up to 24 hours ahead.
+                    </div>
+                </div>
+            </div>
+
+            <!-- DRESSINGS SECTION -->
+            <div class="section" id="dressings">
+                <h2>Mango Salad Dressings</h2>
+
+                <div class="recipe">
+                    <h3>Mango Lime Vinaigrette <span class="difficulty easy">Easy</span></h3>
+                    <div class="recipe-meta">
+                        <div class="meta-item"><strong>Prep:</strong> 10 min</div>
+                        <div class="meta-item"><strong>Yield:</strong> 1 cup</div>
+                    </div>
+
+                    <div class="ingredients">
+                        <h4>Ingredients:</h4>
+                        <ul>
+                            <li>1 cup mango puree or finely diced mango</li>
+                            <li>1/4 cup lime juice (about 3 limes)</li>
+                            <li>1/4 cup extra virgin olive oil</li>
+                            <li>1 tablespoon rice vinegar</li>
+                            <li>1 shallot, minced</li>
+                            <li>1 clove garlic, minced</li>
+                            <li>1 teaspoon Dijon mustard</li>
+                            <li>1/2 teaspoon honey</li>
+                            <li>Salt and pepper to taste</li>
+                            <li>Pinch of red pepper flakes (optional)</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>Instructions:</h4>
+                        <ol>
+                            <li><strong>Combine acids:</strong> In a small bowl or jar, whisk together lime juice and rice vinegar.</li>
+                            <li><strong>Add aromatics:</strong> Stir in minced shallot, garlic, Dijon mustard, and honey.</li>
+                            <li><strong>Incorporate mango:</strong> Add mango puree and whisk until well combined.</li>
+                            <li><strong>Emulsify:</strong> Slowly drizzle in olive oil while whisking constantly to create an emulsion.</li>
+                            <li><strong>Season:</strong> Taste and adjust with salt, pepper, or red pepper flakes.</li>
+                            <li><strong>Store:</strong> Transfer to a jar. Keep refrigerated for up to 5 days. Shake before each use.</li>
+                        </ol>
+                    </div>
+
+                    <div class="tips">
+                        <strong>💡 Tip:</strong> Perfect for spinach, arugula, or mixed green salads. Also works on grilled fish or chicken. Use with greens with mild flavors to let mango shine.
+                    </div>
+                </div>
+
+                <div class="recipe">
+                    <h3>Creamy Mango Dressing <span class="difficulty easy">Easy</span></h3>
+                    <div class="recipe-meta">
+                        <div class="meta-item"><strong>Prep:</strong> 10 min</div>
+                        <div class="meta-item"><strong>Yield:</strong> 1.5 cups</div>
+                    </div>
+
+                    <div class="ingredients">
+                        <h4>Ingredients:</h4>
+                        <ul>
+                            <li>3/4 cup mango puree</li>
+                            <li>1/2 cup Greek yogurt or sour cream</li>
+                            <li>1/4 cup mayonnaise</li>
+                            <li>2 tablespoons lime juice</li>
+                            <li>1 tablespoon honey</li>
+                            <li>1/2 teaspoon cumin</li>
+                            <li>1/4 teaspoon paprika</li>
+                            <li>Salt and white pepper to taste</li>
+                            <li>2 tablespoons fresh cilantro, chopped</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>Instructions:</h4>
+                        <ol>
+                            <li><strong>Combine base:</strong> In a bowl, whisk together Greek yogurt (or sour cream) and mayonnaise until smooth.</li>
+                            <li><strong>Add mango:</strong> Fold in mango puree gently until fully incorporated.</li>
+                            <li><strong>Season:</strong> Add lime juice, honey, cumin, and paprika. Whisk until smooth.</li>
+                            <li><strong>Adjust consistency:</strong> If too thick, thin with a tablespoon of lime juice or water at a time. If too thin, add more yogurt.</li>
+                            <li><strong>Final flavor:</strong> Taste and adjust with salt, white pepper, or more lime juice. Fold in cilantro.</li>
+                            <li><strong>Chill:</strong> Cover and refrigerate for at least 30 minutes before serving.</li>
+                        </ol>
+                    </div>
+
+                    <div class="tips">
+                        <strong>💡 Tip:</strong> Excellent on spinach salads, grilled chicken salads, or as a dip for fresh vegetables. Can be made 2-3 days ahead. Keeps refrigerated up to a week.
+                    </div>
+                </div>
+
+                <div class="recipe">
+                    <h3>Spicy Mango Ginger Dressing <span class="difficulty easy">Easy</span></h3>
+                    <div class="recipe-meta">
+                        <div class="meta-item"><strong>Prep:</strong> 10 min</div>
+                        <div class="meta-item"><strong>Yield:</strong> 1 cup</div>
+                    </div>
+
+                    <div class="ingredients">
+                        <h4>Ingredients:</h4>
+                        <ul>
+                            <li>3/4 cup mango puree</li>
+                            <li>3 tablespoons sesame oil</li>
+                            <li>2 tablespoons rice vinegar</li>
+                            <li>1 tablespoon soy sauce</li>
+                            <li>1 tablespoon lime juice</li>
+                            <li>1 tablespoon fresh ginger, grated</li>
+                            <li>1 clove garlic, minced</li>
+                            <li>1/2 teaspoon sriracha or chili paste</li>
+                            <li>1/4 teaspoon white pepper</li>
+                            <li>Salt to taste</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>Instructions:</h4>
+                        <ol>
+                            <li><strong>Mix base:</strong> In a small bowl, whisk together sesame oil, rice vinegar, soy sauce, and lime juice.</li>
+                            <li><strong>Add aromatics:</strong> Stir in grated ginger, minced garlic, and sriracha or chili paste.</li>
+                            <li><strong>Incorporate mango:</strong> Add mango puree and whisk until well combined.</li>
+                            <li><strong>Season:</strong> Add white pepper and taste for salt. Adjust heat level if needed.</li>
+                            <li><strong>Store:</strong> Transfer to a jar and refrigerate. Shake well before each use.</li>
+                        </ol>
+                    </div>
+
+                    <div class="tips">
+                        <strong>💡 Tip:</strong> Fantastic on Asian-inspired salads with napa cabbage, edamame, and sesame seeds. Also excellent on shrimp or chicken salads. Keeps refrigerated for up to a week.
+                    </div>
+                </div>
+
+                <div class="recipe">
+                    <h3>Honey Mango Mustard Dressing <span class="difficulty easy">Easy</span></h3>
+                    <div class="recipe-meta">
+                        <div class="meta-item"><strong>Prep:</strong> 8 min</div>
+                        <div class="meta-item"><strong>Yield:</strong> 1 cup</div>
+                    </div>
+
+                    <div class="ingredients">
+                        <h4>Ingredients:</h4>
+                        <ul>
+                            <li>1/2 cup mango puree</li>
+                            <li>1/4 cup olive oil</li>
+                            <li>3 tablespoons Dijon mustard</li>
+                            <li>2 tablespoons whole grain mustard</li>
+                            <li>2 tablespoons apple cider vinegar</li>
+                            <li>1 tablespoon honey</li>
+                            <li>1/2 teaspoon turmeric</li>
+                            <li>1/4 teaspoon cayenne pepper</li>
+                            <li>Salt and pepper to taste</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>Instructions:</h4>
+                        <ol>
+                            <li><strong>Combine mustards:</strong> In a small bowl, mix Dijon mustard and whole grain mustard together.</li>
+                            <li><strong>Add wet ingredients:</strong> Whisk in apple cider vinegar, honey, and mango puree.</li>
+                            <li><strong>Emulsify:</strong> Slowly drizzle in olive oil while whisking constantly.</li>
+                            <li><strong>Add spices:</strong> Stir in turmeric and cayenne pepper.</li>
+                            <li><strong>Season:</strong> Taste and adjust with salt and pepper as needed.</li>
+                            <li><strong>Store:</strong> Transfer to a jar and refrigerate. Shake before each use.</li>
+                        </ol>
+                    </div>
+
+                    <div class="tips">
+                        <strong>💡 Tip:</strong> Perfect for bitter greens like endive or radicchio. Also excellent as a dipping sauce for vegetables or as a sauce for grilled chicken or pork. Keeps refrigerated for up to 2 weeks.
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHICKEN SECTION -->
+            <div class="section" id="chicken">
+                <h2>Mango Chicken Dishes</h2>
+
+                <div class="recipe">
+                    <h3>Mango Marinated Grilled Chicken <span class="difficulty medium">Medium</span></h3>
+                    <div class="recipe-meta">
+                        <div class="meta-item"><strong>Prep:</strong> 15 min + 2-8 hours marinating</div>
+                        <div class="meta-item"><strong>Cook:</strong> 15-20 min</div>
+                        <div class="meta-item"><strong>Serves:</strong> 4</div>
+                    </div>
+
+                    <div class="ingredients">
+                        <h4>Ingredients:</h4>
+                        <ul>
+                            <li>4 boneless, skinless chicken breasts (or 8 thighs)</li>
+                            <li><strong>For Marinade:</strong></li>
+                            <li>1 cup mango puree</li>
+                            <li>1/4 cup olive oil</li>
+                            <li>3 tablespoons lime juice</li>
+                            <li>2 tablespoons soy sauce</li>
+                            <li>3 cloves garlic, minced</li>
+                            <li>1 tablespoon fresh ginger, grated</li>
+                            <li>1 jalapeño, minced (optional)</li>
+                            <li>1/2 teaspoon cumin</li>
+                            <li>1/4 teaspoon turmeric</li>
+                            <li>Salt and pepper to taste</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>Instructions:</h4>
+                        <ol>
+                            <li><strong>Prepare marinade:</strong> In a bowl, whisk together mango puree, olive oil, lime juice, and soy sauce.</li>
+                            <li><strong>Add aromatics and spices:</strong> Stir in garlic, ginger, jalapeño (if using), cumin, turmeric, salt, and pepper.</li>
+                            <li><strong>Marinate chicken:</strong> Place chicken in a zip-top bag or shallow dish. Pour marinade over chicken, ensuring all pieces are coated.</li>
+                            <li><strong>Refrigerate:</strong> Seal or cover and marinate in the refrigerator for at least 2 hours, preferably 4-8 hours. Flip chicken halfway through if possible.</li>
+                            <li><strong>Prepare grill:</strong> Preheat grill to medium-high heat. Oil grates to prevent sticking.</li>
+                            <li><strong>Remove from marinade:</strong> Remove chicken from marinade, shaking off excess. Reserve about 1/4 cup marinade for basting.</li>
+                            <li><strong>Grill:</strong> Place chicken on grill and cook for 6-7 minutes per side (for breasts) or 8-10 minutes per side (for thighs) depending on thickness. Chicken is done when internal temperature reaches 165°F (74°C).</li>
+                            <li><strong>Baste:</strong> During last 2-3 minutes of cooking, brush reserved marinade on chicken.</li>
+                            <li><strong>Rest:</strong> Remove from grill and let rest 5 minutes before serving.</li>
+                        </ol>
+                    </div>
+
+                    <div class="tips">
+                        <strong>💡 Tip:</strong> Serve with grilled pineapple, cilantro lime rice, or fresh mango salsa. Don't skip the resting period—it keeps chicken juicy. For indoor cooking, use a grill pan or skillet over medium-high heat.
+                    </div>
+                </div>
+
+                <div class="recipe">
+                    <h3>Mango Glazed Chicken Breast <span class="difficulty easy">Easy</span></h3>
+                    <div class="recipe-meta">
+                        <div class="meta-item"><strong>Prep:</strong> 10 min</div>
+                        <div class="meta-item"><strong>Cook:</strong> 20 min</div>
+                        <div class="meta-item"><strong>Serves:</strong> 4</div>
+                    </div>
+
+                    <div class="ingredients">
+                        <h4>Ingredients:</h4>
+                        <ul>
+                            <li>4 boneless, skinless chicken breasts</li>
+                            <li>2 tablespoons olive oil</li>
+                            <li>Salt and pepper to taste</li>
+                            <li><strong>For Glaze:</strong></li>
+                            <li>1 cup mango puree</li>
+                            <li>3 tablespoons honey</li>
+                            <li>2 tablespoons balsamic vinegar</li>
+                            <li>1 tablespoon Dijon mustard</li>
+                            <li>2 cloves garlic, minced</li>
+                            <li>1 teaspoon fresh thyme (or 1/2 teaspoon dried)</li>
+                            <li>Pinch of red pepper flakes</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>Instructions:</h4>
+                        <ol>
+                            <li><strong>Prepare glaze:</strong> In a small saucepan, combine mango puree, honey, balsamic vinegar, and Dijon mustard. Heat over medium heat until it simmers.</li>
+                            <li><strong>Add aromatics:</strong> Stir in minced garlic, thyme, and red pepper flakes. Continue simmering for 3-5 minutes until slightly thickened. Set aside.</li>
+                            <li><strong>Season chicken:</strong> Pat chicken breasts dry with paper towels. Season both sides with salt and pepper.</li>
+                            <li><strong>Sear chicken:</strong> Heat olive oil in a large skillet over medium-high heat. Add chicken and sear for 5 minutes per side until golden. Chicken won't be cooked through yet.</li>
+                            <li><strong>Apply glaze:</strong> Reduce heat to medium. Spoon glaze over chicken, coating all pieces.</li>
+                            <li><strong>Cook covered:</strong> Cover skillet with a lid and cook for 5-8 minutes until chicken reaches internal temperature of 165°F (74°C).</li>
+                            <li><strong>Finish:</strong> If desired, brush with additional glaze and cook uncovered for 1 minute to caramelize.</li>
+                            <li><strong>Rest and serve:</strong> Let rest 3 minutes. Spoon remaining glaze from pan over chicken before serving.</li>
+                        </ol>
+                    </div>
+
+                    <div class="tips">
+                        <strong>💡 Tip:</strong> Serve over jasmine rice or couscous. For extra glaze, double the recipe. Perfect for a weeknight dinner. Pairs well with steamed broccoli or roasted vegetables.
+                    </div>
+                </div>
+
+                <div class="recipe">
+                    <h3>Mango Chicken Stir-Fry <span class="difficulty medium">Medium</span></h3>
+                    <div class="recipe-meta">
+                        <div class="meta-item"><strong>Prep:</strong> 20 min</div>
+                        <div class="meta-item"><strong>Cook:</strong> 15 min</div>
+                        <div class="meta-item"><strong>Serves:</strong> 4</div>
+                    </div>
+
+                    <div class="ingredients">
+                        <h4>Ingredients:</h4>
+                        <ul>
+                            <li>1.5 lbs boneless chicken breasts, cut into bite-sized pieces</li>
+                            <li>2 cups diced mango (about 2 ripe mangoes)</li>
+                            <li>1 red bell pepper, sliced</li>
+                            <li>1 yellow bell pepper, sliced</li>
+                            <li>1 red onion, sliced</li>
+                            <li>2 cups fresh pineapple chunks</li>
+                            <li>3 cloves garlic, minced</li>
+                            <li>1 tablespoon fresh ginger, grated</li>
+                            <li>3 tablespoons vegetable oil</li>
+                            <li><strong>For Sauce:</strong></li>
+                            <li>3 tablespoons soy sauce</li>
+                            <li>2 tablespoons oyster sauce</li>
+                            <li>1 tablespoon lime juice</li>
+                            <li>1 teaspoon sesame oil</li>
+                            <li>1/4 teaspoon red pepper flakes</li>
+                            <li>1 tablespoon cornstarch + 2 tablespoons water (slurry)</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>Instructions:</h4>
+                        <ol>
+                            <li><strong>Prepare sauce:</strong> In a small bowl, whisk together soy sauce, oyster sauce, lime juice, sesame oil, and red pepper flakes. In another small bowl, mix cornstarch with water to create a slurry. Set both aside.</li>
+                            <li><strong>Heat wok or large skillet:</strong> Heat 1.5 tablespoons vegetable oil in a wok or large skillet over high heat until shimmering.</li>
+                            <li><strong>Cook chicken:</strong> Add chicken pieces in a single layer (work in batches if needed). Let cook undisturbed for 2 minutes to develop color. Stir and cook for 3-4 more minutes until cooked through (internal temperature 165°F). Remove to a plate.</li>
+                            <li><strong>Stir-fry vegetables:</strong> Add remaining oil to wok. Add garlic and ginger, stir-fry for 30 seconds until fragrant.</li>
+                            <li><strong>Add harder vegetables:</strong> Add bell peppers and red onion. Stir-fry for 3-4 minutes until softened but still crisp.</li>
+                            <li><strong>Add mango and pineapple:</strong> Add mango chunks and pineapple. Toss gently and cook for 1-2 minutes.</li>
+                            <li><strong>Return chicken:</strong> Add cooked chicken back to wok.</li>
+                            <li><strong>Add sauce:</strong> Pour in sauce mixture and stir well. Add cornstarch slurry a little at a time, stirring, until sauce reaches desired thickness.</li>
+                            <li><strong>Finish:</strong> Cook for 1-2 minutes more until sauce coats everything. Taste and adjust seasonings.</li>
+                            <li><strong>Serve:</strong> Serve immediately over steamed rice or noodles. Garnish with fresh cilantro if desired.</li>
+                        </ol>
+                    </div>
+
+                    <div class="tips">
+                        <strong>💡 Tip:</strong> Don't overcook the mango—add it near the end so it stays fresh-tasting. Prep all ingredients before you start cooking since stir-fry is fast. Works great with cashews for added texture.
+                    </div>
+                </div>
+
+                <div class="recipe">
+                    <h3>Tropical Mango Chicken (Baked) <span class="difficulty easy">Easy</span></h3>
+                    <div class="recipe-meta">
+                        <div class="meta-item"><strong>Prep:</strong> 15 min</div>
+                        <div class="meta-item"><strong>Cook:</strong> 30 min</div>
+                        <div class="meta-item"><strong>Serves:</strong> 4</div>
+                    </div>
+
+                    <div class="ingredients">
+                        <h4>Ingredients:</h4>
+                        <ul>
+                            <li>4 chicken thighs or drumsticks (bone-in, skin-on)</li>
+                            <li>1 cup mango chunks</li>
+                            <li>1 can (13.5 oz) coconut milk</li>
+                            <li>1 red bell pepper, chopped</li>
+                            <li>1 green bell pepper, chopped</li>
+                            <li>1/2 red onion, sliced</li>
+                            <li>2 cloves garlic, minced</li>
+                            <li>1 tablespoon fresh ginger, grated</li>
+                            <li>1 teaspoon curry powder</li>
+                            <li>1/2 teaspoon turmeric</li>
+                            <li>1/4 teaspoon cayenne pepper</li>
+                            <li>2 tablespoons lime juice</li>
+                            <li>1 tablespoon honey</li>
+                            <li>Salt and pepper to taste</li>
+                            <li>2 tablespoons fresh cilantro, chopped</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>Instructions:</h4>
+                        <ol>
+                            <li><strong>Preheat oven:</strong> Preheat oven to 400°F (200°C).</li>
+                            <li><strong>Season chicken:</strong> Season chicken with salt and pepper.</li>
+                            <li><strong>Prepare sauce:</strong> In a bowl, whisk together coconut milk, curry powder, turmeric, cayenne pepper, lime juice, and honey. Stir until spices are dissolved.</li>
+                            <li><strong>Sauté aromatics:</strong> Heat 1 tablespoon oil in an oven-safe skillet over medium heat. Add garlic and ginger, cook for 30 seconds until fragrant.</li>
+                            <li><strong>Sear chicken:</strong> Add chicken pieces and sear for 2-3 minutes per side until golden. Don't worry about cooking through.</li>
+                            <li><strong>Add vegetables:</strong> Add red onion, bell peppers to the skillet around the chicken.</li>
+                            <li><strong>Add sauce and mango:</strong> Pour coconut sauce over everything. Scatter mango chunks around the skillet.</li>
+                            <li><strong>Bake:</strong> Cover with foil and bake for 20-25 minutes until chicken is cooked through (internal temperature 165°F) and vegetables are tender.</li>
+                            <li><strong>Finish:</strong> Remove foil, taste sauce and adjust seasonings. Sprinkle with fresh cilantro.</li>
+                            <li><strong>Serve:</strong> Serve over jasmine or basmati rice, scooping sauce over everything.</li>
+                        </ol>
+                    </div>
+
+                    <div class="tips">
+                        <strong>💡 Tip:</strong> This is a one-pan meal that's perfect for entertaining. Can be made ahead and reheated. For less heat, reduce cayenne. Unsweetened coconut milk works best for authentic flavor.
+                    </div>
+                </div>
+            </div>
+
+            <!-- SHRIMP SECTION -->
+            <div class="section" id="shrimp">
+                <h2>Mango Shrimp Dishes</h2>
+
+                <div class="recipe">
+                    <h3>Mango Lime Grilled Shrimp <span class="difficulty medium">Medium</span></h3>
+                    <div class="recipe-meta">
+                        <div class="meta-item"><strong>Prep:</strong> 20 min + 1-2 hours marinating</div>
+                        <div class="meta-item"><strong>Cook:</strong> 5-6 min</div>
+                        <div class="meta-item"><strong>Serves:</strong> 4</div>
+                    </div>
+
+                    <div class="ingredients">
+                        <h4>Ingredients:</h4>
+                        <ul>
+                            <li>2 lbs large shrimp (21/25 count), peeled and deveined</li>
+                            <li><strong>For Marinade:</strong></li>
+                            <li>3/4 cup mango puree</li>
+                            <li>1/4 cup olive oil</li>
+                            <li>Juice of 3 limes</li>
+                            <li>4 cloves garlic, minced</li>
+                            <li>1 tablespoon fresh cilantro, chopped</li>
+                            <li>1/2 teaspoon cumin</li>
+                            <li>1/4 teaspoon smoked paprika</li>
+                            <li>Pinch of cayenne pepper</li>
+                            <li>Salt and pepper to taste</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>Instructions:</h4>
+                        <ol>
+                            <li><strong>Make marinade:</strong> In a bowl, whisk together mango puree, olive oil, and lime juice.</li>
+                            <li><strong>Add aromatics and spices:</strong> Stir in garlic, cilantro, cumin, paprika, cayenne, salt, and pepper.</li>
+                            <li><strong>Marinate shrimp:</strong> Add shrimp to a zip-top bag or shallow dish. Pour marinade over, ensuring all shrimp are coated.</li>
+                            <li><strong>Refrigerate:</strong> Seal and marinate in refrigerator for 1-2 hours. Don't marinate longer—the acid can make shrimp mushy.</li>
+                            <li><strong>Prepare grill:</strong> Preheat grill to medium-high heat. If using wooden skewers, soak them in water for 30 minutes first.</li>
+                            <li><strong>Thread shrimp:</strong> Thread shrimp onto skewers (2 skewers per shrimp is best to prevent spinning).</li>
+                            <li><strong>Remove from marinade:</strong> Remove skewers, letting excess marinade drip off.</li>
+                            <li><strong>Grill:</strong> Place skewers on grill. Cook for 2-3 minutes per side until shrimp are pink and opaque (don't overcook).</li>
+                            <li><strong>Rest briefly:</strong> Let rest 2 minutes before serving.</li>
+                        </ol>
+                    </div>
+
+                    <div class="tips">
+                        <strong>💡 Tip:</strong> Serve with lime wedges, cilantro, and grilled lime halves. Pair with cilantro lime rice or fresh salad. For pan-searing, use a very hot skillet for 2-3 minutes per side.
+                    </div>
+                </div>
+
+                <div class="recipe">
+                    <h3>Mango Shrimp Tacos <span class="difficulty medium">Medium</span></h3>
+                    <div class="recipe-meta">
+                        <div class="meta-item"><strong>Prep:</strong> 20 min</div>
+                        <div class="meta-item"><strong>Cook:</strong> 10 min</div>
+                        <div class="meta-item"><strong>Serves:</strong> 4 (8-10 tacos)</div>
+                    </div>
+
+                    <div class="ingredients">
+                        <h4>Ingredients:</h4>
+                        <ul>
+                            <li>1.5 lbs large shrimp, peeled and deveined</li>
+                            <li><strong>For Shrimp Seasoning:</strong></li>
+                            <li>1 tablespoon chili powder</li>
+                            <li>1 teaspoon cumin</li>
+                            <li>1 teaspoon paprika</li>
+                            <li>1/2 teaspoon garlic powder</li>
+                            <li>1/4 teaspoon cayenne pepper</li>
+                            <li>Salt and pepper to taste</li>
+                            <li>2 tablespoons olive oil</li>
+                            <li><strong>For Assembly:</strong></li>
+                            <li>Corn or flour tortillas (8-10)</li>
+                            <li>2 cups diced fresh mango</li>
+                            <li>1/2 red onion, thinly sliced</li>
+                            <li>1/4 cup fresh cilantro</li>
+                            <li>Lime wedges</li>
+                            <li>Your favorite hot sauce (optional)</li>
+                            <li>Crema or sour cream (optional)</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>Instructions:</h4>
+                        <ol>
+                            <li><strong>Prepare seasoning:</strong> In a small bowl, combine chili powder, cumin, paprika, garlic powder, cayenne, salt, and pepper.</li>
+                            <li><strong>Season shrimp:</strong> Pat shrimp dry. Toss with seasoning mixture until evenly coated.</li>
+                            <li><strong>Cook shrimp:</strong> Heat olive oil in a large skillet over medium-high heat. Add shrimp in a single layer and cook 2-3 minutes per side until pink and opaque. Don't overcrowd the pan—work in batches if needed.</li>
+                            <li><strong>Warm tortillas:</strong> Place tortillas directly over a gas flame for 15-20 seconds per side to char slightly, or warm in a skillet or microwave.</li>
+                            <li><strong>Assemble tacos:</strong> Place a few shrimp on each tortilla. Top with diced mango, sliced red onion, and fresh cilantro.</li>
+                            <li><strong>Serve:</strong> Serve with lime wedges, hot sauce, and crema on the side. Squeeze lime juice and drizzle sauce just before eating.</li>
+                        </ol>
+                    </div>
+
+                    <div class="tips">
+                        <strong>💡 Tip:</strong> Make a simple mango salsa by combining diced mango, red onion, cilantro, jalapeño, and lime juice—even better than plain mango. Set up a taco bar so guests can customize. Can prep shrimp seasoning and mango salsa ahead.
+                    </div>
+                </div>
+
+                <div class="recipe">
+                    <h3>Spicy Mango Shrimp Skewers <span class="difficulty medium">Medium</span></h3>
+                    <div class="recipe-meta">
+                        <div class="meta-item"><strong>Prep:</strong> 15 min + 30 min marinating</div>
+                        <div class="meta-item"><strong>Cook:</strong> 10-12 min</div>
+                        <div class="meta-item"><strong>Serves:</strong> 4 (8 skewers)</div>
+                    </div>
+
+                    <div class="ingredients">
+                        <h4>Ingredients:</h4>
+                        <ul>
+                            <li>1.5 lbs large shrimp, peeled and deveined</li>
+                            <li>2 mangoes, cut into 1-inch cubes</li>
+                            <li>1 red bell pepper, cut into 1-inch chunks</li>
+                            <li>1 yellow bell pepper, cut into 1-inch chunks</li>
+                            <li>1 red onion, cut into chunks</li>
+                            <li><strong>For Marinade/Glaze:</strong></li>
+                            <li>1/2 cup mango puree</li>
+                            <li>3 tablespoons lime juice</li>
+                            <li>2 tablespoons soy sauce</li>
+                            <li>1 tablespoon honey</li>
+                            <li>2 tablespoons sriracha or hot sauce</li>
+                            <li>1 tablespoon sesame oil</li>
+                            <li>3 cloves garlic, minced</li>
+                            <li>1 tablespoon fresh ginger, grated</li>
+                            <li>Salt and pepper to taste</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>Instructions:</h4>
+                        <ol>
+                            <li><strong>Make marinade:</strong> Whisk together mango puree, lime juice, soy sauce, honey, sriracha, sesame oil, garlic, ginger, salt, and pepper in a bowl.</li>
+                            <li><strong>Marinate shrimp:</strong> Place shrimp in a zip-top bag or shallow dish. Add half of the marinade, seal, and marinate in refrigerator for 30 minutes. Reserve other half for basting.</li>
+                            <li><strong>Prepare skewers:</strong> Soak wooden skewers in water for 30 minutes. Thread shrimp and vegetables onto skewers alternating: shrimp, mango, bell pepper, onion, repeat.</li>
+                            <li><strong>Preheat grill:</strong> Preheat grill to medium-high heat.</li>
+                            <li><strong>Grill skewers:</strong> Place skewers on grill. Cook for 3-4 minutes per side.</li>
+                            <li><strong>Baste:</strong> During last minute of cooking, brush with reserved marinade.</li>
+                            <li><strong>Finish:</strong> Remove from grill and let rest 2-3 minutes. Taste and adjust heat level.</li>
+                        </ol>
+                    </div>
+
+                    <div class="tips">
+                        <strong>💡 Tip:</strong> The mango and peppers cook at the same rate as the quick-cooking shrimp, making this a perfectly balanced dish. If you prefer less heat, use less sriracha. Serve over jasmine rice or with a cooling cucumber salad.
+                    </div>
+                </div>
+
+                <div class="recipe">
+                    <h3>Mango Coconut Shrimp <span class="difficulty medium">Medium</span></h3>
+                    <div class="recipe-meta">
+                        <div class="meta-item"><strong>Prep:</strong> 15 min</div>
+                        <div class="meta-item"><strong>Cook:</strong> 15 min</div>
+                        <div class="meta-item"><strong>Serves:</strong> 4</div>
+                    </div>
+
+                    <div class="ingredients">
+                        <h4>Ingredients:</h4>
+                        <ul>
+                            <li>1.5 lbs large shrimp, peeled and deveined</li>
+                            <li><strong>For Sauce:</strong></li>
+                            <li>1 can (13.5 oz) coconut milk</li>
+                            <li>3/4 cup mango puree</li>
+                            <li>2 tablespoons fish sauce</li>
+                            <li>1 tablespoon lime juice</li>
+                            <li>1 tablespoon honey</li>
+                            <li>3 cloves garlic, minced</li>
+                            <li>1 tablespoon fresh ginger, grated</li>
+                            <li>1-2 Thai chiles or 1/4 teaspoon red pepper flakes</li>
+                            <li><strong>For Cooking:</strong></li>
+                            <li>2 tablespoons oil</li>
+                            <li>1 red bell pepper, sliced</li>
+                            <li>1 green bell pepper, sliced</li>
+                            <li>4 green onions, sliced into 2-inch pieces</li>
+                            <li>Fresh basil or cilantro for garnish</li>
+                        </ul>
+                    </div>
+
+                    <div class="instructions">
+                        <h4>Instructions:</h4>
+                        <ol>
+                            <li><strong>Prepare sauce:</strong> In a medium bowl, combine coconut milk, mango puree, fish sauce, lime juice, and honey. Stir until smooth. Set aside.</li>
+                            <li><strong>Prepare aromatics:</strong> Mince garlic and ginger together. Slice Thai chiles (or use red pepper flakes).</li>
+                            <li><strong>Cook aromatics:</strong> Heat oil in a large skillet or wok over medium heat. Add garlic, ginger, and chiles. Cook for 1 minute until fragrant.</li>
+                            <li><strong>Cook shrimp:</strong> Add shrimp to the skillet, stirring to coat with oil. Cook for 2-3 minutes until starting to turn pink. Don't fully cook yet.</li>
+                            <li><strong>Add vegetables:</strong> Add red and green bell peppers. Stir-fry for 2-3 minutes until peppers begin to soften.</li>
+                            <li><strong>Add sauce:</strong> Pour coconut mango sauce over shrimp and peppers. Stir gently.</li>
+                            <li><strong>Simmer:</strong> Bring to a gentle simmer and cook for 3-4 minutes until shrimp are fully cooked (pink and opaque) and sauce is heated through. Stir occasionally.</li>
+                            <li><strong>Add green onions:</strong> Stir in green onions.</li>
+                            <li><strong>Garnish and serve:</strong> Taste and adjust seasonings. Serve over jasmine rice or rice noodles. Garnish with fresh basil or cilantro.</li>
+                        </ol>
+                    </div>
+
+                    <div class="tips">
+                        <strong>💡 Tip:</strong> This is a Thai-inspired curry. Don't skip fish sauce—it adds depth even though you won't taste fishiness. For a non-dairy version, use full-fat coconut milk. Can be made ahead and reheated gently. Add more mango for a sweeter curry.
+                    </div>
+                </div>
+            </div>
+
+            <!-- TIPS SECTION -->
+            <div class="section" id="tips">
+                <h2>General Tips for Cooking with Mango</h2>
+
+                <div style="background: #fff9e6; padding: 25px; border-left: 5px solid #ff9500; border-radius: 5px;">
+                    <h3 style="color: #ff7f00; margin-bottom: 20px;">Selection & Storage</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 15px;"><strong>🥭 Choosing:</strong> Look for mangoes that yield slightly to pressure but aren't mushy. Color varies by variety—not all ripe mangoes are bright colored.</li>
+                        <li style="margin-bottom: 15px;"><strong>🥭 Ripening:</strong> Place firm mangoes in a paper bag at room temperature for 3-5 days to ripen. Store ripe mangoes in the refrigerator for up to 5 days.</li>
+                        <li style="margin-bottom: 15px;"><strong>🥭 Puree:</strong> Blend peeled mango chunks with a little water to create puree. Freeze in ice cube trays for convenient portions.</li>
+                    </ul>
+
+                    <h3 style="color: #ff7f00; margin-top: 30px; margin-bottom: 20px;">Cutting Techniques</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 15px;"><strong>🥭 Cheeks Method:</strong> Stand mango upright. Using a sharp knife, cut along the flat pit on both sides to remove the two "cheeks." Score the flesh in a crosshatch pattern without piercing the skin. Push the skin up from underneath to expose cubes.</li>
+                        <li style="margin-bottom: 15px;"><strong>🥭 Peel Method:</strong> Peel the mango with a vegetable peeler, then slice flesh from the pit.</li>
+                        <li style="margin-bottom: 15px;"><strong>🥭 Cube Method:</strong> After removing cheeks, use a sharp knife to cut into cubes, then slice away from skin with a spoon.</li>
+                    </ul>
+
+                    <h3 style="color: #ff7f00; margin-top: 30px; margin-bottom: 20px;">Flavor Combinations</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 15px;"><strong>🥭 Classic:</strong> Mango + Lime + Cilantro + Garlic</li>
+                        <li style="margin-bottom: 15px;"><strong>🥭 Warm Spices:</strong> Mango + Ginger + Turmeric + Cumin</li>
+                        <li style="margin-bottom: 15px;"><strong>🥭 Heat:</strong> Mango + Habanero/Jalapeño + Lime + Garlic</li>
+                        <li style="margin-bottom: 15px;"><strong>🥭 Creamy:</strong> Mango + Coconut + Vanilla + Cinnamon</li>
+                        <li style="margin-bottom: 15px;"><strong>🥭 Asian:</strong> Mango + Soy + Ginger + Sesame Oil + Chiles</li>
+                    </ul>
+
+                    <h3 style="color: #ff7f00; margin-top: 30px; margin-bottom: 20px;">Cooking Notes</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 15px;"><strong>🥭 Heat Sensitivity:</strong> Add diced or cubed mango near the end of cooking to preserve its fresh flavor and texture. It becomes mushy if overcooked.</li>
+                        <li style="margin-bottom: 15px;"><strong>🥭 Puree Sauces:</strong> Mango puree works better in cooked sauces as it maintains body and absorbs other flavors.</li>
+                        <li style="margin-bottom: 15px;"><strong>🥭 Marinating:</strong> Don't marinate seafood in mango puree for more than 2 hours—the acid can affect texture. 1-2 hours is ideal.</li>
+                        <li style="margin-bottom: 15px;"><strong>🥭 Sourness Balance:</strong> Mango is naturally sweet; balance with lime juice or vinegar for brightness and prevent a one-note sweetness.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>🥭 Complete Mango Recipes Guide 🥭</p>
+            <p>All recipes tested and ready to cook. Enjoy!</p>
+        </footer>
+    </div>
+</body>
+</html>

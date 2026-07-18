@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mango Recipes - Master Shopping List</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe4b5 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff9500 0%, #ffb84d 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .summary-box {
+            background: #fff9e6;
+            padding: 25px;
+            margin: 20px;
+            border-left: 5px solid #ff9500;
+            border-radius: 5px;
+        }
+
+        .summary-box h3 {
+            color: #ff9500;
+            margin-bottom: 15px;
+        }
+
+        .summary-box p {
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .content {
+            padding: 40px 20px;
+        }
+
+        .category {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+
+        .category h2 {
+            color: #ff9500;
+            border-bottom: 3px solid #ff9500;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .item-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .item {
+            background: #fff9e6;
+            padding: 15px;
+            border-left: 4px solid #ffb84d;
+            border-radius: 5px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .item input[type="checkbox"] {
+            margin-top: 3px;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+
+        .item-content {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 3px;
+        }
+
+        .item-note {
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+        }
+
+        .item.checked .item-name {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .cost-estimate {
+            background: #fffacd;
+            padding: 20px;
+            border-left: 5px solid #ff9500;
+            border-radius: 5px;
+            margin: 30px 20px;
+        }
+
+        .cost-estimate h3 {
+            color: #ff9500;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .cost-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ffe4b5;
+        }
+
+        .cost-row.total {
+            border-bottom: 2px solid #ff9500;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-top: 10px;
+            padding-top: 10px;
+        }
+
+        .tips-box {
+            background: #f0f8ff;
+            padding: 20px;
+            border-left: 5px solid #4169e1;
+            border-radius: 5px;
+            margin: 30px 20px;
+        }
+
+        .tips-box h3 {
+            color: #4169e1;
+            margin-bottom: 15px;
+        }
+
+        .tips-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tips-box li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .tips-box li:before {
+            content: "💡";
+            position: absolute;
+            left: 0;
+        }
+
+        .notes-box {
+            background: #f5f5f5;
+            padding: 20px;
+            border-left: 5px solid #666;
+            border-radius: 5px;
+            margin: 30px 20px;
+        }
+
+        .notes-box h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .notes-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .notes-box li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .notes-box li:before {
+            content: "📝";
+            position: absolute;
+            left: 0;
+        }
+
+        .btn-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            margin: 10px;
+            background: #ff9500;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #ff7f00;
+        }
+
+        .btn-secondary {
+            background: #4169e1;
+        }
+
+        .btn-secondary:hover {
+            background: #0047ab;
+        }
+
+        footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 2px solid #ff9500;
+        }
+
+        .print-notice {
+            background: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ff9500;
+            margin: 20px;
+            border-radius: 5px;
+        }
+
+        .print-notice strong {
+            color: #856404;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+            }
+
+            .btn-container {
+                display: none;
+            }
+
+            .item input[type="checkbox"] {
+                display: none;
+            }
+
+            .item {
+                page-break-inside: avoid;
+            }
+        }
+
+        .category-count {
+            font-size: 0.9em;
+            color: #999;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🥭 Mango Recipes Shopping List 🛒</h1>
+            <p>Master ingredient list for all sauce, dressing, chicken, and shrimp recipes</p>
+        </header>
+
+        <div class="summary-box">
+            <h3>📋 About This List</h3>
+            <p><strong>This list includes ingredients for ALL recipes</strong> in the mango collection—sauces, dressings, chicken dishes, and shrimp dishes.</p>
+            <p>Most kitchens will already have many of these items. Start with quantities for what you plan to make first, then add more as needed.</p>
+            <p style="margin-top: 15px;"><strong>💡 Pro Tip:</strong> Check items off as you add them to your Amazon cart. You can also print this list and take it shopping!</p>
+        </div>
+
+        <div class="btn-container">
+            <button class="btn" onclick="checkAll()">✓ Check All</button>
+            <button class="btn" onclick="uncheckAll()">✗ Uncheck All</button>
+            <button class="btn btn-secondary" onclick="window.print()">🖨️ Print List</button>
+        </div>
+
+        <div class="content">
+            <!-- PRODUCE -->
+            <div class="category">
+                <h2>🌿 Produce <span class="category-count">(Buy Locally or Amazon Prime Fresh)</span></h2>
+                <div class="item-list">
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Mangoes</div>
+                            <div class="item-note">12-15 ripe (for puree and dicing)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Limes</div>
+                            <div class="item-note">2 lbs (about 15-20 limes)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Garlic</div>
+                            <div class="item-note">2 bulbs (about 20+ cloves)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Fresh Ginger</div>
+                            <div class="item-note">1 lb piece</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Red Onions</div>
+                            <div class="item-note">4-5 medium</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Fresh Cilantro</div>
+                            <div class="item-note">2-3 bunches (or 1 large container)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Red Bell Peppers</div>
+                            <div class="item-note">6-8 peppers</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Yellow Bell Peppers</div>
+                            <div class="item-note">3-4 peppers</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Green Bell Peppers</div>
+                            <div class="item-note">2-3 peppers</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Jalapeños</div>
+                            <div class="item-note">1 lb (about 8-10)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Habanero Peppers</div>
+                            <div class="item-note">1 package (about 3-5)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Thai Chiles or Red Chiles</div>
+                            <div class="item-note">1 package</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Fresh Basil</div>
+                            <div class="item-note">1 bunch (optional, for curry)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Fresh Mint</div>
+                            <div class="item-note">1 bunch (optional, for variations)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Green Onions</div>
+                            <div class="item-note">1 bunch</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Fresh Thyme</div>
+                            <div class="item-note">1 package (or buy dried)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Shallots</div>
+                            <div class="item-note">2-3 (or 1 package)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROTEIN -->
+            <div class="category">
+                <h2>🍗 Protein <span class="category-count">(Buy Locally or Online)</span></h2>
+                <div class="item-list">
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Boneless, Skinless Chicken Breasts</div>
+                            <div class="item-note">3-4 lbs (8-10 pieces)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Chicken Thighs or Drumsticks</div>
+                            <div class="item-note">2-3 lbs (bone-in, skin-on)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Large Shrimp</div>
+                            <div class="item-note">4-5 lbs (21/25 count, peeled & deveined)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OILS & VINEGARS -->
+            <div class="category">
+                <h2>🫗 Oils & Vinegars</h2>
+                <div class="item-list">
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Extra Virgin Olive Oil</div>
+                            <div class="item-note">1 large bottle (51 oz or larger)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Sesame Oil</div>
+                            <div class="item-note">1 bottle (6-10 oz)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Vegetable Oil</div>
+                            <div class="item-note">1 bottle (if you don't have for cooking)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Apple Cider Vinegar</div>
+                            <div class="item-note">1 large bottle (32 oz)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Rice Vinegar</div>
+                            <div class="item-note">1 bottle (10 oz or larger)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Balsamic Vinegar</div>
+                            <div class="item-note">1 bottle (8-17 oz)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">White Wine Vinegar</div>
+                            <div class="item-note">1 bottle (optional, if not stocked)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONDIMENTS -->
+            <div class="category">
+                <h2>🍶 Condiments & Sauces</h2>
+                <div class="item-list">
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Soy Sauce</div>
+                            <div class="item-note">1 bottle (10 oz)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Oyster Sauce</div>
+                            <div class="item-note">1 bottle (9-10 oz)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Fish Sauce</div>
+                            <div class="item-note">1 bottle (24 oz) - for Thai curry</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Sriracha or Hot Sauce</div>
+                            <div class="item-note">1 bottle (17 oz)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Worcestershire Sauce</div>
+                            <div class="item-note">1 bottle (if not already stocked)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Ketchup</div>
+                            <div class="item-note">1 bottle (if not already stocked)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Dijon Mustard</div>
+                            <div class="item-note">1 jar (8 oz)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Whole Grain Mustard</div>
+                            <div class="item-note">1 jar (8-10 oz)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Mayonnaise</div>
+                            <div class="item-note">1 jar (if not already stocked)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SPICES -->
+            <div class="category">
+                <h2>🌶️ Spices & Seasonings <span class="category-count">(Consider buying bulk spice sets)</span></h2>
+                <div class="item-list">
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Cumin (Ground)</div>
+                            <div class="item-note">1-2 oz container</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Turmeric (Ground)</div>
+                            <div class="item-note">1-2 oz container</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Paprika (Regular)</div>
+                            <div class="item-note">1-2 oz container</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Smoked Paprika</div>
+                            <div class="item-note">1-2 oz container</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Cayenne Pepper</div>
+                            <div class="item-note">1-2 oz container</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Red Pepper Flakes</div>
+                            <div class="item-note">1 container</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Chili Powder</div>
+                            <div class="item-note">1-2 oz container</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Curry Powder</div>
+                            <div class="item-note">1-2 oz container</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Garlic Powder</div>
+                            <div class="item-note">1 container (if not stocked)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Ground Cloves</div>
+                            <div class="item-note">1 small container</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Mustard Seeds</div>
+                            <div class="item-note">1 small container (optional, for chutney)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">White Pepper</div>
+                            <div class="item-note">1 container (for dressings)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Salt</div>
+                            <div class="item-note">1 large container (Kosher or sea salt)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Black Pepper</div>
+                            <div class="item-note">1 grinder or container (fresh is better)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Cinnamon (Ground)</div>
+                            <div class="item-note">1 container (if making desserts)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BAKING & SWEETENERS -->
+            <div class="category">
+                <h2>🍯 Baking & Sweeteners</h2>
+                <div class="item-list">
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Honey</div>
+                            <div class="item-note">1 large jar (24 oz or larger)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Brown Sugar</div>
+                            <div class="item-note">1 bag (1-2 lbs)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">White Granulated Sugar</div>
+                            <div class="item-note">1 bag (if not stocked)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Cornstarch</div>
+                            <div class="item-note">1 box (if not already stocked)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DAIRY -->
+            <div class="category">
+                <h2>🥛 Dairy & Yogurt</h2>
+                <div class="item-list">
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Greek Yogurt</div>
+                            <div class="item-note">2-3 containers (32 oz total)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Sour Cream</div>
+                            <div class="item-note">1 container (16 oz, optional if using yogurt)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Crema or Mexican Cream</div>
+                            <div class="item-note">1 container (optional, for tacos)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CANNED & SHELF-STABLE -->
+            <div class="category">
+                <h2>🥫 Canned & Shelf-Stable</h2>
+                <div class="item-list">
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Coconut Milk (Full-Fat, Canned)</div>
+                            <div class="item-note">3-4 cans (13.5 oz each)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Vegetable or Chicken Stock</div>
+                            <div class="item-note">1-2 cartons (14.5 oz each, optional)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SPECIALTY -->
+            <div class="category">
+                <h2>✨ Specialty Items</h2>
+                <div class="item-list">
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Vanilla Extract</div>
+                            <div class="item-note">1 bottle (4 oz, if not stocked) - optional for sweet reductions</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Vanilla Bean</div>
+                            <div class="item-note">2-3 whole beans (optional for sweet reductions)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Corn Tortillas</div>
+                            <div class="item-note">1 package (24-30 count)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Flour Tortillas</div>
+                            <div class="item-note">1 package (8-10 count, optional)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OPTIONAL ADDITIONS -->
+            <div class="category">
+                <h2>🌟 Optional Pantry Additions</h2>
+                <div class="item-list">
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Pineapple (Fresh or Frozen)</div>
+                            <div class="item-note">2-3 fresh or 1-2 bags frozen</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Avocado</div>
+                            <div class="item-note">3-4 (for salsa variations)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Black Beans (Canned)</div>
+                            <div class="item-note">1-2 cans (optional for salsa)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Cashews or Nuts</div>
+                            <div class="item-note">1 bag (optional for stir-fry)</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox">
+                        <div class="item-content">
+                            <div class="item-name">Sesame Seeds</div>
+                            <div class="item-note">1 container (for garnish)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COST ESTIMATE -->
+        <div class="cost-estimate">
+            <h3>💰 Estimated Total Cost</h3>
+            <div class="cost-row">
+                <span>Produce (Mangoes, Limes, Fresh herbs, Peppers, Onions)</span>
+                <span>$40-60</span>
+            </div>
+            <div class="cost-row">
+                <span>Protein (Chicken, Shrimp)</span>
+                <span>$50-80</span>
+            </div>
+            <div class="cost-row">
+                <span>Pantry/Oils/Vinegars</span>
+                <span>$30-50</span>
+            </div>
+            <div class="cost-row">
+                <span>Spices (new)</span>
+                <span>$20-40</span>
+            </div>
+            <div class="cost-row">
+                <span>Condiments & Sauces (new)</span>
+                <span>$20-30</span>
+            </div>
+            <div class="cost-row">
+                <span>Dairy</span>
+                <span>$15-20</span>
+            </div>
+            <div class="cost-row total">
+                <span>TOTAL ESTIMATE</span>
+                <span>~$175-280</span>
+            </div>
+            <p style="margin-top: 15px; font-style: italic; color: #666;">Most pantry items, spices, and oils will be used for many recipes beyond these mango dishes.</p>
+        </div>
+
+        <!-- AMAZON TIPS -->
+        <div class="tips-box">
+            <h3>🛒 Amazon Shopping Tips</h3>
+            <ul>
+                <li><strong>Spice Bundles:</strong> Search "spice set" or "spice rack" to get multiple spices at a discount</li>
+                <li><strong>Bulk Produce:</strong> Order through Amazon Fresh or Prime Now if available in your area</li>
+                <li><strong>Frozen Mango:</strong> If fresh mangoes are expensive, buy 2-3 bags of frozen mango chunks and thaw for puree</li>
+                <li><strong>Group By Category:</strong> Create a list by clicking "Add to Cart" while filtering by pantry, condiments, spices, etc.</li>
+                <li><strong>Prime Eligible:</strong> Filter for Prime-eligible items for 2-day delivery</li>
+                <li><strong>Subscribe & Save:</strong> Oils, vinegars, and spices often have 5-20% discounts with Subscribe & Save</li>
+            </ul>
+        </div>
+
+        <!-- COST SAVING IDEAS -->
+        <div class="tips-box" style="border-left-color: #28a745; background: #f0fff4;">
+            <h3 style="color: #28a745;">💡 Cost-Saving Ideas</h3>
+            <ul>
+                <li>Buy <strong>Frozen Mango</strong> instead of fresh for year-round cooking ($3-5/lb vs $1.50-2/lb for whole mangoes)</li>
+                <li>Get a <strong>Spice Bulk Set</strong> instead of individual spices (saves 30-50%)</li>
+                <li>Buy oils and vinegars in <strong>larger sizes</strong> (51 oz olive oil is cheaper per oz than 25 oz)</li>
+                <li><strong>Skip items you already have</strong> — Most kitchens have salt, pepper, garlic powder, oils</li>
+                <li>Buy <strong>Shrimp frozen</strong> and in bulk (5 lb bags are cheaper per pound)</li>
+            </ul>
+        </div>
+
+        <!-- NOTES -->
+        <div class="notes-box">
+            <h3>📝 Important Notes</h3>
+            <ul>
+                <li>Amounts listed assume you want to make <strong>MOST recipes multiple times</strong></li>
+                <li>If you only want to make a few dishes, you can scale down quantities by 50%</li>
+                <li><strong>Fresh produce shelf life:</strong> Limes (2-3 weeks), Cilantro (1 week), Fresh ginger (3 weeks), Bell peppers (1-2 weeks)</li>
+                <li><strong>Frozen mangoes last 6-12 months</strong> — great for making puree whenever you need it</li>
+                <li><strong>Frozen shrimp can be thawed quickly</strong> and lasts 9-12 months frozen</li>
+                <li><strong>Spices stay fresh for 1-2 years</strong> when stored in cool, dark places</li>
+            </ul>
+        </div>
+
+        <footer>
+            <p>🥭 Complete Mango Recipes - Master Shopping List 🛒</p>
+            <p>Ready to cook! Start adding items to your Amazon cart. 🎉</p>
+        </footer>
+    </div>
+
+    <script>
+        function checkAll() {
+            document.querySelectorAll('input[type="checkbox"]').forEach(box => {
+                box.checked = true;
+                box.parentElement.classList.add('checked');
+            });
+        }
+
+        function uncheckAll() {
+            document.querySelectorAll('input[type="checkbox"]').forEach(box => {
+                box.checked = false;
+                box.parentElement.classList.remove('checked');
+            });
+        }
+
+        document.addEventListener('change', function(e) {
+            if (e.target.type === 'checkbox') {
+                if (e.target.checked) {
+                    e.target.parentElement.classList.add('checked');
+                } else {
+                    e.target.parentElement.classList.remove('checked');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

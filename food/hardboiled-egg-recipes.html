@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hard-Boiled Egg Recipes</title>
+<style>
+  :root {
+    --shell: #fdf6e3;
+    --yolk: #f4b942;
+    --yolk-deep: #e09b00;
+    --ink: #3a2f1a;
+    --muted: #7a6a4f;
+    --white: #fffdf7;
+    --line: #ecdfc4;
+    --accent: #c8553d;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--shell);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  header {
+    background: linear-gradient(135deg, var(--yolk) 0%, var(--yolk-deep) 100%);
+    color: var(--ink);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+  }
+  header h1 {
+    margin: 0 0 .4rem;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    letter-spacing: -.5px;
+  }
+  header p { margin: 0; font-size: 1.05rem; opacity: .85; }
+  .egg { font-size: 2.4rem; display: block; margin-bottom: .5rem; }
+
+  .wrap { max-width: 880px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+
+  /* Table of contents */
+  nav.toc {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,.04);
+  }
+  nav.toc h2 {
+    margin: 0 0 .75rem;
+    font-size: 1.1rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  nav.toc ul { list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: .35rem .75rem; }
+  nav.toc a {
+    color: var(--ink); text-decoration: none; font-weight: 500;
+    padding: .35rem .5rem; border-radius: 8px; display: block;
+    transition: background .15s;
+  }
+  nav.toc a:hover { background: var(--shell); color: var(--accent); }
+
+  .section-label {
+    margin: 3rem 0 1rem;
+    font-size: .8rem; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--yolk-deep);
+    border-bottom: 2px solid var(--line); padding-bottom: .4rem;
+  }
+
+  .recipe {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,.04);
+    scroll-margin-top: 1rem;
+  }
+  .recipe h3 {
+    margin: 0 0 .25rem;
+    font-size: 1.4rem;
+    display: flex; align-items: center; gap: .5rem;
+  }
+  .recipe .blurb { color: var(--muted); margin: 0 0 1rem; font-size: .98rem; }
+  .meta {
+    display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem;
+  }
+  .tag {
+    background: var(--shell); border: 1px solid var(--line);
+    border-radius: 20px; padding: .15rem .7rem; font-size: .8rem; color: var(--muted);
+  }
+  .cols { display: grid; grid-template-columns: 1fr 1.3fr; gap: 1.5rem; }
+  @media (max-width: 600px) { .cols { grid-template-columns: 1fr; } }
+  .recipe h4 {
+    margin: 0 0 .5rem; font-size: .8rem; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--accent);
+  }
+  ul.ingredients { margin: 0; padding-left: 1.1rem; }
+  ul.ingredients li { margin-bottom: .25rem; }
+  ol.steps { margin: 0; padding-left: 1.2rem; }
+  ol.steps li { margin-bottom: .5rem; }
+  .tip {
+    margin-top: 1rem; background: #fff8e6; border-left: 3px solid var(--yolk);
+    padding: .6rem .9rem; border-radius: 0 8px 8px 0; font-size: .92rem;
+  }
+  .tip strong { color: var(--yolk-deep); }
+
+  .base {
+    background: var(--ink); color: var(--shell);
+    border-radius: 14px; padding: 1.75rem 2rem; margin-bottom: 2.5rem;
+  }
+  .base h3 { margin: 0 0 .75rem; color: var(--yolk); }
+  .base ol { margin: 0; padding-left: 1.2rem; }
+  .base li { margin-bottom: .4rem; }
+
+  footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 1rem; }
+  .top-link { color: var(--accent); text-decoration: none; font-size: .85rem; }
+  .top-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<header>
+  <span class="egg">🥚</span>
+  <h1>The Hard-Boiled Egg Cookbook</h1>
+  <p>Everything you can make once the eggs are peeled</p>
+</header>
+
+<div class="wrap" id="top">
+
+  <nav class="toc">
+    <h2>Jump to a recipe</h2>
+    <ul>
+      <li><a href="#perfect">⭐ Perfect Hard-Boiled Eggs</a></li>
+      <li><a href="#deviled">Deviled Eggs</a></li>
+      <li><a href="#eggsalad">Egg Salad</a></li>
+      <li><a href="#pickled">Pickled Eggs</a></li>
+      <li><a href="#salads">Eggs on Salads</a></li>
+      <li><a href="#ramen">Ramen / Noodle Bowls</a></li>
+      <li><a href="#avocado">Avocado Toast</a></li>
+      <li><a href="#grainbowl">Grain Bowls</a></li>
+      <li><a href="#seasoned">Seasoned Snacking Eggs</a></li>
+      <li><a href="#scotch">Scotch Eggs</a></li>
+      <li><a href="#wrap">Chopped-Egg Breakfast Wrap</a></li>
+      <li><a href="#curried">Curried Egg Filling</a></li>
+      <li><a href="#eggcurry">Egg Curry</a></li>
+      <li><a href="#friedrice">Eggs in Fried Rice / Hash</a></li>
+      <li><a href="#chutney">Green Mango Chutney</a></li>
+      <li><a href="#thaisoup">Thai Mango Chicken Soup</a></li>
+      <li><a href="#coconutsoup">Mango Coconut Curry Soup</a></li>
+    </ul>
+  </nav>
+
+  <!-- BASE METHOD -->
+  <div class="base" id="perfect">
+    <h3>⭐ Start Here: Perfect Hard-Boiled Eggs</h3>
+    <ol>
+      <li>Bring a pot of water to a <strong>rolling boil</strong> (enough to cover the eggs by an inch).</li>
+      <li>Gently lower in cold eggs with a spoon. Boil <strong>11–12 minutes</strong> for fully set yolks (9–10 for slightly creamy).</li>
+      <li>Immediately transfer to an <strong>ice-water bath</strong> for 5+ minutes. This stops cooking and makes peeling easy.</li>
+      <li>Tap, roll, and peel under running water. Older eggs (7–10 days) peel more easily than fresh.</li>
+    </ol>
+  </div>
+
+  <div class="section-label">Classic Dishes</div>
+
+  <!-- DEVILED -->
+  <article class="recipe" id="deviled">
+    <h3>Deviled Eggs</h3>
+    <p class="blurb">The crowd-pleaser. Creamy seasoned yolk piped back into the whites.</p>
+    <div class="meta"><span class="tag">⏱ 15 min</span><span class="tag">Makes 12 halves</span><span class="tag">Party favorite</span></div>
+    <div class="cols">
+      <div>
+        <h4>Ingredients</h4>
+        <ul class="ingredients">
+          <li>6 hard-boiled eggs</li>
+          <li>3 tbsp mayonnaise</li>
+          <li>1 tsp Dijon or yellow mustard</li>
+          <li>1 tsp white vinegar (or pickle juice)</li>
+          <li>Salt & pepper to taste</li>
+          <li>Paprika, for dusting</li>
+          <li>Optional: chopped chives, hot sauce</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol class="steps">
+          <li>Halve eggs lengthwise. Pop yolks into a bowl; set whites on a plate.</li>
+          <li>Mash yolks with mayo, mustard, vinegar, salt, and pepper until smooth.</li>
+          <li>Spoon (or pipe with a zip-top bag, corner snipped) the filling back into the whites.</li>
+          <li>Dust with paprika and top with chives. Chill until serving.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="tip"><strong>Tip:</strong> For ultra-smooth filling, push the yolks through a fine sieve before mixing.</div>
+    <p><a class="top-link" href="#top">↑ Back to top</a></p>
+  </article>
+
+  <!-- EGG SALAD -->
+  <article class="recipe" id="eggsalad">
+    <h3>Egg Salad</h3>
+    <p class="blurb">Five minutes from peeled eggs to a sandwich filling.</p>
+    <div class="meta"><span class="tag">⏱ 10 min</span><span class="tag">Serves 2–3</span><span class="tag">Lunch</span></div>
+    <div class="cols">
+      <div>
+        <h4>Ingredients</h4>
+        <ul class="ingredients">
+          <li>4 hard-boiled eggs, chopped</li>
+          <li>3 tbsp mayonnaise</li>
+          <li>1 tsp Dijon mustard</li>
+          <li>1 stalk celery, finely diced</li>
+          <li>1 tbsp minced red onion or chives</li>
+          <li>Salt & pepper</li>
+          <li>Bread, lettuce, or crackers to serve</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol class="steps">
+          <li>Chop eggs into rough ½-inch pieces.</li>
+          <li>Stir together with mayo, mustard, celery, and onion.</li>
+          <li>Season with salt and pepper; taste and adjust.</li>
+          <li>Serve on toasted bread with lettuce, or scoop onto crackers.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="tip"><strong>Tip:</strong> A squeeze of lemon or a pinch of dill brightens it up.</div>
+    <p><a class="top-link" href="#top">↑ Back to top</a></p>
+  </article>
+
+  <!-- PICKLED -->
+  <article class="recipe" id="pickled">
+    <h3>Pickled Eggs</h3>
+    <p class="blurb">Tangy make-ahead snack. Beet juice turns them magenta.</p>
+    <div class="meta"><span class="tag">⏱ 15 min + 2 days</span><span class="tag">Makes 6</span><span class="tag">Make ahead</span></div>
+    <div class="cols">
+      <div>
+        <h4>Ingredients</h4>
+        <ul class="ingredients">
+          <li>6 peeled hard-boiled eggs</li>
+          <li>1 cup white or cider vinegar</li>
+          <li>½ cup water</li>
+          <li>1 tbsp sugar</li>
+          <li>1 tsp salt</li>
+          <li>½ sliced onion, 1 tsp peppercorns</li>
+          <li>Optional: juice from a can of beets (for color)</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol class="steps">
+          <li>Simmer vinegar, water, sugar, salt, and spices for 2 minutes; cool slightly.</li>
+          <li>Pack eggs and onion into a clean jar.</li>
+          <li>Pour the warm brine over to fully submerge the eggs.</li>
+          <li>Seal, refrigerate <strong>at least 48 hours</strong> (best after a week). Keeps ~1 month.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="tip"><strong>Safety:</strong> Always store pickled eggs in the fridge, never at room temperature.</div>
+    <p><a class="top-link" href="#top">↑ Back to top</a></p>
+  </article>
+
+  <div class="section-label">Toppings &amp; Add-ins</div>
+
+  <!-- SALADS -->
+  <article class="recipe" id="salads">
+    <h3>Eggs on Salads</h3>
+    <p class="blurb">Sliced or quartered protein for Cobb, Niçoise, or a simple green salad.</p>
+    <div class="meta"><span class="tag">⏱ 5 min</span><span class="tag">Any salad</span></div>
+    <div class="cols">
+      <div>
+        <h4>Pairs with</h4>
+        <ul class="ingredients">
+          <li><strong>Cobb:</strong> bacon, avocado, tomato, blue cheese, chicken</li>
+          <li><strong>Niçoise:</strong> tuna, green beans, potatoes, olives</li>
+          <li><strong>Potato salad:</strong> folded into the mix</li>
+          <li><strong>Simple green:</strong> just eggs + vinaigrette</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol class="steps">
+          <li>Quarter eggs lengthwise, or slice with an egg slicer for even rounds.</li>
+          <li>Arrange on top of the assembled salad just before serving.</li>
+          <li>Finish with flaky salt and cracked pepper.</li>
+        </ol>
+      </div>
+    </div>
+    <p><a class="top-link" href="#top">↑ Back to top</a></p>
+  </article>
+
+  <!-- RAMEN -->
+  <article class="recipe" id="ramen">
+    <h3>Ramen / Noodle Bowls</h3>
+    <p class="blurb">A halved egg on top of any brothy bowl. Marinate for extra flavor.</p>
+    <div class="meta"><span class="tag">⏱ 5 min (+marinate)</span><span class="tag">Topping</span></div>
+    <div class="cols">
+      <div>
+        <h4>Quick marinade (optional)</h4>
+        <ul class="ingredients">
+          <li>3 tbsp soy sauce</li>
+          <li>3 tbsp water</li>
+          <li>1 tbsp mirin or sugar</li>
+          <li>Peeled eggs to soak</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol class="steps">
+          <li>For plain: simply halve and lay on top of the finished bowl.</li>
+          <li>For ramen eggs: soak peeled eggs in the marinade 2–12 hours in the fridge.</li>
+          <li>Halve and place cut-side up so the yolk shows.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="tip"><strong>Tip:</strong> Slightly under-cooked eggs (9 min) give a jammier center that's ideal here.</div>
+    <p><a class="top-link" href="#top">↑ Back to top</a></p>
+  </article>
+
+  <!-- AVOCADO -->
+  <article class="recipe" id="avocado">
+    <h3>Avocado Toast with Egg</h3>
+    <p class="blurb">Creamy avocado, sliced egg, a little crunch and heat.</p>
+    <div class="meta"><span class="tag">⏱ 7 min</span><span class="tag">Serves 1</span><span class="tag">Breakfast</span></div>
+    <div class="cols">
+      <div>
+        <h4>Ingredients</h4>
+        <ul class="ingredients">
+          <li>1–2 slices good bread, toasted</li>
+          <li>½ ripe avocado</li>
+          <li>1–2 hard-boiled eggs, sliced</li>
+          <li>Salt, pepper, chili flakes</li>
+          <li>Squeeze of lemon</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol class="steps">
+          <li>Mash avocado onto the toast with a fork; add salt and lemon.</li>
+          <li>Fan the egg slices over the top.</li>
+          <li>Finish with pepper, chili flakes, and a drizzle of olive oil.</li>
+        </ol>
+      </div>
+    </div>
+    <p><a class="top-link" href="#top">↑ Back to top</a></p>
+  </article>
+
+  <!-- GRAIN BOWL -->
+  <article class="recipe" id="grainbowl">
+    <h3>Grain Bowls</h3>
+    <p class="blurb">Quartered eggs over rice, quinoa, or lentils with veg and sauce.</p>
+    <div class="meta"><span class="tag">⏱ 10 min</span><span class="tag">Serves 1–2</span><span class="tag">Meal prep</span></div>
+    <div class="cols">
+      <div>
+        <h4>Build it</h4>
+        <ul class="ingredients">
+          <li><strong>Base:</strong> rice, quinoa, or lentils</li>
+          <li><strong>Veg:</strong> roasted or raw, whatever you have</li>
+          <li><strong>Egg:</strong> 1–2 quartered hard-boiled</li>
+          <li><strong>Sauce:</strong> tahini, soy-ginger, or yogurt</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol class="steps">
+          <li>Scoop the warm grain base into a bowl.</li>
+          <li>Arrange veg and quartered eggs on top.</li>
+          <li>Drizzle generously with sauce; add seeds or herbs.</li>
+        </ol>
+      </div>
+    </div>
+    <p><a class="top-link" href="#top">↑ Back to top</a></p>
+  </article>
+
+  <div class="section-label">Snacks &amp; Quick Bites</div>
+
+  <!-- SEASONED -->
+  <article class="recipe" id="seasoned">
+    <h3>Seasoned Snacking Eggs</h3>
+    <p class="blurb">The fastest option — a peeled egg plus one great topping.</p>
+    <div class="meta"><span class="tag">⏱ 1 min</span><span class="tag">Snack</span></div>
+    <div class="cols">
+      <div>
+        <h4>Try these</h4>
+        <ul class="ingredients">
+          <li>Everything bagel seasoning</li>
+          <li>Flaky salt + cracked pepper</li>
+          <li>Hot sauce or chili crisp</li>
+          <li>Furikake (Japanese rice seasoning)</li>
+          <li>Smoked paprika + olive oil</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol class="steps">
+          <li>Halve or quarter the peeled egg.</li>
+          <li>Sprinkle on your seasoning of choice.</li>
+          <li>Eat immediately — that's it.</li>
+        </ol>
+      </div>
+    </div>
+    <p><a class="top-link" href="#top">↑ Back to top</a></p>
+  </article>
+
+  <!-- SCOTCH -->
+  <article class="recipe" id="scotch">
+    <h3>Scotch Eggs</h3>
+    <p class="blurb">Egg wrapped in sausage, breaded, and fried. A bit of a project, very worth it.</p>
+    <div class="meta"><span class="tag">⏱ 40 min</span><span class="tag">Makes 4</span><span class="tag">Advanced</span></div>
+    <div class="cols">
+      <div>
+        <h4>Ingredients</h4>
+        <ul class="ingredients">
+          <li>4 hard-boiled eggs, peeled</li>
+          <li>1 lb (450g) sausage meat</li>
+          <li>1 raw egg, beaten</li>
+          <li>½ cup flour</li>
+          <li>1 cup breadcrumbs (panko)</li>
+          <li>Oil for frying</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol class="steps">
+          <li>Divide sausage into 4; flatten each into a patty.</li>
+          <li>Wrap each boiled egg fully in sausage, sealing the seams.</li>
+          <li>Roll in flour, then beaten egg, then breadcrumbs.</li>
+          <li>Deep-fry at 325°F (165°C) for 7–8 min until golden, or bake at 400°F (200°C) for 25 min.</li>
+          <li>Rest a few minutes, then halve and serve.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="tip"><strong>Tip:</strong> Frying then finishing in the oven ensures the sausage cooks through without burning the crust.</div>
+    <p><a class="top-link" href="#top">↑ Back to top</a></p>
+  </article>
+
+  <!-- WRAP -->
+  <article class="recipe" id="wrap">
+    <h3>Chopped-Egg Breakfast Wrap</h3>
+    <p class="blurb">Eggs, cheese, and greens rolled up for an on-the-go breakfast.</p>
+    <div class="meta"><span class="tag">⏱ 8 min</span><span class="tag">Serves 1</span><span class="tag">Breakfast</span></div>
+    <div class="cols">
+      <div>
+        <h4>Ingredients</h4>
+        <ul class="ingredients">
+          <li>1 large tortilla</li>
+          <li>2 hard-boiled eggs, chopped</li>
+          <li>Handful of spinach or greens</li>
+          <li>Shredded cheese</li>
+          <li>Salsa, hot sauce, or mayo</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol class="steps">
+          <li>Warm the tortilla briefly so it folds without cracking.</li>
+          <li>Layer greens, chopped egg, cheese, and sauce down the center.</li>
+          <li>Fold in the sides and roll tightly.</li>
+          <li>Optional: toast seam-side down in a dry pan to seal.</li>
+        </ol>
+      </div>
+    </div>
+    <p><a class="top-link" href="#top">↑ Back to top</a></p>
+  </article>
+
+  <div class="section-label">Use Up Extras</div>
+
+  <!-- CURRIED FILLING -->
+  <article class="recipe" id="curried">
+    <h3>Curried Egg Filling</h3>
+    <p class="blurb">Egg salad's spiced cousin — great in sandwiches or lettuce cups.</p>
+    <div class="meta"><span class="tag">⏱ 10 min</span><span class="tag">Serves 2</span><span class="tag">Lunch</span></div>
+    <div class="cols">
+      <div>
+        <h4>Ingredients</h4>
+        <ul class="ingredients">
+          <li>4 hard-boiled eggs, chopped</li>
+          <li>3 tbsp mayonnaise</li>
+          <li>1 tsp curry powder</li>
+          <li>1 tbsp mango chutney (optional)</li>
+          <li>2 tbsp diced celery or apple</li>
+          <li>Salt & pepper, squeeze of lime</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol class="steps">
+          <li>Mix mayo, curry powder, and chutney into a smooth dressing.</li>
+          <li>Fold in chopped eggs and celery or apple.</li>
+          <li>Season, add lime, and pile onto bread or into lettuce cups.</li>
+        </ol>
+      </div>
+    </div>
+    <p><a class="top-link" href="#top">↑ Back to top</a></p>
+  </article>
+
+  <!-- EGG CURRY -->
+  <article class="recipe" id="eggcurry">
+    <h3>Egg Curry</h3>
+    <p class="blurb">Halved eggs simmered in a spiced tomato-onion gravy. Serve with rice.</p>
+    <div class="meta"><span class="tag">⏱ 30 min</span><span class="tag">Serves 3–4</span><span class="tag">Dinner</span></div>
+    <div class="cols">
+      <div>
+        <h4>Ingredients</h4>
+        <ul class="ingredients">
+          <li>6 hard-boiled eggs, peeled</li>
+          <li>2 onions, finely chopped</li>
+          <li>3 garlic cloves + 1 tbsp ginger</li>
+          <li>2 tomatoes, pureed</li>
+          <li>1 tsp each: cumin, coriander, turmeric</li>
+          <li>1 tsp garam masala, chili to taste</li>
+          <li>Oil, salt, fresh cilantro</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol class="steps">
+          <li>Optional: pan-fry whole eggs in a little oil until golden; set aside.</li>
+          <li>Sauté onions in oil until deep golden, then add garlic and ginger.</li>
+          <li>Stir in the ground spices, then the tomato puree. Cook until oil separates.</li>
+          <li>Add ½ cup water for a gravy; simmer 5 minutes.</li>
+          <li>Halve the eggs, nestle them in, simmer 5 more minutes. Finish with garam masala and cilantro.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="tip"><strong>Tip:</strong> Scoring the eggs lightly before frying helps the gravy cling.</div>
+    <p><a class="top-link" href="#top">↑ Back to top</a></p>
+  </article>
+
+  <!-- FRIED RICE -->
+  <article class="recipe" id="friedrice">
+    <h3>Eggs in Fried Rice / Hash</h3>
+    <p class="blurb">Chop and stir into fried rice or a crispy potato hash at the end.</p>
+    <div class="meta"><span class="tag">⏱ 15 min</span><span class="tag">Serves 2</span><span class="tag">Dinner</span></div>
+    <div class="cols">
+      <div>
+        <h4>Ingredients</h4>
+        <ul class="ingredients">
+          <li>2–3 hard-boiled eggs, chopped</li>
+          <li>2 cups cold cooked rice (or diced cooked potato)</li>
+          <li>1 cup mixed veg (peas, carrot, scallion)</li>
+          <li>2 tbsp soy sauce</li>
+          <li>1 tbsp oil, salt & pepper</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol class="steps">
+          <li>Heat oil in a wide pan over high heat.</li>
+          <li>Stir-fry the veg 2–3 minutes, then add rice (or potato) and press to crisp.</li>
+          <li>Add soy sauce and toss until heated through.</li>
+          <li>Fold in the chopped egg at the very end so it warms but stays intact.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="tip"><strong>Tip:</strong> Day-old cold rice fries up far better than fresh, which turns mushy.</div>
+    <p><a class="top-link" href="#top">↑ Back to top</a></p>
+  </article>
+
+  <div class="section-label">Condiments &amp; Pairings</div>
+
+  <!-- GREEN MANGO CHUTNEY -->
+  <article class="recipe" id="chutney">
+    <h3>Green Mango Chutney</h3>
+    <p class="blurb">Tangy-sweet, lightly spiced condiment from unripe mangoes — perfect with curried egg filling, egg curry, or spread on an egg sandwich.</p>
+    <div class="meta"><span class="tag">⏱ 45 min</span><span class="tag">Makes ~2 cups</span><span class="tag">Make ahead</span><span class="tag">Vegan</span></div>
+    <div class="cols">
+      <div>
+        <h4>Ingredients</h4>
+        <ul class="ingredients">
+          <li>2 large green (unripe) mangoes, peeled & diced (~3 cups)</li>
+          <li>¾ cup sugar (or jaggery)</li>
+          <li>½ cup white or cider vinegar</li>
+          <li>1 tbsp grated ginger</li>
+          <li>2 garlic cloves, minced</li>
+          <li>½ tsp chili flakes (to taste)</li>
+          <li>½ tsp ground cumin</li>
+          <li>¼ tsp turmeric</li>
+          <li>½ tsp salt</li>
+          <li>Optional: ¼ cup raisins, ½ tsp nigella or mustard seeds</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol class="steps">
+          <li>If using mustard/nigella seeds, sizzle them in 1 tbsp oil for 30 seconds until fragrant.</li>
+          <li>Add ginger and garlic; stir 1 minute, then add the diced green mango.</li>
+          <li>Stir in sugar, vinegar, chili, cumin, turmeric, salt, and raisins.</li>
+          <li>Simmer uncovered over low-medium heat, stirring often, <strong>30–35 minutes</strong> until the mango softens and the mixture is jammy and glossy.</li>
+          <li>Cool completely — it thickens further as it cools. Spoon into a clean jar.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="tip"><strong>Storage:</strong> Keeps in a sealed jar in the fridge for up to 3–4 weeks. The flavor deepens after a day or two.</div>
+    <p><a class="top-link" href="#top">↑ Back to top</a></p>
+  </article>
+
+  <div class="section-label">Soups</div>
+
+  <!-- THAI MANGO CHICKEN SOUP -->
+  <article class="recipe" id="thaisoup">
+    <h3>Thai Mango Chicken Soup</h3>
+    <p class="blurb">A bright, lightly spicy coconut broth with tender chicken and sweet mango — finished with lime and Thai basil.</p>
+    <div class="meta"><span class="tag">⏱ 35 min</span><span class="tag">Serves 4</span><span class="tag">Dinner</span></div>
+    <div class="cols">
+      <div>
+        <h4>Ingredients</h4>
+        <ul class="ingredients">
+          <li>1 lb (450g) boneless chicken thighs, sliced</li>
+          <li>1 can (14 oz) coconut milk</li>
+          <li>3 cups chicken broth</li>
+          <li>2 tbsp red Thai curry paste</li>
+          <li>1 ripe mango, diced (plus ½ pureed)</li>
+          <li>1 tbsp grated ginger, 2 garlic cloves</li>
+          <li>1 tbsp fish sauce, 1 tsp brown sugar</li>
+          <li>1 red bell pepper, sliced</li>
+          <li>Juice of 1 lime, Thai basil & cilantro</li>
+          <li>1 red chili, sliced (optional)</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol class="steps">
+          <li>Sauté ginger, garlic, and curry paste in a little oil for 1 minute until fragrant.</li>
+          <li>Add chicken and brown lightly on all sides.</li>
+          <li>Pour in broth, coconut milk, and the mango puree. Stir in fish sauce and sugar.</li>
+          <li>Simmer 15 minutes until the chicken is cooked through.</li>
+          <li>Add bell pepper and diced mango; cook 3–4 more minutes.</li>
+          <li>Off heat, stir in lime juice. Top with Thai basil, cilantro, and chili.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="tip"><strong>Tip:</strong> Pureeing half the mango sweetens and thickens the broth; the diced half keeps fresh texture.</div>
+    <p><a class="top-link" href="#top">↑ Back to top</a></p>
+  </article>
+
+  <!-- MANGO COCONUT CURRY SOUP -->
+  <article class="recipe" id="coconutsoup">
+    <h3>Mango Coconut Curry Soup</h3>
+    <p class="blurb">A creamy, blended vegan soup — sweet mango and coconut balanced by warm curry spices. Serve hot or chilled.</p>
+    <div class="meta"><span class="tag">⏱ 30 min</span><span class="tag">Serves 4</span><span class="tag">Vegan</span><span class="tag">Blended</span></div>
+    <div class="cols">
+      <div>
+        <h4>Ingredients</h4>
+        <ul class="ingredients">
+          <li>2 ripe mangoes, diced (~2½ cups)</li>
+          <li>1 can (14 oz) coconut milk</li>
+          <li>2 cups vegetable broth</li>
+          <li>1 onion, chopped</li>
+          <li>2 garlic cloves, 1 tbsp grated ginger</li>
+          <li>1 tbsp yellow or red curry powder/paste</li>
+          <li>½ tsp turmeric, pinch cayenne</li>
+          <li>1 tbsp lime juice, salt to taste</li>
+          <li>Cilantro & toasted coconut, to garnish</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol class="steps">
+          <li>Sauté onion in oil until soft, then add garlic, ginger, curry, turmeric, and cayenne; cook 1 minute.</li>
+          <li>Add mango and broth; simmer 12–15 minutes until the mango is very soft.</li>
+          <li>Stir in coconut milk and warm through.</li>
+          <li>Blend until smooth (immersion or stand blender). Add a splash of broth if too thick.</li>
+          <li>Season with lime and salt. Serve hot, or chill for a refreshing cold soup.</li>
+          <li>Garnish with cilantro and toasted coconut.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="tip"><strong>Tip:</strong> Blend carefully while hot — vent the lid and start on low to avoid splatter.</div>
+    <p><a class="top-link" href="#top">↑ Back to top</a></p>
+  </article>
+
+  <footer>
+    🥚 Made with hard-boiled eggs &middot; Store peeled eggs in the fridge and use within ~1 week.
+  </footer>
+
+</div>
+</body>
+</html>

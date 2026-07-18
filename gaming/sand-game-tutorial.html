@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Falling Sand Game — Tutorial & Build Guide</title>
+<style>
+  :root {
+    --bg: #0e1116;
+    --panel: #161b22;
+    --panel-2: #1c2330;
+    --line: #2a3240;
+    --ink: #e6edf3;
+    --muted: #9aa7b4;
+    --sand: #e6c068;
+    --sand-deep: #c89b3c;
+    --water: #4aa3df;
+    --accent: #7ee787;
+    --danger: #ff7b72;
+    --code-bg: #0b0e13;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+  }
+  a { color: var(--water); }
+  header {
+    background:
+      radial-gradient(circle at 20% 20%, rgba(230,192,104,.18), transparent 40%),
+      radial-gradient(circle at 80% 30%, rgba(74,163,223,.15), transparent 45%),
+      linear-gradient(180deg, #11161d, #0e1116);
+    border-bottom: 1px solid var(--line);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+  }
+  header h1 { margin: 0 0 .5rem; font-size: clamp(1.8rem, 5vw, 2.8rem); letter-spacing: -.5px; }
+  header p { margin: 0 auto; max-width: 620px; color: var(--muted); font-size: 1.05rem; }
+  .pill { display:inline-block; margin-top:1rem; background: var(--panel-2); border:1px solid var(--line);
+    border-radius:999px; padding:.35rem 1rem; font-size:.85rem; color: var(--sand); }
+
+  .wrap { max-width: 920px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+
+  nav.toc { background: var(--panel); border:1px solid var(--line); border-radius:14px;
+    padding:1.25rem 1.5rem; margin-bottom:2.5rem; }
+  nav.toc h2 { margin:0 0 .75rem; font-size:.8rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); }
+  nav.toc ol { margin:0; padding-left:1.2rem; columns:2; column-gap:2rem; }
+  @media (max-width:560px){ nav.toc ol { columns:1; } }
+  nav.toc a { text-decoration:none; }
+  nav.toc a:hover { text-decoration:underline; }
+
+  section { margin-bottom:2.75rem; scroll-margin-top:1rem; }
+  h2.sec { font-size:1.5rem; border-left:4px solid var(--sand); padding-left:.75rem; margin:0 0 1rem; }
+  h3 { color: var(--sand); margin:1.5rem 0 .5rem; }
+  p, li { color: var(--ink); }
+  .muted { color: var(--muted); }
+
+  .card { background: var(--panel); border:1px solid var(--line); border-radius:14px; padding:1.25rem 1.5rem; margin:1rem 0; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  @media (max-width:600px){ .grid2 { grid-template-columns:1fr; } }
+
+  .callout { border-left:4px solid var(--accent); background: rgba(126,231,135,.07);
+    padding:.75rem 1rem; border-radius:0 10px 10px 0; margin:1rem 0; }
+  .callout.warn { border-color: var(--danger); background: rgba(255,123,114,.07); }
+  .callout strong { color: var(--accent); }
+  .callout.warn strong { color: var(--danger); }
+
+  pre { background: var(--code-bg); border:1px solid var(--line); border-radius:10px;
+    padding:1rem 1.1rem; overflow:auto; font-size:.86rem; line-height:1.55; }
+  code { font-family: "SF Mono", "Fira Code", Consolas, monospace; }
+  pre code { color:#cdd9e5; }
+  p code, li code { background: var(--panel-2); padding:.1rem .4rem; border-radius:5px; font-size:.86em; color:var(--sand); }
+
+  .steps { counter-reset: step; list-style:none; padding:0; }
+  .steps > li { position:relative; padding:0 0 1rem 2.6rem; }
+  .steps > li::before { counter-increment: step; content: counter(step);
+    position:absolute; left:0; top:0; width:1.8rem; height:1.8rem; border-radius:50%;
+    background: var(--sand); color:#1a1205; font-weight:700; display:flex; align-items:center; justify-content:center; font-size:.9rem; }
+
+  /* live demo */
+  .demo-wrap { text-align:center; }
+  canvas { background:#05070a; border:1px solid var(--line); border-radius:8px; image-rendering:pixelated; max-width:100%; touch-action:none; cursor:crosshair; }
+  .controls { margin:.75rem 0; display:flex; gap:.5rem; flex-wrap:wrap; justify-content:center; }
+  .controls button { background:var(--panel-2); color:var(--ink); border:1px solid var(--line);
+    border-radius:8px; padding:.5rem .9rem; cursor:pointer; font-size:.9rem; }
+  .controls button:hover { border-color:var(--sand); }
+  .controls button.active { background:var(--sand); color:#1a1205; border-color:var(--sand); font-weight:600; }
+
+  footer { text-align:center; color:var(--muted); font-size:.85rem; border-top:1px solid var(--line); padding-top:1.5rem; }
+  .top { color:var(--sand); text-decoration:none; font-size:.85rem; }
+</style>
+</head>
+<body>
+<header id="top">
+  <h1>🏖️ Falling-Sand Games</h1>
+  <p>A tutorial on <a href="https://sand-game.com/" target="_blank" rel="noopener">sand-game.com</a> and a step-by-step guide to building your own in plain HTML, CSS &amp; JavaScript.</p>
+  <span class="pill">No frameworks · One HTML file · Runs in any browser</span>
+</header>
+
+<div class="wrap">
+
+  <nav class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#what">What is a falling-sand game?</a></li>
+      <li><a href="#play">Playing sand-game.com</a></li>
+      <li><a href="#how">How it works (the idea)</a></li>
+      <li><a href="#setup">Getting started: project setup</a></li>
+      <li><a href="#build">Build it step by step</a></li>
+      <li><a href="#demo">Live mini-demo</a></li>
+      <li><a href="#extend">Ideas to extend it</a></li>
+      <li><a href="#resources">Resources</a></li>
+    </ol>
+  </nav>
+
+  <!-- WHAT -->
+  <section id="what">
+    <h2 class="sec">1 · What is a falling-sand game?</h2>
+    <p>A <strong>falling-sand game</strong> is a 2D sandbox where every pixel is a tiny particle that obeys simple physics rules. Drop some sand and it piles up; pour water and it spreads and finds its level; add fire and it spreads to anything flammable. There's no goal or score — the fun is in <em>experimenting</em> with how materials interact.</p>
+    <p>Under the hood it's a <strong>cellular automaton</strong>: a grid of cells where each cell looks at its neighbors and decides what to do next, many times per second. Simple per-cell rules add up to surprisingly lifelike behavior.</p>
+    <div class="callout"><strong>Why it's a great first project:</strong> the rules are short, the payoff is visual and instant, and you can keep adding materials forever. It teaches the game loop, the HTML5 canvas, and grid/array thinking — the foundations of most 2D games.</div>
+  </section>
+
+  <!-- PLAY -->
+  <section id="play">
+    <h2 class="sec">2 · Playing sand-game.com</h2>
+    <p><a href="https://sand-game.com/" target="_blank" rel="noopener">sand-game.com</a> is a free browser version you can open right now — nothing to install. The basics:</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Controls</h3>
+        <ul>
+          <li><strong>Click / drag</strong> on the canvas to place the selected material.</li>
+          <li><strong>Pick a material</strong> from the palette (sand, water, wall, fire, etc.).</li>
+          <li><strong>Brush size</strong> changes how much you drop at once.</li>
+          <li><strong>Clear / reset</strong> wipes the canvas.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Things to try</h3>
+        <ul>
+          <li>Build <strong>walls</strong> to make a funnel, then pour sand through it.</li>
+          <li>Drop <strong>water</strong> and watch it level out.</li>
+          <li>Set <strong>plants/wood on fire</strong> and watch it spread.</li>
+          <li>Mix materials and see what reacts.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted">Study what it does, then rebuild a small version yourself — that's the fastest way to actually understand it.</p>
+  </section>
+
+  <!-- HOW -->
+  <section id="how">
+    <h2 class="sec">3 · How it works (the idea)</h2>
+    <p>Everything comes down to four pieces:</p>
+    <ul>
+      <li><strong>A grid</strong> — a 2D array. Each cell holds a number/ID for what's there (0 = empty, 1 = sand, 2 = water…).</li>
+      <li><strong>Rules</strong> — for each cell, "if the spot below is empty, fall into it." Sand falls straight or diagonally; water also slides sideways.</li>
+      <li><strong>A game loop</strong> — update every cell, then draw the grid, ~60 times per second.</li>
+      <li><strong>Input</strong> — the mouse "paints" material IDs into the grid.</li>
+    </ul>
+    <h3>The one rule that makes sand "fall"</h3>
+    <p>For each sand cell, check the cell directly below. If it's empty, move down. Otherwise try down-left or down-right. If all are blocked, stay put. That's it — pile-forming behavior emerges on its own.</p>
+    <div class="callout warn"><strong>One gotcha:</strong> scan the grid <em>from the bottom up</em>. If you scan top-down, a falling grain can move down and then get processed again in the same frame, teleporting to the floor. Bottom-up updating fixes it.</div>
+  </section>
+
+  <!-- SETUP -->
+  <section id="setup">
+    <h2 class="sec">4 · Getting started: project setup</h2>
+    <p>You need <strong>nothing but a text editor and a browser</strong>. Here's the suggested way to begin, keeping everything in your <code>gaming/html/</code> folder.</p>
+    <ol class="steps">
+      <li><strong>Make a file</strong> in this folder, e.g. <code>my-sand-game.html</code>.</li>
+      <li><strong>Start from the skeleton below</strong> — one file holds HTML, CSS, and JS so there's nothing to wire up.</li>
+      <li><strong>Open it in a browser</strong> by double-clicking the file. To see changes, save and refresh.</li>
+      <li><strong>Iterate in small steps</strong> — get a single grain falling before you add water, fire, or a palette.</li>
+    </ol>
+    <div class="callout"><strong>Editor tip:</strong> VS Code (which you're in) + the "Live Server" extension auto-refreshes the page every time you save — much faster than manual refreshing.</div>
+
+    <h3>Starter skeleton</h3>
+    <p>Copy this into a new <code>.html</code> file. It sets up a canvas and an empty game loop — a blank slate to build on.</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;title&gt;My Sand Game&lt;/title&gt;
+&lt;style&gt; body{background:#111;margin:0;display:grid;place-items:center;height:100vh}
+canvas{background:#000;image-rendering:pixelated} &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;canvas id="c" width="160" height="120"&gt;&lt;/canvas&gt;
+&lt;script&gt;
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+cv.style.width  = cv.width  * 4 + 'px';   // scale up the pixels
+cv.style.height = cv.height * 4 + 'px';
+
+function update(){ /* physics goes here */ }
+function draw(){ /* rendering goes here */ }
+
+function loop(){ update(); draw(); requestAnimationFrame(loop); }
+loop();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  </section>
+
+  <!-- BUILD -->
+  <section id="build">
+    <h2 class="sec">5 · Build it step by step</h2>
+
+    <h3>Step 1 — Create the grid</h3>
+    <p>One flat array is fastest. Store a material ID per cell; <code>0</code> means empty.</p>
+<pre><code>const W = cv.width, H = cv.height;
+const EMPTY = 0, SAND = 1, WALL = 2;
+let grid = new Uint8Array(W * H);          // all zeros = all empty
+const idx = (x, y) =&gt; y * W + x;           // 2D -&gt; 1D helper</code></pre>
+
+    <h3>Step 2 — Make sand fall (the core rule)</h3>
+    <p>Loop bottom-to-top. Each grain tries down, then down-left, then down-right.</p>
+<pre><code>function update(){
+  for (let y = H - 2; y &gt;= 0; y--){        // bottom-up, skip last row
+    for (let x = 0; x &lt; W; x++){
+      if (grid[idx(x,y)] !== SAND) continue;
+      const below = idx(x, y+1);
+      if (grid[below] === EMPTY){ move(idx(x,y), below); }
+      else {
+        const dir = Math.random() &lt; 0.5 ? -1 : 1;   // try a random diagonal
+        const dl = (x+dir &gt;= 0 &amp;&amp; x+dir &lt; W) ? idx(x+dir, y+1) : -1;
+        if (dl !== -1 &amp;&amp; grid[dl] === EMPTY) move(idx(x,y), dl);
+      }
+    }
+  }
+}
+function move(from, to){ grid[to] = grid[from]; grid[from] = EMPTY; }</code></pre>
+
+    <h3>Step 3 — Draw the grid</h3>
+    <p>Write colors straight into pixel data — the fastest way to paint a whole grid.</p>
+<pre><code>const colors = { [SAND]:[230,192,104], [WALL]:[120,130,145] };
+function draw(){
+  const img = ctx.createImageData(W, H);
+  for (let i = 0; i &lt; grid.length; i++){
+    const c = colors[grid[i]] || [0,0,0];
+    img.data[i*4]   = c[0];
+    img.data[i*4+1] = c[1];
+    img.data[i*4+2] = c[2];
+    img.data[i*4+3] = 255;
+  }
+  ctx.putImageData(img, 0, 0);
+}</code></pre>
+
+    <h3>Step 4 — Paint with the mouse</h3>
+<pre><code>let painting = false, brush = SAND;
+function paintAt(e){
+  const r = cv.getBoundingClientRect();
+  const x = Math.floor((e.clientX - r.left) / r.width  * W);
+  const y = Math.floor((e.clientY - r.top ) / r.height * H);
+  if (x&gt;=0 &amp;&amp; x&lt;W &amp;&amp; y&gt;=0 &amp;&amp; y&lt;H) grid[idx(x,y)] = brush;
+}
+cv.addEventListener('mousedown', e =&gt; { painting = true; paintAt(e); });
+cv.addEventListener('mousemove', e =&gt; { if (painting) paintAt(e); });
+window.addEventListener('mouseup', () =&gt; painting = false);</code></pre>
+
+    <div class="callout"><strong>That's a complete sand game.</strong> Drop those four steps into the skeleton's <code>&lt;script&gt;</code> and you'll have falling, piling sand you can paint. Everything after this is just <em>more materials and nicer UI</em>.</div>
+
+    <h3>Step 5 — Add water (your second material)</h3>
+    <p>Water is sand that <em>also slides sideways</em> when it can't fall — that one extra rule makes it behave like a liquid.</p>
+<pre><code>// after the "fall" checks fail for a WATER cell, try moving straight sideways:
+const side = Math.random() &lt; 0.5 ? -1 : 1;
+const s = (x+side &gt;= 0 &amp;&amp; x+side &lt; W) ? idx(x+side, y) : -1;
+if (s !== -1 &amp;&amp; grid[s] === EMPTY) move(idx(x,y), s);</code></pre>
+  </section>
+
+  <!-- DEMO -->
+  <section id="demo">
+    <h2 class="sec">6 · Live mini-demo</h2>
+    <p>This is the exact approach above, running right here. Pick a material and draw on the canvas.</p>
+    <div class="demo-wrap card">
+      <div class="controls">
+        <button data-mat="1" class="active">🟨 Sand</button>
+        <button data-mat="2">🟦 Water</button>
+        <button data-mat="3">🧱 Wall</button>
+        <button data-mat="0">🧽 Eraser</button>
+        <button id="clear">Clear</button>
+      </div>
+      <canvas id="demo" width="160" height="120"></canvas>
+      <p class="muted" style="margin:.5rem 0 0">Tip: build a wall funnel, then pour sand and water through it.</p>
+    </div>
+  </section>
+
+  <!-- EXTEND -->
+  <section id="extend">
+    <h2 class="sec">7 · Ideas to extend it</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>More materials</h3>
+        <ul>
+          <li><strong>Stone/wall</strong> — never moves (already in the demo).</li>
+          <li><strong>Fire</strong> — spreads to flammable neighbors, then burns out.</li>
+          <li><strong>Wood/plant</strong> — static but flammable.</li>
+          <li><strong>Steam</strong> — water + fire; rises instead of falls.</li>
+          <li><strong>Acid</strong> — dissolves whatever it touches.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Polish &amp; features</h3>
+        <ul>
+          <li>Adjustable <strong>brush size</strong>.</li>
+          <li><strong>Density rules</strong> so sand sinks through water.</li>
+          <li>Color <strong>variation</strong> per grain for texture.</li>
+          <li><strong>Pause / step</strong> buttons for debugging.</li>
+          <li><strong>Save/load</strong> a scene to <code>localStorage</code>.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout warn"><strong>Performance note:</strong> a 160×120 grid is ~19k cells and runs easily. If you scale up and it stutters, that's expected — optimize later (e.g. only update "active" regions). Get it working first.</div>
+  </section>
+
+  <!-- RESOURCES -->
+  <section id="resources">
+    <h2 class="sec">8 · Resources</h2>
+    <ul>
+      <li><a href="https://sand-game.com/" target="_blank" rel="noopener">sand-game.com</a> — the reference game to study.</li>
+      <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial" target="_blank" rel="noopener">MDN Canvas API tutorial</a> — the drawing surface you're using.</li>
+      <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame" target="_blank" rel="noopener">requestAnimationFrame</a> — how the game loop is timed.</li>
+      <li>Search terms for going deeper: <em>"cellular automata"</em>, <em>"falling sand algorithm"</em>, <em>"Noita pixel simulation"</em>.</li>
+    </ul>
+    <p><a class="top" href="#top">↑ Back to top</a></p>
+  </section>
+
+  <footer>
+    🏖️ Saved in <code>gaming/html/</code> · Open this file in a browser, then start a new <code>.html</code> next to it and build your own.
+  </footer>
+</div>
+
+<script>
+/* ---- Live mini falling-sand demo (self-contained) ---- */
+(function(){
+  const cv = document.getElementById('demo');
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  cv.style.width = (W*3) + 'px';
+  cv.style.height = (H*3) + 'px';
+
+  const EMPTY=0, SAND=1, WATER=2, WALL=3;
+  const idx = (x,y) => y*W + x;
+  let grid = new Uint8Array(W*H);
+
+  const colors = {
+    [EMPTY]:[5,7,10],
+    [SAND]:[230,192,104],
+    [WATER]:[74,163,223],
+    [WALL]:[120,130,145]
+  };
+
+  function move(a,b){ grid[b]=grid[a]; grid[a]=EMPTY; }
+  function inB(x){ return x>=0 && x<W; }
+
+  function update(){
+    for (let y=H-2; y>=0; y--){
+      for (let x=0; x<W; x++){
+        const m = grid[idx(x,y)];
+        if (m===SAND){
+          if (grid[idx(x,y+1)]===EMPTY || grid[idx(x,y+1)]===WATER){ swapOrMove(idx(x,y), idx(x,y+1)); continue; }
+          const d = Math.random()<0.5?-1:1;
+          if (inB(x+d) && grid[idx(x+d,y+1)]===EMPTY) move(idx(x,y), idx(x+d,y+1));
+          else if (inB(x-d) && grid[idx(x-d,y+1)]===EMPTY) move(idx(x,y), idx(x-d,y+1));
+        } else if (m===WATER){
+          if (grid[idx(x,y+1)]===EMPTY){ move(idx(x,y), idx(x,y+1)); continue; }
+          const d = Math.random()<0.5?-1:1;
+          if (inB(x+d) && grid[idx(x+d,y+1)]===EMPTY) move(idx(x,y), idx(x+d,y+1));
+          else if (inB(x+d) && grid[idx(x+d,y)]===EMPTY) move(idx(x,y), idx(x+d,y));
+          else if (inB(x-d) && grid[idx(x-d,y)]===EMPTY) move(idx(x,y), idx(x-d,y));
+        }
+      }
+    }
+  }
+  // sand sinks through water (density)
+  function swapOrMove(a,b){
+    if (grid[b]===WATER){ const t=grid[a]; grid[a]=grid[b]; grid[b]=t; }
+    else move(a,b);
+  }
+
+  const img = ctx.createImageData(W,H);
+  function draw(){
+    for (let i=0;i<grid.length;i++){
+      const c = colors[grid[i]]||colors[EMPTY];
+      img.data[i*4]=c[0]; img.data[i*4+1]=c[1]; img.data[i*4+2]=c[2]; img.data[i*4+3]=255;
+    }
+    ctx.putImageData(img,0,0);
+  }
+  function loop(){ update(); draw(); requestAnimationFrame(loop); }
+  loop();
+
+  // input
+  let painting=false, brush=SAND, radius=2;
+  function paint(e){
+    const r = cv.getBoundingClientRect();
+    const px = Math.floor((e.clientX - r.left)/r.width*W);
+    const py = Math.floor((e.clientY - r.top)/r.height*H);
+    for (let dy=-radius; dy<=radius; dy++)
+      for (let dx=-radius; dx<=radius; dx++){
+        const x=px+dx, y=py+dy;
+        if (x>=0&&x<W&&y>=0&&y<H && dx*dx+dy*dy<=radius*radius) grid[idx(x,y)]=brush;
+      }
+  }
+  function pos(e){ return e.touches ? e.touches[0] : e; }
+  cv.addEventListener('mousedown', e=>{painting=true; paint(e);});
+  cv.addEventListener('mousemove', e=>{ if(painting) paint(e);});
+  window.addEventListener('mouseup', ()=>painting=false);
+  cv.addEventListener('touchstart', e=>{painting=true; paint(pos(e)); e.preventDefault();}, {passive:false});
+  cv.addEventListener('touchmove', e=>{ if(painting) paint(pos(e)); e.preventDefault();}, {passive:false});
+  window.addEventListener('touchend', ()=>painting=false);
+
+  // palette buttons
+  document.querySelectorAll('.controls [data-mat]').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      brush = parseInt(b.dataset.mat,10);
+      document.querySelectorAll('.controls [data-mat]').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+    });
+  });
+  document.getElementById('clear').addEventListener('click', ()=> grid.fill(EMPTY));
+})();
+</script>
+</body>
+</html>

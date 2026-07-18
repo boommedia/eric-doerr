@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🍽️ Food & Recipes</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--shadow:0 8px 30px rgba(0,0,0,.4)}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 70% -10%,rgba(76,194,255,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55}
+  .wrap{max-width:900px;margin:0 auto;padding:40px 22px 80px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.9rem;margin:10px 0 6px;letter-spacing:-.02em}
+  .sub{color:var(--muted)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-top:22px}
+  .card{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;text-decoration:none;color:inherit;transition:transform .18s,border-color .18s,box-shadow .18s}
+  .card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:var(--shadow)}
+  .card .icon{font-size:2rem;margin-bottom:10px}
+  .card h2{margin:0 0 6px;font-size:1.12rem}
+  .card p{margin:0;color:var(--muted);font-size:.88rem;flex:1}
+  .card .go{margin-top:14px;font-size:.88rem;color:var(--accent);font-weight:600}
+  .alts{margin-top:10px;font-size:.78rem}
+  .alts a{color:var(--muted);text-decoration:none;margin-right:10px}
+  .alts a:hover{color:var(--accent)}
+  footer{margin-top:40px;color:var(--muted);font-size:.8rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../index.html">← Projects</a>
+  <h1>🍽️ Food &amp; Recipes</h1>
+  <div class="sub">Recipe guides and shopping lists.</div>
+
+  <div class="grid">
+    <a class="card" href="./mango-recipes.html">
+      <div class="icon">🥭</div>
+      <h2>Complete Mango Recipes Guide</h2>
+      <p>Everything mango — sweet and savory recipes in one guide.</p>
+      <div class="go">Open guide →</div>
+      <div class="alts"><a href="./mango-recipes.pdf">PDF ↓</a><a href="./mango-recipes.md">Markdown ↓</a></div>
+    </a>
+
+    <a class="card" href="./mango-shopping-list.html">
+      <div class="icon">🛒</div>
+      <h2>Mango Master Shopping List</h2>
+      <p>Consolidated ingredients list for the mango recipes.</p>
+      <div class="go">Open list →</div>
+      <div class="alts"><a href="./mango-shopping-list.pdf">PDF ↓</a><a href="./mango-shopping-list.md">Markdown ↓</a></div>
+    </a>
+
+    <a class="card" href="./hardboiled-egg-recipes.html">
+      <div class="icon">🥚</div>
+      <h2>Hard-Boiled Egg Recipes</h2>
+      <p>Ways to cook and use hard-boiled eggs.</p>
+      <div class="go">Open guide →</div>
+    </a>
+  </div>
+
+  <footer>Part of the Home Projects Hub.</footer>
+</div>
+</body>
+</html>
