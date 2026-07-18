@@ -3,219 +3,84 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🕹️ Space Sim HOTAS Guide — T16000M</title>
+<title>🕹️ Gaming</title>
 <style>
-  :root{
-    --bg:#0f1419; --panel:#1a2029; --panel-2:#212936; --line:#2c3644;
-    --text:#e6edf3; --muted:#8b98a9; --accent:#4cc2ff; --accent-2:#7ee787;
-    --ed:#ff8c42; --sc:#4cc2ff; --gold:#ffd479; --shadow:0 8px 30px rgba(0,0,0,.4);
-  }
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--shadow:0 8px 30px rgba(0,0,0,.4)}
   *{box-sizing:border-box}
-  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    background:radial-gradient(1000px 500px at 75% -10%,rgba(76,194,255,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);
-    color:var(--text);line-height:1.55;padding-bottom:70px}
-  .wrap{max-width:1000px;margin:0 auto;padding:0 22px}
-  header{padding:34px 0 6px}
+  body{margin:0;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 70% -10%,rgba(76,194,255,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55}
+  .wrap{max-width:940px;margin:0 auto;padding:40px 22px 80px}
   .back{color:var(--accent);text-decoration:none;font-size:.85rem}
-  h1{font-size:1.8rem;margin:10px 0 4px;letter-spacing:-.02em}
-  .sub{color:var(--muted);font-size:.9rem}
-
-  h2.sec{font-size:1.15rem;border-left:4px solid var(--accent);padding-left:12px;margin:30px 0 14px}
-  .cards2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  @media(max-width:680px){.cards2{grid-template-columns:1fr}}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
-  .card h3{margin:0 0 4px;font-size:1.05rem}
-  .card .tagline{color:var(--muted);font-size:.82rem;margin-bottom:10px}
-  .card ul{margin:0;padding-left:18px;font-size:.86rem;color:var(--muted)}
-  .card ul b{color:var(--text)}
-  .pill{display:inline-block;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 9px;border-radius:6px;background:rgba(126,231,135,.15);color:var(--accent-2);margin-left:6px}
-
-  ol.steps{padding-left:20px;font-size:.9rem;line-height:1.6}
-  ol.steps li{margin:6px 0}
-  ol.steps b{color:var(--text)}
-  code{background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:.85em;color:var(--accent-2)}
-
-  .tabs{display:flex;gap:8px;margin:8px 0 16px;flex-wrap:wrap}
-  .tab{background:var(--panel-2);border:1px solid var(--line);color:var(--muted);border-radius:10px;padding:9px 16px;font-size:.9rem;cursor:pointer;font-weight:600}
-  .tab.active[data-game=ed]{background:var(--ed);color:#1a1206;border-color:var(--ed)}
-  .tab.active[data-game=sc]{background:var(--sc);color:#06121c;border-color:var(--sc)}
-  .game{display:none}
-  .game.show{display:block}
-  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
-  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
-  .gn:hover{border-color:var(--accent);color:var(--accent)}
-  .gn.active{background:var(--accent);color:#06121c;border-color:var(--accent)}
-
-  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:8px 0}
-  table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:520px}
-  th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-  th{background:var(--panel-2);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
-  tbody tr:hover{background:var(--panel-2)}
-  td.ctl{font-weight:600;white-space:nowrap;color:var(--accent)}
-  .lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:16px 0 6px;font-weight:700}
-
-  .callout{border-radius:12px;padding:13px 16px;font-size:.85rem;margin:14px 0}
-  .callout.tip{background:rgba(255,212,121,.06);border:1px solid rgba(255,212,121,.28)}
-  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
-  .callout b{color:var(--text)}
-  .callout a{color:var(--accent)}
-  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-  .links a{font-size:.82rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);text-decoration:none;border-radius:8px;padding:6px 11px}
-  footer{color:var(--muted);font-size:.78rem;margin-top:30px}
-  footer a{color:var(--accent)}
+  h1{font-size:1.9rem;margin:10px 0 6px;letter-spacing:-.02em}
+  .sub{color:var(--muted)}
+  .section-label{display:flex;align-items:center;gap:10px;margin:34px 0 14px;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em}
+  .section-label::after{content:"";flex:1;height:1px;background:var(--line)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+  .card{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;text-decoration:none;color:inherit;position:relative;overflow:hidden;transition:transform .18s,border-color .18s,box-shadow .18s}
+  .card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:var(--shadow)}
+  .card.feature{border-color:var(--accent-2);grid-column:1/-1}
+  .card.feature::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 160px at 100% 0,rgba(126,231,135,.10),transparent)}
+  .card .icon{font-size:2rem;margin-bottom:10px}
+  .card h2{margin:0 0 6px;font-size:1.14rem}
+  .card p{margin:0;color:var(--muted);font-size:.88rem;flex:1}
+  .card .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .tag{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 9px;border-radius:7px}
+  .tag.hw{background:rgba(126,231,135,.16);color:var(--accent-2)}
+  .tag.info{background:rgba(76,194,255,.14);color:var(--accent)}
+  .card .go{margin-top:14px;font-size:.88rem;color:var(--accent);font-weight:600}
+  footer{margin-top:40px;color:var(--muted);font-size:.8rem}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <a class="back" href="../index.html">← Projects</a>
-    <h1>🕹️ Space Sim HOTAS Guide</h1>
-    <div class="sub">Setting up the <b>Thrustmaster T.16000M FCS</b> for <span style="color:var(--ed)">Elite&nbsp;Dangerous</span> &amp; <span style="color:var(--sc)">Star&nbsp;Citizen</span> — HOTAS and dual-stick.</div>
-    <div class="guidenav">
-      <a class="gn active" href="./index.html">🎯 Controls &amp; Bindings</a>
-      <a class="gn" href="./triple-screen.html">🖥️ Triple-Screen Setup</a>
-      <a class="gn" href="./rig-build.html">🪑 DIY Sim Rig</a>
-      <a class="gn" href="./sand-game-tutorial.html">🏖️ Falling Sand Game</a>
-      <a class="gn" href="./flush-for-gaming.html">🧹 Flush for Gaming</a>
-    </div>
-  </header>
+  <a class="back" href="../index.html">← Projects</a>
+  <h1>🕹️ Gaming</h1>
+  <div class="sub">Space-sim setup with the Thrustmaster T16000M, plus a few extras.</div>
 
-  <h2 class="sec">🎮 Your hardware</h2>
-  <div class="cards2">
-    <div class="card">
-      <h3>T.16000M FCS HOTAS <span class="pill">stick + throttle</span></h3>
-      <div class="tagline">One T.16000M stick + TWCS throttle.</div>
-      <ul>
-        <li><b>Stick:</b> Hall-effect (magnetic, no drift), 16 buttons, 8-way hat, X/Y + twist-rudder (Z), base throttle slider</li>
-        <li><b>TWCS throttle:</b> throttle axis, analog mini-stick, rocker, plus buttons/hat</li>
-        <li><b>Best for:</b> Elite Dangerous — classic fly-by-throttle feel</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>T.16000M FCS Space Sim Duo <span class="pill">dual stick</span></h3>
-      <div class="tagline">Two fully ambidextrous T.16000M sticks.</div>
-      <ul>
-        <li><b>32 programmable buttons</b> total (16 each), two 8-way hats, weighted bases</li>
-        <li><b>Ambidextrous:</b> swap the detachable parts + flip the base switch to set one stick for the <b>left hand</b></li>
-        <li><b>Best for:</b> Star Citizen 6-DoF combat — strafe on the left, aim on the right</li>
-      </ul>
-    </div>
+  <div class="section-label">Space Sim — Elite Dangerous &amp; Star Citizen</div>
+  <div class="grid">
+    <a class="card feature" href="./controls.html">
+      <div class="icon">🎯</div>
+      <h2>Controls &amp; Bindings — Equipment Setup &amp; Use</h2>
+      <p>Set up and use your <b>Thrustmaster T16000M FCS HOTAS</b> and <b>Space Sim Duo</b> (dual stick): hardware breakdown, one-time setup (drivers, TARGET, deadzones), and full HOTAS + dual-stick binding tables for Elite Dangerous &amp; Star Citizen.</p>
+      <div class="tags"><span class="tag hw">Your gear</span><span class="tag info">HOTAS + Dual-stick</span></div>
+      <div class="go">Open setup guide →</div>
+    </a>
+
+    <a class="card" href="./triple-screen.html">
+      <div class="icon">🖥️</div>
+      <h2>Triple-Screen Setup</h2>
+      <p>Make three monitors act as one big screen (NVIDIA Surround / AMD Eyefinity) — or use one big display. Parts list included.</p>
+      <div class="tags"><span class="tag info">Displays</span></div>
+      <div class="go">Open guide →</div>
+    </a>
+
+    <a class="card" href="./rig-build.html">
+      <div class="icon">🪑</div>
+      <h2>DIY Space + Racing Sim Rig</h2>
+      <p>Build a cockpit that does space and racing — tiers, Amazon parts, T16000M mounting, and pro-rig ideas to borrow.</p>
+      <div class="tags"><span class="tag info">Build</span></div>
+      <div class="go">Open guide →</div>
+    </a>
   </div>
 
-  <div class="callout info">
-    💡 <b>Which to use?</b> You have both, so match the tool to the game: run the <b>HOTAS (stick + TWCS)</b> for <span style="color:var(--ed)">Elite Dangerous</span> (throttle-based flight), and the <b>Dual Sticks</b> for <span style="color:var(--sc)">Star Citizen</span> (twin-stick 6-degrees-of-freedom dogfighting). You can also fly Elite dual-stick for FA-Off precision once you're comfortable.
+  <div class="section-label">More gaming</div>
+  <div class="grid">
+    <a class="card" href="./sand-game-tutorial.html">
+      <div class="icon">🏖️</div>
+      <h2>Falling Sand Game</h2>
+      <p>Tutorial &amp; build guide for a falling-sand game.</p>
+      <div class="go">Open tutorial →</div>
+    </a>
+
+    <a class="card" href="./flush-for-gaming.html">
+      <div class="icon">🧹</div>
+      <h2>Flush for Gaming</h2>
+      <p>Utility to free up memory before a gaming session.</p>
+      <div class="go">Open →</div>
+    </a>
   </div>
 
-  <h2 class="sec">🛠️ One-time setup</h2>
-  <ol class="steps">
-    <li><b>Install drivers + TARGET.</b> Grab the latest T.16000M drivers and <b>T.A.R.G.E.T</b> software from Thrustmaster support. TARGET can merge both sticks (and the throttle) into <b>one virtual USB device</b> and add <b>modifier keys</b> (shift layers) so 32 buttons become 60+.</li>
-    <li><b>Set the ambidextrous stick.</b> For the Duo, convert one stick to left-hand: swap the three detachable pieces and flip the base <b>hand switch</b> so the 12 base buttons re-map for the left hand.</li>
-    <li><b>Calibrate &amp; check order.</b> In Windows <code>joy.cpl</code>, confirm each device centers cleanly (Hall-effect should sit dead-center). Note which is "Joystick 1" vs "2" — games bind by device order.</li>
-    <li><b>Deadzones &amp; curves.</b> Hall sensors are precise, so keep deadzones small — <b>~3% (0.03)</b> is a good start. Add a gentle response <b>curve</b> for finer aim near center.</li>
-    <li><b>Back up your binds.</b> Once dialed in, copy your binding files somewhere safe — game updates occasionally reset them.</li>
-  </ol>
-
-  <h2 class="sec">🎯 Per-game bindings</h2>
-  <div class="tabs">
-    <button class="tab active" data-game="ed" onclick="showGame('ed')">🟠 Elite Dangerous</button>
-    <button class="tab" data-game="sc" onclick="showGame('sc')">🔵 Star Citizen</button>
-  </div>
-
-  <!-- ELITE DANGEROUS -->
-  <div class="game show" id="game-ed">
-    <div class="callout info">
-      Recommended layout: <b>HOTAS</b> (T.16000M stick + TWCS throttle). Elite has a built-in "T16000M FCS" preset — a fine starting point — but the community bindings below are more complete.
-    </div>
-    <div class="lbl">Right stick — orientation &amp; weapons</div>
-    <div class="tablewrap"><table>
-      <thead><tr><th>Control</th><th>Bind</th></tr></thead>
-      <tbody>
-        <tr><td class="ctl">X / Y axis</td><td>Roll / Pitch</td></tr>
-        <tr><td class="ctl">Twist (Z)</td><td>Yaw</td></tr>
-        <tr><td class="ctl">Trigger</td><td>Primary fire</td></tr>
-        <tr><td class="ctl">Thumb button</td><td>Secondary fire</td></tr>
-        <tr><td class="ctl">8-way hat</td><td>Headlook (free look)</td></tr>
-        <tr><td class="ctl">Base buttons</td><td>Boost, Flight-Assist toggle, next/prev target</td></tr>
-      </tbody>
-    </table></div>
-    <div class="lbl">TWCS throttle — speed &amp; systems</div>
-    <div class="tablewrap"><table>
-      <thead><tr><th>Control</th><th>Bind</th></tr></thead>
-      <tbody>
-        <tr><td class="ctl">Throttle axis</td><td>Forward throttle (set a small mid-deadzone if using reverse)</td></tr>
-        <tr><td class="ctl">Mini-stick</td><td>Lateral + Vertical thrust</td></tr>
-        <tr><td class="ctl">Rocker</td><td>Yaw trim or UI panel scroll</td></tr>
-        <tr><td class="ctl">Buttons/hat</td><td>Landing gear, cargo scoop, lights, hardpoints, FSD / supercruise, heat sink, chaff</td></tr>
-      </tbody>
-    </table></div>
-    <div class="callout tip">
-      🕹️ <b>FA-Off tip:</b> want the dual-stick precision Elite is famous for? Bind the <b>left stick to lateral/vertical/forward thrust</b> and the right stick to rotation. With Flight-Assist off you get true 6-DoF control for drifting and reverski.
-    </div>
-    <div class="lbl">Community binding files (great starting points)</div>
-    <div class="links">
-      <a href="https://github.com/jamsoft/CMDRJamski-T16000M-FCS-HOTAS" target="_blank" rel="noopener">CMDR Jamski — HOTAS binds (GitHub) ↗</a>
-      <a href="https://github.com/Marcobaldessari/Dual-t16000--Elite-Dangerous" target="_blank" rel="noopener">Dual-T16000 binds (GitHub) ↗</a>
-      <a href="https://forums.frontier.co.uk/threads/t-16000-m-fcs-hotas-bindings-for-elite-dangerous.461653/" target="_blank" rel="noopener">Frontier forum thread ↗</a>
-    </div>
-    <div class="callout info">Drop <code>.binds</code> files into <code>%LOCALAPPDATA%\Frontier Developments\Elite Dangerous\Options\Bindings</code>, then pick the preset in-game under Controls.</div>
-  </div>
-
-  <!-- STAR CITIZEN -->
-  <div class="game" id="game-sc">
-    <div class="callout info">
-      Recommended layout: <b>Dual Sticks</b>. Star Citizen now uses <b>Master Modes</b> — two flight modes you toggle between:
-      <b>NAV</b> (high speed + Quantum travel) and <b>SCM</b> (combat: weapons &amp; shields online, lower speed). Bind the mode switch somewhere easy on the left stick.
-    </div>
-    <div class="lbl">Right stick — aim &amp; fire</div>
-    <div class="tablewrap"><table>
-      <thead><tr><th>Control</th><th>Bind</th></tr></thead>
-      <tbody>
-        <tr><td class="ctl">X / Y axis</td><td>Yaw / Pitch (aiming)</td></tr>
-        <tr><td class="ctl">Twist (Z)</td><td>Roll</td></tr>
-        <tr><td class="ctl">Trigger</td><td>Fire weapon group 1</td></tr>
-        <tr><td class="ctl">Thumb / hat</td><td>Missiles, cycle targets, pin target, countermeasures</td></tr>
-      </tbody>
-    </table></div>
-    <div class="lbl">Left stick — movement &amp; systems</div>
-    <div class="tablewrap"><table>
-      <thead><tr><th>Control</th><th>Bind</th></tr></thead>
-      <tbody>
-        <tr><td class="ctl">X / Y axis</td><td>Strafe left/right + up/down</td></tr>
-        <tr><td class="ctl">Twist (Z)</td><td>Strafe forward/back (or leave for extra bind)</td></tr>
-        <tr><td class="ctl">Throttle slider</td><td>Set cruise speed / throttle</td></tr>
-        <tr><td class="ctl">Trigger / thumb</td><td>Boost, Master Mode toggle (NAV ⇄ SCM)</td></tr>
-        <tr><td class="ctl">Buttons / hat</td><td>Quantum travel, Scan, Landing gear, VTOL, power triangle, decouple</td></tr>
-      </tbody>
-    </table></div>
-    <div class="callout tip">
-      ⌨️ <b>Modifier layers:</b> 32 buttons feels like plenty until you count SC's functions. Use a left-stick button as a <b>modifier (shift)</b> via <b>TARGET</b> or <b>JoyToKey</b> to double your bindings — this is the standard trick for dual-T16000M in Star Citizen.
-    </div>
-    <div class="callout info">
-      🔀 <b>Axis gotcha:</b> SC often reads the two sticks as <code>js1</code>/<code>js2</code> in an order that may not match your hands. If strafe/aim land on the wrong stick, rebind the axes or swap device order — expect a little trial-and-error after big patches.
-    </div>
-    <div class="lbl">Community profiles</div>
-    <div class="links">
-      <a href="https://testsquadron.com/threads/my-recommended-dual-t-16000m-bindings.17709/" target="_blank" rel="noopener">TEST Squadron — Dual T16000M binds ↗</a>
-      <a href="https://robertsspaceindustries.com/spectrum/community/SC/forum/3/thread/thrustmaster-t-16000m-dual-stick-keybinding-profil" target="_blank" rel="noopener">RSI Spectrum — dual-stick profile ↗</a>
-    </div>
-    <div class="callout info">Import a control profile by placing the <code>.xml</code> in <code>...\StarCitizen\LIVE\USER\Client\0\Controls\Mappings</code>, then in-game console type <code>pp_rebindkeys layoutname</code>.</div>
-  </div>
-
-  <footer>
-    <b>Sources:</b>
-    <a href="https://support.thrustmaster.com/en/product/t-16000m-fcs-space-sim-duo-en/">Thrustmaster — Space Sim Duo</a> ·
-    <a href="https://support.thrustmaster.com/en/product/t16000mfcs-en/">T.16000M FCS support</a> ·
-    <a href="https://github.com/jamsoft/CMDRJamski-T16000M-FCS-HOTAS">CMDR Jamski binds</a> ·
-    <a href="https://testsquadron.com/threads/my-recommended-dual-t-16000m-bindings.17709/">TEST Squadron</a>
-    <br>Binding tables are starting points — tweak axes, curves &amp; buttons to taste. Star Citizen's Master Modes &amp; mappings change between patches; re-check after major updates.
-  </footer>
+  <footer>Part of the Home Projects Hub.</footer>
 </div>
-
-<script>
-  function showGame(g){
-    document.querySelectorAll(".game").forEach(el=>el.classList.toggle("show",el.id==="game-"+g));
-    document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.game===g));
-  }
-</script>
 </body>
 </html>
