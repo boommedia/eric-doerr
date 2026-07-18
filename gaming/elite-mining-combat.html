@@ -390,10 +390,39 @@
     </div>
   </div>
 
+  <!-- ============ SHIP REFERENCE ============ -->
+  <h2 class="sec">🛥️ Which ship for which job</h2>
+  <div class="callout info">Your fleet at a glance — and where each one shines. Load all three into <b>My Fleet</b> below with one click.</div>
+
+  <div class="lbl">Your ships</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Ship</th><th>Pad</th><th>Best missions</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Type-11 Prospector</td><td>Large</td><td>⛏️ Mining · 💰 Bulk hauling</td><td>Dedicated miner — big hold + mining hardpoints; park in a hotspot &amp; fill up</td></tr>
+      <tr><td class="k">Python</td><td>Medium</td><td>⛏️ Mining · 🎯 Bounty · 💰 Trading</td><td>The great all-rounder; fits large optionals yet lands on medium pads</td></tr>
+      <tr><td class="k">Anaconda</td><td>Large</td><td>🔭 Exploration · 🎯 Heavy combat · 💰 Long-haul</td><td>Best jump range + huge hardpoints &amp; cargo; a capital-lite do-everything</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn">ℹ️ <b>Quick check:</b> I couldn't confirm a <b>"Type-11 Prospector"</b> in current Elite Dangerous — Lakon's haulers are the <b>Type-6, Type-8, Type-9 &amp; Type-10</b>. I've added it as your dedicated miner; tell me the exact model and I'll tune its role &amp; stats.</div>
+
+  <div class="lbl">Job → your best pick</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Mission</th><th>Your best ship</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td class="k">⛏️ Core / laser mining</td><td>Type-11 Prospector <span class="muted">(or Python)</span></td><td>Prospector for max hold; Python if you want to mine <i>and</i> defend yourself</td></tr>
+      <tr><td class="k">🎯 Bounty hunting</td><td>Python → Anaconda</td><td>Python for agile medium fights; Anaconda for Haz RES &amp; Conflict Zones</td></tr>
+      <tr><td class="k">🔭 Exploration</td><td>Anaconda</td><td>Top jump range; fit fuel scoop, DSS, AFMU &amp; strip weight</td></tr>
+      <tr><td class="k">💰 Trading / hauling</td><td>Type-11 Prospector → Anaconda</td><td>Biggest holds; use Python for medium-pad-only stations</td></tr>
+      <tr><td class="k">🥾 On-foot support</td><td>Python / Anaconda</td><td>Carry an SRV &amp; drop near settlements — both have the internals</td></tr>
+    </tbody>
+  </table></div>
+
   <!-- ============ MY FLEET ============ -->
   <h2 class="sec">🚀 My fleet</h2>
   <div class="callout info">Add your ships &amp; roles. Paste a <b>Coriolis or EDSY link</b> in the Build field to save &amp; share the exact loadout.</div>
   <div class="tool">
+    <div class="row" style="margin-bottom:12px"><button class="btn alt" type="button" onclick="loadMyShips()">➕ Load my 3 ships (Prospector · Python · Anaconda)</button></div>
     <form class="grid" onsubmit="submitShip(event)" id="shipForm">
       <label class="fld">Ship name / callsign<input id="shipName" placeholder="e.g. Rock Muncher" required></label>
       <label class="fld">Model<input id="shipModel" placeholder="e.g. Python, Krait Mk II" list="models"></label>
@@ -434,7 +463,7 @@
   <datalist id="models">
     <option>Sidewinder</option><option>Cobra Mk III</option><option>Asp Explorer</option>
     <option>Diamondback Explorer</option><option>Type-6 Transporter</option><option>Krait Mk II</option>
-    <option>Krait Phantom</option><option>Python</option><option>Type-9 Heavy</option><option>Anaconda</option>
+    <option>Krait Phantom</option><option>Python</option><option>Type-9 Heavy</option><option>Type-11 Prospector</option><option>Anaconda</option>
     <option>Imperial Cutter</option><option>Vulture</option><option>Fer-de-Lance</option>
     <option>Federal Corvette</option><option>Alliance Chieftain</option><option>Viper Mk III</option>
   </datalist>
@@ -501,6 +530,18 @@
   }
   function cancelShip(){editShip=null;$('#shipForm').reset();$('#shipBtn').textContent='Add ship';}
   function delShip(id){ if(!confirm('Delete this ship?'))return; fleet=fleet.filter(x=>x.id!==id); save(K_FLEET,fleet); renderFleet(); }
+  function loadMyShips(){
+    const seed=[
+      {name:'Prospector',model:'Type-11 Prospector',purpose:'mining',build:'',notes:'Dedicated miner / bulk hauler — big hold + mining tools. Park in a hotspot and fill up.'},
+      {name:'Python',model:'Python',purpose:'multi',build:'',notes:'All-rounder: core/laser mining, bounty hunting, medium-pad trading.'},
+      {name:'Anaconda',model:'Anaconda',purpose:'multi',build:'',notes:'Exploration (top jump range) + heavy combat (Haz RES / CZ) + long-range hauling.'}
+    ];
+    const have=new Set(fleet.map(s=>(s.model||s.name).toLowerCase()));
+    let added=0;
+    seed.forEach(s=>{ if(!have.has((s.model||s.name).toLowerCase())){ fleet.push({id:uid(),...s}); added++; } });
+    save(K_FLEET,fleet); renderFleet();
+    alert(added?`Added ${added} ship(s) to your fleet.`:'Those ships are already in your fleet.');
+  }
   function renderFleet(){
     const w=$('#fleetList');
     if(!fleet.length){w.innerHTML='<div class="empty" style="grid-column:1/-1">No ships yet — add your first above. Tip: paste a Coriolis/EDSY link to save the exact build.</div>';}
