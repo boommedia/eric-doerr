@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔫 COD Warzone — Settings & Gameplay Guide</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--wz:#7ee787;--gold:#ffd479;--danger:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 75% -10%,rgba(126,231,135,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.7rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  h2.sec{font-size:1.15rem;border-left:4px solid var(--wz);padding-left:12px;margin:30px 0 12px}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--wz);color:#06180a;border-color:var(--wz)}
+  .callout{border-radius:12px;padding:13px 16px;font-size:.85rem;margin:14px 0}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout.tip{background:rgba(255,212,121,.06);border:1px solid rgba(255,212,121,.28)}
+  .callout b{color:var(--text)} .callout a{color:var(--accent)}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:10px 0}
+  table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:520px}
+  th,td{padding:9px 13px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  thead th{background:var(--panel-2);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+  td.k{font-weight:600;color:var(--accent);white-space:nowrap}
+  ol.steps{padding-left:20px;font-size:.88rem} ol.steps li{margin:5px 0} ol.steps b{color:var(--text)}
+  .lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin:16px 0 6px}
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin:10px 0}
+  label.chk{display:flex;gap:9px;align-items:flex-start;font-size:.86rem;color:var(--muted);padding:5px 0;cursor:pointer;border-bottom:1px solid var(--line)}
+  label.chk:last-child{border-bottom:none} label.chk input{width:auto;margin-top:3px} label.chk.on{color:var(--text)} label.chk b{color:var(--text)}
+  .btn{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:8px 13px;font-weight:600;font-size:.82rem;cursor:pointer}
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .links a{font-size:.82rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);text-decoration:none;border-radius:8px;padding:6px 11px}
+  .searchbar{position:sticky;top:0;z-index:30;display:flex;gap:8px;align-items:center;background:rgba(13,17,23,.93);backdrop-filter:blur(6px);padding:12px 0;margin-bottom:4px;border-bottom:1px solid var(--line)}
+  .searchbar input{flex:1;background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 12px;font:inherit;font-size:.9rem}
+  .searchbar input:focus{outline:none;border-color:var(--accent)}
+  .searchbar button{font-size:.8rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);border-radius:7px;padding:6px 10px;cursor:pointer}
+  .scount{font-size:.78rem;color:var(--muted);white-space:nowrap}
+  mark.hl{background:rgba(255,212,121,.32);color:var(--text);border-radius:3px;padding:0 1px} mark.hl.cur{background:var(--gold);color:#1a1400}
+  footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./index.html">← Gaming</a>
+    <h1>🔫 COD Warzone — Settings &amp; Gameplay Guide</h1>
+    <div class="sub">Dial in performance, build meta loadouts, master movement &amp; the battle-royale loop.</div>
+    <div class="guidenav">
+      <a class="gn" href="./index.html">🎮 All Gaming</a>
+      <a class="gn" href="./apex-legends.html">🎯 Apex Legends</a>
+      <a class="gn active" href="./warzone.html">🔫 Warzone</a>
+      <a class="gn" href="./battlefield-redsec.html">💥 Battlefield REDSEC</a>
+    </div>
+  </header>
+
+  <div id="searchWrap" class="searchbar">
+    <input id="searchBox" placeholder="🔍 Search this guide… (e.g. FOV, loadout, Gulag)" oninput="doSearch()" onkeydown="if(event.key==='Enter'){event.preventDefault();nextHL(event.shiftKey?-1:1);}">
+    <span id="searchCount" class="scount"></span>
+    <button type="button" onclick="nextHL(-1)">▲</button><button type="button" onclick="nextHL(1)">▼</button>
+    <button type="button" onclick="document.getElementById('searchBox').value='';doSearch();">✕</button>
+  </div>
+
+  <div class="callout info">⚙️ Warzone rewards <b>fast, clean gunfights</b> and <b>smart rotations</b>. Get your settings + a meta loadout sorted, then work on movement &amp; positioning.</div>
+
+  <!-- SETTINGS -->
+  <h2 class="sec">⚙️ Optimize your settings</h2>
+  <div class="lbl">Video &amp; performance</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Setting</th><th>Use</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Display Mode</td><td>Fullscreen Exclusive</td><td>Lowest latency</td></tr>
+      <tr><td class="k">V-Sync</td><td>Off</td><td>Removes input lag</td></tr>
+      <tr><td class="k">NVIDIA Reflex Low Latency</td><td>On + Boost</td><td>Snappier aim</td></tr>
+      <tr><td class="k">Field of View</td><td>100–120</td><td>See more around you</td></tr>
+      <tr><td class="k">Render Resolution</td><td>100</td><td>Don't downscale — hurts clarity</td></tr>
+      <tr><td class="k">Upscaling</td><td>DLSS / FSR (Quality)</td><td>Free FPS if GPU-limited</td></tr>
+      <tr><td class="k">Shadows / Particle Quality</td><td>Low</td><td>Clearer, higher FPS</td></tr>
+      <tr><td class="k">Frame Rate Limit</td><td>Cap to your monitor Hz</td><td>Consistent frames</td></tr>
+    </tbody>
+  </table></div>
+  <div class="lbl">Input &amp; aim</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Setting</th><th>Use</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Controller sensitivity</td><td>~6–8 H/V; lower ADS sens multiplier for precision</td></tr>
+      <tr><td class="k">Aim Response Curve</td><td>Dynamic or Standard (try both)</td></tr>
+      <tr><td class="k">Deadzones</td><td>As low as your sticks allow without drift</td></tr>
+      <tr><td class="k">Mouse (MnK)</td><td>Moderate sens; keep it fixed to build muscle memory</td></tr>
+      <tr><td class="k">Audio Mix</td><td>Headphones / "Boost High &amp; Low" — hear footsteps</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- LOADOUTS -->
+  <h2 class="sec">🎒 Loadouts &amp; "characters"</h2>
+  <div class="callout info">In Warzone, <b>operators are cosmetic</b> — they don't have abilities. Your real "build" is your <b>Loadout</b>: two weapons, perks &amp; equipment. Buy loadouts at <b>Buy Stations</b> or find drops.</div>
+  <div class="lbl">Build a loadout</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Slot</th><th>Pick</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Primary</td><td>Meta <b>AR</b> (versatile) — build for low recoil &amp; range</td><td>Wins most mid-range fights</td></tr>
+      <tr><td class="k">Secondary</td><td>Close-range <b>SMG</b> (or shotgun)</td><td>Covers push/close fights</td></tr>
+      <tr><td class="k">Perks</td><td>Movement + info + resupply (e.g. faster plates, radar, extra ammo)</td><td>Match the perk package to your role</td></tr>
+      <tr><td class="k">Tactical / Lethal</td><td>Stun/smoke + frag/semtex</td><td>Break pushes &amp; finish downs</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip">🔧 <b>Gunsmith:</b> most weapons feel meta once tuned — prioritise attachments that <b>lower recoil &amp; improve handling</b> (barrel, stock, grip, mag, optic). Check a tier-list site for the current best guns, then copy the recommended build.</div>
+
+  <!-- GAMEPLAY -->
+  <h2 class="sec">📈 Master the BR loop</h2>
+  <ol class="steps">
+    <li><b>Land with a plan</b> — drop near a Buy Station &amp; loot fast; grab cash for your loadout + UAV.</li>
+    <li><b>Plate up constantly</b> — never fight below full armour; carry plates.</li>
+    <li><b>Do a Contract</b> (Bounty/Scavenger) early for cash, gear &amp; intel.</li>
+    <li><b>Win the Gulag</b> — it's a 1v1 to respawn; if you die, this gets you back in.</li>
+    <li><b>Buy back teammates</b> at a Buy Station and grab a <b>UAV</b> before rotating.</li>
+    <li><b>Rotate early &amp; use cover</b> — move toward the circle ahead of the gas, hold high ground/buildings, don't run in the open.</li>
+    <li><b>Communicate:</b> ping enemies, call rotations, third-party fights you hear.</li>
+  </ol>
+
+  <!-- CHECKLIST -->
+  <h2 class="sec">✅ Optimization checklist</h2>
+  <div class="callout info">Tick each as you apply it — saves in your browser.</div>
+  <div class="tool" id="chkTool"></div>
+  <div style="margin-top:8px"><button class="btn" onclick="resetChk()">↺ Uncheck all</button></div>
+
+  <div class="links">
+    <a href="https://www.callofduty.com/warzone" target="_blank" rel="noopener">Official site ↗</a>
+    <a href="https://wzstats.gg/" target="_blank" rel="noopener">WZStats — meta &amp; builds ↗</a>
+    <a href="https://www.reddit.com/r/CODWarzone/" target="_blank" rel="noopener">r/CODWarzone ↗</a>
+  </div>
+
+  <footer>Part of the <a href="./index.html">Home Gaming hub</a>. Warzone's weapon meta, perks &amp; map change every season — copy a current tier-list build and re-check after big updates. Checklist saves in this browser only.</footer>
+</div>
+
+<script>
+  const $=s=>document.querySelector(s);
+  const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const CHK=[
+    ['Reflex Low Latency On + Boost','snappier aim'],
+    ['V-Sync Off, Fullscreen Exclusive','lowest latency'],
+    ['FOV 100–120','more awareness'],
+    ['Render Resolution 100; upscaler on Quality','clarity + FPS'],
+    ['Shadows/particles low; cap FPS','steady frames'],
+    ['Audio Mix: Headphones/Boost','hear footsteps'],
+    ['Save a meta AR + SMG loadout','cover every range'],
+    ['Tune attachments for low recoil','win gunfights'],
+    ['Set a fixed sensitivity','muscle memory'],
+    ['Learn the Buy Station / Gulag loop','stay in the game']
+  ];
+  const KK=i=>'wz_chk_'+i;
+  function toggleChk(i){localStorage.setItem(KK(i),localStorage.getItem(KK(i))==='1'?'0':'1');renderChk();}
+  function resetChk(){CHK.forEach((_,i)=>localStorage.removeItem(KK(i)));renderChk();}
+  function renderChk(){$('#chkTool').innerHTML=CHK.map((c,i)=>{const on=localStorage.getItem(KK(i))==='1';return `<label class="chk ${on?'on':''}"><input type="checkbox" ${on?'checked':''} onchange="toggleChk(${i})"><span><b>${esc(c[0])}</b> — ${esc(c[1])}</span></label>`;}).join('');}
+
+  let hlNodes=[],hlIdx=-1;
+  function clearHL(){document.querySelectorAll('mark.hl').forEach(m=>{const p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize();});hlNodes=[];hlIdx=-1;}
+  function doSearch(){const q=($('#searchBox').value||'').trim();clearHL();if(q.length<2){$('#searchCount').textContent='';return;}
+    const rx=new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');const skip=new Set(['SCRIPT','STYLE','INPUT','TEXTAREA','SELECT','MARK','OPTION','BUTTON']);
+    const walker=document.createTreeWalker(document.querySelector('.wrap'),NodeFilter.SHOW_TEXT,{acceptNode(n){if(!n.nodeValue.trim())return 2;let p=n.parentNode;while(p){if(p.nodeName&&skip.has(p.nodeName))return 2;if(p.id==='searchWrap')return 2;p=p.parentNode;}rx.lastIndex=0;return rx.test(n.nodeValue)?1:2;}});
+    const t=[];let node;while(node=walker.nextNode())t.push(node);
+    t.forEach(n=>{const s=n.nodeValue,frag=document.createDocumentFragment();let last=0,m;rx.lastIndex=0;while(m=rx.exec(s)){if(m.index>last)frag.appendChild(document.createTextNode(s.slice(last,m.index)));const mk=document.createElement('mark');mk.className='hl';mk.textContent=m[0];frag.appendChild(mk);hlNodes.push(mk);last=m.index+m[0].length;if(m.index===rx.lastIndex)rx.lastIndex++;}if(last<s.length)frag.appendChild(document.createTextNode(s.slice(last)));n.parentNode.replaceChild(frag,n);});
+    $('#searchCount').textContent=hlNodes.length?`${hlNodes.length} match${hlNodes.length>1?'es':''}`:'no matches';if(hlNodes.length){hlIdx=0;focusHL();}}
+  function focusHL(){hlNodes.forEach((m,i)=>m.classList.toggle('cur',i===hlIdx));const el=hlNodes[hlIdx];if(el)el.scrollIntoView({behavior:'smooth',block:'center'});}
+  function nextHL(d){if(!hlNodes.length)return;hlIdx=(hlIdx+d+hlNodes.length)%hlNodes.length;focusHL();}
+  renderChk();
+</script>
+</body>
+</html>

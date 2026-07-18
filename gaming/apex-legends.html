@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎯 Apex Legends — Settings & Gameplay Guide</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--apex:#da292a;--gold:#ffd479;--danger:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 75% -10%,rgba(218,41,42,.12),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.7rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  h2.sec{font-size:1.15rem;border-left:4px solid var(--apex);padding-left:12px;margin:30px 0 12px}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--apex);color:#fff;border-color:var(--apex)}
+  .callout{border-radius:12px;padding:13px 16px;font-size:.85rem;margin:14px 0}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout.tip{background:rgba(255,212,121,.06);border:1px solid rgba(255,212,121,.28)}
+  .callout b{color:var(--text)} .callout a{color:var(--accent)}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:10px 0}
+  table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:520px}
+  th,td{padding:9px 13px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  thead th{background:var(--panel-2);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+  td.k{font-weight:600;color:var(--accent);white-space:nowrap}
+  ol.steps{padding-left:20px;font-size:.88rem} ol.steps li{margin:5px 0} ol.steps b{color:var(--text)}
+  .lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin:16px 0 6px}
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin:10px 0}
+  label.chk{display:flex;gap:9px;align-items:flex-start;font-size:.86rem;color:var(--muted);padding:5px 0;cursor:pointer;border-bottom:1px solid var(--line)}
+  label.chk:last-child{border-bottom:none} label.chk input{width:auto;margin-top:3px} label.chk.on{color:var(--text)} label.chk b{color:var(--text)}
+  .btn{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:8px 13px;font-weight:600;font-size:.82rem;cursor:pointer}
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .links a{font-size:.82rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);text-decoration:none;border-radius:8px;padding:6px 11px}
+  .searchbar{position:sticky;top:0;z-index:30;display:flex;gap:8px;align-items:center;background:rgba(13,17,23,.93);backdrop-filter:blur(6px);padding:12px 0;margin-bottom:4px;border-bottom:1px solid var(--line)}
+  .searchbar input{flex:1;background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 12px;font:inherit;font-size:.9rem}
+  .searchbar input:focus{outline:none;border-color:var(--accent)}
+  .searchbar button{font-size:.8rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);border-radius:7px;padding:6px 10px;cursor:pointer}
+  .scount{font-size:.78rem;color:var(--muted);white-space:nowrap}
+  mark.hl{background:rgba(255,212,121,.32);color:var(--text);border-radius:3px;padding:0 1px} mark.hl.cur{background:var(--gold);color:#1a1400}
+  .pill{font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 8px;border-radius:6px;background:var(--panel-2);color:var(--muted)}
+  footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./index.html">← Gaming</a>
+    <h1>🎯 Apex Legends — Settings &amp; Gameplay Guide</h1>
+    <div class="sub">Optimize your settings, sharpen fundamentals, and learn every legend class &amp; the weapon meta.</div>
+    <div class="guidenav">
+      <a class="gn" href="./index.html">🎮 All Gaming</a>
+      <a class="gn active" href="./apex-legends.html">🎯 Apex Legends</a>
+      <a class="gn" href="./warzone.html">🔫 Warzone</a>
+      <a class="gn" href="./battlefield-redsec.html">💥 Battlefield REDSEC</a>
+    </div>
+  </header>
+
+  <div id="searchWrap" class="searchbar">
+    <input id="searchBox" placeholder="🔍 Search this guide… (e.g. sensitivity, Reflex, Wraith)" oninput="doSearch()" onkeydown="if(event.key==='Enter'){event.preventDefault();nextHL(event.shiftKey?-1:1);}">
+    <span id="searchCount" class="scount"></span>
+    <button type="button" onclick="nextHL(-1)">▲</button><button type="button" onclick="nextHL(1)">▼</button>
+    <button type="button" onclick="document.getElementById('searchBox').value='';doSearch();">✕</button>
+  </div>
+
+  <div class="callout info">⚙️ <b>Two things win gunfights:</b> a <b>stable high frame-rate with low latency</b>, and a <b>sensitivity you can be consistent with</b>. Nail those first, then movement &amp; positioning.</div>
+
+  <!-- SETTINGS -->
+  <h2 class="sec">⚙️ Optimize your settings</h2>
+  <div class="lbl">Video &amp; performance (competitive)</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Setting</th><th>Use</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Display Mode</td><td>Fullscreen (exclusive)</td><td>Lowest input latency</td></tr>
+      <tr><td class="k">V-Sync</td><td>Disabled</td><td>Removes input lag</td></tr>
+      <tr><td class="k">NVIDIA Reflex</td><td>Enabled + Boost</td><td>Biggest latency cut — turn this on</td></tr>
+      <tr><td class="k">Field of View</td><td>104–110</td><td>More awareness (targets look slightly smaller)</td></tr>
+      <tr><td class="k">Max FPS</td><td>Cap ~3 under monitor Hz</td><td>Steady frame-times, less tearing</td></tr>
+      <tr><td class="k">Most graphics</td><td>Low / Disabled</td><td>Shadows, effects, ragdolls off = clearer, faster</td></tr>
+      <tr><td class="k">Texture Streaming</td><td>Match your VRAM</td><td>Sharp textures without stutter</td></tr>
+    </tbody>
+  </table></div>
+  <div class="lbl">Mouse / controller sensitivity</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Setting</th><th>Use</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Mouse eDPI</td><td>~1200–2000 (DPI × in-game sens). Lower = steadier aim, more mousepad</td></tr>
+      <tr><td class="k">ADS sens multiplier</td><td>~1.0 (or "per optic" if you want scope-specific)</td></tr>
+      <tr><td class="k">Controller response curve</td><td>Linear or Classic; try both</td></tr>
+      <tr><td class="k">Deadzone</td><td>As low as your sticks allow without drift (small)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip">🎧 <b>Audio wins fights.</b> Use headphones — footsteps &amp; reloads tell you where enemies are. Keep master volume high; turn music low.</div>
+
+  <!-- IMPROVE -->
+  <h2 class="sec">📈 Get better — fundamentals</h2>
+  <ol class="steps">
+    <li><b>Warm up in the Firing Range</b> — practice tracking a moving dummy &amp; recoil control for your 2 main guns before you queue.</li>
+    <li><b>Strafe while shooting</b> — move left/right to dodge while keeping your crosshair on target.</li>
+    <li><b>Movement tech:</b> <b>slide-jump</b> down slopes for speed, <b>bunny-hop while healing</b>, <b>tap-strafe</b> (mouse) to change direction mid-air, and use ziplines/redeploys to reposition.</li>
+    <li><b>Positioning &gt; aim:</b> take <b>high ground</b>, avoid open fields, and <b>rotate early</b> toward the next circle to hold strong spots.</li>
+    <li><b>Beware the third party</b> — after a fight, heal &amp; move; other squads hear you and push.</li>
+    <li><b>Play as a trio:</b> <b>ping</b> everything, stick together, share loot &amp; batteries.</li>
+  </ol>
+
+  <!-- LEGEND CLASSES -->
+  <h2 class="sec">🦸 Legend classes — pick a role</h2>
+  <div class="callout info">Every legend belongs to a <b>class</b> with a shared perk. Pick a role that fits how you want to play.</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Class</th><th>Perk / job</th><th>Examples</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Assault</td><td>Extra ammo + red weapon supply bins; aggressive fraggers</td><td>Bangalore, Fuse, Ash, Mad Maggie, Ballistic</td></tr>
+      <tr><td class="k">Skirmisher</td><td>Mobility + see the next care package; reposition &amp; flank</td><td>Wraith, Pathfinder, Octane, Valkyrie, Horizon, Revenant</td></tr>
+      <tr><td class="k">Recon</td><td>Scan survey beacons; reveal enemy locations</td><td>Bloodhound, Crypto, Seer, Vantage</td></tr>
+      <tr><td class="k">Controller</td><td>Lock down &amp; hold areas; see enemies via ring consoles</td><td>Caustic, Wattson, Rampart, Catalyst</td></tr>
+      <tr><td class="k">Support</td><td>Revive/heal utility, crafting, blue supply bins</td><td>Lifeline, Gibraltar, Newcastle, Loba, Conduit, Mirage</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip">🌱 <b>Best beginner legends:</b> <b>Bloodhound</b> (scan to find enemies), <b>Lifeline</b> (self/team heals &amp; revives), <b>Bangalore</b> (smoke &amp; speed), <b>Gibraltar/Newcastle</b> (shields for survivability), <b>Octane</b> (fast &amp; forgiving).</div>
+
+  <!-- WEAPONS -->
+  <h2 class="sec">🔫 Weapons — build your kit</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Range</th><th>Reliable picks</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Close</td><td>R-99, Volt, Prowler, CAR (SMGs)</td><td>High DPS; strafe &amp; stay mobile</td></tr>
+      <tr><td class="k">Mid / all-round</td><td>R-301, Flatline, Havoc, Nemesis (ARs)</td><td>Learn the recoil — your bread &amp; butter</td></tr>
+      <tr><td class="k">Burst / precision</td><td>Hemlok, Wingman, 30-30</td><td>Reward accuracy</td></tr>
+      <tr><td class="k">Close burst</td><td>Peacekeeper, EVA-8, Mozambique (shotguns)</td><td>Great when pushing</td></tr>
+      <tr><td class="k">Long</td><td>Sniper / marksman; care-package (Kraber)</td><td>Situational; hold angles</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip">🎯 <b>Carry an AR + an SMG</b> so you cover every range. Attachments matter — prioritise a <b>barrel stabiliser</b> and <b>extended mag</b>. Master recoil on ONE AR first.</div>
+
+  <!-- SETTINGS CHECKLIST -->
+  <h2 class="sec">✅ Optimization checklist</h2>
+  <div class="callout info">Tick each as you apply it — saves in your browser.</div>
+  <div class="tool" id="chkTool"></div>
+  <div style="margin-top:8px"><button class="btn" onclick="resetChk()">↺ Uncheck all</button></div>
+
+  <div class="links">
+    <a href="https://www.ea.com/games/apex-legends" target="_blank" rel="noopener">Official site ↗</a>
+    <a href="https://apexlegendsstatus.com/" target="_blank" rel="noopener">Apex Legends Status (stats) ↗</a>
+    <a href="https://www.reddit.com/r/apexlegends/" target="_blank" rel="noopener">r/apexlegends ↗</a>
+  </div>
+
+  <footer>Part of the <a href="./index.html">Home Gaming hub</a>. Apex is patched often — legend balance, weapon meta &amp; the loot pool shift each season; treat picks as evergreen categories and check patch notes. Checklist saves in this browser only.</footer>
+</div>
+
+<script>
+  const $=s=>document.querySelector(s);
+  const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const CHK=[
+    ['NVIDIA Reflex → Enabled + Boost','biggest latency reduction'],
+    ['V-Sync Off, Fullscreen (exclusive)','lowest input lag'],
+    ['Cap FPS ~3 below monitor Hz','steady frame-times'],
+    ['Graphics low; shadows/effects off','clearer, faster'],
+    ['FOV 104–110','more awareness'],
+    ['Set eDPI ~1200–2000 & keep it','muscle memory'],
+    ['ADS multiplier ~1.0','consistent tracking'],
+    ['Headphones on; music low','hear footsteps'],
+    ['Pick a main legend & role','learn one kit deeply'],
+    ['Learn recoil on one AR in the range','reliable damage']
+  ];
+  const KK=i=>'apex_chk_'+i;
+  function toggleChk(i){localStorage.setItem(KK(i),localStorage.getItem(KK(i))==='1'?'0':'1');renderChk();}
+  function resetChk(){CHK.forEach((_,i)=>localStorage.removeItem(KK(i)));renderChk();}
+  function renderChk(){$('#chkTool').innerHTML=CHK.map((c,i)=>{const on=localStorage.getItem(KK(i))==='1';return `<label class="chk ${on?'on':''}"><input type="checkbox" ${on?'checked':''} onchange="toggleChk(${i})"><span><b>${esc(c[0])}</b> — ${esc(c[1])}</span></label>`;}).join('');}
+
+  let hlNodes=[],hlIdx=-1;
+  function clearHL(){document.querySelectorAll('mark.hl').forEach(m=>{const p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize();});hlNodes=[];hlIdx=-1;}
+  function doSearch(){const q=($('#searchBox').value||'').trim();clearHL();if(q.length<2){$('#searchCount').textContent='';return;}
+    const rx=new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');const skip=new Set(['SCRIPT','STYLE','INPUT','TEXTAREA','SELECT','MARK','OPTION','BUTTON']);
+    const walker=document.createTreeWalker(document.querySelector('.wrap'),NodeFilter.SHOW_TEXT,{acceptNode(n){if(!n.nodeValue.trim())return 2;let p=n.parentNode;while(p){if(p.nodeName&&skip.has(p.nodeName))return 2;if(p.id==='searchWrap')return 2;p=p.parentNode;}rx.lastIndex=0;return rx.test(n.nodeValue)?1:2;}});
+    const t=[];let node;while(node=walker.nextNode())t.push(node);
+    t.forEach(n=>{const s=n.nodeValue,frag=document.createDocumentFragment();let last=0,m;rx.lastIndex=0;while(m=rx.exec(s)){if(m.index>last)frag.appendChild(document.createTextNode(s.slice(last,m.index)));const mk=document.createElement('mark');mk.className='hl';mk.textContent=m[0];frag.appendChild(mk);hlNodes.push(mk);last=m.index+m[0].length;if(m.index===rx.lastIndex)rx.lastIndex++;}if(last<s.length)frag.appendChild(document.createTextNode(s.slice(last)));n.parentNode.replaceChild(frag,n);});
+    $('#searchCount').textContent=hlNodes.length?`${hlNodes.length} match${hlNodes.length>1?'es':''}`:'no matches';if(hlNodes.length){hlIdx=0;focusHL();}}
+  function focusHL(){hlNodes.forEach((m,i)=>m.classList.toggle('cur',i===hlIdx));const el=hlNodes[hlIdx];if(el)el.scrollIntoView({behavior:'smooth',block:'center'});}
+  function nextHL(d){if(!hlNodes.length)return;hlIdx=(hlIdx+d+hlNodes.length)%hlNodes.length;focusHL();}
+  renderChk();
+</script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💥 Battlefield REDSEC — Settings & Gameplay Guide</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--bf:#ff8c42;--gold:#ffd479;--danger:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 75% -10%,rgba(255,140,66,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.7rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  h2.sec{font-size:1.15rem;border-left:4px solid var(--bf);padding-left:12px;margin:30px 0 12px}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--bf);color:#1a1206;border-color:var(--bf)}
+  .callout{border-radius:12px;padding:13px 16px;font-size:.85rem;margin:14px 0}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout.tip{background:rgba(255,212,121,.06);border:1px solid rgba(255,212,121,.28)}
+  .callout.warn{background:rgba(255,140,66,.08);border:1px solid rgba(255,140,66,.32)}
+  .callout b{color:var(--text)} .callout a{color:var(--accent)}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:10px 0}
+  table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:520px}
+  th,td{padding:9px 13px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  thead th{background:var(--panel-2);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+  td.k{font-weight:600;color:var(--accent);white-space:nowrap}
+  ol.steps{padding-left:20px;font-size:.88rem} ol.steps li{margin:5px 0} ol.steps b{color:var(--text)}
+  .lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin:16px 0 6px}
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin:10px 0}
+  label.chk{display:flex;gap:9px;align-items:flex-start;font-size:.86rem;color:var(--muted);padding:5px 0;cursor:pointer;border-bottom:1px solid var(--line)}
+  label.chk:last-child{border-bottom:none} label.chk input{width:auto;margin-top:3px} label.chk.on{color:var(--text)} label.chk b{color:var(--text)}
+  .btn{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:8px 13px;font-weight:600;font-size:.82rem;cursor:pointer}
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .links a{font-size:.82rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);text-decoration:none;border-radius:8px;padding:6px 11px}
+  .searchbar{position:sticky;top:0;z-index:30;display:flex;gap:8px;align-items:center;background:rgba(13,17,23,.93);backdrop-filter:blur(6px);padding:12px 0;margin-bottom:4px;border-bottom:1px solid var(--line)}
+  .searchbar input{flex:1;background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 12px;font:inherit;font-size:.9rem}
+  .searchbar input:focus{outline:none;border-color:var(--accent)}
+  .searchbar button{font-size:.8rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);border-radius:7px;padding:6px 10px;cursor:pointer}
+  .scount{font-size:.78rem;color:var(--muted);white-space:nowrap}
+  mark.hl{background:rgba(255,212,121,.32);color:var(--text);border-radius:3px;padding:0 1px} mark.hl.cur{background:var(--gold);color:#1a1400}
+  footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./index.html">← Gaming</a>
+    <h1>💥 Battlefield REDSEC — Settings &amp; Gameplay Guide</h1>
+    <div class="sub">Battlefield 6's free battle-royale mode — settings, the 4 classes, teamplay, destruction &amp; vehicles.</div>
+    <div class="guidenav">
+      <a class="gn" href="./index.html">🎮 All Gaming</a>
+      <a class="gn" href="./apex-legends.html">🎯 Apex Legends</a>
+      <a class="gn" href="./warzone.html">🔫 Warzone</a>
+      <a class="gn active" href="./battlefield-redsec.html">💥 Battlefield REDSEC</a>
+    </div>
+  </header>
+
+  <div id="searchWrap" class="searchbar">
+    <input id="searchBox" placeholder="🔍 Search this guide… (e.g. Engineer, revive, destruction)" oninput="doSearch()" onkeydown="if(event.key==='Enter'){event.preventDefault();nextHL(event.shiftKey?-1:1);}">
+    <span id="searchCount" class="scount"></span>
+    <button type="button" onclick="nextHL(-1)">▲</button><button type="button" onclick="nextHL(1)">▼</button>
+    <button type="button" onclick="document.getElementById('searchBox').value='';doSearch();">✕</button>
+  </div>
+
+  <div class="callout info">💥 <b>REDSEC</b> is the free <b>battle-royale</b> mode of <b>Battlefield 6</b>. It plays to Battlefield's strengths — <b>squads, class synergy, vehicles &amp; destructible cover</b>. Win by playing the team game, not lone-wolfing.</div>
+
+  <!-- SETTINGS -->
+  <h2 class="sec">⚙️ Optimize your settings</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Setting</th><th>Use</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Display Mode</td><td>Fullscreen (exclusive)</td><td>Lowest latency</td></tr>
+      <tr><td class="k">V-Sync</td><td>Off</td><td>Removes input lag</td></tr>
+      <tr><td class="k">Low-latency / Reflex</td><td>On (+ Boost if available)</td><td>Snappier aim</td></tr>
+      <tr><td class="k">Field of View</td><td>90–110</td><td>More awareness on big maps</td></tr>
+      <tr><td class="k">Upscaling</td><td>DLSS / FSR (Quality)</td><td>Big FPS gain on large maps</td></tr>
+      <tr><td class="k">Shadows / foliage / effects</td><td>Medium-Low</td><td>Clarity + steady FPS during destruction</td></tr>
+      <tr><td class="k">Frame Rate Limit</td><td>Cap to monitor Hz</td><td>Consistent frame-times</td></tr>
+      <tr><td class="k">Audio</td><td>Headphones / war-tapes off for clarity</td><td>Hear footsteps &amp; vehicles</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- CLASSES -->
+  <h2 class="sec">🎖️ The 4 classes — pick your role</h2>
+  <div class="callout info">Battlefield 6 brings back the classic <b>4-class system</b>. A balanced squad (one of each) beats four of the same — coordinate your gadgets.</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Class</th><th>Job</th><th>Signature gadgets</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Assault</td><td>Frontline attacker — take &amp; hold ground</td><td>Grenades &amp; mobility; aggressive pushing</td></tr>
+      <tr><td class="k">Engineer</td><td>Anti-vehicle &amp; repair</td><td>Rocket/AT launchers, repair tool — kill or fix vehicles</td></tr>
+      <tr><td class="k">Support</td><td>Sustain the squad</td><td>Revive/heal &amp; ammo resupply — keep teammates up &amp; loaded</td></tr>
+      <tr><td class="k">Recon</td><td>Intel &amp; long range</td><td>Spotting, sniper rifles, spawn beacons — reveal &amp; reposition the squad</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip">🩹 <b>Support is king in a BR</b> — reviving &amp; re-arming your squad keeps you in the fight far longer. Have at least one Support and one Engineer (for vehicle threats) per squad.</div>
+
+  <!-- GAMEPLAY -->
+  <h2 class="sec">📈 Play the Battlefield way</h2>
+  <ol class="steps">
+    <li><b>Stick with your squad</b> — spawn on teammates/beacons, push together, trade revives. Lone-wolves get mowed down.</li>
+    <li><b>Use destruction</b> — Battlefield lets you <b>blow open walls &amp; drop cover</b>. Make your own angles; don't trust a wall to protect you.</li>
+    <li><b>Spot enemies</b> (Recon/ping) so the whole squad sees them — info wins.</li>
+    <li><b>Respect vehicles</b> — keep an <b>Engineer</b> with AT ready; don't cross open ground when armour is near.</li>
+    <li><b>Loot &amp; rotate</b> — gear up, then move toward the safe zone using cover &amp; buildings.</li>
+    <li><b>Suppress &amp; flank</b> — pin enemies with fire while a squadmate takes an angle.</li>
+  </ol>
+
+  <!-- WEAPONS -->
+  <h2 class="sec">🔫 Weapons &amp; customization</h2>
+  <ol class="steps">
+    <li>Pick a <b>versatile automatic</b> you can control at range as your main.</li>
+    <li>Use the <b>gunsmith/customization</b> to cut recoil &amp; improve handling (barrel, grip, optic, mag).</li>
+    <li>Match your <b>optic to your role</b> — red-dot/holo for close, low-mag for mid, scope for Recon.</li>
+    <li>Carry a <b>sidearm</b> for emergencies and the right <b>gadget</b> for your class.</li>
+  </ol>
+
+  <!-- CHECKLIST -->
+  <h2 class="sec">✅ Optimization checklist</h2>
+  <div class="callout info">Tick each as you apply it — saves in your browser.</div>
+  <div class="tool" id="chkTool"></div>
+  <div style="margin-top:8px"><button class="btn" onclick="resetChk()">↺ Uncheck all</button></div>
+
+  <div class="callout warn">ℹ️ REDSEC is a newer, live mode — exact class gadgets, weapons &amp; the BR ruleset evolve with updates. Use this as fundamentals and confirm specifics in-game &amp; in patch notes.</div>
+
+  <div class="links">
+    <a href="https://www.ea.com/games/battlefield/battlefield-6" target="_blank" rel="noopener">Official Battlefield ↗</a>
+    <a href="https://www.reddit.com/r/Battlefield/" target="_blank" rel="noopener">r/Battlefield ↗</a>
+  </div>
+
+  <footer>Part of the <a href="./index.html">Home Gaming hub</a>. Battlefield fundamentals (squad play, destruction, class synergy, vehicles) are evergreen; specific REDSEC numbers change with patches. Checklist saves in this browser only.</footer>
+</div>
+
+<script>
+  const $=s=>document.querySelector(s);
+  const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const CHK=[
+    ['Reflex/low-latency On; V-Sync Off','snappier aim'],
+    ['FOV 90–110','awareness on big maps'],
+    ['DLSS/FSR Quality; effects medium-low','FPS through destruction'],
+    ['Cap FPS to monitor Hz','steady frames'],
+    ['Headphones on','hear footsteps & vehicles'],
+    ['Squad has a Support + Engineer','revives + anti-vehicle'],
+    ['Learn to use destruction for angles','make your own cover'],
+    ['Tune one main weapon for low recoil','win gunfights'],
+    ['Spot/ping for the whole squad','info advantage'],
+    ['Spawn on squad/beacons','fight together']
+  ];
+  const KK=i=>'bf_chk_'+i;
+  function toggleChk(i){localStorage.setItem(KK(i),localStorage.getItem(KK(i))==='1'?'0':'1');renderChk();}
+  function resetChk(){CHK.forEach((_,i)=>localStorage.removeItem(KK(i)));renderChk();}
+  function renderChk(){$('#chkTool').innerHTML=CHK.map((c,i)=>{const on=localStorage.getItem(KK(i))==='1';return `<label class="chk ${on?'on':''}"><input type="checkbox" ${on?'checked':''} onchange="toggleChk(${i})"><span><b>${esc(c[0])}</b> — ${esc(c[1])}</span></label>`;}).join('');}
+
+  let hlNodes=[],hlIdx=-1;
+  function clearHL(){document.querySelectorAll('mark.hl').forEach(m=>{const p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize();});hlNodes=[];hlIdx=-1;}
+  function doSearch(){const q=($('#searchBox').value||'').trim();clearHL();if(q.length<2){$('#searchCount').textContent='';return;}
+    const rx=new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');const skip=new Set(['SCRIPT','STYLE','INPUT','TEXTAREA','SELECT','MARK','OPTION','BUTTON']);
+    const walker=document.createTreeWalker(document.querySelector('.wrap'),NodeFilter.SHOW_TEXT,{acceptNode(n){if(!n.nodeValue.trim())return 2;let p=n.parentNode;while(p){if(p.nodeName&&skip.has(p.nodeName))return 2;if(p.id==='searchWrap')return 2;p=p.parentNode;}rx.lastIndex=0;return rx.test(n.nodeValue)?1:2;}});
+    const t=[];let node;while(node=walker.nextNode())t.push(node);
+    t.forEach(n=>{const s=n.nodeValue,frag=document.createDocumentFragment();let last=0,m;rx.lastIndex=0;while(m=rx.exec(s)){if(m.index>last)frag.appendChild(document.createTextNode(s.slice(last,m.index)));const mk=document.createElement('mark');mk.className='hl';mk.textContent=m[0];frag.appendChild(mk);hlNodes.push(mk);last=m.index+m[0].length;if(m.index===rx.lastIndex)rx.lastIndex++;}if(last<s.length)frag.appendChild(document.createTextNode(s.slice(last)));n.parentNode.replaceChild(frag,n);});
+    $('#searchCount').textContent=hlNodes.length?`${hlNodes.length} match${hlNodes.length>1?'es':''}`:'no matches';if(hlNodes.length){hlIdx=0;focusHL();}}
+  function focusHL(){hlNodes.forEach((m,i)=>m.classList.toggle('cur',i===hlIdx));const el=hlNodes[hlIdx];if(el)el.scrollIntoView({behavior:'smooth',block:'center'});}
+  function nextHL(d){if(!hlNodes.length)return;hlIdx=(hlIdx+d+hlNodes.length)%hlNodes.length;focusHL();}
+  renderChk();
+</script>
+</body>
+</html>
