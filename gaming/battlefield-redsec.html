@@ -42,6 +42,11 @@
   .searchbar button{font-size:.8rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);border-radius:7px;padding:6px 10px;cursor:pointer}
   .scount{font-size:.78rem;color:var(--muted);white-space:nowrap}
   mark.hl{background:rgba(255,212,121,.32);color:var(--text);border-radius:3px;padding:0 1px} mark.hl.cur{background:var(--gold);color:#1a1400}
+  .roletiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:12px 0}
+  .rt{border:1px solid var(--line);border-top:3px solid var(--line);border-radius:10px;padding:12px;text-align:center;background:var(--panel)}
+  .rt .i{font-size:1.5rem;line-height:1} .rt b{display:block;margin-top:6px;font-size:.88rem} .rt small{color:var(--muted);font-size:.72rem;display:block;margin-top:2px}
+  svg.diagram{width:100%;max-width:360px;height:auto;display:block;margin:10px auto 2px}
+  .viscap{font-size:.78rem;color:var(--muted);text-align:center;margin-top:2px}
   footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
 </style>
 </head>
@@ -87,6 +92,25 @@
   <!-- CLASSES -->
   <h2 class="sec">🎖️ The 4 classes — pick your role</h2>
   <div class="callout info">Battlefield 6 brings back the classic <b>4-class system</b>. A balanced squad (one of each) beats four of the same — coordinate your gadgets.</div>
+  <div class="roletiles">
+    <div class="rt" style="border-top-color:#ff8c42"><div class="i">⚔️</div><b style="color:#ff8c42">Assault</b><small>frontline</small></div>
+    <div class="rt" style="border-top-color:#4cc2ff"><div class="i">🔧</div><b style="color:#4cc2ff">Engineer</b><small>anti-vehicle</small></div>
+    <div class="rt" style="border-top-color:#7ee787"><div class="i">🩹</div><b style="color:#7ee787">Support</b><small>revive · ammo</small></div>
+    <div class="rt" style="border-top-color:#c792ea"><div class="i">🎯</div><b style="color:#c792ea">Recon</b><small>intel · sniper</small></div>
+  </div>
+  <svg class="diagram" viewBox="0 0 340 300" role="img" aria-label="Balanced squad: one of each class">
+    <g stroke="#2c3644" stroke-width="2"><line x1="170" y1="150" x2="170" y2="70"/><line x1="170" y1="150" x2="255" y2="150"/><line x1="170" y1="150" x2="170" y2="230"/><line x1="170" y1="150" x2="85" y2="150"/></g>
+    <circle cx="170" cy="150" r="30" fill="#212936" stroke="#2c3644" stroke-width="2"/>
+    <text x="170" y="148" text-anchor="middle" fill="#e6edf3" font-size="11" font-weight="700">SQUAD</text>
+    <text x="170" y="161" text-anchor="middle" fill="#8b98a9" font-size="8">1 of each</text>
+    <g font-family="sans-serif">
+      <circle cx="170" cy="48" r="42" fill="#1a2029" stroke="#ff8c42" stroke-width="2"/><text x="170" y="44" text-anchor="middle" fill="#ff8c42" font-size="13" font-weight="700">Assault</text><text x="170" y="60" text-anchor="middle" fill="#8b98a9" font-size="9">frontline</text>
+      <circle cx="285" cy="150" r="42" fill="#1a2029" stroke="#4cc2ff" stroke-width="2"/><text x="285" y="146" text-anchor="middle" fill="#4cc2ff" font-size="12" font-weight="700">Engineer</text><text x="285" y="162" text-anchor="middle" fill="#8b98a9" font-size="9">anti-vehicle</text>
+      <circle cx="170" cy="252" r="42" fill="#1a2029" stroke="#c792ea" stroke-width="2"/><text x="170" y="248" text-anchor="middle" fill="#c792ea" font-size="13" font-weight="700">Recon</text><text x="170" y="264" text-anchor="middle" fill="#8b98a9" font-size="9">intel · sniper</text>
+      <circle cx="55" cy="150" r="42" fill="#1a2029" stroke="#7ee787" stroke-width="2"/><text x="55" y="146" text-anchor="middle" fill="#7ee787" font-size="12" font-weight="700">Support</text><text x="55" y="162" text-anchor="middle" fill="#8b98a9" font-size="9">revive · ammo</text>
+    </g>
+  </svg>
+  <div class="viscap">Balanced squad — one of each class covers every threat.</div>
   <div class="tablewrap"><table>
     <thead><tr><th>Class</th><th>Job</th><th>Signature gadgets</th></tr></thead>
     <tbody>

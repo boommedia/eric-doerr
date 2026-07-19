@@ -41,6 +41,13 @@
   .searchbar button{font-size:.8rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);border-radius:7px;padding:6px 10px;cursor:pointer}
   .scount{font-size:.78rem;color:var(--muted);white-space:nowrap}
   mark.hl{background:rgba(255,212,121,.32);color:var(--text);border-radius:3px;padding:0 1px} mark.hl.cur{background:var(--gold);color:#1a1400}
+  .roletiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin:12px 0}
+  .rt{border:1px solid var(--line);border-top:3px solid var(--line);border-radius:10px;padding:12px;text-align:center;background:var(--panel)}
+  .rt .i{font-size:1.5rem;line-height:1} .rt b{display:block;margin-top:6px;font-size:.88rem} .rt small{color:var(--muted);font-size:.72rem;display:block;margin-top:2px}
+  .flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:12px 0;justify-content:center}
+  .flow .step{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-size:.8rem;font-weight:600}
+  .flow .arw{color:var(--muted);font-weight:700}
+  .viscap{font-size:.78rem;color:var(--muted);text-align:center;margin-top:2px}
   footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
 </style>
 </head>
@@ -98,6 +105,12 @@
   <!-- LOADOUTS -->
   <h2 class="sec">🎒 Loadouts &amp; "characters"</h2>
   <div class="callout info">In Warzone, <b>operators are cosmetic</b> — they don't have abilities. Your real "build" is your <b>Loadout</b>: two weapons, perks &amp; equipment. Buy loadouts at <b>Buy Stations</b> or find drops.</div>
+  <div class="roletiles">
+    <div class="rt" style="border-top-color:#4cc2ff"><div class="i">🔫</div><b style="color:#4cc2ff">Primary</b><small>meta AR</small></div>
+    <div class="rt" style="border-top-color:#7ee787"><div class="i">💨</div><b style="color:#7ee787">Secondary</b><small>SMG / shotgun</small></div>
+    <div class="rt" style="border-top-color:#ffd479"><div class="i">⭐</div><b style="color:#ffd479">Perks</b><small>movement + info</small></div>
+    <div class="rt" style="border-top-color:#ff6b6b"><div class="i">💣</div><b style="color:#ff6b6b">Equipment</b><small>tactical + lethal</small></div>
+  </div>
   <div class="lbl">Build a loadout</div>
   <div class="tablewrap"><table>
     <thead><tr><th>Slot</th><th>Pick</th><th>Why</th></tr></thead>
@@ -112,6 +125,16 @@
 
   <!-- GAMEPLAY -->
   <h2 class="sec">📈 Master the BR loop</h2>
+  <div class="flow">
+    <span class="step">🪂 Land &amp; loot</span><span class="arw">→</span>
+    <span class="step">💵 Buy loadout</span><span class="arw">→</span>
+    <span class="step">📜 Contract</span><span class="arw">→</span>
+    <span class="step">🔫 Fight</span><span class="arw">→</span>
+    <span class="step">⚔️ Gulag / buyback</span><span class="arw">→</span>
+    <span class="step">🧭 Rotate</span><span class="arw">↺</span>
+    <span class="step">🏆 Win</span>
+  </div>
+  <div class="viscap">The core loop — repeat Fight → Rotate until you take the last circle.</div>
   <ol class="steps">
     <li><b>Land with a plan</b> — drop near a Buy Station &amp; loot fast; grab cash for your loadout + UAV.</li>
     <li><b>Plate up constantly</b> — never fight below full armour; carry plates.</li>

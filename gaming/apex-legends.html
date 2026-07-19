@@ -41,6 +41,14 @@
   .searchbar button{font-size:.8rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);border-radius:7px;padding:6px 10px;cursor:pointer}
   .scount{font-size:.78rem;color:var(--muted);white-space:nowrap}
   mark.hl{background:rgba(255,212,121,.32);color:var(--text);border-radius:3px;padding:0 1px} mark.hl.cur{background:var(--gold);color:#1a1400}
+  .roletiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:8px;margin:12px 0}
+  .rt{border:1px solid var(--line);border-top:3px solid var(--line);border-radius:10px;padding:12px;text-align:center;background:var(--panel)}
+  .rt .i{font-size:1.5rem;line-height:1} .rt b{display:block;margin-top:6px;font-size:.88rem} .rt small{color:var(--muted);font-size:.72rem;display:block;margin-top:2px}
+  .flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:12px 0}
+  .flow .step{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-size:.8rem;font-weight:600}
+  .flow .arw{color:var(--muted);font-weight:700}
+  svg.diagram{width:100%;max-width:660px;height:auto;display:block;margin:10px auto 2px}
+  .viscap{font-size:.78rem;color:var(--muted);text-align:center}
   .pill{font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 8px;border-radius:6px;background:var(--panel-2);color:var(--muted)}
   footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
 </style>
@@ -109,6 +117,13 @@
   <!-- LEGEND CLASSES -->
   <h2 class="sec">🦸 Legend classes — pick a role</h2>
   <div class="callout info">Every legend belongs to a <b>class</b> with a shared perk. Pick a role that fits how you want to play.</div>
+  <div class="roletiles">
+    <div class="rt" style="border-top-color:#da292a"><div class="i">⚔️</div><b style="color:#da292a">Assault</b><small>frag &amp; push</small></div>
+    <div class="rt" style="border-top-color:#4cc2ff"><div class="i">🏃</div><b style="color:#4cc2ff">Skirmisher</b><small>mobility</small></div>
+    <div class="rt" style="border-top-color:#7ee787"><div class="i">🔍</div><b style="color:#7ee787">Recon</b><small>reveal foes</small></div>
+    <div class="rt" style="border-top-color:#ffd479"><div class="i">🛡️</div><b style="color:#ffd479">Controller</b><small>hold zones</small></div>
+    <div class="rt" style="border-top-color:#c792ea"><div class="i">➕</div><b style="color:#c792ea">Support</b><small>heal &amp; revive</small></div>
+  </div>
   <div class="tablewrap"><table>
     <thead><tr><th>Class</th><th>Perk / job</th><th>Examples</th></tr></thead>
     <tbody>
@@ -133,6 +148,16 @@
       <tr><td class="k">Long</td><td>Sniper / marksman; care-package (Kraber)</td><td>Situational; hold angles</td></tr>
     </tbody>
   </table></div>
+  <svg class="diagram" viewBox="0 0 760 130" role="img" aria-label="Weapon range spectrum from close to long">
+    <defs><linearGradient id="apexrange" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7ee787"/><stop offset="0.5" stop-color="#4cc2ff"/><stop offset="1" stop-color="#da292a"/></linearGradient></defs>
+    <rect x="24" y="72" width="712" height="16" rx="8" fill="url(#apexrange)"/>
+    <g font-family="sans-serif" font-size="13" text-anchor="middle" fill="#e6edf3">
+      <text x="120" y="52">SMG · Shotgun</text><text x="380" y="52">Assault Rifle</text><text x="640" y="52">Marksman · Sniper</text>
+    </g>
+    <g stroke="#2c3644"><line x1="120" y1="60" x2="120" y2="96"/><line x1="380" y1="60" x2="380" y2="96"/><line x1="640" y1="60" x2="640" y2="96"/></g>
+    <g font-family="sans-serif" font-size="12" fill="#8b98a9"><text x="24" y="112">◀ CLOSE</text><text x="736" y="112" text-anchor="end">LONG ▶</text></g>
+  </svg>
+  <div class="viscap">Weapon range spectrum — carry one close + one ranged gun to cover the gap.</div>
   <div class="callout tip">🎯 <b>Carry an AR + an SMG</b> so you cover every range. Attachments matter — prioritise a <b>barrel stabiliser</b> and <b>extended mag</b>. Master recoil on ONE AR first.</div>
 
   <!-- SETTINGS CHECKLIST -->
