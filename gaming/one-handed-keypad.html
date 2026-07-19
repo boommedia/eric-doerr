@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⌨️🖱️ One-Handed Keypad & Mouse — Setup & Bind Planner</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--gold:#ffd479;--danger:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 75% -10%,rgba(76,194,255,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.65rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  h2.sec{font-size:1.14rem;border-left:4px solid var(--accent);padding-left:12px;margin:30px 0 12px}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--accent);color:#06121c;border-color:var(--accent)}
+  .callout{border-radius:12px;padding:13px 16px;font-size:.85rem;margin:14px 0}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout.tip{background:rgba(255,212,121,.06);border:1px solid rgba(255,212,121,.28)}
+  .callout b{color:var(--text)} .callout a{color:var(--accent)}
+  ol.steps{padding-left:20px;font-size:.88rem} ol.steps li{margin:6px 0} ol.steps b{color:var(--text)}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:10px 0}
+  table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:480px}
+  th,td{padding:9px 13px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  thead th{background:var(--panel-2);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+  td.k{font-weight:600;color:var(--accent);white-space:nowrap}
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .links a{font-size:.82rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);text-decoration:none;border-radius:8px;padding:6px 11px}
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin:10px 0}
+  .gsel{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .gbtn{background:var(--panel-2);border:1px solid var(--line);color:var(--muted);border-radius:20px;padding:7px 14px;font-size:.83rem;font-weight:600;cursor:pointer}
+  .gbtn.active{background:var(--accent);color:#06121c;border-color:var(--accent)}
+  .khdr{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin:14px 0 6px}
+  .kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:8px}
+  .kslot{background:var(--panel-2);border:1px solid var(--line);border-radius:9px;padding:8px}
+  .kslot .kk{font-size:.7rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+  .kslot input{width:100%;background:#0b0f14;border:1px solid var(--line);color:var(--text);border-radius:6px;padding:5px 8px;font:inherit;font-size:.82rem}
+  .kslot input:focus{outline:none;border-color:var(--accent)}
+  .btn{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:8px 13px;font-weight:600;font-size:.82rem;cursor:pointer}
+  .searchbar{position:sticky;top:0;z-index:30;display:flex;gap:8px;align-items:center;background:rgba(13,17,23,.93);backdrop-filter:blur(6px);padding:12px 0;margin-bottom:4px;border-bottom:1px solid var(--line)}
+  .searchbar input{flex:1;background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 12px;font:inherit;font-size:.9rem}
+  .searchbar input:focus{outline:none;border-color:var(--accent)}
+  .searchbar button{font-size:.8rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);border-radius:7px;padding:6px 10px;cursor:pointer}
+  .scount{font-size:.78rem;color:var(--muted);white-space:nowrap}
+  mark.hl{background:rgba(255,212,121,.32);color:var(--text);border-radius:3px;padding:0 1px} mark.hl.cur{background:var(--gold);color:#1a1400}
+  footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./index.html">← Gaming</a>
+    <h1>⌨️🖱️ One-Handed Keypad &amp; Mouse — Setup &amp; Bind Planner</h1>
+    <div class="sub">Get the most from a one-handed <b>Redragon</b> keypad + mouse: ergonomics, software &amp; macros, binding strategy, mouse tuning, and an editable per-game bind planner.</div>
+    <div class="guidenav">
+      <a class="gn" href="./index.html">🎮 All Gaming</a>
+      <a class="gn active" href="./one-handed-keypad.html">⌨️🖱️ Keypad + Mouse</a>
+      <a class="gn" href="./apex-legends.html">🎯 Apex</a>
+      <a class="gn" href="./warzone.html">🔫 Warzone</a>
+      <a class="gn" href="./battlefield-redsec.html">💥 REDSEC</a>
+    </div>
+  </header>
+
+  <div id="searchWrap" class="searchbar">
+    <input id="searchBox" placeholder="🔍 Search… (e.g. macro, DPI, thumb, actuation)" oninput="doSearch()" onkeydown="if(event.key==='Enter'){event.preventDefault();nextHL(event.shiftKey?-1:1);}">
+    <span id="searchCount" class="scount"></span>
+    <button type="button" onclick="nextHL(-1)">▲</button><button type="button" onclick="nextHL(1)">▼</button>
+    <button type="button" onclick="document.getElementById('searchBox').value='';doSearch();">✕</button>
+  </div>
+
+  <div class="callout info">👍 A one-handed keypad (like the <b>Redragon K585 DITI</b>) is a competitive advantage: <b>every key sits under your fingers &amp; thumb</b>, the mouse does all the aiming, and the extra <b>macro keys</b> give you binds a normal keyboard can't reach. The goal: <b>no finger ever has to leave home row</b> to do something important.</div>
+
+  <!-- ERGONOMICS -->
+  <h2 class="sec">🖐️ Ergonomics &amp; positioning</h2>
+  <ol class="steps">
+    <li><b>Home row on WASD.</b> Index on <b>D/F</b>, middle on <b>W</b>, ring on <b>A</b>, so <b>Q E R F G C V</b> are all one small movement away.</li>
+    <li><b>Thumb owns Space + macro column.</b> Put <b>Jump</b> and your most-spammed action (heal, plate, ping) on thumb keys — thumbs are fast and never leave.</li>
+    <li><b>Use the wrist rest</b> &amp; angle the pad so your wrist is straight — less fatigue over long sessions.</li>
+    <li><b>Mouse arm free.</b> Low-to-mid DPI + big mousepad = full-arm aim; the keypad frees desk space for it.</li>
+  </ol>
+
+  <!-- SOFTWARE / MACROS -->
+  <h2 class="sec">🧩 Redragon software, remapping &amp; macros</h2>
+  <ol class="steps">
+    <li><b>Install the Redragon software</b> for your model (from the official Redragon site / product page). It lets you <b>remap any key</b>, record <b>macros</b>, set <b>RGB profiles</b>, and save <b>per-game profiles</b>.</li>
+    <li><b>Make a profile per game</b> — Apex, Warzone, REDSEC each get their own key map &amp; macros; switch profiles when you switch games.</li>
+    <li><b>Program the M1–M6 macro keys</b> for things a single key can't do: a <b>quick-heal / plate-up sequence</b>, a <b>comms/ping</b> combo, or an <b>emote/inspect</b>. Keep macros within game rules — single-action rebinds are always safe; automated fire is bannable.</li>
+    <li><b>Set actuation &amp; N-key rollover</b> — mechanical switches register fast; N-key rollover means every simultaneous press lands (strafe + jump + shoot + reload at once).</li>
+  </ol>
+  <div class="callout tip">💡 <b>Modifier layers:</b> pick one key as a <b>shift/Fn</b> (a spare thumb or macro key) so <b>Fn + W/A/S/D</b> etc. become a second set of binds — doubles your reachable actions without moving your hand.</div>
+
+  <!-- BINDING STRATEGY -->
+  <h2 class="sec">🎯 Binding strategy for one hand</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Priority</th><th>Put it on…</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Move (WASD)</td><td>Home row — never remap these</td></tr>
+      <tr><td class="k">Jump / crouch / sprint</td><td>Thumb (Space) + Shift/Ctrl under pinky</td></tr>
+      <tr><td class="k">Most-used ability / heal / plate</td><td>Q, E, or a thumb/macro key — must be reachable mid-strafe</td></tr>
+      <tr><td class="k">Reload / interact</td><td>R / F (index finger)</td></tr>
+      <tr><td class="k">Grenade / ultimate / gadget</td><td>G / C / V / macro keys</td></tr>
+      <tr><td class="k">Ping / comms / extra fire</td><td>Mouse side buttons (M4/M5) — free your left hand</td></tr>
+      <tr><td class="k">Rarely-used (map, emote)</td><td>Tab / far keys — fine if you stop moving to press them</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip">🖱️ <b>Offload to the mouse.</b> Put <b>Ping</b>, <b>heal</b>, or a <b>tactical</b> on your mouse side buttons so your keypad hand keeps moving &amp; shooting.</div>
+
+  <!-- MOUSE -->
+  <h2 class="sec">🖱️ Mouse tuning</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Setting</th><th>Aim for</th></tr></thead>
+    <tbody>
+      <tr><td class="k">DPI</td><td>800–1600; keep it fixed. Use a <b>DPI-shift</b> button for a temporary sniper-slow if you want</td></tr>
+      <tr><td class="k">Polling rate</td><td>1000 Hz (or higher if supported)</td></tr>
+      <tr><td class="k">In-game sens</td><td>Tune so a full mousepad swipe ≈ 180°; keep it identical across sessions</td></tr>
+      <tr><td class="k">Side buttons</td><td>Bind ping / heal / plate / lean — the actions you want without leaving WASD</td></tr>
+      <tr><td class="k">Windows pointer</td><td>Enhance Pointer Precision <b>OFF</b> (raw, 1:1 aim)</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- INTERACTIVE PLANNER -->
+  <h2 class="sec">🗂️ Your keypad bind planner</h2>
+  <div class="callout info">Pick a game, then type what each key does on your Redragon pad. It <b>saves per game</b> in your browser — build the layout once, glance at it anytime. Prefilled with a one-hand-friendly starting layout you can edit.</div>
+  <div class="tool">
+    <div class="gsel" id="gsel"></div>
+    <div id="planner"></div>
+    <div style="margin-top:12px"><button class="btn" onclick="resetGame()">↺ Reset this game to the suggested layout</button></div>
+  </div>
+
+  <div class="links">
+    <a href="https://www.redragonshop.com/" target="_blank" rel="noopener">Redragon — software &amp; downloads ↗</a>
+    <a href="./apex-legends.html">🎯 Apex guide →</a>
+    <a href="./warzone.html">🔫 Warzone guide →</a>
+    <a href="./battlefield-redsec.html">💥 REDSEC guide →</a>
+  </div>
+
+  <footer>Part of the <a href="./index.html">Home Gaming hub</a>. Suggested layouts are starting points — every game's defaults differ, so edit to match. Your layouts save in this browser only. Keep macros to single-action rebinds to stay within game rules.</footer>
+</div>
+
+<script>
+  const $=s=>document.querySelector(s);
+  const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const SECTIONS=[
+    ['⌨️ Movement',['W','A','S','D']],
+    ['👍 Thumb / modifiers',['Space','Shift','Ctrl','Tab']],
+    ['✋ Action keys',['Q','E','R','F','G','C','V','T','B']],
+    ['🔢 Numbers',['1','2','3','4']],
+    ['🖱️ Mouse',['LMB','RMB','MMB','M4','M5','DPI']],
+    ['⚙️ Macro keys',['M1','M2','M3','M4key','M5key','M6']]
+  ];
+  const GAMES={
+    apex:{label:'🎯 Apex Legends',def:{W:'Forward',A:'Left',S:'Back',D:'Right',Space:'Jump',Shift:'Sprint',Ctrl:'Crouch / slide',Tab:'Inventory',Q:'Tactical',E:'Interact / revive',R:'Reload',F:'Ping enemy',G:'Grenade / ordnance',C:'Heal',V:'Melee',T:'Ultimate',B:'',['1']:'Weapon 1',['2']:'Weapon 2',['3']:'Holster',['4']:'',LMB:'Fire',RMB:'ADS',MMB:'Ping',M4:'Cycle heal',M5:'Tactical',DPI:'Sens toggle',M1:'Quick-heal macro',M2:'"Enemy spotted" ping',M3:'',M4key:'',M5key:'',M6:''}},
+    warzone:{label:'🔫 Warzone',def:{W:'Forward',A:'Left',S:'Back',D:'Right',Space:'Jump / mantle',Shift:'Tac sprint',Ctrl:'Crouch / slide',Tab:'Map',Q:'Lean / equipment',E:'Use',R:'Reload',F:'Melee / finisher',G:'Lethal',C:'Prone',V:'Tactical',T:'Armor plate',B:'',['1']:'Primary',['2']:'Secondary',['3']:'',['4']:'',LMB:'Fire',RMB:'ADS',MMB:'Ping',M4:'Plate up',M5:'Tactical',DPI:'Sens toggle',M1:'Plate-up macro',M2:'',M3:'',M4key:'',M5key:'',M6:''}},
+    battlefield:{label:'💥 REDSEC',def:{W:'Forward',A:'Left',S:'Back',D:'Right',Space:'Jump / vault',Shift:'Sprint',Ctrl:'Crouch',Tab:'Scoreboard / map',Q:'Spot / ping',E:'Enter vehicle / interact',R:'Reload / repair',F:'Melee takedown',G:'Grenade',C:'Prone',V:'Request ammo / heal',T:'Gadget 2',B:'',['1']:'Primary',['2']:'Secondary',['3']:'Gadget',['4']:'',LMB:'Fire',RMB:'ADS',MMB:'Spot',M4:'Gadget',M5:'Grenade',DPI:'Sens toggle',M1:'',M2:'',M3:'',M4key:'',M5key:'',M6:''}},
+    elite:{label:'🚀 Elite (on-foot)',def:{W:'Forward',A:'Left',S:'Back',D:'Right',Space:'Jump',Shift:'Sprint',Ctrl:'Crouch',Tab:'Galaxy map',Q:'Prev tool',E:'Interact / Disembark',R:'Reload',F:'Embark',G:'Grenade',C:'Tool wheel',V:'Melee',T:'Flashlight',B:'Night vision',['1']:'Weapon 1',['2']:'Weapon 2',['3']:'Tool',['4']:'',LMB:'Fire / use tool',RMB:'Aim',MMB:'',M4:'Energylink',M5:'E-Breach',DPI:'',M1:'',M2:'',M3:'',M4key:'',M5key:'',M6:''}}
+  };
+  const LABELS={M1:'M1',M2:'M2',M4key:'M4',M5key:'M5',M6:'M6',M3:'M3'};
+  let game='apex';
+  const KK=(g,k)=>'khkp_'+g+'_'+k;
+  function setSlot(k,v){localStorage.setItem(KK(game,k),v);}
+  function resetGame(){SECTIONS.forEach(s=>s[1].forEach(k=>localStorage.removeItem(KK(game,k))));render();}
+  function switchGame(g){game=g;renderSel();render();}
+  function renderSel(){$('#gsel').innerHTML=Object.keys(GAMES).map(g=>`<button class="gbtn ${g===game?'active':''}" onclick="switchGame('${g}')">${GAMES[g].label}</button>`).join('');}
+  function render(){
+    const def=GAMES[game].def;
+    $('#planner').innerHTML=SECTIONS.map(sec=>`<div class="khdr">${sec[0]}</div><div class="kgrid">`+
+      sec[1].map(k=>{const saved=localStorage.getItem(KK(game,k));const v=saved==null?(def[k]||''):saved;const lbl=LABELS[k]||k;
+        return `<div class="kslot"><div class="kk">${esc(lbl)}</div><input value="${esc(v)}" oninput="setSlot('${k}',this.value)" placeholder="—"></div>`;}).join('')
+      +`</div>`).join('');
+  }
+
+  let hlNodes=[],hlIdx=-1;
+  function clearHL(){document.querySelectorAll('mark.hl').forEach(m=>{const p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize();});hlNodes=[];hlIdx=-1;}
+  function doSearch(){const q=($('#searchBox').value||'').trim();clearHL();if(q.length<2){$('#searchCount').textContent='';return;}
+    const rx=new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');const skip=new Set(['SCRIPT','STYLE','INPUT','TEXTAREA','SELECT','MARK','OPTION','BUTTON']);
+    const walker=document.createTreeWalker(document.querySelector('.wrap'),NodeFilter.SHOW_TEXT,{acceptNode(n){if(!n.nodeValue.trim())return 2;let p=n.parentNode;while(p){if(p.nodeName&&skip.has(p.nodeName))return 2;if(p.id==='searchWrap')return 2;p=p.parentNode;}rx.lastIndex=0;return rx.test(n.nodeValue)?1:2;}});
+    const t=[];let node;while(node=walker.nextNode())t.push(node);
+    t.forEach(n=>{const s=n.nodeValue,frag=document.createDocumentFragment();let last=0,m;rx.lastIndex=0;while(m=rx.exec(s)){if(m.index>last)frag.appendChild(document.createTextNode(s.slice(last,m.index)));const mk=document.createElement('mark');mk.className='hl';mk.textContent=m[0];frag.appendChild(mk);hlNodes.push(mk);last=m.index+m[0].length;if(m.index===rx.lastIndex)rx.lastIndex++;}if(last<s.length)frag.appendChild(document.createTextNode(s.slice(last)));n.parentNode.replaceChild(frag,n);});
+    $('#searchCount').textContent=hlNodes.length?`${hlNodes.length} match${hlNodes.length>1?'es':''}`:'no matches';if(hlNodes.length){hlIdx=0;focusHL();}}
+  function focusHL(){hlNodes.forEach((m,i)=>m.classList.toggle('cur',i===hlIdx));const el=hlNodes[hlIdx];if(el)el.scrollIntoView({behavior:'smooth',block:'center'});}
+  function nextHL(d){if(!hlNodes.length)return;hlIdx=(hlIdx+d+hlNodes.length)%hlNodes.length;focusHL();}
+
+  renderSel(); render();
+</script>
+</body>
+</html>
