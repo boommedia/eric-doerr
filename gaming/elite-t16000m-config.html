@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎛️ Elite — Full Control Config: Fly · Drive · Walk (T16000M)</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--ed:#ff8c42;--srv:#ffd479;--foot:#c792ea;--gold:#ffd479;--danger:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 75% -10%,rgba(255,140,66,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:980px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.65rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  h2.sec{font-size:1.13rem;border-left:4px solid var(--ed);padding-left:12px;margin:30px 0 12px}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--ed);color:#1a1206;border-color:var(--ed)}
+  .callout{border-radius:12px;padding:14px 16px;font-size:.87rem;margin:14px 0}
+  .callout.go{background:rgba(126,231,135,.08);border:1px solid rgba(126,231,135,.35)}
+  .callout.warn{background:rgba(255,140,66,.08);border:1px solid rgba(255,140,66,.32)}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout b{color:var(--text)} .callout a{color:var(--accent)}
+  .kbd{display:inline-block;background:#0b0f14;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 8px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85em;color:var(--accent-2)}
+  ol.steps{padding-left:20px;font-size:.9rem} ol.steps li{margin:6px 0} ol.steps b{color:var(--text)}
+  .tabs{display:flex;gap:8px;margin:16px 0 12px;flex-wrap:wrap}
+  .tab{background:var(--panel-2);border:1px solid var(--line);color:var(--muted);border-radius:10px;padding:9px 16px;font-size:.9rem;cursor:pointer;font-weight:600}
+  .tab.active[data-m=fly]{background:var(--ed);color:#1a1206;border-color:var(--ed)}
+  .tab.active[data-m=srv]{background:var(--srv);color:#1a1400;border-color:var(--srv)}
+  .tab.active[data-m=walk]{background:var(--foot);color:#170a1e;border-color:var(--foot)}
+  .bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+  .bar input.search{flex:1;min-width:180px;background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 12px;font:inherit;font-size:.9rem}
+  .bar input.search:focus{outline:none;border-color:var(--accent)}
+  .btn{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 13px;font-weight:600;font-size:.82rem;cursor:pointer}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+  table{width:100%;border-collapse:collapse;font-size:.87rem}
+  th,td{padding:9px 13px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+  tbody tr:last-child td{border-bottom:none}
+  thead th{background:var(--panel-2);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+  td.act{font-weight:600;color:var(--text);width:52%}
+  td.act .hint{display:block;font-weight:400;color:var(--muted);font-size:.78rem}
+  input.kb{width:100%;background:var(--panel-2);border:1px solid var(--line);color:var(--accent-2);border-radius:8px;padding:7px 10px;font:inherit;font-size:.85rem;font-weight:600}
+  input.kb:focus{outline:none;border-color:var(--accent)}
+  tr.key td.act{color:var(--gold)}
+  tr.hide{display:none}
+  svg.diagram{width:100%;max-width:820px;height:auto;display:block;margin:10px auto 4px}
+  footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./elite-mining-combat.html">← Elite Career Hub</a>
+    <h1>🎛️ Full Control Config — Fly · Drive · Walk</h1>
+    <div class="sub">Everything your <b>Thrustmaster T16000M</b> + keyboard/mouse needs across all three modes, with the gotchas that trip people up.</div>
+    <div class="guidenav">
+      <a class="gn" href="./elite-mining-combat.html">🟠 Career Hub</a>
+      <a class="gn active" href="./elite-t16000m-config.html">🎛️ Full Config</a>
+      <a class="gn" href="./elite-keybindings.html">⌨️ Keybind Reference</a>
+      <a class="gn" href="./elite-set-keybinds.html">🔧 See &amp; Set Binds</a>
+    </div>
+  </header>
+
+  <div class="callout go">🚀 <b>Can't take off?</b> When the HUD says <b>"SHIP SECURED — HOLD [JOY Y-AXIS] TO LAUNCH"</b>, you must <b>push/pull the stick to FULL deflection and HOLD for 2–3 seconds</b> — tapping does nothing. Pull fully back and hold; if that fails, push fully forward and hold (one direction is "thrust up"). This is <b>Landing Override</b>: while landing gear is down, your pitch axis becomes <b>vertical thrust</b>.</div>
+  <div class="callout go">🥾 <b>Can't disembark?</b> On the T16000M preset it's on the stick, not the keyboard: <b>press the POV hat DOWN</b> (<span class="kbd">JOY POV1-DOWN</span>) to open <b>disembark options</b>. That's why pressing <span class="kbd">E</span> never did anything.</div>
+
+  <h2 class="sec">🕹️ Visual control map — where everything is</h2>
+  <div class="callout info">The two that keep catching you are highlighted <b style="color:var(--gold)">gold</b>: <b>① the POV hat (press DOWN to disembark)</b> and <b>⑤ the stick Y-axis (hold to launch)</b>.</div>
+  <svg class="diagram" viewBox="0 0 800 470" role="img" aria-label="Thrustmaster T16000M stick and TWCS throttle control map">
+    <defs>
+      <style>
+        .lbl{font-family:sans-serif;font-size:12px;fill:#8b98a9}
+        .lbl b{fill:#e6edf3}
+        .bn{font-family:sans-serif;font-size:13px;font-weight:700;fill:#06121c}
+        .ttl{font-family:sans-serif;font-size:14px;font-weight:700;fill:#e6edf3}
+      </style>
+    </defs>
+
+    <text class="ttl" x="180" y="26" text-anchor="middle">T16000M Stick</text>
+    <text class="ttl" x="600" y="26" text-anchor="middle">TWCS Throttle</text>
+
+    <!-- ===== STICK ===== -->
+    <ellipse cx="180" cy="372" rx="118" ry="42" fill="#1a2029" stroke="#2c3644" stroke-width="2"/>
+    <rect x="163" y="232" width="34" height="115" rx="12" fill="#212936" stroke="#2c3644" stroke-width="2"/>
+    <path d="M128 232 q0 -96 52 -96 q52 0 52 96 z" fill="#1a2029" stroke="#2c3644" stroke-width="2"/>
+
+    <!-- POV hat (gold) -->
+    <circle cx="180" cy="172" r="24" fill="#212936" stroke="#ffd479" stroke-width="2.5"/>
+    <polygon points="180,153 173,162 187,162" fill="#8b98a9"/>
+    <polygon points="162,172 171,165 171,179" fill="#8b98a9"/>
+    <polygon points="198,172 189,165 189,179" fill="#8b98a9"/>
+    <polygon points="180,191 173,182 187,182" fill="#ffd479"/>
+    <circle cx="148" cy="140" r="13" fill="#ffd479"/><text class="bn" x="148" y="145" text-anchor="middle">1</text>
+
+    <!-- trigger -->
+    <path d="M124 196 q-16 6 -14 24 q10 4 16 -6 z" fill="#212936" stroke="#4cc2ff" stroke-width="2"/>
+    <circle cx="96" cy="214" r="13" fill="#4cc2ff"/><text class="bn" x="96" y="219" text-anchor="middle">2</text>
+
+    <!-- thumb buttons -->
+    <circle cx="212" cy="196" r="9" fill="#212936" stroke="#4cc2ff" stroke-width="2"/>
+    <circle cx="212" cy="220" r="9" fill="#212936" stroke="#4cc2ff" stroke-width="2"/>
+    <circle cx="252" cy="204" r="13" fill="#4cc2ff"/><text class="bn" x="252" y="209" text-anchor="middle">3</text>
+
+    <!-- axes -->
+    <g stroke="#7ee787" stroke-width="2.5" fill="none">
+      <path d="M96 300 H140" marker-end="url(#ah)"/><path d="M264 300 H220" marker-end="url(#ah)"/>
+    </g>
+    <circle cx="72" cy="300" r="13" fill="#7ee787"/><text class="bn" x="72" y="305" text-anchor="middle">4</text>
+    <g stroke="#ffd479" stroke-width="2.5" fill="none"><path d="M180 292 V262" marker-end="url(#ahg)"/><path d="M180 316 V346" marker-end="url(#ahg)"/></g>
+    <circle cx="292" cy="262" r="13" fill="#ffd479"/><text class="bn" x="292" y="267" text-anchor="middle">5</text>
+    <path d="M206 336 a30 30 0 0 1 -52 0" stroke="#c792ea" stroke-width="2.5" fill="none"/>
+    <circle cx="120" cy="348" r="13" fill="#c792ea"/><text class="bn" x="120" y="353" text-anchor="middle">6</text>
+
+    <!-- base buttons -->
+    <g fill="#212936" stroke="#2c3644" stroke-width="1.5">
+      <circle cx="104" cy="368" r="7"/><circle cx="124" cy="380" r="7"/><circle cx="104" cy="392" r="7"/>
+      <circle cx="256" cy="368" r="7"/><circle cx="236" cy="380" r="7"/><circle cx="256" cy="392" r="7"/>
+    </g>
+    <circle cx="180" cy="410" r="13" fill="#4cc2ff"/><text class="bn" x="180" y="415" text-anchor="middle">7</text>
+    <rect x="288" y="352" width="14" height="40" rx="5" fill="#212936" stroke="#4cc2ff" stroke-width="2"/>
+    <circle cx="326" cy="372" r="13" fill="#4cc2ff"/><text class="bn" x="326" y="377" text-anchor="middle">8</text>
+
+    <!-- ===== THROTTLE ===== -->
+    <path d="M470 300 q0 -50 60 -50 h150 q60 0 60 50 v70 q0 26 -30 26 h-210 q-30 0 -30 -26 z" fill="#1a2029" stroke="#2c3644" stroke-width="2"/>
+    <g stroke="#ffd479" stroke-width="2.5" fill="none"><path d="M508 384 H660" marker-end="url(#ahg)"/></g>
+    <circle cx="486" cy="384" r="13" fill="#ffd479"/><text class="bn" x="486" y="389" text-anchor="middle">9</text>
+    <circle cx="556" cy="300" r="19" fill="#212936" stroke="#7ee787" stroke-width="2.5"/>
+    <circle cx="556" cy="300" r="6" fill="#7ee787"/>
+    <circle cx="556" cy="256" r="13" fill="#7ee787"/><text class="bn" x="556" y="261" text-anchor="middle">10</text>
+    <rect x="620" y="292" width="56" height="18" rx="7" fill="#212936" stroke="#c792ea" stroke-width="2"/>
+    <circle cx="700" cy="272" r="13" fill="#c792ea"/><text class="bn" x="700" y="277" text-anchor="middle">11</text>
+    <g fill="#212936" stroke="#2c3644" stroke-width="1.5"><circle cx="620" cy="340" r="8"/><circle cx="648" cy="340" r="8"/><circle cx="676" cy="340" r="8"/></g>
+    <circle cx="712" cy="340" r="13" fill="#4cc2ff"/><text class="bn" x="712" y="345" text-anchor="middle">12</text>
+
+    <defs>
+      <marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#7ee787"/></marker>
+      <marker id="ahg" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#ffd479"/></marker>
+    </defs>
+  </svg>
+
+  <div class="tablewrap" style="margin-top:10px"><table>
+    <thead><tr><th style="width:44px">#</th><th>Control</th><th>What it does in Elite</th></tr></thead>
+    <tbody>
+      <tr class="key"><td class="act">1</td><td class="act">POV hat (top of stick)</td><td><b style="color:var(--gold)">Press DOWN = Disembark options.</b> Other directions: look / target cycling</td></tr>
+      <tr><td class="act">2</td><td class="act">Trigger (front)</td><td>Primary fire · mining laser</td></tr>
+      <tr><td class="act">3</td><td class="act">Thumb buttons (stick head)</td><td>Secondary fire, boost, misc</td></tr>
+      <tr><td class="act">4</td><td class="act">X-axis (left / right)</td><td>Roll — steering in the SRV</td></tr>
+      <tr class="key"><td class="act">5</td><td class="act">Y-axis (push / pull)</td><td><b style="color:var(--gold)">Pitch — and VERTICAL THRUST with gear down. HOLD it to LAUNCH.</b></td></tr>
+      <tr><td class="act">6</td><td class="act">Twist (Z / rudder)</td><td>Yaw</td></tr>
+      <tr><td class="act">7</td><td class="act">12 base buttons</td><td>Landing gear, cargo scoop, FSD, lights, hardpoints…</td></tr>
+      <tr><td class="act">8</td><td class="act">Base slider</td><td>Spare throttle axis</td></tr>
+      <tr><td class="act">9</td><td class="act">Throttle axis (TWCS)</td><td>Main throttle / SRV drive</td></tr>
+      <tr><td class="act">10</td><td class="act">Analog mini-stick</td><td>Lateral + vertical thrust (docking &amp; combat)</td></tr>
+      <tr><td class="act">11</td><td class="act">Rocker</td><td>Rudder / trim</td></tr>
+      <tr><td class="act">12</td><td class="act">Throttle buttons &amp; hat</td><td>Pips, panels, heat sink, scoop…</td></tr>
+    </tbody>
+  </table></div>
+  <div style="font-size:.78rem;color:var(--muted);text-align:center;margin-top:4px">Schematic layout — button positions are approximate, but the axes, hat and clusters map to the real hardware.</div>
+
+  <h2 class="sec">🧠 The one thing to understand</h2>
+  <div class="callout info">Elite has <b>three completely separate binding sets</b> — <b>Ship</b>, <b>SRV (Scarab/Scorpion)</b> and <b>On Foot</b>. A key bound in one does <b>nothing</b> in the others. Your <b>Thrustmaster T16000M FCS HOTAS</b> preset fills in the <b>Ship</b> set (and much of the SRV set) but leaves most <b>On Foot</b> actions <b>blank</b> — that's the gap you keep hitting. Fill the walk set with keyboard + mouse.</div>
+  <div class="tablewrap" style="margin-bottom:10px"><table>
+    <thead><tr><th>Mode</th><th>Best device</th><th>Filled by your preset?</th></tr></thead>
+    <tbody>
+      <tr><td class="act">🚀 Ship (flight)</td><td>T16000M stick + TWCS throttle</td><td>✅ Yes</td></tr>
+      <tr><td class="act">🛞 SRV (Scarab)</td><td>Stick + throttle (or keyboard)</td><td>⚠️ Mostly — check the extras</td></tr>
+      <tr><td class="act">🥾 On Foot</td><td><b>Keyboard + mouse</b></td><td>❌ Mostly blank — bind these yourself</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">🗂️ Your config — edit &amp; save</h2>
+  <div class="callout info">Pick a mode, then set each row to match what you actually bind in <b>Options ▸ Controls</b>. Everything saves in your browser so this becomes your personal cheat-sheet. Gold rows are the ones that commonly trip people up.</div>
+  <div class="tabs">
+    <button class="tab active" data-m="fly" onclick="showMode('fly')">🚀 Fly (Ship)</button>
+    <button class="tab" data-m="srv" onclick="showMode('srv')">🛞 Drive (Scarab)</button>
+    <button class="tab" data-m="walk" onclick="showMode('walk')">🥾 Walk (On Foot)</button>
+  </div>
+  <div class="bar">
+    <input class="search" id="q" placeholder="🔍 Filter actions… (e.g. launch, disembark, thrust)" oninput="render()">
+    <button class="btn" onclick="resetMode()">↺ Reset this mode</button>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Action</th><th style="width:210px">Bound to</th></tr></thead>
+    <tbody id="body"></tbody>
+  </table></div>
+
+  <h2 class="sec">🛠️ Setting up the Walk (On Foot) set</h2>
+  <ol class="steps">
+    <li><b>Options ▸ Controls</b> — leave the preset on <b>Thrustmaster T16000M FCS HOTAS</b> (it keeps your flight binds).</li>
+    <li>Scroll the middle list <b>down</b> past the interface categories to the <b>ON FOOT</b> category and expand it with <b>+</b>.</li>
+    <li>Any row with an <b>empty box is unbound</b>. Click the box and <b>press the key</b> you want.</li>
+    <li>Bind at minimum: <b>Move F/B/L/R, Sprint, Jump, Crouch, Primary Fire, Aim, Reload, Interact, Melee, Grenade, Tool wheel</b>.</li>
+    <li>If a key flags a <b>red conflict</b>, pick a different one — on-foot conflicts with ship binds are fine to ignore <i>only</i> if they're in different sets.</li>
+    <li>Back out (it auto-saves) and test on foot.</li>
+  </ol>
+  <div class="callout warn">⚠️ <b>Don't switch the preset</b> to a keyboard one to "fix" walking — that wipes your HOTAS flight binds. Add the on-foot keys <b>on top of</b> the T16000M preset.</div>
+
+  <h2 class="sec">🚑 Troubleshooting</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Symptom</th><th>Fix</th></tr></thead>
+    <tbody>
+      <tr><td class="act">Can't launch from a pad</td><td><b>Hold</b> the launch axis at full deflection 2–3s (not a tap). Check the HUD prompt for the exact control.</td></tr>
+      <tr><td class="act">Can't disembark / no "Disembark"</td><td>Use the control the HUD names — on this preset <b>POV hat DOWN</b>. Must be <b>stationary</b>. Requires <b>Odyssey</b>.</td></tr>
+      <tr><td class="act">Stuck in the SRV</td><td>Role panel → <b>Self-Destruct</b>, or <b>Recall Ship</b> and board it. Works with no binds at all.</td></tr>
+      <tr><td class="act">Walking keys do nothing</td><td>The On Foot set is <b>unbound</b> — bind it (section above). Ship binds don't carry over.</td></tr>
+      <tr><td class="act">Ship drifts / won't centre</td><td>Raise the deadzone slightly for that axis, and re-calibrate in Windows <code>joy.cpl</code>.</td></tr>
+      <tr><td class="act">Axis moves the wrong way</td><td>Tick <b>Invert</b> for that axis in Options ▸ Controls.</td></tr>
+    </tbody>
+  </table></div>
+
+  <footer>Part of the <a href="./elite-mining-combat.html">Elite Career Hub</a>. The in-game <b>HUD prompt always names the correct control</b> for the situation — trust it over any list. Your edits save in this browser only.</footer>
+</div>
+
+<script>
+  const $=s=>document.querySelector(s);
+  const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const DEF={
+    fly:[
+      ['Pitch up / down','Stick Y-axis','also becomes VERTICAL THRUST with gear down',1],
+      ['Roll left / right','Stick X-axis',''],
+      ['Yaw left / right','Stick twist (Z)',''],
+      ['Throttle','TWCS throttle axis',''],
+      ['LAUNCH from pad','HOLD stick Y-axis','hold full deflection 2–3s',1],
+      ['Landing gear','Stick / throttle button',''],
+      ['Disembark options','POV hat DOWN','opens the disembark menu',1],
+      ['Primary fire','Trigger',''],
+      ['Secondary fire','Thumb button',''],
+      ['Boost','Base button',''],
+      ['Flight Assist toggle','Base button',''],
+      ['Frame Shift Drive / supercruise','Throttle button',''],
+      ['Lateral / vertical thrust','TWCS mini-stick',''],
+      ['Pips (SYS / ENG / WEP)','Hat or arrow keys',''],
+      ['UI panels (1–4)','Hat + modifier / keyboard','']
+    ],
+    srv:[
+      ['Drive forward / back','Throttle axis or stick Y',''],
+      ['Steer left / right','Stick X-axis',''],
+      ['Handbrake','Space / button',''],
+      ['Vertical thrusters (jump)','Button',''],
+      ['Turret mode','Button',''],
+      ['Primary fire (turret)','Trigger',''],
+      ['Headlights','Button',''],
+      ['Disembark from SRV','POV hat DOWN','must be fully stopped',1],
+      ['Recall / dismiss ship','Role panel / bind','emergency exit if stuck',1],
+      ['Self-destruct SRV','Role panel','guaranteed escape',1],
+      ['Target ahead','Button','']
+    ],
+    walk:[
+      ['Move forward / back','W / S','bind these yourself',1],
+      ['Move left / right','A / D','',1],
+      ['Sprint','Left Shift',''],
+      ['Jump','Space',''],
+      ['Crouch','Left Ctrl',''],
+      ['Primary fire','Left Mouse',''],
+      ['Aim / zoom','Right Mouse',''],
+      ['Reload','R',''],
+      ['Interact / Use','E','doors, terminals, loot',1],
+      ['Melee','B',''],
+      ['Throw grenade','G',''],
+      ['Tool wheel (Energylink, E-Breach…)','hold a key',''],
+      ['Flashlight','T',''],
+      ['Night vision','N',''],
+      ['Embark (back into ship/SRV)','E or bind','']
+    ]
+  };
+  let mode='fly';
+  const KK=(m,i)=>'ed_cfg_'+m+'_'+i;
+  function setKey(i,v){localStorage.setItem(KK(mode,i),v);}
+  function resetMode(){DEF[mode].forEach((_,i)=>localStorage.removeItem(KK(mode,i)));render();}
+  function showMode(m){mode=m;document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.m===m));render();}
+  function render(){
+    const q=($('#q').value||'').trim().toLowerCase();
+    $('#body').innerHTML=DEF[mode].map((row,i)=>{
+      const [action,def,hint,key]=row;
+      const saved=localStorage.getItem(KK(mode,i));
+      const v=saved==null?def:saved;
+      const show=!q||action.toLowerCase().includes(q)||(hint||'').toLowerCase().includes(q)||String(v).toLowerCase().includes(q);
+      return `<tr class="${key?'key':''} ${show?'':'hide'}">
+        <td class="act">${esc(action)}${hint?`<span class="hint">${esc(hint)}</span>`:''}</td>
+        <td><input class="kb" value="${esc(v)}" oninput="setKey(${i},this.value)"></td>
+      </tr>`;
+    }).join('');
+  }
+  render();
+</script>
+</body>
+</html>
