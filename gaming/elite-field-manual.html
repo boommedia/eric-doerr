@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📕 Elite Field Manual — On-Foot · Bounty Hunting · Mining</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--ed:#ff8c42;--foot:#c792ea;--mine:#4cc2ff;--gold:#ffd479;--danger:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 75% -10%,rgba(199,146,234,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:980px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.65rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  h2.sec{font-size:1.12rem;border-left:4px solid var(--foot);padding-left:12px;margin:28px 0 12px}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--foot);color:#170a1e;border-color:var(--foot)}
+  .callout{border-radius:12px;padding:14px 16px;font-size:.87rem;margin:14px 0}
+  .callout.go{background:rgba(126,231,135,.08);border:1px solid rgba(126,231,135,.35)}
+  .callout.warn{background:rgba(255,140,66,.08);border:1px solid rgba(255,140,66,.32)}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout.stop{background:rgba(255,107,107,.09);border:1px solid rgba(255,107,107,.35)}
+  .callout b{color:var(--text)} .callout a{color:var(--accent)}
+  .kbd{display:inline-block;background:#0b0f14;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 8px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85em;color:var(--accent-2)}
+  ol.steps{padding-left:22px;font-size:.9rem} ol.steps li{margin:9px 0} ol.steps b{color:var(--text)}
+  ol.steps .why{display:block;color:var(--muted);font-size:.83rem;margin-top:2px}
+  .tabs{display:flex;gap:8px;margin:18px 0 12px;flex-wrap:wrap}
+  .tab{background:var(--panel-2);border:1px solid var(--line);color:var(--muted);border-radius:10px;padding:9px 16px;font-size:.9rem;cursor:pointer;font-weight:600}
+  .tab.active[data-m=foot]{background:var(--foot);color:#170a1e;border-color:var(--foot)}
+  .tab.active[data-m=bounty]{background:var(--ed);color:#1a1206;border-color:var(--ed)}
+  .tab.active[data-m=mine]{background:var(--mine);color:#06121c;border-color:var(--mine)}
+  .pane{display:none} .pane.show{display:block}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:10px 0}
+  table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:520px}
+  th,td{padding:9px 13px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  tbody tr:last-child td{border-bottom:none}
+  thead th{background:var(--panel-2);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+  td.p{font-weight:600;color:var(--danger);width:38%}
+  .lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin:18px 0 6px}
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin:10px 0}
+  label.chk{display:flex;gap:9px;align-items:flex-start;font-size:.87rem;color:var(--muted);padding:6px 0;cursor:pointer;border-bottom:1px solid var(--line)}
+  label.chk:last-child{border-bottom:none} label.chk input{width:auto;margin-top:3px} label.chk.on{color:var(--text)} label.chk b{color:var(--text)}
+  .btn{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:8px 13px;font-weight:600;font-size:.82rem;cursor:pointer}
+  .searchbar{position:sticky;top:0;z-index:30;display:flex;gap:8px;align-items:center;background:rgba(13,17,23,.93);backdrop-filter:blur(6px);padding:12px 0;margin-bottom:4px;border-bottom:1px solid var(--line)}
+  .searchbar input{flex:1;background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 12px;font:inherit;font-size:.9rem}
+  .searchbar input:focus{outline:none;border-color:var(--accent)}
+  .searchbar button{font-size:.8rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);border-radius:7px;padding:6px 10px;cursor:pointer}
+  .scount{font-size:.78rem;color:var(--muted);white-space:nowrap}
+  mark.hl{background:rgba(255,212,121,.32);color:var(--text);border-radius:3px;padding:0 1px} mark.hl.cur{background:var(--gold);color:#1a1400}
+  footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./elite-labs.html">← Elite Labs Center</a>
+    <h1>📕 Field Manual — On-Foot · Bounty Hunting · Mining</h1>
+    <div class="sub">Practical, do-this-then-that guidance — plus <b>"why it's going wrong"</b> fixes for the things that actually stop you.</div>
+    <div class="guidenav">
+      <a class="gn" href="./elite-labs.html">🧪 Labs Center</a>
+      <a class="gn active" href="./elite-field-manual.html">📕 Field Manual</a>
+      <a class="gn" href="./elite-t16000m-config.html">🎛️ Full Config</a>
+      <a class="gn" href="./elite-mining-combat.html">🟠 Career Hub</a>
+    </div>
+  </header>
+
+  <div id="searchWrap" class="searchbar">
+    <input id="searchBox" placeholder="🔍 Search the manual… (e.g. alarm, shields, limpets)" oninput="doSearch()" onkeydown="if(event.key==='Enter'){event.preventDefault();nextHL(event.shiftKey?-1:1);}">
+    <span id="searchCount" class="scount"></span>
+    <button type="button" onclick="nextHL(-1)">▲</button><button type="button" onclick="nextHL(1)">▼</button>
+    <button type="button" onclick="document.getElementById('searchBox').value='';doSearch();">✕</button>
+  </div>
+
+  <div class="callout stop">🛑 <b>Read this first if on-foot feels broken.</b> Your <b>T16000M preset leaves the On Foot binding set blank</b> — so walking, interacting and looting genuinely don't work until you bind them. That is almost certainly your problem, not skill. Fix it in <b>Options ▸ Controls ▸ ON FOOT</b> (see the <a href="./elite-t16000m-config.html">visual control map</a>), then come back. Reminder: <b>disembark = POV hat DOWN</b>.</div>
+
+  <div class="tabs">
+    <button class="tab active" data-m="foot" onclick="showPane('foot')">🥾 On-Foot</button>
+    <button class="tab" data-m="bounty" onclick="showPane('bounty')">🎯 Bounty Hunting</button>
+    <button class="tab" data-m="mine" onclick="showPane('mine')">⛏️ Mining</button>
+  </div>
+
+  <!-- ================= ON FOOT ================= -->
+  <div class="pane show" id="pane-foot">
+    <h2 class="sec">🥾 On-foot — from zero to a completed mission</h2>
+    <div class="callout go">🌱 <b>Start with the easiest job that exists:</b> a <b>Salvage / Restore</b> mission at an <b>abandoned or damaged settlement</b>. Little or no security, no time limit, and it teaches you the whole loop safely. <b>Do not</b> start with a Conflict Zone.</div>
+
+    <div class="lbl">Before you leave the station</div>
+    <div class="tool" id="chk-foot"></div>
+
+    <div class="lbl">The run, step by step</div>
+    <ol class="steps">
+      <li><b>Dock at a station with a Concourse</b> and disembark.<span class="why">If there's no Concourse (no bar/shops), it's not an Odyssey port — try another station.</span></li>
+      <li><b>Pioneer Supplies:</b> buy a <b>Dominator</b> suit (combat) or <b>Maverick</b> (salvage), plus <b>one laser and one kinetic</b> weapon.<span class="why">Laser strips shields, kinetic kills. Carrying only one type is why fights feel impossible.</span></li>
+      <li><b>Stock consumables</b> — energy cells, medkits, grenades, and <b>E-Breach</b> if you're looting.<span class="why">Energy cells recharge your shield AND suit battery mid-fight. Carry several.</span></li>
+      <li><b>Mission board → take a Salvage / Restore / Reactivation job.</b><span class="why">These point you at a settlement with a nav target, so you never hunt blindly.</span></li>
+      <li><b>Fly there.</b> Land on the settlement pad if your ship fits, otherwise land nearby or drop the SRV.<span class="why">Your Python fits most pads; the Anaconda often won't.</span></li>
+      <li><b>Disembark — POV hat DOWN</b>, while stationary.</li>
+      <li><b>Scout before entering.</b> Dark, unlit settlement = abandoned (safe). Lights, ships and patrols = occupied (will turn hostile if you trespass).</li>
+      <li><b>Do the objective:</b> loot containers/bodies, or for a Restore find the <b>Power Centre</b>, insert the <b>Power Regulator</b>, then <b>Energylink</b> power to each building.</li>
+      <li><b>Loot everything</b> on the way out — containers, lockers, bodies. E-Breach the locked ones.<span class="why">This is where suit/weapon upgrade materials come from.</span></li>
+      <li><b>Extract</b> to your ship/SRV, fly back, <b>hand in the mission</b> and sell loot to the <b>Bartender</b>.</li>
+    </ol>
+
+    <div class="lbl">Why it's going wrong</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Problem</th><th>Cause &amp; fix</th></tr></thead>
+      <tbody>
+        <tr><td class="p">I can't walk / nothing responds</td><td><b>On Foot binds are empty.</b> Options ▸ Controls ▸ ON FOOT → bind move, sprint, jump, crouch, fire, aim, reload, interact, melee, grenade.</td></tr>
+        <tr><td class="p">Can't get out of the ship/SRV</td><td><b>POV hat DOWN</b>, and you must be <b>fully stopped</b>. Stuck in an SRV? Role panel → Self-Destruct or Recall Ship.</td></tr>
+        <tr><td class="p">I die instantly in fights</td><td>You're fighting in the open. Use <b>cover</b>, peek-shoot-recover (shields regen when not hit), <b>laser first then kinetic</b>, and pop an <b>energy cell</b> when your shield breaks.</td></tr>
+        <tr><td class="p">Everyone turns hostile the moment I arrive</td><td>You're <b>trespassing</b> in a secure settlement. Use the <b>Profile Analyser</b> on an NPC to <b>clone their clearance</b>, or pick abandoned settlements instead.</td></tr>
+        <tr><td class="p">Doors won't open</td><td>They need authorisation — clone a profile, use an <b>E-Breach</b>, or power the building first with the <b>Energylink</b>.</td></tr>
+        <tr><td class="p">Alarms bring endless enemies</td><td>Alarms summon security + a <b>dropship</b>. Disable at a <b>security terminal</b>, <b>EMP</b> the panel, or leave and come back later.</td></tr>
+        <tr><td class="p">Suit battery / oxygen runs out</td><td>Sprinting, tools and night-vision drain battery. Carry <b>energy cells</b>; refill O2 at consumable points, your ship or SRV.</td></tr>
+        <tr><td class="p">My gun barely scratches them</td><td>Wrong damage type. <b>Laser/plasma = shields. Kinetic = flesh.</b> Also aim for <b>headshots</b>, and upgrade your gear at the Bartender.</td></tr>
+        <tr><td class="p">I can't find the objective</td><td>Follow the <b>mission marker</b> in your suit HUD; buildings are labelled on approach. Restore jobs always centre on the <b>Power Centre</b>.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout warn">⚠️ <b>Don't rush into Conflict Zones.</b> Do 3–4 salvage/restore runs first, upgrade your suit a grade or two at the Bartender, <i>then</i> try a <b>Low-intensity</b> CZ.</div>
+  </div>
+
+  <!-- ================= BOUNTY ================= -->
+  <div class="pane" id="pane-bounty">
+    <h2 class="sec">🎯 Bounty hunting — get paid without dying</h2>
+    <div class="callout go">🌱 <b>Start at a LOW RES, not Hazardous.</b> System security fights alongside you — let them tank while you deal damage. Haz RES has <b>no police</b> and will delete you.</div>
+
+    <div class="lbl">Before you undock</div>
+    <div class="tool" id="chk-bounty"></div>
+
+    <div class="lbl">The run, step by step</div>
+    <ol class="steps">
+      <li><b>Pick a ringed planet in a high-security system</b>, supercruise to it and drop at a <b>Resource Extraction Site (Low)</b>.</li>
+      <li><b>Don't shoot yet.</b> Watch for the police engaging a ship — that ship is <b>Wanted</b>.<span class="why">Only Wanted ships pay. Shooting anything else makes YOU the criminal.</span></li>
+      <li><b>Target it and scan</b> — the HUD will show <b>WANTED</b> in red. A <b>Kill Warrant Scanner</b> reveals extra bounties from other jurisdictions.</li>
+      <li><b>Engage with the cops.</b> Lasers until the shield ring collapses, then multi-cannons into the hull.</li>
+      <li><b>Manage pips constantly:</b> <b>4 to SYS</b> when taking fire, shift to <b>ENG</b> to boost away, <b>WEP</b> while shooting.<span class="why">Pips are the single biggest survivability lever in ship combat.</span></li>
+      <li><b>Disengage when your shields drop.</b> Boost away, let them recharge, come back.<span class="why">A rebuy costs far more than the bounty you were chasing.</span></li>
+      <li><b>Cash in</b> at a station → <b>Contacts</b>. If you picked up fines, use <b>Interstellar Factors</b>.</li>
+    </ol>
+
+    <div class="lbl">Why it's going wrong</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Problem</th><th>Cause &amp; fix</th></tr></thead>
+      <tbody>
+        <tr><td class="p">I keep getting destroyed</td><td>You're at a High/Haz RES, or fighting alone. Go <b>Low RES</b>, fight <b>alongside police</b>, and run when shields fail.</td></tr>
+        <tr><td class="p">Now I have a bounty on ME</td><td>You shot a clean ship or the police. Pay it off at <b>Interstellar Factors</b> (they take wanted commanders).</td></tr>
+        <tr><td class="p">My guns do nothing</td><td>Wrong type or no power. <b>Thermal (lasers) → shields</b>, <b>kinetic (multi-cannons) → hull</b>. Put pips in <b>WEP</b> or your guns stop firing.</td></tr>
+        <tr><td class="p">I run dry mid-fight</td><td>Multi-cannons use <b>ammo</b> — restock at any station. Lasers never run out but drain WEP.</td></tr>
+        <tr><td class="p">Nothing to shoot here</td><td>You dropped at the wrong signal. Look specifically for <b>RESOURCE EXTRACTION SITE</b> in the nav panel.</td></tr>
+        <tr><td class="p">Enemies escape</td><td>They high-wake out. Target their drives, or ignore them — plenty more spawn.</td></tr>
+        <tr><td class="p">I overheat constantly</td><td>Too many beam lasers. Mix in pulse/multi-cannons and fit a <b>heat sink</b>.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout info">💡 <b>Best value trick:</b> stack <b>massacre missions</b> from several factions at a station <i>before</i> you go — each kill then counts toward multiple missions at once, multiplying your payout for the same effort.</div>
+  </div>
+
+  <!-- ================= MINING ================= -->
+  <div class="pane" id="pane-mine">
+    <h2 class="sec">⛏️ Mining — filling the Type-11's hold</h2>
+    <div class="callout go">🌱 <b>Learn on laser mining first</b> (Platinum/Painite in a metallic ring). Core mining pays more but has more steps to get wrong.</div>
+
+    <div class="lbl">Before you undock</div>
+    <div class="tool" id="chk-mine"></div>
+
+    <div class="lbl">The run, step by step</div>
+    <ol class="steps">
+      <li><b>Find a hotspot</b> — <a href="https://edtools.cc/miner" target="_blank" rel="noopener">EDTools</a> or <a href="https://edmining.com/" target="_blank" rel="noopener">EDMining</a>, entering your current system.<span class="why">Icy rings = Void Opals/LTDs (gems). Metallic = Platinum/Painite (metals).</span></li>
+      <li><b>Fly in, honk, then DSS-probe the ring</b> and fly to where <b>hotspots overlap</b>.</li>
+      <li><b>Drop into the ring and switch to ANALYSIS MODE</b> (HUD turns blue) and deploy hardpoints.<span class="why">Mining tools do nothing in Combat mode. This is the #1 mistake.</span></li>
+      <li><b>Fire the Pulse Wave Analyser</b> — good asteroids flash bright orange/yellow.</li>
+      <li><b>Prospector limpet</b> the promising rock to confirm what's in it and the %.</li>
+      <li><b>Laser the coloured surface patches</b> until they shatter into fragments.</li>
+      <li><b>Collector limpets scoop</b> them into the refinery, which bins them into tonnes.</li>
+      <li><b>Repeat until full</b>, then sell where demand is highest (check <a href="https://inara.cz/elite/commodities/" target="_blank" rel="noopener">Inara</a>).</li>
+    </ol>
+
+    <div class="lbl">Core mining (the big money) — extra steps</div>
+    <ol class="steps">
+      <li>Look for a rock with a <b>rotating fissure glow</b> under the Pulse Wave — that's a core.</li>
+      <li><b>Seismic Charge Launcher:</b> fire charges into the fissures. A meter fills — <b>stop in the blue "optimal" zone</b>, don't overcharge into red.</li>
+      <li><b>Back off ~1 km and wait</b> for it to crack open.</li>
+      <li><b>Abrasion Blaster</b> the glowing chunks off the surface; collectors scoop them.</li>
+    </ol>
+
+    <div class="lbl">Why it's going wrong</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Problem</th><th>Cause &amp; fix</th></tr></thead>
+      <tbody>
+        <tr><td class="p">My mining tools won't fire</td><td>You're in <b>Combat mode</b>. Switch to <b>Analysis mode</b> — the HUD must be <b>blue</b>.</td></tr>
+        <tr><td class="p">Nothing gets picked up</td><td><b>No limpets.</b> Buy 200+ from Restock, and fit 2–3 <b>Collector Limpet Controllers</b>.</td></tr>
+        <tr><td class="p">Refinery won't take anything</td><td>Hopper is full of low-value scrap — <b>vent</b> the junk so good material has a bin.</td></tr>
+        <tr><td class="p">All the rocks are worthless</td><td>You're not in a <b>hotspot</b>, or wrong ring type. Re-check the finder and DSS-map the ring.</td></tr>
+        <tr><td class="p">Seismic charges do nothing</td><td>Wrong charge level — fill the meter into the <b>blue optimal band</b>, then <b>back away</b> before it blows.</td></tr>
+        <tr><td class="p">Chunks drift away</td><td>Not enough collectors, or you're too far. Stay near the rock and add another controller.</td></tr>
+        <tr><td class="p">I get interdicted hauling it home</td><td>Full holds attract pirates. Fit a <b>shield</b>, and <b>submit then boost</b> away rather than fighting.</td></tr>
+        <tr><td class="p">Prices look terrible</td><td>Mining prices swing constantly — always check <b>before</b> the haul, and sell within ~50 ly.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout info">🤖 <b>Solo force-multiplier:</b> 2–3 <b>Collector Limpet Controllers</b> + 1 Prospector turns you into a one-ship fleet. Add a <b>Fighter Hangar with a hired NPC pilot</b> if pirates keep interrupting.</div>
+  </div>
+
+  <footer>Part of the <a href="./elite-labs.html">Elite Labs Center</a>. Checklists save in this browser only. Prices, hotspots &amp; mechanics shift with updates — verify on <a href="https://inara.cz/">Inara</a> before a long haul.</footer>
+</div>
+
+<script>
+  const $=s=>document.querySelector(s);
+  const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const LISTS={
+    foot:[['On Foot keys bound','move, sprint, jump, crouch, fire, aim, reload, interact, melee, grenade'],
+      ['Suit chosen','Dominator (combat) or Maverick (salvage)'],
+      ['One laser + one kinetic weapon','shields then flesh'],
+      ['Energy cells & medkits stocked','recharge shield/battery, heal'],
+      ['Grenades','frag / shield-disruptor / EMP'],
+      ['E-Breach carried','opens locked doors & containers'],
+      ['Mission taken from the board','gives you a nav target'],
+      ['Know your disembark control','POV hat DOWN, while stopped']],
+    bounty:[['Shields + shield boosters fitted','your survivability'],
+      ['Thermal weapons (lasers)','strip enemy shields'],
+      ['Kinetic weapons (multi-cannons)','kill the hull'],
+      ['Ammo restocked','multi-cannons run dry'],
+      ['Kill Warrant Scanner','stacks extra bounties'],
+      ['Heat sink / chaff','dump heat, break locks'],
+      ['Massacre missions stacked','same kills, multiple payouts'],
+      ['Rebuy covered','never fly what you can\'t replace']],
+    mine:[['Mining lasers fitted','surface deposits'],
+      ['Seismic Charge + Abrasion Blaster','core mining (optional)'],
+      ['Pulse Wave Analyser','finds the good rocks'],
+      ['Prospector + 2–3 Collector controllers','survey & auto-scoop'],
+      ['Refinery + max cargo racks','turn fragments into tonnes'],
+      ['200+ limpets bought','no limpets = no mining'],
+      ['Hotspot found & ring DSS-mapped','know where you\'re going'],
+      ['Sell price checked','before you haul it home']]
+  };
+  const KK=(m,i)=>'ed_fm_'+m+'_'+i;
+  function toggleChk(m,i){localStorage.setItem(KK(m,i),localStorage.getItem(KK(m,i))==='1'?'0':'1');renderChk(m);}
+  function renderChk(m){
+    const el=$('#chk-'+m); if(!el)return;
+    el.innerHTML=LISTS[m].map((c,i)=>{const on=localStorage.getItem(KK(m,i))==='1';
+      return `<label class="chk ${on?'on':''}"><input type="checkbox" ${on?'checked':''} onchange="toggleChk('${m}',${i})"><span><b>${esc(c[0])}</b> — ${esc(c[1])}</span></label>`;}).join('');
+  }
+  function showPane(m){
+    document.querySelectorAll('.pane').forEach(p=>p.classList.toggle('show',p.id==='pane-'+m));
+    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.m===m));
+  }
+  let hlNodes=[],hlIdx=-1;
+  function clearHL(){document.querySelectorAll('mark.hl').forEach(m=>{const p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize();});hlNodes=[];hlIdx=-1;}
+  function doSearch(){const q=($('#searchBox').value||'').trim();clearHL();if(q.length<2){$('#searchCount').textContent='';return;}
+    const rx=new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');const skip=new Set(['SCRIPT','STYLE','INPUT','TEXTAREA','SELECT','MARK','OPTION','BUTTON']);
+    const walker=document.createTreeWalker(document.querySelector('.wrap'),NodeFilter.SHOW_TEXT,{acceptNode(n){if(!n.nodeValue.trim())return 2;let p=n.parentNode;while(p){if(p.nodeName&&skip.has(p.nodeName))return 2;if(p.id==='searchWrap')return 2;p=p.parentNode;}rx.lastIndex=0;return rx.test(n.nodeValue)?1:2;}});
+    const t=[];let node;while(node=walker.nextNode())t.push(node);
+    t.forEach(n=>{const s=n.nodeValue,frag=document.createDocumentFragment();let last=0,m;rx.lastIndex=0;while(m=rx.exec(s)){if(m.index>last)frag.appendChild(document.createTextNode(s.slice(last,m.index)));const mk=document.createElement('mark');mk.className='hl';mk.textContent=m[0];frag.appendChild(mk);hlNodes.push(mk);last=m.index+m[0].length;if(m.index===rx.lastIndex)rx.lastIndex++;}if(last<s.length)frag.appendChild(document.createTextNode(s.slice(last)));n.parentNode.replaceChild(frag,n);});
+    $('#searchCount').textContent=hlNodes.length?`${hlNodes.length} match${hlNodes.length>1?'es':''}`:'no matches';if(hlNodes.length){hlIdx=0;focusHL();}}
+  function focusHL(){hlNodes.forEach((m,i)=>m.classList.toggle('cur',i===hlIdx));const el=hlNodes[hlIdx];if(!el)return;
+    const pane=el.closest&&el.closest('.pane');if(pane&&!pane.classList.contains('show'))showPane(pane.id.replace('pane-',''));
+    el.scrollIntoView({behavior:'smooth',block:'center'});}
+  function nextHL(d){if(!hlNodes.length)return;hlIdx=(hlIdx+d+hlNodes.length)%hlNodes.length;focusHL();}
+  ['foot','bounty','mine'].forEach(renderChk);
+</script>
+</body>
+</html>
