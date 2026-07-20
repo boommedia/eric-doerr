@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🛰️ Elite Dangerous — The Operations Update</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--ed:#ff8c42;--merc:#ffd479;--foot:#c792ea;--gold:#ffd479;--danger:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 75% -10%,rgba(255,140,66,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.7rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  h2.sec{font-size:1.15rem;border-left:4px solid var(--ed);padding-left:12px;margin:32px 0 12px}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--ed);color:#1a1206;border-color:var(--ed)}
+  .callout{border-radius:12px;padding:13px 16px;font-size:.85rem;margin:14px 0}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout.tip{background:rgba(255,212,121,.06);border:1px solid rgba(255,212,121,.28)}
+  .callout.warn{background:rgba(255,140,66,.08);border:1px solid rgba(255,140,66,.32)}
+  .callout b{color:var(--text)} .callout a{color:var(--accent)}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:10px 0}
+  table{width:100%;border-collapse:collapse;font-size:.84rem;min-width:560px}
+  th,td{padding:9px 13px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  thead th{background:var(--panel-2);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+  tbody tr:hover{background:var(--panel-2)}
+  td.k{font-weight:600;color:var(--accent);white-space:nowrap}
+  .up{color:var(--accent-2)} .down{color:var(--danger)}
+  ol.steps{padding-left:20px;font-size:.88rem} ol.steps li{margin:5px 0} ol.steps b{color:var(--text)}
+  .lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin:16px 0 6px}
+  details.op{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--ed);border-radius:12px;margin:10px 0}
+  details.op>summary{list-style:none;cursor:pointer;padding:13px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:600;font-size:.98rem}
+  details.op>summary::-webkit-details-marker{display:none}
+  details.op[open]>summary{border-bottom:1px solid var(--line)}
+  .op-body{padding:12px 16px;font-size:.87rem}
+  .op-body .goal{color:var(--muted);margin:0 0 8px} .op-body .goal b{color:var(--text)}
+  .tag{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 8px;border-radius:6px;white-space:nowrap;background:var(--panel-2);color:var(--muted)}
+  .tag.ship{background:rgba(255,140,66,.16);color:var(--ed)} .tag.foot{background:rgba(199,146,234,.16);color:var(--foot)}
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin:10px 0}
+  label.chk{display:flex;gap:9px;align-items:flex-start;font-size:.85rem;color:var(--muted);padding:5px 0;cursor:pointer;border-bottom:1px solid var(--line)}
+  label.chk:last-child{border-bottom:none} label.chk input{width:auto;margin-top:3px} label.chk.on{color:var(--text)} label.chk b{color:var(--text)}
+  .btn{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:8px 13px;font-weight:600;font-size:.82rem;cursor:pointer}
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .links a{font-size:.82rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);text-decoration:none;border-radius:8px;padding:6px 11px}
+  .searchbar{position:sticky;top:0;z-index:30;display:flex;gap:8px;align-items:center;background:rgba(13,17,23,.93);backdrop-filter:blur(6px);padding:12px 0;margin-bottom:4px;border-bottom:1px solid var(--line)}
+  .searchbar input{flex:1;background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 12px;font:inherit;font-size:.9rem}
+  .searchbar input:focus{outline:none;border-color:var(--accent)}
+  .searchbar button{font-size:.8rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);border-radius:7px;padding:6px 10px;cursor:pointer}
+  .scount{font-size:.78rem;color:var(--muted);white-space:nowrap}
+  mark.hl{background:rgba(255,212,121,.32);color:var(--text);border-radius:3px;padding:0 1px} mark.hl.cur{background:var(--gold);color:#1a1400}
+  footer{color:var(--muted);font-size:.78rem;margin-top:34px} footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./elite-mining-combat.html">← Elite Career Hub</a>
+    <h1>🛰️ The Operations Update</h1>
+    <div class="sub">New co-op <b>Operations</b> with lobby &amp; matchmaking, <b>Merc Coin</b> &amp; pre-engineered <b>MercGear</b>, Nomad additions, Vessel Bays and visual overhauls — what's in it and how to use it.</div>
+    <div class="guidenav">
+      <a class="gn" href="./elite-mining-combat.html">🟠 Career Hub</a>
+      <a class="gn active" href="./elite-operations-update.html">🛰️ Operations Update</a>
+      <a class="gn" href="./elite-on-foot.html">🥾 On-Foot</a>
+      <a class="gn" href="./elite-keybindings.html">⌨️ Keybindings</a>
+    </div>
+  </header>
+
+  <div id="searchWrap" class="searchbar">
+    <input id="searchBox" placeholder="🔍 Search the update… (e.g. Merc Coin, rail gun, Vessel Bay)" oninput="doSearch()" onkeydown="if(event.key==='Enter'){event.preventDefault();nextHL(event.shiftKey?-1:1);}">
+    <span id="searchCount" class="scount"></span>
+    <button type="button" onclick="nextHL(-1)">▲</button><button type="button" onclick="nextHL(1)">▼</button>
+    <button type="button" onclick="document.getElementById('searchBox').value='';doSearch();">✕</button>
+  </div>
+
+  <div class="callout info">🛰️ <b>What Operations are:</b> a new framework with its own <b>lobby &amp; matchmaking system</b> for running structured, objective-based scenarios. Six Operations ship at launch, mixing <b>ship combat</b> and <b>on-foot boarding actions</b>. Completing them earns <b>Merc Coin</b>, which buys <b>MercGear</b> — pre-engineered modules you'd otherwise grind engineers for.</div>
+  <div class="callout warn">⚠️ <b>Networking &amp; Balancing Beta:</b> Frontier is rolling Operations out in a beta stage so they can measure server load and tweak things behind the scenes. Expect <b>adjustments, balance changes and occasional instability</b> while it settles.</div>
+
+  <!-- HOW TO START -->
+  <h2 class="sec">🚀 How to get started</h2>
+  <ol class="steps">
+    <li><b>Update the game</b> and check you're on the Operations build.</li>
+    <li><b>Open the Operations lobby</b> and pick an Operation from the list.</li>
+    <li><b>Use matchmaking</b> to join or form a group — these are built as co-op scenarios, so a squad is the intended way to run them.</li>
+    <li><b>Bring the right kit</b> — several Operations involve <b>boarding on foot</b>, so pack an Odyssey combat suit &amp; weapons <i>and</i> a capable combat ship (see each Operation below).</li>
+    <li><b>Complete objectives → earn Merc Coin</b>, then spend it on <b>MercGear</b> in the sections below.</li>
+  </ol>
+  <div class="callout tip">🎯 <b>Ship + suit both matter.</b> Boarding Operations (Tactical Takedown, Biohazard Takedown) need on-foot combat gear — see the <a href="./elite-on-foot.html">On-Foot Operations guide</a> for suits, weapons &amp; tactics.</div>
+
+  <!-- THE 6 OPERATIONS -->
+  <h2 class="sec">🎯 The six Operations</h2>
+  <div class="callout info">Descriptions are from the official update notes. The <b>"bring"</b> lines are prep suggestions based on each objective.</div>
+
+  <details class="op" open>
+    <summary><span>⚔️ Tactical Takedown</span><span><span class="tag ship">Ship</span> <span class="tag foot">On-foot</span></span></summary>
+    <div class="op-body">
+      <p class="goal"><b>Brief:</b> The client's megaship has been compromised by a rival faction. <b>Board the ship</b> and fight through the <b>command deck</b> to obtain intel and trace the origin of the attack — then bring your firepower to bear on the <b>general responsible</b> at their home base.</p>
+      <p><b>Two phases:</b> an on-foot boarding fight, then a ship assault on the general's base.</p>
+      <p><b>Bring:</b> Dominator suit + laser/kinetic pair for the deck fight; a solid combat ship with shields for phase two.</p>
+    </div>
+  </details>
+
+  <details class="op">
+    <summary><span>🔥 Firestorm Rescue</span><span><span class="tag ship">Ship</span> <span class="tag">Timed</span></span></summary>
+    <div class="op-body">
+      <p class="goal"><b>Brief:</b> Hostages are trapped in a <b>burning station</b>. Break the siege and evacuate those that remain. You must <b>manage the station's heat</b> to buy enough time to finish the rescue, while fighting off hostiles trying to stop you.</p>
+      <p><b>Bring:</b> heat management is the core mechanic — pack <b>heat sinks</b>; bring cargo/passenger space for evacuees and enough firepower to break the siege.</p>
+    </div>
+  </details>
+
+  <details class="op">
+    <summary><span>🛡️ Reclamation Point</span><span><span class="tag ship">Ship combat</span> <span class="tag">Hard</span></span></summary>
+    <div class="op-body">
+      <p class="goal"><b>Brief:</b> The megaship has been hijacked. <b>Eliminate all hostile forces</b> in and around it so the client can recover it. The notes call for <b>your best gear and ship</b>.</p>
+      <p><b>Bring:</b> your tankiest combat build — strong shields + boosters, thermal weapons for shields and kinetics for hull, chaff &amp; heat sinks.</p>
+    </div>
+  </details>
+
+  <details class="op">
+    <summary><span>☣️ Biohazard Takedown</span><span><span class="tag ship">Ship</span> <span class="tag foot">On-foot</span></span></summary>
+    <div class="op-body">
+      <p class="goal"><b>Brief:</b> A group of researchers is developing a <b>dangerous weapon</b>. Assault the ship, obtain the <b>location and IDs of the researchers</b>, and take them out.</p>
+      <p><b>Bring:</b> an assault suit plus intel tools — the <b>Profile Analyser</b> style ID work and door access suggest on-foot infiltration; carry E-Breach and a reliable close-quarters weapon pair.</p>
+    </div>
+  </details>
+
+  <details class="op">
+    <summary><span>⏱️ Rapid Response</span><span><span class="tag ship">Ship</span> <span class="tag">Timed</span></span></summary>
+    <div class="op-body">
+      <p class="goal"><b>Brief:</b> A <b>planetary port</b> is under attack with personnel still trapped inside. You cannot delay — a <b>huge hostile fleet is inbound</b>. If the evacuation isn't completed in time, those inside are lost.</p>
+      <p><b>Bring:</b> speed is the objective — a fast ship with good boost, plus capacity for evacuees. Get in, load, and out before the fleet lands.</p>
+    </div>
+  </details>
+
+  <details class="op">
+    <summary><span>🚨 Terminal Prosecution</span><span><span class="tag ship">Ship combat</span></span></summary>
+    <div class="op-body">
+      <p class="goal"><b>Brief:</b> A criminal element has been <b>raiding the system for weeks</b>. Your job is to clear them out.</p>
+      <p><b>Bring:</b> a straightforward combat loadout — this is the most bounty-hunting-like Operation. Thermal to strip shields, kinetic to finish.</p>
+    </div>
+  </details>
+
+  <!-- MERC COIN -->
+  <h2 class="sec">🪙 Merc Coin &amp; MercGear</h2>
+  <div class="callout info">Operations pay out <b>Merc Coin</b>, spent on <b>MercGear</b>: two <b>blueprints</b> plus a range of <b>pre-engineered modules</b>. Pre-engineered means <b>ready-made engineering without the engineer grind</b> — big time saver.</div>
+
+  <div class="lbl">📘 Blueprints</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Blueprint</th><th>Effect</th><th>Applies to</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Thermal Plasma Conversion</td><td><span class="down">↑ power draw</span> to <span class="up">convert a portion of damage to plasma</span></td><td>Beam / pulse / burst lasers</td></tr>
+      <tr><td class="k">Scoop Rate Enhanced</td><td><span class="down">↑ power draw</span> to <span class="up">improve fuel scoop rate</span></td><td>Fuel scoops</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="lbl">🔫 Pre-engineered hardpoints</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Module</th><th>Gains</th><th>Costs</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Enduring Feedback Rail Gun</td><td class="up">Faster reload, less heat, more range &amp; ammo — includes <b>Feedback Cascade</b></td><td class="down">↑ mass, ↑ power draw, ↓ damage</td></tr>
+      <tr><td class="k">Far-Reaching Abrasion Blaster</td><td class="up">↓ power draw, ↓ distributor draw, ↓ thermal load, ↑ shot speed, ↑ max range</td><td class="down">↓ integrity</td></tr>
+      <tr><td class="k">Double Screaming Fragment Cannon</td><td class="up">↑ ammo, ↑ clip, ↑ burst size, ↓ reload time</td><td class="down">↓ max range, ↓ rate of fire, ↑ mass, ↑ power draw</td></tr>
+      <tr><td class="k">Long Range Mining Laser</td><td class="up">↑ range, ↓ power draw, ↓ distributor draw, ↓ thermal load</td><td class="down">↓ integrity, ↓ damage</td></tr>
+      <tr><td class="k">Rapid Phase Multi-Cannon</td><td class="up">↑ shots per round, ↑ ammo, ↑ clip, ↑ rate of fire</td><td class="down">↓ range, ↑ jitter</td></tr>
+      <tr><td class="k">Drag Seeker Missile Rack</td><td class="up">↑ ammo, ↑ clip, ↑ rate of fire</td><td class="down">↑ mass, ↑ power draw, ↑ distributor draw</td></tr>
+      <tr><td class="k">Lightweight Thermal Seeker Missile Rack</td><td class="up">↑ ammo, ↑ clip, ↑ rate of fire, ↓ mass, ↓ power draw, ↓ distributor draw</td><td class="down">↓ integrity</td></tr>
+      <tr><td class="k">Lockdown Seeker Missile Rack</td><td class="up">↑ ammo, ↑ clip, ↑ integrity, ↓ thermal load</td><td class="down">↑ power draw, ↑ mass, ↓ rate of fire, ↓ damage</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="lbl">⚙️ Pre-engineered core modules</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Module</th><th>Gains</th><th>Costs</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Support Focused Power Distributor</td><td class="up">↑ engine &amp; systems capacity and charge rate</td><td class="down">↓ weapons capacity charge rate</td></tr>
+      <tr><td class="k">Balanced Power Distributor</td><td class="up">Moderate distributor rate &amp; charge increase, ↓ power draw</td><td class="down">↑ mass, ↓ integrity</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="lbl">📦 Pre-engineered internal modules</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Module</th><th>Gains</th><th>Costs</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Extended Cargo Rack</td><td class="up">↑ cargo capacity</td><td>—</td></tr>
+      <tr><td class="k">Long Range Detailed Surface Scanner</td><td class="up">Better probe radius</td><td class="down">↑ mass, ↑ power draw</td></tr>
+      <tr><td class="k">Heavy Duty Module Reinforcement Package</td><td class="up">↑ module protection</td><td class="down">↑ mass</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout tip">💎 <b>Best picks for your fleet:</b> the <b>Long Range Mining Laser</b> + <b>Far-Reaching Abrasion Blaster</b> upgrade your <b>Type-11 Prospector</b> mining kit; <b>Extended Cargo Rack</b> adds hold for the same slot; <b>Long Range DSS</b> makes ring/body mapping faster; <b>Support Focused Power Distributor</b> suits explorers &amp; haulers, <b>Balanced</b> suits multi-role builds.</div>
+
+  <!-- SHOPPING LIST -->
+  <h2 class="sec">🛒 Merc Coin shopping list</h2>
+  <div class="callout info">Tick what you want to buy as you bank Merc Coin — saves in your browser.</div>
+  <div class="tool" id="shopTool"></div>
+  <div style="margin-top:8px"><button class="btn" onclick="resetShop()">↺ Uncheck all</button></div>
+
+  <!-- NOMAD -->
+  <h2 class="sec">🛸 Nomad — new outfitting</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Item</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Mk II Biological Scanner</td><td>A <b>pulse scanner that detects biological signatures</b> — a big deal for exobiology hunting</td></tr>
+      <tr><td class="k">Pulse Lasers</td><td>A pulse laser weapon on a <b>fixed mount</b></td></tr>
+    </tbody>
+  </table></div>
+  <div class="lbl">Pre-built Nomad bundles (ARX)</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Bundle</th><th>ARX</th><th>Includes</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Nomad Standard</td><td>16,520</td><td>Standard ship · Mk II Biological Scanner · Owners Club Decal</td></tr>
+      <tr><td class="k">Nomad Stellar</td><td>33,000</td><td>Standard + Cliffhanger Orange paint · Strider Ship Kit · Decal</td></tr>
+      <tr><td class="k">Nomad Galactic</td><td>60,000</td><td>All Stellar content + Signal Blue Holo-Kit · Rambler Ship Kit · Internal Science Kit · Decal</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip">🌿 The <b>Mk II Biological Scanner</b> pairs perfectly with exobiology runs — see the <a href="./elite-on-foot.html">On-Foot guide</a> for the Artemis suit &amp; Genetic Sampler loop.</div>
+
+  <!-- VESSEL BAYS -->
+  <h2 class="sec">🚁 Vessel Bays</h2>
+  <div class="lbl">Mk I Vessel Bay (adjusted) — available on</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Ship</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Alliance Crusader</td><td>5–6</td></tr>
+      <tr><td class="k">Anaconda</td><td>5–7</td></tr>
+      <tr><td class="k">Beluga Liner</td><td>5–6</td></tr>
+      <tr><td class="k">Caspian Explorer</td><td>5–7</td></tr>
+      <tr><td class="k">Federal Corvette</td><td>5–7</td></tr>
+      <tr><td class="k">Federal Gunship</td><td>5–6</td></tr>
+      <tr><td class="k">Imperial Cutter</td><td>5–7</td></tr>
+      <tr><td class="k">Keelback</td><td>5</td></tr>
+      <tr><td class="k">Krait Mk II</td><td>5–6</td></tr>
+      <tr><td class="k">Panther Clipper Mk II</td><td>5–7</td></tr>
+      <tr><td class="k">Type-9 Heavy</td><td>5–7</td></tr>
+      <tr><td class="k">Type-10 Defender</td><td>5–7</td></tr>
+      <tr><td class="k">Type-11 Prospector</td><td>5–6</td></tr>
+    </tbody>
+  </table></div>
+  <div class="lbl">Mk II Vessel Bay — available on</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Ship</th><th>Class</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Caspian Explorer</td><td>5–7</td></tr>
+      <tr><td class="k">Panther Clipper Mk II</td><td>5–7</td></tr>
+      <tr><td class="k">Type-11 Prospector</td><td>5–6</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip">✅ <b>Your Type-11 Prospector and Anaconda both take Vessel Bays</b> — and the Type-11 is one of only three ships that can fit the <b>Mk II Vessel Bay</b>. Worth fitting for surface work alongside your mining kit.</div>
+
+  <!-- VISUALS -->
+  <h2 class="sec">🌌 Visual changes</h2>
+  <ul style="font-size:.88rem;color:var(--muted);padding-left:20px">
+    <li><b style="color:var(--text)">Stellar lighting adjustments</b> (Issue ID: 45769).</li>
+    <li><b style="color:var(--text)">Galactic background re-coloured</b> — rebalanced using real-world reference images for better visuals.</li>
+    <li><b style="color:var(--text)">Distant Worlds 3</b> community logo decal added.</li>
+  </ul>
+
+  <div class="links">
+    <a href="https://www.elitedangerous.com/" target="_blank" rel="noopener">Official site ↗</a>
+    <a href="https://forums.frontier.co.uk/forums/elite-dangerous.20/" target="_blank" rel="noopener">Frontier forums ↗</a>
+    <a href="./elite-mining-combat.html">🟠 Career Hub →</a>
+  </div>
+
+  <footer>Part of the <a href="./elite-mining-combat.html">Elite Career Hub</a>. Feature list taken from the official Operations Update notes; "bring" recommendations are prep suggestions. Operations are in a <b>Networking &amp; Balancing Beta</b>, so specifics may shift — check patch notes. Shopping list saves in this browser only.</footer>
+</div>
+
+<script>
+  const $=s=>document.querySelector(s);
+  const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const SHOP=[
+    ['Thermal Plasma Conversion (blueprint)','plasma damage conversion for lasers'],
+    ['Scoop Rate Enhanced (blueprint)','faster fuel scooping'],
+    ['Long Range Mining Laser','mining reach — Type-11 upgrade'],
+    ['Far-Reaching Abrasion Blaster','core mining at range'],
+    ['Enduring Feedback Rail Gun','reload/heat/range + Feedback Cascade'],
+    ['Rapid Phase Multi-Cannon','sustained hull damage'],
+    ['Double Screaming Fragment Cannon','close-range burst'],
+    ['Drag Seeker Missile Rack','more missiles, faster'],
+    ['Lightweight Thermal Seeker Missile Rack','light missile rack'],
+    ['Lockdown Seeker Missile Rack','tougher, cooler missiles'],
+    ['Support Focused Power Distributor','ENG/SYS focused'],
+    ['Balanced Power Distributor','all-round distributor'],
+    ['Extended Cargo Rack','more hold per slot'],
+    ['Long Range Detailed Surface Scanner','bigger probe radius'],
+    ['Heavy Duty Module Reinforcement Package','module protection']
+  ];
+  const KK=i=>'ed_ops_shop_'+i;
+  function toggleShop(i){localStorage.setItem(KK(i),localStorage.getItem(KK(i))==='1'?'0':'1');renderShop();}
+  function resetShop(){SHOP.forEach((_,i)=>localStorage.removeItem(KK(i)));renderShop();}
+  function renderShop(){$('#shopTool').innerHTML=SHOP.map((s,i)=>{const on=localStorage.getItem(KK(i))==='1';return `<label class="chk ${on?'on':''}"><input type="checkbox" ${on?'checked':''} onchange="toggleShop(${i})"><span><b>${esc(s[0])}</b> — ${esc(s[1])}</span></label>`;}).join('');}
+
+  let hlNodes=[],hlIdx=-1;
+  function clearHL(){document.querySelectorAll('mark.hl').forEach(m=>{const p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize();});hlNodes=[];hlIdx=-1;}
+  function doSearch(){const q=($('#searchBox').value||'').trim();clearHL();if(q.length<2){$('#searchCount').textContent='';return;}
+    const rx=new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');const skip=new Set(['SCRIPT','STYLE','INPUT','TEXTAREA','SELECT','MARK','OPTION','BUTTON']);
+    const walker=document.createTreeWalker(document.querySelector('.wrap'),NodeFilter.SHOW_TEXT,{acceptNode(n){if(!n.nodeValue.trim())return 2;let p=n.parentNode;while(p){if(p.nodeName&&skip.has(p.nodeName))return 2;if(p.id==='searchWrap')return 2;p=p.parentNode;}rx.lastIndex=0;return rx.test(n.nodeValue)?1:2;}});
+    const t=[];let node;while(node=walker.nextNode())t.push(node);
+    t.forEach(n=>{const s=n.nodeValue,frag=document.createDocumentFragment();let last=0,m;rx.lastIndex=0;while(m=rx.exec(s)){if(m.index>last)frag.appendChild(document.createTextNode(s.slice(last,m.index)));const mk=document.createElement('mark');mk.className='hl';mk.textContent=m[0];frag.appendChild(mk);hlNodes.push(mk);last=m.index+m[0].length;if(m.index===rx.lastIndex)rx.lastIndex++;}if(last<s.length)frag.appendChild(document.createTextNode(s.slice(last)));n.parentNode.replaceChild(frag,n);});
+    $('#searchCount').textContent=hlNodes.length?`${hlNodes.length} match${hlNodes.length>1?'es':''}`:'no matches';if(hlNodes.length){hlIdx=0;focusHL();}}
+  function focusHL(){hlNodes.forEach((m,i)=>m.classList.toggle('cur',i===hlIdx));const el=hlNodes[hlIdx];if(!el)return;const d=el.closest&&el.closest('details.op');if(d)d.open=true;el.scrollIntoView({behavior:'smooth',block:'center'});}
+  function nextHL(d){if(!hlNodes.length)return;hlIdx=(hlIdx+d+hlNodes.length)%hlNodes.length;focusHL();}
+  renderShop();
+</script>
+</body>
+</html>
