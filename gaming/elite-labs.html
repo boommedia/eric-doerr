@@ -76,13 +76,19 @@
   <h2 class="sec">📡 Live sync — pull your real data</h2>
   <div class="callout info">Auto-fill your <b>credits</b> and <b>current system</b> from <b>EDSM</b> instead of typing them. <b>Requires:</b> you're uploading your journal to EDSM via <a href="https://github.com/EDCD/EDMarketConnector" target="_blank" rel="noopener">EDMarketConnector</a> or EDDiscovery, plus your <b>EDSM API key</b> (EDSM → your profile → API key). The key is stored <b>in this browser only</b> — never sent anywhere except EDSM.</div>
   <div class="cust show" style="display:block">
-    <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end" id="syncgrid">
-      <label style="display:flex;flex-direction:column;gap:4px;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700">Commander name
-        <input id="edsmCmdr" placeholder="e.g. BOOMINC420" style="background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 11px;font:inherit;font-size:.9rem;width:100%"></label>
-      <label style="display:flex;flex-direction:column;gap:4px;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700">EDSM API key
-        <input id="edsmKey" type="password" placeholder="from your EDSM profile" style="background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 11px;font:inherit;font-size:.9rem;width:100%"></label>
+    <div style="display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;margin-bottom:10px">
+      <label style="display:flex;flex-direction:column;gap:4px;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700">🔐 API base URL <span style="text-transform:none;font-weight:400">— your proxy (best: keys stay server-side, no CORS)</span>
+        <input id="apiBase" placeholder="https://api.yourdomain.com" style="background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 11px;font:inherit;font-size:.9rem;width:100%"></label>
       <button class="btn" onclick="syncEDSM()">📡 Sync now</button>
     </div>
+    <details style="margin-bottom:8px"><summary>No proxy yet? Use direct EDSM (may be CORS-blocked)</summary>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:end;margin-top:10px">
+        <label style="display:flex;flex-direction:column;gap:4px;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700">Commander name
+          <input id="edsmCmdr" placeholder="e.g. BOOMINC420" style="background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 11px;font:inherit;font-size:.9rem;width:100%"></label>
+        <label style="display:flex;flex-direction:column;gap:4px;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700">EDSM API key
+          <input id="edsmKey" type="password" placeholder="from your EDSM profile" style="background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 11px;font:inherit;font-size:.9rem;width:100%"></label>
+      </div>
+    </details>
     <div id="syncStatus" style="font-size:.83rem;color:var(--muted);margin-top:10px"></div>
   </div>
 
@@ -162,35 +168,59 @@
     }).join('');
   }
 
-  /* ---- EDSM LIVE SYNC ---- */
-  const K_CMDR='ed_edsm_cmdr',K_KEY='ed_edsm_key';
-  function loadSync(){const c=localStorage.getItem(K_CMDR),k=localStorage.getItem(K_KEY);if(c)$('#edsmCmdr').value=c;if(k)$('#edsmKey').value=k;}
+  /* ---- LIVE SYNC (proxy preferred, direct EDSM fallback) ---- */
+  const K_CMDR='ed_edsm_cmdr',K_KEY='ed_edsm_key',K_API='ed_api_base';
+  function loadSync(){
+    const c=localStorage.getItem(K_CMDR),k=localStorage.getItem(K_KEY),a=localStorage.getItem(K_API);
+    if(c)$('#edsmCmdr').value=c; if(k)$('#edsmKey').value=k; if(a)$('#apiBase').value=a;
+  }
+  function applyData(system,credits,extra){
+    const done=[];
+    if(system){
+      const cur=jget('ed_location',{})||{};const o=typeof cur==='string'?{system:cur}:cur;
+      o.system=system; localStorage.setItem('ed_location',JSON.stringify(o));
+      done.push(`📍 system → <b>${esc(system)}</b>`);
+    }
+    if(typeof credits==='number'){localStorage.setItem('ed_cp_cur',String(credits));done.push(`💰 credits → <b>${fmt(credits)} CR</b>`);}
+    if(extra)done.push(extra);
+    return done;
+  }
   async function syncEDSM(){
-    const cmdr=($('#edsmCmdr').value||'').trim(), key=($('#edsmKey').value||'').trim();
     const st=$('#syncStatus');
-    if(!cmdr||!key){st.innerHTML='⚠️ Enter both your commander name and EDSM API key.';return;}
-    localStorage.setItem(K_CMDR,cmdr);localStorage.setItem(K_KEY,key);
-    st.innerHTML='⏳ Syncing with EDSM…';
+    const api=($('#apiBase').value||'').trim().replace(/\/+$/,'');
+    const cmdr=($('#edsmCmdr').value||'').trim(), key=($('#edsmKey').value||'').trim();
+    localStorage.setItem(K_API,api);localStorage.setItem(K_CMDR,cmdr);localStorage.setItem(K_KEY,key);
+
+    if(api){
+      st.innerHTML='⏳ Syncing via your proxy…';
+      try{
+        const r=await fetch(api+'/api/edsm');
+        if(!r.ok)throw new Error('HTTP '+r.status);
+        const d=await r.json();
+        if(d.error)throw new Error(d.error);
+        const ships=Array.isArray(d.ships)&&d.ships.length?`🚀 ${d.ships.length} ship(s) on EDSM`:null;
+        const done=applyData(d.system,d.credits,ships);
+        st.innerHTML=done.length?('✅ Synced via proxy: '+done.join(' · ')):'⚠️ Proxy reachable but returned no data — check EDSM_CMDR / EDSM_KEY in Coolify, and that EDMC is uploading your journal.';
+        render(); return;
+      }catch(err){
+        st.innerHTML='❌ Proxy error: '+esc(err.message||String(err))+' — check the URL and that <code>/health</code> returns ok. Trying direct EDSM…';
+      }
+    }
+
+    if(!cmdr||!key){ if(!api)st.innerHTML='⚠️ Add your API base URL (recommended) or a commander name + EDSM key below.'; return; }
+    st.innerHTML+=' <br>⏳ Trying direct EDSM…';
     const q=`commanderName=${encodeURIComponent(cmdr)}&apiKey=${encodeURIComponent(key)}`;
     try{
       const [pos,cred]=await Promise.all([
         fetch(`https://www.edsm.net/api-logs-v1/get-position?${q}`).then(r=>r.json()).catch(()=>null),
         fetch(`https://www.edsm.net/api-commander-v1/get-credits?${q}`).then(r=>r.json()).catch(()=>null)
       ]);
-      const done=[];
-      if(pos&&pos.system){
-        const cur=jget('ed_location',{})||{};const o=typeof cur==='string'?{system:cur}:cur;
-        o.system=pos.system; localStorage.setItem('ed_location',JSON.stringify(o));
-        done.push(`📍 system → <b>${esc(pos.system)}</b>`);
-      }
-      if(cred&&Array.isArray(cred.credits)&&cred.credits.length){
-        const bal=cred.credits[0].balance;
-        if(typeof bal==='number'){localStorage.setItem('ed_cp_cur',String(bal));done.push(`💰 credits → <b>${fmt(bal)} CR</b>`);}
-      }
-      if(done.length){st.innerHTML='✅ Synced: '+done.join(' · ');render();}
-      else st.innerHTML='⚠️ Connected but no data returned. Check the commander name &amp; key are right, and that EDMC/EDDiscovery has uploaded your journal to EDSM (and that credits sharing is enabled in your EDSM settings).';
+      const bal=(cred&&Array.isArray(cred.credits)&&cred.credits.length&&typeof cred.credits[0].balance==='number')?cred.credits[0].balance:null;
+      const done=applyData(pos&&pos.system,bal);
+      if(done.length){st.innerHTML='✅ Synced direct from EDSM: '+done.join(' · ');render();}
+      else st.innerHTML='⚠️ Connected but no data returned. Verify the commander name &amp; key, and that EDMC/EDDiscovery has uploaded your journal to EDSM.';
     }catch(err){
-      st.innerHTML='❌ Couldn\'t reach EDSM from the browser. This is usually a <b>CORS</b> restriction or a wrong key. Your manual values still work — see the note below about a proxy if you want guaranteed live sync.';
+      st.innerHTML='❌ Browser blocked the direct EDSM call (CORS). Deploy the <b>API proxy</b> (see <code>/api/README.md</code>) and put its URL in the field above — that path always works.';
     }
   }
 
