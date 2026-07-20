@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧪 Elite Labs Center — Commander Dashboard</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--ed:#ff8c42;--foot:#c792ea;--gold:#ffd479;--danger:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1100px 520px at 70% -10%,rgba(255,140,66,.12),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.75rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  h2.sec{font-size:1.12rem;border-left:4px solid var(--ed);padding-left:12px;margin:30px 0 12px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--ed);color:#1a1206;border-color:var(--ed)}
+  .callout{border-radius:12px;padding:13px 16px;font-size:.85rem;margin:14px 0}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout b{color:var(--text)} .callout a{color:var(--accent)}
+
+  .dash{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  .sc{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column}
+  .sc.hide{display:none}
+  .sc .t{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;display:flex;align-items:center;gap:6px}
+  .sc .big{font-size:1.6rem;font-weight:700;margin:8px 0 2px;letter-spacing:-.02em}
+  .sc .sm{font-size:.83rem;color:var(--muted);flex:1}
+  .sc .sm b{color:var(--text)}
+  .sc a.go{margin-top:12px;font-size:.8rem;color:var(--accent);text-decoration:none;font-weight:600}
+  .sc.loc{border-top-color:var(--accent)} .sc.cred{border-top-color:var(--accent-2)} .sc.fleet{border-top-color:var(--ed)}
+  .sc.adv{border-top-color:var(--gold)} .sc.mine{border-top-color:#4cc2ff} .sc.scav{border-top-color:var(--foot)}
+  .sc.merc{border-top-color:var(--gold)} .sc.ready{border-top-color:var(--accent-2)}
+  .mini-bar{height:10px;background:var(--panel-2);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-top:6px}
+  .mini-bar>div{height:100%;background:linear-gradient(90deg,#7ee787,#4cc2ff);width:0}
+
+  .tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;text-decoration:none;color:inherit;display:block;transition:transform .15s,border-color .15s}
+  .tool:hover{transform:translateY(-3px);border-color:var(--accent)}
+  .tool .i{font-size:1.4rem} .tool b{display:block;margin-top:6px;font-size:.94rem}
+  .tool small{color:var(--muted);font-size:.78rem;display:block;margin-top:3px}
+
+  .btn{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:8px 13px;font-weight:600;font-size:.8rem;cursor:pointer}
+  .cust{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;margin:10px 0;display:none}
+  .cust.show{display:block}
+  .cust label{display:inline-flex;gap:7px;align-items:center;font-size:.84rem;color:var(--muted);margin:5px 14px 5px 0;cursor:pointer}
+  .cust label input{width:auto}
+  textarea{width:100%;min-height:120px;background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:10px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.78rem;margin-top:10px}
+  details summary{cursor:pointer;color:var(--accent);font-size:.85rem}
+  footer{color:var(--muted);font-size:.78rem;margin-top:34px} footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./index.html">← Gaming</a>
+    <h1>🧪 Elite Labs Center</h1>
+    <div class="sub">Your live commander dashboard — pulls together everything you've saved across the Elite tools, in one place.</div>
+    <div class="guidenav">
+      <a class="gn active" href="./elite-labs.html">🧪 Labs Center</a>
+      <a class="gn" href="./elite-mining-combat.html">🟠 Career Hub</a>
+      <a class="gn" href="./elite-credit-paths.html">💰 Credit Paths</a>
+      <a class="gn" href="./elite-operations-update.html">🛰️ Operations</a>
+      <a class="gn" href="./elite-on-foot.html">🥾 On-Foot</a>
+    </div>
+  </header>
+
+  <div class="callout info">📡 <b>How this works:</b> every Elite tool on this site saves to your browser. This page <b>reads all of it</b> and shows a live status. Update anything on its own page and it appears here — no syncing needed. (Same browser only.)</div>
+
+  <h2 class="sec">📊 Commander status <button class="btn" onclick="document.getElementById('cust').classList.toggle('show')">⚙️ Customize</button></h2>
+  <div class="cust" id="cust"></div>
+  <div class="dash" id="dash"></div>
+
+  <h2 class="sec">📡 Live sync — pull your real data</h2>
+  <div class="callout info">Auto-fill your <b>credits</b> and <b>current system</b> from <b>EDSM</b> instead of typing them. <b>Requires:</b> you're uploading your journal to EDSM via <a href="https://github.com/EDCD/EDMarketConnector" target="_blank" rel="noopener">EDMarketConnector</a> or EDDiscovery, plus your <b>EDSM API key</b> (EDSM → your profile → API key). The key is stored <b>in this browser only</b> — never sent anywhere except EDSM.</div>
+  <div class="cust show" style="display:block">
+    <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end" id="syncgrid">
+      <label style="display:flex;flex-direction:column;gap:4px;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700">Commander name
+        <input id="edsmCmdr" placeholder="e.g. BOOMINC420" style="background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 11px;font:inherit;font-size:.9rem;width:100%"></label>
+      <label style="display:flex;flex-direction:column;gap:4px;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700">EDSM API key
+        <input id="edsmKey" type="password" placeholder="from your EDSM profile" style="background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 11px;font:inherit;font-size:.9rem;width:100%"></label>
+      <button class="btn" onclick="syncEDSM()">📡 Sync now</button>
+    </div>
+    <div id="syncStatus" style="font-size:.83rem;color:var(--muted);margin-top:10px"></div>
+  </div>
+
+  <h2 class="sec">🧰 Your lab tools</h2>
+  <div class="tools">
+    <a class="tool" href="./elite-credit-paths.html"><div class="i">💰</div><b>Road to 5 Billion</b><small>Ranked earning paths &amp; hours-to-goal</small></a>
+    <a class="tool" href="./elite-mining-combat.html"><div class="i">🟠</div><b>Career Hub</b><small>Fleet, adventure planner, all careers</small></a>
+    <a class="tool" href="./elite-operations-update.html"><div class="i">🛰️</div><b>Operations Update</b><small>6 Operations, MercGear, shopping list</small></a>
+    <a class="tool" href="./elite-type11-prospector.html"><div class="i">⛏️</div><b>Type-11 Prospector</b><small>Mining fit, scans &amp; session log</small></a>
+    <a class="tool" href="./elite-on-foot.html"><div class="i">🥾</div><b>On-Foot Ops</b><small>Missions, kit &amp; scavenging planner</small></a>
+    <a class="tool" href="./elite-keybindings.html"><div class="i">⌨️</div><b>Keybindings</b><small>Editable Ship / SRV / On-Foot binds</small></a>
+    <a class="tool" href="./elite-set-keybinds.html"><div class="i">🔧</div><b>See &amp; Set Binds</b><small>Fix Disembark, view all binds</small></a>
+    <a class="tool" href="./elite-python.html"><div class="i">🛥️</div><b>Python</b><small>Multi-role fit &amp; earnings log</small></a>
+    <a class="tool" href="./elite-anaconda.html"><div class="i">🛥️</div><b>Anaconda</b><small>Explore/combat fit &amp; log</small></a>
+    <a class="tool" href="./controls.html"><div class="i">🎯</div><b>HOTAS Setup</b><small>T16000M bindings</small></a>
+  </div>
+
+  <h2 class="sec">💾 Backup &amp; move your data</h2>
+  <div class="callout info">Everything lives in <b>this browser only</b>. Export to back up or move to another PC — then Import there.</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <button class="btn" onclick="doExport()">⬇️ Export all</button>
+    <button class="btn" onclick="doImport()">⬆️ Import</button>
+    <button class="btn" onclick="copyBox()">📋 Copy</button>
+  </div>
+  <textarea id="io" placeholder="Click Export to dump every saved value here (fleet, plans, credits, binds, checklists…). Paste a backup and hit Import to restore."></textarea>
+
+  <footer>Part of the <a href="./index.html">Gaming hub</a>. This dashboard is read-only — edit values on each tool's own page. Data is stored in your browser (localStorage), so back it up before clearing site data.</footer>
+</div>
+
+<script>
+  const $=s=>document.querySelector(s);
+  const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const fmt=n=>Math.round(n||0).toLocaleString('en-US');
+  const jget=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v;}catch(e){return d;}};
+  const countTicked=(prefix,total)=>{let n=0;for(let i=0;i<total;i++){if(localStorage.getItem(prefix+i)==='1')n++;}return n;};
+  const countObj=o=>Object.values(o||{}).filter(Boolean).length;
+
+  const CARDS=[
+    {id:'loc',cls:'loc',icon:'📍',title:'Current location',link:'./elite-mining-combat.html',linkTxt:'Set location →',
+      get(){const o=jget('ed_location',{})||{};const s=typeof o==='string'?{system:o}:o;
+        const parts=[s.hub,s.system,s.region].filter(Boolean);
+        return {big:s.system||'—',sm:parts.length?esc(parts.join(' · ')):'Not set yet — set it to get near-you finder links.'};}},
+    {id:'cred',cls:'cred',icon:'💰',title:'Credits → Fleet Carrier',link:'./elite-credit-paths.html',linkTxt:'Open planner →',
+      get(){const cur=+(localStorage.getItem('ed_cp_cur')||0),tgt=+(localStorage.getItem('ed_cp_tgt')||5000000000);
+        const pct=tgt>0?Math.min(100,(cur/tgt)*100):0;
+        return {big:fmt(cur)+' CR',sm:`<b>${pct<0.01&&pct>0?'<0.01':pct.toFixed(2)}%</b> of ${fmt(tgt)} · ${fmt(Math.max(0,tgt-cur))} to go<div class="mini-bar"><div style="width:${pct}%"></div></div>`};}},
+    {id:'fleet',cls:'fleet',icon:'🚀',title:'My fleet',link:'./elite-mining-combat.html',linkTxt:'Manage fleet →',
+      get(){const f=jget('ed_fleet_v1',[])||[];
+        return {big:f.length||'0',sm:f.length?f.map(s=>esc(s.name)).slice(0,6).join(' · '):'No ships added yet.'};}},
+    {id:'adv',cls:'adv',icon:'🗺️',title:'Adventures planned',link:'./elite-mining-combat.html',linkTxt:'Open planner →',
+      get(){const p=jget('ed_plans_v1',[])||[];const done=p.filter(x=>x.done).length;const next=p.find(x=>!x.done);
+        return {big:`${p.length-done}<span style="font-size:.9rem;color:var(--muted)"> open</span>`,sm:p.length?`${done} done · Next: <b>${next?esc(next.title):'—'}</b>`:'Nothing planned yet.'};}},
+    {id:'mine',cls:'mine',icon:'⛏️',title:'Mining logged (Type-11)',link:'./elite-type11-prospector.html',linkTxt:'Open miner →',
+      get(){const l=jget('ed_t11_log',[])||[];const t=l.reduce((a,r)=>a+(+r.tons||0),0),c=l.reduce((a,r)=>a+(+r.tons||0)*(+r.cr||0),0);
+        return {big:fmt(t)+' t',sm:l.length?`Est. <b>${fmt(c)} CR</b> across ${l.length} entr${l.length===1?'y':'ies'}`:'No mining logged yet.'};}},
+    {id:'scav',cls:'scav',icon:'♻️',title:'On-foot runs',link:'./elite-on-foot.html',linkTxt:'Open on-foot →',
+      get(){const p=jget('ed_scav_plans',[])||[];const done=p.filter(x=>x.done).length;
+        return {big:`${p.length-done}<span style="font-size:.9rem;color:var(--muted)"> open</span>`,sm:p.length?`${done} completed`:'No on-foot runs planned.'};}},
+    {id:'merc',cls:'merc',icon:'🪙',title:'MercGear wishlist',link:'./elite-operations-update.html',linkTxt:'Open Operations →',
+      get(){const n=countTicked('ed_ops_shop_',15);
+        return {big:`${n}/15`,sm:n?'Items you want to buy with Merc Coin.':'Nothing picked yet — browse MercGear.'};}},
+    {id:'ready',cls:'ready',icon:'✅',title:'Kit readiness',link:'./elite-type11-prospector.html',linkTxt:'Check fits →',
+      get(){const mine=countObj(jget('ed_t11_fit',{})),foot=countObj(jget('ed_onfoot_kit',{}));
+        return {big:`${mine}/13 · ${foot}/12`,sm:'Mining fit · on-foot kit checklists complete.'};}}
+  ];
+  const K_VIS='ed_labs_cards';
+  const vis=()=>jget(K_VIS,null)||CARDS.reduce((o,c)=>(o[c.id]=true,o),{});
+  function toggleCard(id){const v=vis();v[id]=!v[id];localStorage.setItem(K_VIS,JSON.stringify(v));render();}
+  function render(){
+    const v=vis();
+    $('#cust').innerHTML='<div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin-bottom:6px">Show cards</div>'+
+      CARDS.map(c=>`<label><input type="checkbox" ${v[c.id]!==false?'checked':''} onchange="toggleCard('${c.id}')"> ${c.icon} ${esc(c.title)}</label>`).join('');
+    $('#dash').innerHTML=CARDS.map(c=>{
+      if(v[c.id]===false)return '';
+      const d=c.get();
+      return `<div class="sc ${c.cls}"><div class="t">${c.icon} ${esc(c.title)}</div><div class="big">${d.big}</div><div class="sm">${d.sm}</div><a class="go" href="${c.link}">${esc(c.linkTxt)}</a></div>`;
+    }).join('');
+  }
+
+  /* ---- EDSM LIVE SYNC ---- */
+  const K_CMDR='ed_edsm_cmdr',K_KEY='ed_edsm_key';
+  function loadSync(){const c=localStorage.getItem(K_CMDR),k=localStorage.getItem(K_KEY);if(c)$('#edsmCmdr').value=c;if(k)$('#edsmKey').value=k;}
+  async function syncEDSM(){
+    const cmdr=($('#edsmCmdr').value||'').trim(), key=($('#edsmKey').value||'').trim();
+    const st=$('#syncStatus');
+    if(!cmdr||!key){st.innerHTML='⚠️ Enter both your commander name and EDSM API key.';return;}
+    localStorage.setItem(K_CMDR,cmdr);localStorage.setItem(K_KEY,key);
+    st.innerHTML='⏳ Syncing with EDSM…';
+    const q=`commanderName=${encodeURIComponent(cmdr)}&apiKey=${encodeURIComponent(key)}`;
+    try{
+      const [pos,cred]=await Promise.all([
+        fetch(`https://www.edsm.net/api-logs-v1/get-position?${q}`).then(r=>r.json()).catch(()=>null),
+        fetch(`https://www.edsm.net/api-commander-v1/get-credits?${q}`).then(r=>r.json()).catch(()=>null)
+      ]);
+      const done=[];
+      if(pos&&pos.system){
+        const cur=jget('ed_location',{})||{};const o=typeof cur==='string'?{system:cur}:cur;
+        o.system=pos.system; localStorage.setItem('ed_location',JSON.stringify(o));
+        done.push(`📍 system → <b>${esc(pos.system)}</b>`);
+      }
+      if(cred&&Array.isArray(cred.credits)&&cred.credits.length){
+        const bal=cred.credits[0].balance;
+        if(typeof bal==='number'){localStorage.setItem('ed_cp_cur',String(bal));done.push(`💰 credits → <b>${fmt(bal)} CR</b>`);}
+      }
+      if(done.length){st.innerHTML='✅ Synced: '+done.join(' · ');render();}
+      else st.innerHTML='⚠️ Connected but no data returned. Check the commander name &amp; key are right, and that EDMC/EDDiscovery has uploaded your journal to EDSM (and that credits sharing is enabled in your EDSM settings).';
+    }catch(err){
+      st.innerHTML='❌ Couldn\'t reach EDSM from the browser. This is usually a <b>CORS</b> restriction or a wrong key. Your manual values still work — see the note below about a proxy if you want guaranteed live sync.';
+    }
+  }
+
+  const PREFIX=['ed_','khkp_','apex_chk_','wz_chk_','bf_chk_'];
+  function doExport(){const o={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(PREFIX.some(p=>k.startsWith(p)))o[k]=localStorage.getItem(k);}$('#io').value=JSON.stringify(o,null,2);}
+  function doImport(){try{const d=JSON.parse($('#io').value);let n=0;Object.entries(d).forEach(([k,val])=>{localStorage.setItem(k,val);n++;});render();alert('Imported '+n+' saved values ✓');}catch(e){alert("That doesn't look like valid exported JSON.");}}
+  function copyBox(){const t=$('#io');if(!t.value)doExport();t.select();if(navigator.clipboard)navigator.clipboard.writeText(t.value);}
+
+  render(); loadSync();
+</script>
+</body>
+</html>
