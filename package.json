@@ -1,0 +1,13 @@
+{
+  "name": "eric-doerr-projects-hub",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Home Projects Hub — static pages plus the Elite Labs live-data API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

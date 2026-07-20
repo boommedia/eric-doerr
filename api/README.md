@@ -1,60 +1,53 @@
-# Elite Labs API proxy
+# Elite Labs live data API
 
-A tiny zero-dependency Node service that fetches your Elite Dangerous commander data
-**server-side**, so the static site can show live data without CORS issues and without
-ever exposing your API keys in the page source.
-
-## Endpoints
+The site now runs on a tiny Node server (`../server.js`) that serves **all the existing
+HTML pages exactly as before**, plus these live-data endpoints. Keys stay server-side,
+and because it's the same domain there are **no CORS problems**.
 
 | Endpoint | Returns |
 |---|---|
-| `GET /health` | `{ ok: true }` — use this to confirm it's running |
-| `GET /api/edsm` | current **system**, **credits**, **ranks**, **ships** (from EDSM) |
-| `GET /api/inara` | commander **profile** (from Inara) |
+| `GET /health` | `{ok:true}` + whether EDSM/Inara keys are configured |
+| `GET /api/edsm` | current **system**, **credits**, **ranks**, **ships** |
+| `GET /api/inara` | commander **profile** |
 
-`?cmdr=` and `?key=` query params override the env vars, handy for testing.
+`?cmdr=` and `?key=` query params override the env vars (handy for a quick test).
 
-## Deploy on Coolify (one new resource)
+## Setup — add your keys in Coolify
 
-1. Coolify → **New Resource → Public/Private Git Repository**
-2. Repository: `https://github.com/boommedia/eric-doerr.git`, Branch: `main`
-3. **Base Directory:** `/api`  ← important, this is what keeps it separate from the website
-4. **Build Pack:** `Dockerfile`
-5. **Port:** `3000`
-6. Add a domain (e.g. `api.yourdomain.com`) → Coolify issues HTTPS
-7. Add the **environment variables** below
-8. Deploy, then open `https://api.yourdomain.com/health` — you should see `{"ok":true}`
-
-Finally, paste that base URL into the **Elite Labs Center → Live sync → API base URL**
-field on the website and hit **Sync now**.
-
-## Environment variables
+Coolify → your `eric-doerr` app → **Environment Variables** → add:
 
 | Variable | Required | What it is |
 |---|---|---|
-| `EDSM_CMDR` | for EDSM | Your commander name (e.g. `BOOMINC420`) |
-| `EDSM_KEY` | for EDSM | EDSM API key — EDSM → your profile → API key |
-| `INARA_API_KEY` | for Inara | Inara → Profile → **API keys** → create one |
-| `INARA_APP_NAME` | optional | App name registered with the Inara key (default `EliteLabsCenter`) |
+| `EDSM_CMDR` | yes (for live data) | Your commander name, e.g. `BOOMINC420` |
+| `EDSM_KEY` | yes (for live data) | EDSM → your profile → **API key** |
+| `INARA_API_KEY` | optional | Inara → Profile → **API keys** → create one |
+| `INARA_APP_NAME` | optional | App name tied to the Inara key (default `EliteLabsCenter`) |
 | `INARA_CMDR` | optional | Commander name for Inara (falls back to `EDSM_CMDR`) |
-| `ALLOW_ORIGIN` | recommended | Your website origin, e.g. `https://yourdomain.com` (default `*`) |
-| `PORT` | no | Defaults to `3000` |
 
-> **Keys live only in Coolify's env vars — never commit them to the repo.**
-> Set `ALLOW_ORIGIN` to your site's URL so only your site can call the proxy.
+Then **Redeploy**. Check `https://<your-domain>/health` — `edsmConfigured` should be `true`.
 
-## Where the data comes from
+Finally, open **Elite Labs Center → Live sync**, leave the API base URL blank (same domain)
+or enter your site URL, and hit **Sync now**.
 
-- **EDSM** gives the useful live numbers (credits, current system, ships, ranks) — but only
-  if you're **uploading your journal to EDSM** via
-  [EDMarketConnector](https://github.com/EDCD/EDMarketConnector) or EDDiscovery.
-  No journal upload = no data to read.
-- **Inara** returns your **public commander profile** (ranks, squadron, etc.). Inara's API is
-  designed mainly for apps *sending* data in, so it is not a source of live private credits.
+## Prerequisite (important)
+
+EDSM only knows what your game uploads to it. You must be running
+[EDMarketConnector](https://github.com/EDCD/EDMarketConnector) or EDDiscovery with EDSM
+syncing enabled, and **credits sharing turned on in your EDSM settings** — otherwise the
+endpoint returns no credits.
+
+**Inara** returns your *public profile* (ranks, squadron). Its API is designed for apps
+*sending* data in, so it is **not** a source of live private credits — EDSM is.
+
+## Deployment notes
+
+- Build pack: **Nixpacks** detects `package.json` and runs `npm start` → `node server.js`.
+- The server listens on `$PORT`, falling back to `80`, then `3000`.
+- `Dockerfile` (nginx) is kept only as a static-only fallback; Nixpacks ignores it.
 
 ## Run locally
 
 ```bash
-EDSM_CMDR="YourCmdr" EDSM_KEY="yourkey" node api/server.js
-# then: http://localhost:3000/api/edsm
+PORT=8099 EDSM_CMDR="YourCmdr" EDSM_KEY="yourkey" node server.js
+# http://localhost:8099/health
 ```
