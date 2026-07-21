@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎮 YOUR Elite Controls — read from your game</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--ed:#ff8c42;--foot:#c792ea;--gold:#ffd479;--danger:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.6;padding-bottom:70px}
+  .wrap{max-width:880px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.6rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.92rem}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--accent);color:#06121c;border-color:var(--accent)}
+  h2.sec{font-size:1.14rem;border-left:4px solid var(--accent);padding-left:12px;margin:30px 0 12px}
+  .big{background:rgba(126,231,135,.09);border:1px solid rgba(126,231,135,.4);border-radius:14px;padding:18px;margin:16px 0}
+  .big h3{margin:0 0 6px;font-size:1.05rem;color:var(--accent-2)}
+  .big p{margin:6px 0 0;font-size:.92rem}
+  .warnbox{background:rgba(255,140,66,.09);border:1px solid rgba(255,140,66,.38);border-radius:14px;padding:16px;margin:16px 0;font-size:.9rem}
+  .info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28);border-radius:12px;padding:13px 16px;font-size:.88rem;margin:14px 0}
+  .info b,.warnbox b,.big b{color:var(--text)}
+  .kbd{display:inline-block;background:#0b0f14;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 9px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;color:var(--accent-2);font-weight:700}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:10px 0}
+  table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:440px}
+  th,td{padding:9px 13px;border-bottom:1px solid var(--line);text-align:left}
+  tbody tr:last-child td{border-bottom:none}
+  thead th{background:var(--panel-2);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+  td.a{width:56%;font-weight:600;color:var(--text)}
+  td.b{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem;color:var(--accent-2);font-weight:700}
+  tr.star td.a{color:var(--gold)} tr.star td.b{color:var(--gold)}
+  tr.gap td.b{color:var(--danger)}
+  .dev{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.04em;padding:2px 7px;border-radius:5px;margin-right:6px;vertical-align:1px}
+  .dev.stick{background:rgba(255,140,66,.18);color:var(--ed)}
+  .dev.thr{background:rgba(199,146,234,.18);color:var(--foot)}
+  .dev.key{background:rgba(76,194,255,.16);color:var(--accent)}
+  ol.s{padding-left:22px;font-size:.93rem} ol.s li{margin:8px 0} ol.s b{color:var(--text)}
+  footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./elite-labs.html">← Elite Labs Center</a>
+    <h1>🎮 YOUR Actual Controls</h1>
+    <div class="sub">Not generic defaults — this was read directly from your own <code>Custom.4.2.binds</code> file. This is exactly what your game is using.</div>
+    <div class="guidenav">
+      <a class="gn" href="./elite-labs.html">🧪 Labs Center</a>
+      <a class="gn active" href="./elite-control-setup.html">🎮 My Controls</a>
+      <a class="gn" href="./elite-t16000m-config.html">🎛️ Control Map</a>
+      <a class="gn" href="./elite-field-manual.html">📕 Field Manual</a>
+    </div>
+  </header>
+
+  <div class="big">
+    <h3>✅ Good news: nothing is broken. Your controls are already set up.</h3>
+    <p>Your on-foot controls are <b>fully bound</b> — W A S D, Shift, Space, Ctrl, E, mouse, reload, melee, grenade, torch, night vision, item wheel. <b>You do not need to import or rebind anything to walk around.</b></p>
+    <p style="margin-top:10px">Two things were confusing you, and neither was a missing keybind:</p>
+  </div>
+
+  <div class="big" style="background:rgba(255,212,121,.09);border-color:rgba(255,212,121,.45)">
+    <h3 style="color:var(--gold)">🥾 How to disembark (the real answer)</h3>
+    <p><b>"Disembark" is not a keybind at all</b> — that's why you could never find it in Options. It's a <b>menu option inside the Role Panel</b>.</p>
+    <ol class="s" style="margin-top:10px">
+      <li>Be <b>fully stopped</b> (docked, landed, or SRV parked).</li>
+      <li>Press the <b>hat switch DOWN on your TWCS THROTTLE</b> <span class="kbd">THROTTLE POV1-Down</span> — this opens the <b>Role Panel</b> (the bottom panel).</li>
+      <li><b>Choose Disembark</b> from the options in that panel.</li>
+    </ol>
+    <p style="margin-top:10px">⚠️ <b>Not the stick's hat</b> — on the <b>stick</b>, hat-down is "Reset pips". It's the <b>throttle's</b> hat that opens the Role Panel.</p>
+  </div>
+
+  <div class="big" style="background:rgba(255,212,121,.09);border-color:rgba(255,212,121,.45)">
+    <h3 style="color:var(--gold)">🚀 How to launch from a pad</h3>
+    <p>Launch is on your <b>stick's Y-axis</b> — with landing gear down, pitch becomes <b>vertical thrust</b>.</p>
+    <p style="margin-top:8px"><b>Push/pull the stick to FULL deflection and HOLD 2–3 seconds.</b> Tapping does nothing. If one direction doesn't lift you, hold the other.</p>
+  </div>
+
+  <h2 class="sec">🚀 Flying</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Action</th><th>Your bind</th></tr></thead>
+    <tbody>
+      <tr class="star"><td class="a">Pitch — <b>and vertical thrust with gear down (LAUNCH)</b></td><td class="b"><span class="dev stick">STICK</span>Y-Axis</td></tr>
+      <tr><td class="a">Roll</td><td class="b"><span class="dev stick">STICK</span>X-Axis</td></tr>
+      <tr><td class="a">Yaw (twist)</td><td class="b"><span class="dev stick">STICK</span>RZ-Axis</td></tr>
+      <tr><td class="a">Throttle</td><td class="b"><span class="dev thr">THROTTLE</span>Z-Axis</td></tr>
+      <tr><td class="a">Primary fire</td><td class="b"><span class="dev stick">STICK</span>Button 1 (trigger)</td></tr>
+      <tr><td class="a">Secondary fire</td><td class="b"><span class="dev stick">STICK</span>Button 2</td></tr>
+      <tr><td class="a">Boost</td><td class="b"><span class="dev thr">THROTTLE</span>Button 3</td></tr>
+      <tr><td class="a">Landing gear</td><td class="b"><span class="dev stick">STICK</span>Button 14</td></tr>
+      <tr><td class="a">Cargo scoop</td><td class="b"><span class="dev stick">STICK</span>Button 13</td></tr>
+      <tr><td class="a">Hardpoints</td><td class="b"><span class="dev stick">STICK</span>Button 12</td></tr>
+      <tr><td class="a">Flight Assist</td><td class="b"><span class="dev thr">THROTTLE</span>Button 1</td></tr>
+      <tr><td class="a">Ship lights</td><td class="b"><span class="dev stick">STICK</span>Button 15</td></tr>
+      <tr><td class="a">Next fire group</td><td class="b"><span class="dev stick">STICK</span>Button 4</td></tr>
+      <tr class="star"><td class="a">Analysis / Combat mode <span style="font-weight:400;color:var(--muted)">— must be Analysis (blue) to mine</span></td><td class="b"><span class="dev key">KEY</span>M</td></tr>
+      <tr class="gap"><td class="a">Frame Shift Drive / supercruise</td><td class="b">⚠ NOT BOUND</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">🎛️ Panels &amp; power</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Action</th><th>Your bind</th></tr></thead>
+    <tbody>
+      <tr class="star"><td class="a">ROLE PANEL (bottom) — <b>disembark lives in here</b></td><td class="b"><span class="dev thr">THROTTLE</span>Hat DOWN</td></tr>
+      <tr><td class="a">Left / target panel</td><td class="b"><span class="dev thr">THROTTLE</span>Hat LEFT</td></tr>
+      <tr><td class="a">Comms panel</td><td class="b"><span class="dev thr">THROTTLE</span>Hat UP</td></tr>
+      <tr><td class="a">Right / systems panel</td><td class="b"><span class="dev thr">THROTTLE</span>Hat RIGHT</td></tr>
+      <tr><td class="a">Pips → Engines</td><td class="b"><span class="dev stick">STICK</span>Hat UP</td></tr>
+      <tr><td class="a">Pips → Weapons</td><td class="b"><span class="dev stick">STICK</span>Hat RIGHT</td></tr>
+      <tr><td class="a">Pips → Systems</td><td class="b"><span class="dev stick">STICK</span>Hat LEFT</td></tr>
+      <tr><td class="a">Reset pips</td><td class="b"><span class="dev stick">STICK</span>Hat DOWN</td></tr>
+      <tr class="gap"><td class="a">Recall / dismiss ship <span style="font-weight:400;color:var(--muted)">— useful when stuck in an SRV</span></td><td class="b">⚠ NOT BOUND</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">🥾 On foot — all working</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Action</th><th>Your bind</th></tr></thead>
+    <tbody>
+      <tr><td class="a">Move forward / back</td><td class="b"><span class="dev key">KEY</span>W / S</td></tr>
+      <tr><td class="a">Strafe left / right</td><td class="b"><span class="dev key">KEY</span>A / D</td></tr>
+      <tr><td class="a">Sprint</td><td class="b"><span class="dev key">KEY</span>Left Shift</td></tr>
+      <tr><td class="a">Jump</td><td class="b"><span class="dev key">KEY</span>Space</td></tr>
+      <tr><td class="a">Crouch</td><td class="b"><span class="dev key">KEY</span>Left Ctrl</td></tr>
+      <tr class="star"><td class="a">Interact / Use <span style="font-weight:400;color:var(--muted)">— doors, terminals, loot</span></td><td class="b"><span class="dev key">KEY</span>E</td></tr>
+      <tr><td class="a">Primary fire</td><td class="b"><span class="dev key">MOUSE</span>Left button</td></tr>
+      <tr><td class="a">Aim / zoom</td><td class="b"><span class="dev key">MOUSE</span>Right button</td></tr>
+      <tr><td class="a">Reload</td><td class="b"><span class="dev key">KEY</span>R</td></tr>
+      <tr><td class="a">Melee</td><td class="b"><span class="dev key">KEY</span>V <span style="color:var(--muted)">or middle mouse</span></td></tr>
+      <tr><td class="a">Throw grenade</td><td class="b"><span class="dev key">KEY</span>F</td></tr>
+      <tr><td class="a">Torch / flashlight</td><td class="b"><span class="dev key">KEY</span>H</td></tr>
+      <tr><td class="a">Night vision</td><td class="b"><span class="dev key">KEY</span>N</td></tr>
+      <tr><td class="a">Switch weapon</td><td class="b"><span class="dev key">MOUSE</span>Scroll wheel</td></tr>
+      <tr class="star"><td class="a">Item wheel <span style="font-weight:400;color:var(--muted)">— Energylink, E-Breach, medkits, grenades</span></td><td class="b"><span class="dev key">KEY</span>Left Alt <span style="color:var(--muted)">(hold)</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="info">💡 <b>Left Alt is your on-foot lifeline</b> — hold it to bring up the item wheel and pick your Energylink, E-Breach, medkit or grenade. If you didn't know that, half of on-foot would have felt impossible.</div>
+
+  <h2 class="sec">🛞 SRV (Scarab)</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Action</th><th>Your bind</th></tr></thead>
+    <tbody>
+      <tr class="gap"><td class="a">Drive forward / back</td><td class="b">⚠ NOT BOUND</td></tr>
+      <tr class="gap"><td class="a">Steer left / right</td><td class="b">⚠ NOT BOUND</td></tr>
+      <tr><td class="a">Vertical thrust (jump)</td><td class="b"><span class="dev key">KEY</span>Space</td></tr>
+      <tr><td class="a">Turret mode</td><td class="b"><span class="dev key">KEY</span>U</td></tr>
+      <tr><td class="a">Primary fire</td><td class="b"><span class="dev key">MOUSE</span>Left button</td></tr>
+      <tr><td class="a">Headlights</td><td class="b"><span class="dev key">KEY</span>L</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="warnbox">
+    <b>⚠️ Three real gaps worth fixing</b> (everything else is fine):
+    <ol class="s" style="margin-top:8px">
+      <li><b>SRV Drive &amp; Steer are unbound</b> — that's why driving felt wrong. Bind them in <b>Options ▸ Controls ▸ Driving</b> to your stick X-axis (steer) and throttle axis (drive), or W/S + A/D.</li>
+      <li><b>Frame Shift Drive is unbound</b> — bind it to a stick or throttle button so you can supercruise/jump without hunting for a key.</li>
+      <li><b>Recall / Dismiss Ship is unbound</b> — bind it; it's your escape hatch when stranded in an SRV.</li>
+    </ol>
+  </div>
+
+  <h2 class="sec">📥 Can I just import controls?</h2>
+  <div class="info">
+    <b>You don't need to</b> — yours are already configured. But for reference: Elite stores presets as <code>.binds</code> files in<br>
+    <code>%LOCALAPPDATA%\Frontier Developments\Elite Dangerous\Options\Bindings</code><br><br>
+    Drop a <code>.binds</code> file in there and it appears in the preset dropdown in-game. You already have several, including <b>"Dual T16000m space legs"</b> — but it <b>fails to load</b> with <i>"Missing devices: T16000M"</i>, because it expects <b>two</b> T16000M sticks and only one is plugged in. If you want to use that dual-stick profile, connect the second stick first.
+  </div>
+
+  <footer>Generated from your live <code>Custom.4.2.binds</code>. If you rebind anything in-game, this page won't update automatically — ask me to re-read it. Part of the <a href="./elite-labs.html">Elite Labs Center</a>.</footer>
+</div>
+</body>
+</html>
