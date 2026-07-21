@@ -65,6 +65,42 @@
 
   <div class="go">💡 <b>Use keys you'd never press by accident.</b> Bind these secondaries to the <b>Numpad</b> or <b>F-keys</b>. They stay out of the way of your existing keys (W A S D E Q R V F H N M L U Z Shift Ctrl Space Alt are all in use), so there are no conflicts.</div>
 
+  <!-- FIRST COMMAND -->
+  <h2 class="sec">🆕 Start here — your first command (5 minutes)</h2>
+  <div class="warn">
+    <b>Seeing a wall of "Unrecognized: …" in the log?</b> That's normal and it is <b>not broken</b>. It means <b>your profile has no commands yet</b> — VoiceAttack only reacts to commands you create. Everything else it hears gets logged as unrecognized. Let's fix both that and the background-noise problem.
+  </div>
+
+  <div class="big">
+    <h3>🔇 Step A — stop it hearing your room</h3>
+    <p style="margin:0 0 8px">If the log is filling with random sentences, it's picking up your TV/music. Switch to <b>push-to-talk</b> so it only listens when you hold a key.</p>
+    <ol class="s" style="margin-top:8px">
+      <li>Click the <b>wrench icon</b> 🔧 (bottom of the icon strip on the right) to open <b>Options</b>.</li>
+      <li>Go to the <b>Recognition</b> tab.</li>
+      <li>Enable <b>push-to-talk</b> and set a key or joystick button to hold while speaking.<span class="note">A spare throttle button is perfect — then you never take a hand off the HOTAS.</span></li>
+      <li><b>OK</b> to save.</li>
+    </ol>
+    <p style="margin:8px 0 0">✅ The log should go quiet unless you're holding that key.</p>
+  </div>
+
+  <div class="big" style="background:rgba(126,231,135,.08);border-color:rgba(126,231,135,.4)">
+    <h3 style="color:var(--accent-2)">🎯 Step B — make ONE command that works</h3>
+    <p style="margin:0 0 8px">We'll do <b>landing gear</b> as a test. Do this one, prove it works, then repeat for the rest.</p>
+    <ol class="s" style="margin-top:8px">
+      <li><b>In Elite first:</b> Options ▸ Controls ▸ find <b>Landing Gear</b> ▸ click the <b>SECONDARY</b> box ▸ press <span class="kbd">Numpad 1</span>.<span class="note">Do NOT touch the Primary box — that's your Stick Button 14 and it stays.</span></li>
+      <li><b>In VoiceAttack:</b> click the <b>pencil icon ✏️</b> next to the Profile box (top right of the profile bar).</li>
+      <li>Click <b>New Command</b>.</li>
+      <li>In the <b>"When I say"</b> field type: <b>landing gear;gear down</b><span class="note">The semicolon gives you two phrasings for the same command.</span></li>
+      <li>Now add the action: in the command editor find the <b>Other ▸ Keyboard</b> section and choose <b>Press and Release Key(s)</b>.<span class="note">In some versions it's a button labelled "Key/Mouse/Other Input". Either way you want a key-press action.</span></li>
+      <li>Click the key box and <b>press Numpad 1</b>. Leave the duration at default.</li>
+      <li>Click <b>OK</b> → <b>OK</b> → <b>Done</b> to close back to the main window.</li>
+      <li><b>Test:</b> with Elite in front, hold push-to-talk and say <b>"landing gear"</b>.</li>
+    </ol>
+    <p style="margin:10px 0 0">✅ The log now shows the command <b>recognised</b> (not "Unrecognized"), and your gear deploys.</p>
+  </div>
+
+  <div class="info">🧭 <b>If VoiceAttack says it heard you but the ship does nothing</b> — the Secondary bind in Elite is missing or on a different key. That's step 1, not a VoiceAttack fault.</div>
+
   <!-- INSTALL -->
   <h2 class="sec">1️⃣ Install &amp; microphone</h2>
   <ol class="s">
