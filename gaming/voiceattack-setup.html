@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎙️ VoiceAttack Setup — Elite Dangerous (your rig)</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--ed:#ff8c42;--gold:#ffd479;--danger:#ff6b6b;--foot:#c792ea}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 75% -10%,rgba(126,231,135,.09),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.6;padding-bottom:70px}
+  .wrap{max-width:900px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.6rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.92rem}
+  h2.sec{font-size:1.14rem;border-left:4px solid var(--accent-2);padding-left:12px;margin:30px 0 12px}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--accent-2);color:#06180a;border-color:var(--accent-2)}
+  .big{background:rgba(255,212,121,.09);border:1px solid rgba(255,212,121,.45);border-radius:14px;padding:18px;margin:16px 0}
+  .big h3{margin:0 0 8px;font-size:1.05rem;color:var(--gold)}
+  .info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28);border-radius:12px;padding:13px 16px;font-size:.88rem;margin:14px 0}
+  .go{background:rgba(126,231,135,.08);border:1px solid rgba(126,231,135,.35);border-radius:12px;padding:13px 16px;font-size:.88rem;margin:14px 0}
+  .warn{background:rgba(255,140,66,.08);border:1px solid rgba(255,140,66,.32);border-radius:12px;padding:13px 16px;font-size:.88rem;margin:14px 0}
+  .info b,.go b,.warn b,.big b{color:var(--text)}
+  .kbd{display:inline-block;background:#0b0f14;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 9px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;color:var(--accent-2);font-weight:700}
+  ol.s{padding-left:22px;font-size:.93rem} ol.s li{margin:9px 0} ol.s b{color:var(--text)}
+  ol.s .note{display:block;color:var(--muted);font-size:.84rem;margin-top:2px}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:10px 0}
+  table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:520px}
+  th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+  tbody tr:last-child td{border-bottom:none}
+  thead th{background:var(--panel-2);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+  input.f{width:100%;background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:7px;padding:6px 9px;font:inherit;font-size:.85rem}
+  input.f:focus{outline:none;border-color:var(--accent)}
+  input.k{color:var(--accent-2);font-weight:700;font-family:ui-monospace,Menlo,Consolas,monospace}
+  td.act{color:var(--muted);font-size:.84rem}
+  .btn{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:8px 13px;font-weight:600;font-size:.82rem;cursor:pointer}
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .links a{font-size:.82rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);text-decoration:none;border-radius:8px;padding:6px 11px}
+  footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./elite-labs.html">← Elite Labs Center</a>
+    <h1>🎙️ VoiceAttack Setup — for your rig</h1>
+    <div class="sub">Control Elite with your voice while both hands stay on the T16000M. Written around <b>your actual keybinds</b>.</div>
+    <div class="guidenav">
+      <a class="gn" href="./elite-labs.html">🧪 Labs Center</a>
+      <a class="gn active" href="./voiceattack-setup.html">🎙️ VoiceAttack</a>
+      <a class="gn" href="./elite-control-setup.html">🎮 My Controls</a>
+      <a class="gn" href="./elite-t16000m-config.html">🎛️ Control Map</a>
+    </div>
+  </header>
+
+  <div class="big">
+    <h3>⚠️ Read this first — it's the thing that breaks most setups</h3>
+    <p style="margin:0 0 8px"><b>VoiceAttack works by pressing keyboard keys.</b> It cannot press your joystick buttons.</p>
+    <p style="margin:0 0 8px">Most of your Elite controls are on the <b>stick and throttle</b> — landing gear is Stick Button 14, boost is Throttle Button 3, supercruise is Throttle Button 5. VoiceAttack <b>can't trigger any of those</b> as they stand.</p>
+    <p style="margin:0"><b>The fix:</b> Elite lets every action have a <b>Primary AND a Secondary</b> binding. Leave your joystick bind as Primary, and add a <b>keyboard key as Secondary</b>. Your HOTAS keeps working exactly as it does now — you just give VoiceAttack a key it can press.</p>
+  </div>
+
+  <div class="go">💡 <b>Use keys you'd never press by accident.</b> Bind these secondaries to the <b>Numpad</b> or <b>F-keys</b>. They stay out of the way of your existing keys (W A S D E Q R V F H N M L U Z Shift Ctrl Space Alt are all in use), so there are no conflicts.</div>
+
+  <!-- INSTALL -->
+  <h2 class="sec">1️⃣ Install &amp; microphone</h2>
+  <ol class="s">
+    <li><b>Install VoiceAttack</b> and launch it.</li>
+    <li><b>Set your microphone</b> in Windows Sound settings as the default input device, then run <b>Windows Speech Recognition training</b> once.<span class="note">This single step is the biggest accuracy improvement you can make — it teaches Windows your voice, and VoiceAttack uses that engine.</span></li>
+    <li>In VoiceAttack, pick your mic from the device dropdown.</li>
+    <li><b>Set a listening mode.</b> Push-to-talk (hold a key/button to speak) avoids false triggers; always-listening is more immersive.<span class="note">If you have a spare throttle button, push-to-talk on it is ideal.</span></li>
+  </ol>
+
+  <!-- SECONDARY BINDS -->
+  <h2 class="sec">2️⃣ Give Elite keys for VoiceAttack to press</h2>
+  <ol class="s">
+    <li>In Elite: <b>Options ▸ Controls</b>.</li>
+    <li>Find an action you want by voice (e.g. <b>Landing Gear</b>).</li>
+    <li>Click the <b>SECONDARY</b> box — the second slot, <b>not</b> the one showing your joystick button.<span class="note">Leaving Primary alone is what protects your HOTAS setup.</span></li>
+    <li><b>Press the key</b> you're assigning (e.g. <span class="kbd">Numpad 1</span>).</li>
+    <li>Repeat for each action in the table below. Back out — Elite saves automatically.</li>
+  </ol>
+  <div class="warn">⚠️ Do this while <b>Elite is closed or at the main menu</b>, and don't edit the binds file by hand at the same time — the game rewrites it on exit.</div>
+
+  <!-- COMMAND TABLE -->
+  <h2 class="sec">3️⃣ Your command sheet</h2>
+  <div class="info">Edit any phrase or key to suit you — this saves in your browser so it becomes your build sheet. Set the <b>Secondary bind in Elite</b> and the matching <b>command in VoiceAttack</b> to the same key.</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th style="width:34%">Say this…</th><th style="width:20%">Key</th><th>Elite action (set as Secondary)</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table></div>
+  <div style="margin-top:8px"><button class="btn" onclick="resetRows()">↺ Reset to suggested list</button></div>
+
+  <!-- MAKE A COMMAND -->
+  <h2 class="sec">4️⃣ Create the command in VoiceAttack</h2>
+  <ol class="s">
+    <li>In VoiceAttack, click the <b>pencil / Edit Profile</b> icon.</li>
+    <li>Click <b>New Command</b>.</li>
+    <li>In <b>"When I say"</b>, type your phrase — e.g. <b>landing gear</b>.<span class="note">You can add alternatives separated by semicolons, e.g. <i>landing gear;gear down;deploy gear</i> — so any of them work.</span></li>
+    <li>Add an action: <b>Key/Mouse ▸ Press and Release Key(s)</b>.</li>
+    <li>Choose the key you set as Elite's Secondary (e.g. <span class="kbd">Numpad 1</span>). Leave duration at the default short press.</li>
+    <li><b>OK ▸ OK ▸ Done.</b> Repeat per command.</li>
+  </ol>
+  <div class="go">✅ <b>Test it:</b> with Elite in the foreground, say the phrase. VoiceAttack's log shows it heard you, and the ship should respond. If VoiceAttack hears it but nothing happens in-game, the <b>Secondary bind is missing or on a different key</b>.</div>
+
+  <!-- VOICE PACKS -->
+  <h2 class="sec">5️⃣ Optional: voice packs</h2>
+  <div class="info">Packs like <b>HCS Voice Packs</b> add an AI co-pilot personality plus <b>hundreds of pre-built Elite commands</b> — you import a profile instead of building each command. They still rely on the same principle: <b>they press keys</b>, so your Elite bindings must match what the pack expects. Most packs ship a reference sheet of the keys they use.</div>
+
+  <!-- TROUBLESHOOTING -->
+  <h2 class="sec">🚑 Troubleshooting</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th style="width:40%">Problem</th><th>Fix</th></tr></thead>
+    <tbody>
+      <tr><td>VoiceAttack hears me, nothing happens in Elite</td><td>The action has <b>no keyboard bind</b>. Add the key as a <b>Secondary</b> in Elite's controls.</td></tr>
+      <tr><td>It mishears / triggers randomly</td><td>Run <b>Windows Speech Recognition training</b>, use <b>push-to-talk</b>, and make phrases 2+ words (single words misfire).</td></tr>
+      <tr><td>Works on desktop, not in-game</td><td>Run <b>VoiceAttack as Administrator</b> — Elite may ignore input from a lower-privilege app.</td></tr>
+      <tr><td>Command fires twice</td><td>Two commands share a similar phrase, or key duration is too long. Shorten the press.</td></tr>
+      <tr><td>Nothing at all is recognised</td><td>Wrong microphone selected in VoiceAttack, or Windows mic privacy is blocking it.</td></tr>
+      <tr><td>It broke my joystick controls</td><td>It can't — unless you overwrote a <b>Primary</b> bind. Only ever set <b>Secondary</b>.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="links">
+    <a href="https://voiceattack.com/" target="_blank" rel="noopener">VoiceAttack ↗</a>
+    <a href="https://voiceattack.com/Default.aspx#support-1" target="_blank" rel="noopener">Support &amp; docs ↗</a>
+    <a href="https://www.hcsvoicepacks.com/" target="_blank" rel="noopener">HCS Voice Packs ↗</a>
+    <a href="./elite-control-setup.html">🎮 Your current binds →</a>
+  </div>
+
+  <footer>Part of the <a href="./elite-labs.html">Elite Labs Center</a>. Your command sheet saves in this browser only. VoiceAttack sends keystrokes — it never modifies your joystick setup.</footer>
+</div>
+
+<script>
+  const $=s=>document.querySelector(s);
+  const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const DEF=[
+    ["landing gear;gear down","Numpad 1","Landing Gear (Primary = Stick 14)"],
+    ["hardpoints;weapons out","Numpad 2","Deploy/Retract Hardpoints (Primary = Stick 12)"],
+    ["cargo scoop","Numpad 3","Cargo Scoop (Primary = Stick 13)"],
+    ["lights;ship lights","Numpad 4","Ship Lights (Primary = Stick 15)"],
+    ["supercruise;frame shift","Numpad 5","Supercruise (Primary = Throttle 5)"],
+    ["jump;hyperspace","Numpad 6","Hyperspace (Primary = Throttle 4)"],
+    ["boost","Numpad 7","Boost (Primary = Throttle 3)"],
+    ["flight assist","Numpad 8","Toggle Flight Assist (Primary = Throttle 1)"],
+    ["analysis mode;scan mode","M","Analysis/Combat toggle — already on M"],
+    ["role panel;disembark options","Numpad 9","Role Panel (Primary = Throttle hat DOWN)"],
+    ["power to engines","Numpad Plus","Pips → Engines"],
+    ["power to weapons","Numpad Minus","Pips → Weapons"],
+    ["power to systems","Numpad Star","Pips → Systems"],
+    ["balance power","Numpad Slash","Reset pips"],
+    ["recall ship","Y","Recall/Dismiss Ship — currently UNBOUND, free key"],
+    ["silent running","F1","Silent Running"],
+    ["heat sink","F2","Deploy Heat Sink"],
+    ["night vision","F3","Night Vision"]
+  ];
+  const K=(r,c)=>'va_'+r+'_'+c;
+  function setV(r,c,v){localStorage.setItem(K(r,c),v);}
+  function resetRows(){DEF.forEach((_,i)=>{localStorage.removeItem(K(i,0));localStorage.removeItem(K(i,1));});render();}
+  function render(){
+    $('#rows').innerHTML=DEF.map((d,i)=>{
+      const p=localStorage.getItem(K(i,0)); const k=localStorage.getItem(K(i,1));
+      return `<tr>
+        <td><input class="f" value="${esc(p==null?d[0]:p)}" oninput="setV(${i},0,this.value)"></td>
+        <td><input class="f k" value="${esc(k==null?d[1]:k)}" oninput="setV(${i},1,this.value)"></td>
+        <td class="act">${esc(d[2])}</td>
+      </tr>`;}).join('');
+  }
+  render();
+</script>
+</body>
+</html>
