@@ -15,7 +15,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const { edsm, inara } = require('./api/lib.js');
+const { edsm, inara, nearby } = require('./api/lib.js');
 
 const ROOT = __dirname;
 // Coolify/Nixpacks normally injects PORT. If it doesn't, fall back to 80
@@ -93,6 +93,12 @@ const server = http.createServer(async (req, res) => {
       const cmdr = url.searchParams.get('cmdr') || process.env.INARA_CMDR || process.env.EDSM_CMDR;
       const key = url.searchParams.get('key') || process.env.INARA_API_KEY;
       return sendJSON(res, 200, await inara(cmdr, key, process.env.INARA_APP_NAME));
+    }
+    if (url.pathname === '/api/nearby') {
+      const sys = url.searchParams.get('system');
+      const radius = url.searchParams.get('radius') || 20;
+      const factions = url.searchParams.get('factions') || '';
+      return sendJSON(res, 200, await nearby(sys, radius, factions));
     }
   } catch (err) {
     return sendJSON(res, 200, { error: err.message || String(err) });

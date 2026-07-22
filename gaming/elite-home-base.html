@@ -51,6 +51,10 @@
   .clinks a{font-size:.77rem;color:var(--accent);text-decoration:none;background:var(--panel-2);border:1px solid var(--line);border-radius:7px;padding:5px 9px}
   .mini{font-size:.75rem;background:var(--panel-2);border:1px solid var(--line);color:var(--danger);border-radius:7px;padding:4px 9px;cursor:pointer}
   .empty{color:var(--muted);font-size:.86rem;text-align:center;padding:16px;border:1px dashed var(--line);border-radius:12px}
+  .ringtag{font-size:.62rem;font-weight:700;padding:2px 6px;border-radius:5px;margin-right:4px}
+  .ringtag.icy{background:rgba(76,194,255,.16);color:var(--accent)}
+  .ringtag.metallic{background:rgba(255,140,66,.16);color:var(--ed)}
+  .ringtag.rocky{background:rgba(139,152,169,.16);color:var(--muted)}
   .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
   .links a{font-size:.82rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);text-decoration:none;border-radius:8px;padding:6px 11px}
   footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
@@ -71,6 +75,19 @@
   </header>
 
   <div class="callout info">🎯 <b>What makes a great home base?</b> One system (or a tight cluster) that has <b>ringed planets</b> — those give you both <b>mining hotspots</b> and <b>Resource Extraction Sites</b> in the same place — controlled by a <b>faction you're allied/friendly with</b> (better mission payouts, rep, and an <b>Interstellar Factors</b> contact to clear fines), with a <b>Concourse</b> station so you can also run on-foot &amp; buy gear. Score candidates below.</div>
+
+  <!-- FIND NEAR ME -->
+  <h2 class="sec">🔎 Find the best systems near you <span style="font-size:.7rem;color:var(--muted);font-weight:400">— live from EDSM</span></h2>
+  <div class="callout info">Type your <b>current system</b> → it searches EDSM for nearby <b>populated</b> systems, checks which have <b>rings</b> (mining + RES on your doorstep) and whether a <b>faction you like</b> controls them, then ranks them best-first. Auto-filled from your saved location if set.</div>
+  <div class="tool">
+    <div class="row">
+      <label class="fld">Your current system<input id="nSys" placeholder="e.g. Deciat" onkeydown="if(event.key==='Enter')findNear()"></label>
+      <label class="fld" style="flex:0;min-width:110px">Radius (ly)<input id="nRad" type="number" value="20" min="5" max="40"></label>
+      <button class="btn" onclick="findNear()">🔎 Find</button>
+    </div>
+    <div id="nStatus" style="font-size:.83rem;color:var(--muted);margin-top:10px"></div>
+    <div id="nResults"></div>
+  </div>
 
   <!-- YOUR FACTIONS -->
   <h2 class="sec">🤝 Your factions <span style="font-size:.7rem;color:var(--muted);font-weight:400">— from your journal, 21 Jul 3312</span></h2>
@@ -172,6 +189,40 @@
       </div>`;
     }).join('');
   }
+  /* ---- LIVE FINDER (calls this site's /api/nearby) ---- */
+  function findNear(){
+    const sys=$('#nSys').value.trim(); if(!sys){$('#nStatus').textContent='Enter your current system first.';return;}
+    const rad=Math.min(Math.max(+$('#nRad').value||20,5),40);
+    const facs=FACTIONS.filter(f=>f[1]>=15).map(f=>f[0]).join('|');
+    const st=$('#nStatus'), res=$('#nResults');
+    st.innerHTML='⏳ Searching EDSM near <b>'+esc(sys)+'</b>… (checks each system for rings, can take a few seconds)'; res.innerHTML='';
+    fetch(location.origin+'/api/nearby?system='+encodeURIComponent(sys)+'&radius='+rad+'&factions='+encodeURIComponent(facs))
+      .then(r=>r.json()).then(d=>{
+        if(d.error){st.innerHTML='⚠️ '+esc(d.error);return;}
+        if(!d.candidates||!d.candidates.length){st.innerHTML='😕 '+esc(d.note||'No populated systems found within '+rad+' ly.');return;}
+        st.innerHTML=`Found <b>${d.count}</b> populated systems within ${d.radius} ly — best first. Score = friendly faction + ring types + population.`;
+        res.innerHTML=d.candidates.map(c=>{
+          const e=encodeURIComponent(c.name), cls=c.score>=8?'hi':(c.score>=5?'mid':'lo');
+          const rt=c.rings.length?c.rings.map(r=>`<span class="ringtag ${r.toLowerCase()}">${r}</span>`).join(''):'<span style="color:var(--muted)">no rings</span>';
+          const noteStr=(c.rings.join('/')||'no rings')+' · '+(c.faction||'—');
+          return `<div class="cand">
+            <div class="cand-h"><b>🏠 ${esc(c.name)} <span style="color:var(--muted);font-weight:400;font-size:.82rem">${c.distance} ly</span></b><span class="score ${cls}">${c.score} / 11</span></div>
+            <div style="font-size:.83rem;color:var(--muted);margin-top:6px">
+              ${rt} &nbsp;·&nbsp; ${c.friendly?'<span style="color:var(--accent-2);font-weight:700">✔ your faction</span>':'faction:'} <b style="color:var(--text)">${esc(c.faction||'—')}</b>${c.economy?` · ${esc(c.economy)}`:''}${c.security?` · ${esc(c.security)} sec`:''}
+            </div>
+            <div class="clinks">
+              <a href="https://edtools.cc/miner" target="_blank" rel="noopener">⛏️ hotspots ↗</a>
+              <a href="https://edtools.cc/res" target="_blank" rel="noopener">🎯 RES ↗</a>
+              <a href="https://inara.cz/elite/starsystem/?search=${e}" target="_blank" rel="noopener">📊 Inara ↗</a>
+              <button class="mini" style="color:var(--accent)" onclick="quickAdd(${JSON.stringify(c.name)},${JSON.stringify(noteStr)})">+ add to scorecard</button>
+            </div>
+          </div>`;
+        }).join('');
+      }).catch(err=>{st.innerHTML='❌ '+esc(err.message||String(err))+' — the site must be running on the Node server. Check <code>/health</code>.';});
+  }
+  function quickAdd(sys,note){cands.push({id:uid(),sys,note,crit:CRIT.map(()=>false)});save(cands);render();$('#cands').scrollIntoView({behavior:'smooth',block:'center'});}
+  try{const o=JSON.parse(localStorage.getItem('ed_location'));if(o&&o.system)$('#nSys').value=o.system;}catch(e){}
+
   renderFacs(); render();
 </script>
 </body>

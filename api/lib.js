@@ -97,4 +97,65 @@ async function inara(cmdr, apiKey, appName) {
   };
 }
 
-module.exports = { edsm, inara };
+/* ---- Nearby home-base finder (public EDSM data, no key needed) ---- */
+async function nearby(systemName, radius, factionsCsv) {
+  if (!systemName) throw new Error('Provide ?system= (your current system name).');
+  radius = Math.min(Math.max(parseInt(radius, 10) || 20, 5), 40);
+  const url = `https://www.edsm.net/api-v1/sphere-systems?systemName=${encodeURIComponent(systemName)}&radius=${radius}&showInformation=1`;
+  const list = await getJSON(url);
+  if (!Array.isArray(list) || !list.length) {
+    return { system: systemName, radius, count: 0, candidates: [],
+      note: 'No systems found — EDSM may not know this system, or you are in deep space with nothing populated nearby (a Fleet Carrier is your only "home" out here).' };
+  }
+  const fset = new Set((factionsCsv || '').split('|').map((s) => s.trim().toLowerCase()).filter(Boolean));
+  const populated = list
+    .filter((s) => s.information && (s.information.population || 0) > 0)
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, 14);
+
+  const out = [];
+  for (const s of populated) {
+    const rings = new Set();
+    try {
+      const b = await getJSON(`https://www.edsm.net/api-system-v1/bodies?systemName=${encodeURIComponent(s.name)}`);
+      if (b && Array.isArray(b.bodies)) {
+        for (const body of b.bodies) {
+          if (Array.isArray(body.rings)) {
+            for (const r of body.rings) {
+              const t = (r.type || '').toLowerCase();
+              if (t.includes('icy')) rings.add('Icy');
+              else if (t.includes('metal')) rings.add('Metallic');
+              else if (t.includes('rocky')) rings.add('Rocky');
+            }
+          }
+        }
+      }
+    } catch (e) { /* body data optional */ }
+
+    const info = s.information || {};
+    const faction = info.faction || '';
+    const friendly = fset.has(faction.toLowerCase());
+    let score = 0;
+    if (friendly) score += 3;
+    if (rings.has('Icy')) score += 3;         // Void Opals / LTDs
+    if (rings.has('Metallic')) score += 2;    // Painite / Platinum
+    if (rings.size) score += 2;               // any ring => RES potential
+    if ((info.population || 0) > 0) score += 1;
+
+    out.push({
+      name: s.name,
+      distance: Math.round(s.distance * 100) / 100,
+      faction, friendly,
+      allegiance: info.allegiance || null,
+      economy: info.economy || null,
+      security: info.security || null,
+      population: info.population || 0,
+      rings: [...rings],
+      score,
+    });
+  }
+  out.sort((a, b) => b.score - a.score || a.distance - b.distance);
+  return { system: systemName, radius, count: out.length, candidates: out };
+}
+
+module.exports = { edsm, inara, nearby };
