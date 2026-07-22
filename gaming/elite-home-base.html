@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏠 Elite — Best Place to Call Home (mining + bounty in your factions)</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--ed:#ff8c42;--mine:#4cc2ff;--gold:#ffd479;--danger:#ff6b6b;--foot:#c792ea}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 75% -10%,rgba(126,231,135,.09),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:980px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.6rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  h2.sec{font-size:1.13rem;border-left:4px solid var(--accent-2);padding-left:12px;margin:30px 0 12px}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--accent-2);color:#06180a;border-color:var(--accent-2)}
+  .callout{border-radius:12px;padding:13px 16px;font-size:.86rem;margin:14px 0}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout.tip{background:rgba(255,212,121,.06);border:1px solid rgba(255,212,121,.28)}
+  .callout.warn{background:rgba(255,140,66,.08);border:1px solid rgba(255,140,66,.32)}
+  .callout b{color:var(--text)} .callout a{color:var(--accent)}
+  ol.steps{padding-left:20px;font-size:.9rem} ol.steps li{margin:6px 0} ol.steps b{color:var(--text)}
+  .lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin:16px 0 6px}
+  .facs{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+  .fac{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--line);border-radius:11px;padding:12px}
+  .fac.allied{border-left-color:var(--accent-2)} .fac.friendly{border-left-color:var(--accent)}
+  .fac b{font-size:.92rem} .fac .rep{float:right;font-size:.78rem;color:var(--muted);font-weight:700}
+  .fac .tag{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:2px 7px;border-radius:5px;margin-top:6px;display:inline-block}
+  .fac.allied .tag{background:rgba(126,231,135,.16);color:var(--accent-2)}
+  .fac.friendly .tag{background:rgba(76,194,255,.16);color:var(--accent)}
+  .fac a{display:inline-block;font-size:.78rem;color:var(--accent);text-decoration:none;margin-top:8px}
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin:10px 0}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:end}
+  label.fld{display:flex;flex-direction:column;gap:4px;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700;flex:1;min-width:160px}
+  input{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 11px;font:inherit;font-size:.9rem;width:100%}
+  input:focus{outline:none;border-color:var(--accent)}
+  .btn{background:var(--accent-2);color:#06180a;border:none;border-radius:9px;padding:9px 15px;font-weight:700;font-size:.86rem;cursor:pointer}
+  .btn.alt{background:var(--panel-2);color:var(--text);border:1px solid var(--line)}
+  .cand{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:12px}
+  .cand-h{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+  .cand-h b{font-size:1.02rem}
+  .score{font-size:.82rem;font-weight:800;padding:4px 10px;border-radius:8px;background:var(--panel-2);white-space:nowrap}
+  .score.hi{background:rgba(126,231,135,.16);color:var(--accent-2)} .score.mid{background:rgba(255,212,121,.16);color:var(--gold)} .score.lo{background:rgba(255,107,107,.16);color:var(--danger)}
+  label.crit{display:flex;gap:9px;align-items:flex-start;font-size:.85rem;color:var(--muted);padding:5px 0;cursor:pointer}
+  label.crit input{width:auto;margin-top:3px} label.crit.on{color:var(--text)} label.crit b{color:var(--text)} label.crit small{color:var(--muted);display:block;font-size:.76rem}
+  .clinks{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .clinks a{font-size:.77rem;color:var(--accent);text-decoration:none;background:var(--panel-2);border:1px solid var(--line);border-radius:7px;padding:5px 9px}
+  .mini{font-size:.75rem;background:var(--panel-2);border:1px solid var(--line);color:var(--danger);border-radius:7px;padding:4px 9px;cursor:pointer}
+  .empty{color:var(--muted);font-size:.86rem;text-align:center;padding:16px;border:1px dashed var(--line);border-radius:12px}
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .links a{font-size:.82rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);text-decoration:none;border-radius:8px;padding:6px 11px}
+  footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./elite-labs.html">← Elite Labs Center</a>
+    <h1>🏠 Best Place to Call Home</h1>
+    <div class="sub">Find a home system with <b>mining + bounty hunting on your doorstep</b>, inside a faction that likes you — scored against what matters.</div>
+    <div class="guidenav">
+      <a class="gn" href="./elite-labs.html">🧪 Labs Center</a>
+      <a class="gn active" href="./elite-home-base.html">🏠 Home Base</a>
+      <a class="gn" href="./elite-field-manual.html">📕 Field Manual</a>
+      <a class="gn" href="./elite-credit-paths.html">💰 Credit Paths</a>
+    </div>
+  </header>
+
+  <div class="callout info">🎯 <b>What makes a great home base?</b> One system (or a tight cluster) that has <b>ringed planets</b> — those give you both <b>mining hotspots</b> and <b>Resource Extraction Sites</b> in the same place — controlled by a <b>faction you're allied/friendly with</b> (better mission payouts, rep, and an <b>Interstellar Factors</b> contact to clear fines), with a <b>Concourse</b> station so you can also run on-foot &amp; buy gear. Score candidates below.</div>
+
+  <!-- YOUR FACTIONS -->
+  <h2 class="sec">🤝 Your factions <span style="font-size:.7rem;color:var(--muted);font-weight:400">— from your journal, 21 Jul 3312</span></h2>
+  <div class="callout tip">Open a faction on Inara to see <b>every system it controls</b>, then check those systems for rings/RES with the tools further down. Aim to base where a <b>friendly+ faction</b> holds a <b>ringed system with a Concourse</b>.</div>
+  <div class="facs" id="facs"></div>
+
+  <!-- THE PLAN -->
+  <h2 class="sec">🧭 How to find your home (the workflow)</h2>
+  <ol class="steps">
+    <li><b>Pick a faction you like</b> above (Free Space Rangers is your strongest). Open its Inara page → note its <b>controlled systems</b>.</li>
+    <li><b>Filter for ringed systems.</b> On the <a href="https://edtools.cc/miner" target="_blank" rel="noopener">EDTools hotspot finder</a>, search near one of those systems — icy rings = Void Opals/LTDs, metallic = Painite/Platinum.</li>
+    <li><b>Check for a RES</b> in the same or a neighbouring system on the <a href="https://edtools.cc/res" target="_blank" rel="noopener">EDTools RES finder</a> — that's your bounty hunting on the doorstep.</li>
+    <li><b>Confirm the station has a Concourse</b> (Odyssey services) and an <b>Interstellar Factors</b> contact — check the station on <a href="https://inara.cz/" target="_blank" rel="noopener">Inara</a>.</li>
+    <li><b>Score it below.</b> The winner is the system that ticks the most boxes with the shortest hop between mining and bounties.</li>
+  </ol>
+  <div class="callout warn">⚠️ You're currently <b>deep in Col 285 Sector</b>, far from the populated bubble. Faction-controlled systems with stations are mostly <b>back in the bubble</b> — a home base means committing to a region. If you want to stay out here, home = a <b>Fleet Carrier</b> instead (see <a href="./elite-credit-paths.html">Road to 5 Billion</a>).</div>
+
+  <!-- SCORECARD -->
+  <h2 class="sec">📋 Home-base scorecard</h2>
+  <div class="callout info">Add a candidate system, then tick what it has. Each candidate gets a score out of 14, sorted best-first, saved in your browser. Use the per-card links to check each fact.</div>
+  <div class="tool">
+    <div class="row">
+      <label class="fld">Candidate system<input id="cSys" placeholder="e.g. Deciat" onkeydown="if(event.key==='Enter'){addCand();}"></label>
+      <label class="fld" style="flex:2">Station / note<input id="cNote" placeholder="e.g. Garay Terminal — Concourse + Painite ring"></label>
+      <button class="btn" onclick="addCand()">+ Add candidate</button>
+    </div>
+    <div id="cands"></div>
+  </div>
+
+  <div class="links">
+    <a href="https://edtools.cc/miner" target="_blank" rel="noopener">EDTools — hotspot finder ↗</a>
+    <a href="https://edtools.cc/res" target="_blank" rel="noopener">EDTools — RES finder ↗</a>
+    <a href="https://inara.cz/elite/minorfactions/" target="_blank" rel="noopener">Inara — minor factions ↗</a>
+    <a href="https://spansh.co.uk/" target="_blank" rel="noopener">Spansh — routes ↗</a>
+  </div>
+
+  <footer>Part of the <a href="./elite-labs.html">Elite Labs Center</a>. Faction list is a snapshot from your journal and shifts with the background sim (BGS) — re-check on Inara. Candidates save in this browser only.</footer>
+</div>
+
+<script>
+  const $=s=>document.querySelector(s);
+  const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const FACTIONS=[
+    ["Free Space Rangers",54.7],["The Enlightened Ones",20.4],["Miansis Empire Assembly",15.0],
+    ["Prismatic Knights",15.0],["10th Deep Space Legion",15.0],["Crimson Cult",10.5],
+    ["Official Tirawongla First",9.9],["Karbudj PLC",8.4],["Lavigny's Legion",7.8],["Masters of Karbudj",2.6]
+  ];
+  function facClass(r){return r>=90?'allied':(r>=35?'friendly':'')}
+  function facTag(r){return r>=90?'ALLIED':(r>=35?'FRIENDLY':(r>=15?'cordial':'neutral'))}
+  function renderFacs(){
+    $('#facs').innerHTML=FACTIONS.map(([n,r])=>{
+      const e=encodeURIComponent(n);
+      return `<div class="fac ${facClass(r)}"><b>${esc(n)}</b><span class="rep">${r.toFixed(1)}</span>
+        <div><span class="tag">${facTag(r)}</span></div>
+        <a href="https://inara.cz/elite/search/?search=${e}" target="_blank" rel="noopener">See its systems on Inara ↗</a></div>`;
+    }).join('');
+  }
+
+  const CRIT=[
+    ["Friendly/allied faction controls it",3,"better mission pay, rep gains, cheaper repairs"],
+    ["Icy or metallic ring hotspot here/next door",3,"your mining income (Void Opals / Painite)"],
+    ["Resource Extraction Site (RES)",2,"bounty hunting on the doorstep"],
+    ["Station has a Concourse (Odyssey)",2,"suits, weapons, on-foot missions, Bartender"],
+    ["Interstellar Factors contact",1,"clear fines from illegal missions"],
+    ["Large landing pad",1,"fits your Anaconda"],
+    ["Good commodity market",1,"sell your mined cargo nearby"],
+    ["Close to where you play now",1,"less dead travel time"]
+  ];
+  const MAX=CRIT.reduce((a,c)=>a+c[1],0);
+  const K='ed_home_cands';
+  const load=()=>{try{return JSON.parse(localStorage.getItem(K))||[]}catch(e){return[]}};
+  const save=v=>localStorage.setItem(K,JSON.stringify(v));
+  const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+  let cands=load();
+  function addCand(){
+    const sys=$('#cSys').value.trim(); if(!sys)return;
+    cands.push({id:uid(),sys,note:$('#cNote').value.trim(),crit:CRIT.map(()=>false)});
+    save(cands); $('#cSys').value='';$('#cNote').value=''; render();
+  }
+  function toggle(id,i){const c=cands.find(x=>x.id===id);if(c){c.crit[i]=!c.crit[i];save(cands);render();}}
+  function del(id){cands=cands.filter(x=>x.id!==id);save(cands);render();}
+  function scoreOf(c){return c.crit.reduce((a,on,i)=>a+(on?CRIT[i][1]:0),0);}
+  function render(){
+    const w=$('#cands');
+    if(!cands.length){w.innerHTML='<div class="empty" style="margin-top:12px">No candidates yet — add a system above and tick what it has.</div>';return;}
+    const sorted=[...cands].sort((a,b)=>scoreOf(b)-scoreOf(a));
+    w.innerHTML=sorted.map(c=>{
+      const sc=scoreOf(c); const cls=sc>=10?'hi':(sc>=6?'mid':'lo'); const e=encodeURIComponent(c.sys);
+      return `<div class="cand">
+        <div class="cand-h"><b>🏠 ${esc(c.sys)}${c.note?` <span style="color:var(--muted);font-weight:400;font-size:.85rem">— ${esc(c.note)}</span>`:''}</b><span class="score ${cls}">${sc} / ${MAX}</span></div>
+        ${CRIT.map((cr,i)=>`<label class="crit ${c.crit[i]?'on':''}"><input type="checkbox" ${c.crit[i]?'checked':''} onchange="toggle('${c.id}',${i})"><span><b>${esc(cr[0])}</b> <span style="color:var(--muted)">(+${cr[1]})</span><small>${esc(cr[2])}</small></span></label>`).join('')}
+        <div class="clinks">
+          <a href="https://edtools.cc/miner" target="_blank" rel="noopener">⛏️ hotspots near ${esc(c.sys)} ↗</a>
+          <a href="https://edtools.cc/res" target="_blank" rel="noopener">🎯 RES finder ↗</a>
+          <a href="https://inara.cz/elite/starsystem/?search=${e}" target="_blank" rel="noopener">📊 ${esc(c.sys)} on Inara ↗</a>
+          <a href="https://www.edsm.net/en/system?systemName=${e}" target="_blank" rel="noopener">🗺️ EDSM ↗</a>
+          <button class="mini" onclick="del('${c.id}')">Delete</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+  renderFacs(); render();
+</script>
+</body>
+</html>
