@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🗺️ Elite — Mining Atlas (catalog your best spots)</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--ed:#ff8c42;--gold:#ffd479;--danger:#ff6b6b;--foot:#c792ea}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 75% -10%,rgba(76,194,255,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.6rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  h2.sec{font-size:1.13rem;border-left:4px solid var(--mine,#4cc2ff);padding-left:12px;margin:28px 0 12px}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--accent);color:#06121c;border-color:var(--accent)}
+  .callout{border-radius:12px;padding:13px 16px;font-size:.86rem;margin:14px 0}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout.tip{background:rgba(255,212,121,.06);border:1px solid rgba(255,212,121,.28)}
+  .callout b{color:var(--text)} .callout a{color:var(--accent)}
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin:10px 0}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:end}
+  label.fld{display:flex;flex-direction:column;gap:4px;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700}
+  input,select{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 11px;font:inherit;font-size:.9rem;width:100%}
+  input:focus,select:focus{outline:none;border-color:var(--accent)}
+  .btn{background:var(--accent);color:#06121c;border:none;border-radius:9px;padding:9px 15px;font-weight:700;font-size:.86rem;cursor:pointer}
+  .btn.alt{background:var(--panel-2);color:var(--text);border:1px solid var(--line)}
+  .mats{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0}
+  .mats a{font-size:.78rem;text-decoration:none;border-radius:20px;padding:5px 12px;border:1px solid var(--line);background:var(--panel-2);color:var(--text);font-weight:600}
+  .mats a:hover{border-color:var(--accent);color:var(--accent)}
+  .mchip{display:inline-block;font-size:.64rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em;padding:2px 8px;border-radius:6px}
+  .filter{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+  .fbtn{background:var(--panel-2);border:1px solid var(--line);color:var(--muted);border-radius:20px;padding:6px 12px;font-size:.8rem;font-weight:600;cursor:pointer}
+  .fbtn.active{background:var(--accent);color:#06121c;border-color:var(--accent)}
+  .spot{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--line);border-radius:12px;padding:14px;margin-top:10px}
+  .spot.icy{border-left-color:#4cc2ff} .spot.metallic{border-left-color:var(--ed)} .spot.done{opacity:.55}
+  .spot.next{border-left-color:var(--gold);box-shadow:0 0 0 1px rgba(255,212,121,.3)}
+  .spot-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
+  .spot-h b{font-size:1rem}
+  .spot-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-top:6px}
+  .spot-meta b{color:var(--text)}
+  .stars{font-size:1rem;cursor:pointer;letter-spacing:1px}
+  .acts{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+  .mini{font-size:.76rem;background:var(--panel-2);border:1px solid var(--line);color:var(--accent);text-decoration:none;border-radius:7px;padding:5px 10px;cursor:pointer}
+  .mini.danger{color:var(--danger)} .mini.on{background:var(--accent);color:#06121c;border-color:var(--accent)}
+  .empty{color:var(--muted);font-size:.86rem;text-align:center;padding:16px;border:1px dashed var(--line);border-radius:12px}
+  details summary{cursor:pointer;color:var(--accent);font-size:.85rem;margin-top:10px}
+  textarea{width:100%;min-height:90px;background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:10px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.78rem;margin-top:8px}
+  footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./elite-labs.html">← Elite Labs Center</a>
+    <h1>🗺️ Mining Atlas</h1>
+    <div class="sub">Catalog your best mining spots, rank them, mark the next target — with live edmining.com hotspot lists per material.</div>
+    <div class="guidenav">
+      <a class="gn" href="./elite-labs.html">🧪 Labs Center</a>
+      <a class="gn active" href="./elite-mining-atlas.html">🗺️ Mining Atlas</a>
+      <a class="gn" href="./elite-home-base.html">🏠 Home Base</a>
+      <a class="gn" href="./elite-type11-prospector.html">⛏️ Type-11</a>
+    </div>
+  </header>
+
+  <!-- MATERIAL HOTSPOT LISTS -->
+  <h2 class="sec">💎 Live hotspot lists (edmining.com)</h2>
+  <div class="callout info">Click a material to see <b>edmining.com's ranked hotspot list</b> for it — best overlaps &amp; systems, kept current by the community. Find one you like, then <b>catalog it</b> below so you can plot a route back.</div>
+  <div class="mats" id="mats"></div>
+
+  <!-- FIND NEAR ME -->
+  <h2 class="sec">🔎 Find ringed systems near you</h2>
+  <div class="callout tip">Enter your system → it pulls nearby systems <b>with rings</b> from EDSM (icy = Void Opals/LTDs, metallic = Painite/Platinum). One click catalogs a spot. Auto-filled from your saved location.</div>
+  <div class="tool">
+    <div class="row">
+      <label class="fld" style="flex:1;min-width:170px">Your current system<input id="nSys" placeholder="e.g. Borann" onkeydown="if(event.key==='Enter')findNear()"></label>
+      <label class="fld" style="min-width:100px">Radius (ly)<input id="nRad" type="number" value="20" min="5" max="40"></label>
+      <button class="btn" onclick="findNear()">🔎 Find rings</button>
+    </div>
+    <div id="nStatus" style="font-size:.83rem;color:var(--muted);margin-top:8px"></div>
+    <div id="nResults"></div>
+  </div>
+
+  <!-- ADD TO CATALOG -->
+  <h2 class="sec">➕ Catalog a spot</h2>
+  <div class="tool">
+    <div class="row">
+      <label class="fld" style="flex:1;min-width:150px">System<input id="aSys" placeholder="e.g. Borann"></label>
+      <label class="fld" style="min-width:130px">Ring / body<input id="aRing" placeholder="e.g. A 2 ring"></label>
+      <label class="fld" style="min-width:150px">Material<select id="aMat"></select></label>
+      <label class="fld" style="min-width:90px">Overlaps<input id="aOv" type="number" min="1" max="6" placeholder="3"></label>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <label class="fld" style="flex:2;min-width:200px">Notes (sell station, price, distance…)<input id="aNote" placeholder="Sell @ station X · ~1.6M/t · 45 Ls"></label>
+      <button class="btn" onclick="addSpot()">+ Add to atlas</button>
+    </div>
+  </div>
+
+  <!-- CATALOG -->
+  <h2 class="sec">📖 Your mining atlas</h2>
+  <div class="filter" id="filter"></div>
+  <div id="spots"></div>
+
+  <details><summary>💾 Back up / share your atlas</summary>
+    <div class="tool">
+      <div class="row"><button class="btn alt" onclick="doExport()">Export</button><button class="btn alt" onclick="doImport()">Import</button></div>
+      <textarea id="io" placeholder="Export dumps your catalog as JSON. Paste JSON and Import to restore."></textarea>
+    </div>
+  </details>
+
+  <footer>Part of the <a href="./elite-labs.html">Elite Labs Center</a>. Hotspot lists live on <a href="https://edmining.com/">edmining.com</a>; your catalog saves in this browser only (use Export to back it up). Prices &amp; hotspots shift — re-check before a long haul.</footer>
+</div>
+
+<script>
+  const $=s=>document.querySelector(s);
+  const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+  // [display, edmining slug, type (icy/metallic), colour]
+  const MATERIALS=[
+    ["Void Opals","void-opals","icy","#4cc2ff"],
+    ["Low Temp. Diamonds","low-temperature-diamonds","icy","#7ee787"],
+    ["Alexandrite","alexandrite","icy","#c792ea"],
+    ["Grandidierite","grandidierite","icy","#4cc2ff"],
+    ["Bromellite","bromellite","icy","#4cc2ff"],
+    ["Painite","painite","metallic","#ff8c42"],
+    ["Platinum","platinum","metallic","#ffd479"],
+    ["Monazite","monazite","metallic","#ff8c42"],
+    ["Musgravite","musgravite","metallic","#c792ea"],
+    ["Serendibite","serendibite","metallic","#ff8c42"],
+    ["Benitoite","benitoite","metallic","#ff8c42"],
+    ["Tritium","tritium","icy","#8b98a9"]
+  ];
+  const matBySlug=s=>MATERIALS.find(m=>m[1]===s);
+  const matByName=n=>MATERIALS.find(m=>m[0]===n);
+  function renderMats(){
+    $('#mats').innerHTML=MATERIALS.map(m=>`<a href="https://edmining.com/location-material-type/${m[1]}/" target="_blank" rel="noopener"><span class="mchip" style="background:${m[3]}22;color:${m[3]}">${m[2]==='icy'?'ICY':'METAL'}</span> ${esc(m[0])} ↗</a>`).join('');
+    $('#aMat').innerHTML=MATERIALS.map(m=>`<option value="${esc(m[0])}">${esc(m[0])}</option>`).join('');
+  }
+
+  const K='ed_mining_atlas';
+  const load=()=>{try{return JSON.parse(localStorage.getItem(K))||[]}catch(e){return[]}};
+  const save=v=>localStorage.setItem(K,JSON.stringify(v));
+  let spots=load(); let filt='all';
+  function addSpot(){
+    const sys=$('#aSys').value.trim(); if(!sys){$('#aSys').focus();return;}
+    spots.push({id:uid(),sys,ring:$('#aRing').value.trim(),mat:$('#aMat').value,ov:+$('#aOv').value||0,note:$('#aNote').value.trim(),stars:3,done:false,next:false});
+    save(spots); ['aSys','aRing','aOv','aNote'].forEach(i=>$('#'+i).value=''); render();
+  }
+  function catalogFrom(sys,ring,mat,note){
+    spots.push({id:uid(),sys,ring:ring||'',mat:mat||'Void Opals',ov:0,note:note||'',stars:3,done:false,next:false});
+    save(spots); render(); $('#spots').scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  function setStar(id,n){const s=spots.find(x=>x.id===id);if(s){s.stars=(s.stars===n?n-1:n);save(spots);render();}}
+  function toggle(id,k){const s=spots.find(x=>x.id===id);if(s){if(k==='next'){spots.forEach(o=>{if(o.id!==id)o.next=false;});}s[k]=!s[k];save(spots);render();}}
+  function del(id){spots=spots.filter(x=>x.id!==id);save(spots);render();}
+  function renderFilter(){
+    const cats=['all','icy','metallic','favourites','todo'];
+    $('#filter').innerHTML=cats.map(c=>`<button class="fbtn ${filt===c?'active':''}" onclick="filt='${c}';renderFilter();render()">${c==='all'?'All':(c==='favourites'?'★ Favourites':(c==='todo'?'Not visited':c[0].toUpperCase()+c.slice(1)))}</button>`).join('');
+  }
+  function render(){
+    const w=$('#spots');
+    let list=spots.slice();
+    if(filt==='icy')list=list.filter(s=>(matByName(s.mat)||[])[2]==='icy');
+    else if(filt==='metallic')list=list.filter(s=>(matByName(s.mat)||[])[2]==='metallic');
+    else if(filt==='favourites')list=list.filter(s=>s.stars>=4);
+    else if(filt==='todo')list=list.filter(s=>!s.done);
+    list.sort((a,b)=>(b.next-a.next)||(b.stars-a.stars)||(b.ov-a.ov));
+    if(!list.length){w.innerHTML='<div class="empty">No spots yet — click a material above to browse edmining, or use the finder, then catalog one.</div>';return;}
+    w.innerHTML=list.map(s=>{
+      const m=matByName(s.mat)||["",""," "]; const type=m[2]; const e=encodeURIComponent(s.sys);
+      const slug=(matByName(s.mat)||[])[1]||'void-opals';
+      const stars=[1,2,3,4,5].map(n=>`<span onclick="setStar('${s.id}',${n})" style="color:${n<=s.stars?'var(--gold)':'var(--line)'}">★</span>`).join('');
+      return `<div class="spot ${type} ${s.done?'done':''} ${s.next?'next':''}">
+        <div class="spot-h">
+          <div><b>💎 ${esc(s.sys)}${s.ring?` <span style="color:var(--muted);font-weight:400;font-size:.85rem">${esc(s.ring)}</span>`:''}</b>
+            <div class="spot-meta"><span><b>${esc(s.mat)}</b></span>${s.ov?`<span>${s.ov} hotspot overlap${s.ov>1?'s':''}</span>`:''}${s.next?'<span style="color:var(--gold);font-weight:700">➡ NEXT TARGET</span>':''}</div>
+            ${s.note?`<div style="font-size:.82rem;color:var(--muted);margin-top:6px">📝 ${esc(s.note)}</div>`:''}
+          </div>
+          <div class="stars">${stars}</div>
+        </div>
+        <div class="acts">
+          <button class="mini ${s.next?'on':''}" onclick="toggle('${s.id}','next')">${s.next?'★ Next target':'Set next'}</button>
+          <button class="mini ${s.done?'on':''}" onclick="toggle('${s.id}','done')">${s.done?'✅ Visited':'Mark visited'}</button>
+          <a class="mini" href="https://edmining.com/location-material-type/${slug}/" target="_blank" rel="noopener">💎 edmining ↗</a>
+          <a class="mini" href="https://inara.cz/elite/starsystem/?search=${e}" target="_blank" rel="noopener">📊 Inara ↗</a>
+          <a class="mini" href="https://www.edsm.net/en/system?systemName=${e}" target="_blank" rel="noopener">🗺️ EDSM ↗</a>
+          <button class="mini danger" onclick="del('${s.id}')">Delete</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  /* ---- FIND RINGED SYSTEMS (reuses /api/nearby) ---- */
+  function findNear(){
+    const sys=$('#nSys').value.trim(); if(!sys){$('#nStatus').textContent='Enter your current system.';return;}
+    const rad=Math.min(Math.max(+$('#nRad').value||20,5),40);
+    const st=$('#nStatus'), res=$('#nResults');
+    st.innerHTML='⏳ Searching EDSM near <b>'+esc(sys)+'</b>…'; res.innerHTML='';
+    fetch(location.origin+'/api/nearby?system='+encodeURIComponent(sys)+'&radius='+rad)
+      .then(r=>r.json()).then(d=>{
+        if(d.error){st.innerHTML='⚠️ '+esc(d.error);return;}
+        const ringed=(d.candidates||[]).filter(c=>c.rings&&c.rings.length);
+        if(!ringed.length){st.innerHTML='😕 '+esc(d.note||'No ringed populated systems within '+rad+' ly.');return;}
+        st.innerHTML=`<b>${ringed.length}</b> ringed systems within ${d.radius} ly:`;
+        res.innerHTML=ringed.map(c=>{
+          const icy=c.rings.includes('Icy'), met=c.rings.includes('Metallic');
+          const rt=c.rings.map(r=>`<span class="mchip" style="background:${r==='Icy'?'#4cc2ff22;color:#4cc2ff':(r==='Metallic'?'#ff8c4222;color:#ff8c42':'#8b98a922;color:#8b98a9')}">${r}</span>`).join(' ');
+          const mat=icy?'Void Opals':(met?'Painite':'Void Opals');
+          const note=(icy?'icy ':'')+(met?'metallic ':'')+'ring · '+(c.faction||'');
+          return `<div class="spot ${icy?'icy':(met?'metallic':'')}">
+            <div class="spot-h"><div><b>💎 ${esc(c.name)} <span style="color:var(--muted);font-weight:400;font-size:.82rem">${c.distance} ly</span></b>
+              <div class="spot-meta">${rt} ${c.faction?`<span>${esc(c.faction)}</span>`:''}</div></div></div>
+            <div class="acts">
+              <button class="mini on" onclick='catalogFrom(${JSON.stringify(c.name)},"",${JSON.stringify(mat)},${JSON.stringify(note)})'>+ catalog</button>
+              <a class="mini" href="https://edmining.com/location-material-type/${icy?'void-opals':'painite'}/" target="_blank" rel="noopener">💎 edmining ↗</a>
+              <a class="mini" href="https://inara.cz/elite/starsystem/?search=${encodeURIComponent(c.name)}" target="_blank" rel="noopener">📊 Inara ↗</a>
+            </div></div>`;
+        }).join('');
+      }).catch(err=>{st.innerHTML='❌ '+esc(err.message||String(err));});
+  }
+
+  function doExport(){$('#io').value=JSON.stringify(spots,null,2);}
+  function doImport(){try{const d=JSON.parse($('#io').value);if(Array.isArray(d)){spots=d;save(spots);render();alert('Imported ✓');}}catch(e){alert('Invalid JSON');}}
+
+  try{const o=JSON.parse(localStorage.getItem('ed_location'));if(o&&o.system)$('#nSys').value=o.system;}catch(e){}
+  renderMats(); renderFilter(); render();
+</script>
+</body>
+</html>
