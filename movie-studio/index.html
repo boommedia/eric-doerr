@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎬 Movie Studio — Setup Guide (8×11 room)</title>
+<style>
+  :root{--bg:#0d0b12;--panel:#161320;--panel-2:#1e1a2b;--line:#2e2842;--text:#efeaf6;--muted:#9a90b0;--accent:#c792ea;--accent-2:#ffd479;--go:#7ee787;--danger:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(900px 460px at 70% -10%,rgba(199,146,234,.14),transparent),linear-gradient(160deg,#0b0910,#12101a);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:940px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.7rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  h2.sec{font-size:1.14rem;border-left:4px solid var(--accent);padding-left:12px;margin:30px 0 12px}
+  .callout{border-radius:12px;padding:14px 16px;font-size:.87rem;margin:14px 0}
+  .callout.go{background:rgba(126,231,135,.08);border:1px solid rgba(126,231,135,.32)}
+  .callout.tip{background:rgba(255,212,121,.07);border:1px solid rgba(255,212,121,.3)}
+  .callout.info{background:rgba(199,146,234,.08);border:1px solid rgba(199,146,234,.3)}
+  .callout b{color:var(--text)} .callout a{color:var(--accent)}
+  .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:760px){.cards3{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:14px;padding:16px}
+  .card h3{margin:0 0 4px;font-size:1rem} .card .t{color:var(--muted);font-size:.8rem;margin-bottom:8px}
+  .card ul{margin:0;padding-left:18px;font-size:.85rem;color:var(--muted)} .card ul b{color:var(--text)}
+  ol.steps{padding-left:20px;font-size:.9rem} ol.steps li{margin:7px 0} ol.steps b{color:var(--text)}
+  ol.steps .why{display:block;color:var(--muted);font-size:.83rem}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:10px 0}
+  table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:440px}
+  th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  tbody tr:last-child td{border-bottom:none}
+  thead th{background:var(--panel-2);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+  td.k{font-weight:600;color:var(--accent);white-space:nowrap}
+  svg.plan{width:100%;max-width:520px;height:auto;display:block;margin:10px auto}
+  .viscap{font-size:.78rem;color:var(--muted);text-align:center}
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin:10px 0}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
+  label.fld{display:flex;flex-direction:column;gap:4px;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700}
+  input{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 11px;font:inherit;font-size:.9rem;width:110px}
+  input:focus{outline:none;border-color:var(--accent)}
+  .out{margin-top:12px;font-size:.95rem}
+  .out b{color:var(--accent-2);font-size:1.15rem}
+  label.chk{display:flex;gap:9px;align-items:flex-start;font-size:.87rem;color:var(--muted);padding:6px 0;cursor:pointer;border-bottom:1px solid var(--line)}
+  label.chk:last-child{border-bottom:none} label.chk input{width:auto;margin-top:3px} label.chk.on{color:var(--text);text-decoration:line-through;text-decoration-color:var(--line)} label.chk b{color:var(--text)}
+  .btn{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:8px 13px;font-weight:600;font-size:.82rem;cursor:pointer}
+  footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="../index.html">← Home Projects</a>
+    <h1>🎬 Movie Studio — Setup Guide</h1>
+    <div class="sub">Dialing in your projector, screen &amp; soundbar for the <b>8 ft wide × 11 ft deep</b> windowless room.</div>
+  </header>
+
+  <div class="callout go">🌑 <b>You've got an ideal cinema shell:</b> <b>no windows = permanent blackout</b>, which is the #1 thing home theaters fight for. Get placement + darkness right and this little room will punch way above a bright living-room setup.</div>
+
+  <!-- YOUR GEAR -->
+  <h2 class="sec">📦 Your gear</h2>
+  <div class="cards3">
+    <div class="card">
+      <h3>📽️ VOPLLS Projector</h3>
+      <div class="t">Smart mini · native 1080p</div>
+      <ul><li>WiFi + Bluetooth, Netflix app</li><li><b>Auto focus &amp; keystone</b> — placement forgiving</li><li>Audio out via Bluetooth / 3.5mm</li></ul>
+    </div>
+    <div class="card">
+      <h3>🖼️ IOLIEO Screen</h3>
+      <div class="t">72" diagonal · 16:9 · black-backed</div>
+      <ul><li>Image ≈ <b>62.8"W × 35.3"H</b></li><li>Foldable, washable, wrinkle-free</li><li>Comes with hooks, ties &amp; adhesive mounts</li></ul>
+    </div>
+    <div class="card">
+      <h3>🔊 Saiyin 2.1 Soundbar</h3>
+      <div class="t">11.7" bar + 5.25" subwoofer · 88W</div>
+      <ul><li>Bluetooth / AUX / Optical in</li><li>Bar under screen, sub on floor</li><li>Adds the bass a projector can't</li></ul>
+    </div>
+  </div>
+
+  <!-- ROOM PLAN -->
+  <h2 class="sec">🗺️ Your room — the layout</h2>
+  <svg class="plan" viewBox="0 0 280 380" role="img" aria-label="Top-down room plan 8ft by 11ft">
+    <!-- room walls -->
+    <rect x="20" y="20" width="240" height="330" rx="4" fill="#161320" stroke="#2e2842" stroke-width="3"/>
+    <!-- dims -->
+    <text x="140" y="14" text-anchor="middle" fill="#9a90b0" font-size="11" font-family="sans-serif">8 ft wide</text>
+    <text x="12" y="188" text-anchor="middle" fill="#9a90b0" font-size="11" font-family="sans-serif" transform="rotate(-90 12 188)">11 ft deep</text>
+    <!-- screen on front (top) wall -->
+    <rect x="70" y="20" width="140" height="9" fill="#c792ea"/>
+    <text x="140" y="46" text-anchor="middle" fill="#efeaf6" font-size="11" font-weight="700" font-family="sans-serif">SCREEN (72")</text>
+    <!-- soundbar under screen -->
+    <rect x="95" y="52" width="90" height="6" rx="3" fill="#ffd479"/>
+    <text x="140" y="70" text-anchor="middle" fill="#9a90b0" font-size="9" font-family="sans-serif">soundbar</text>
+    <!-- sub -->
+    <rect x="40" y="52" width="16" height="22" rx="3" fill="#7ee787"/><text x="48" y="86" text-anchor="middle" fill="#9a90b0" font-size="8" font-family="sans-serif">sub</text>
+    <!-- seating -->
+    <rect x="80" y="205" width="120" height="40" rx="8" fill="#1e1a2b" stroke="#2e2842" stroke-width="2"/>
+    <text x="140" y="229" text-anchor="middle" fill="#efeaf6" font-size="11" font-weight="700" font-family="sans-serif">SEATING</text>
+    <text x="140" y="242" text-anchor="middle" fill="#9a90b0" font-size="8" font-family="sans-serif">~7 ft from screen</text>
+    <!-- projector -->
+    <rect x="120" y="270" width="40" height="20" rx="4" fill="#161320" stroke="#c792ea" stroke-width="2"/>
+    <text x="140" y="284" text-anchor="middle" fill="#c792ea" font-size="9" font-weight="700" font-family="sans-serif">PROJ</text>
+    <!-- projection cone -->
+    <path d="M140 270 L70 29 L210 29 Z" fill="rgba(199,146,234,0.07)" stroke="rgba(199,146,234,0.25)" stroke-dasharray="4 3"/>
+    <!-- doors -->
+    <path d="M20 60 a26 26 0 0 1 26 26" fill="none" stroke="#ffd479" stroke-width="2"/>
+    <rect x="17" y="55" width="6" height="30" fill="#0d0b12"/><text x="52" y="110" text-anchor="middle" fill="#ffd479" font-size="8" font-family="sans-serif">door</text>
+    <path d="M260 300 a26 26 0 0 0 -26 26" fill="none" stroke="#ffd479" stroke-width="2"/>
+    <rect x="257" y="295" width="6" height="30" fill="#0d0b12"/><text x="232" y="350" text-anchor="middle" fill="#ffd479" font-size="8" font-family="sans-serif">door</text>
+  </svg>
+  <div class="viscap">Screen on the 8-ft front wall · projector behind the seats · your two doors kept as walkways/airflow.</div>
+  <div class="callout tip">🚪 <b>Your two doors (front &amp; back of the long wall):</b> keep both as <b>clear walkways</b> and, crucially, for <b>airflow</b> — a sealed windowless room heats up fast with a projector + people (see ventilation below). Mount the screen on the <b>8-ft wall that doesn't have a door in the way</b>.</div>
+
+  <!-- SCREEN -->
+  <h2 class="sec">🖼️ 1 · Hang the screen</h2>
+  <ol class="steps">
+    <li><b>Wall:</b> the <b>8-ft (short) front wall</b>. Your 64"-wide screen leaves ~16" clearance each side — centered, it looks intentional.</li>
+    <li><b>Height:</b> bottom edge <b>~24–30" off the floor</b> so seated eye-level lands in the lower third of the picture.</li>
+    <li><b>Mount:</b> use the included <b>adhesive hooks / grommet ties</b>; pull it taut top and bottom to kill wrinkles (it's wrinkle-free but tension = flat = sharp).</li>
+    <li><b>Black backing faces the wall</b> — that's what stops light bleeding through and washing out the image.</li>
+  </ol>
+
+  <!-- PROJECTOR + CALC -->
+  <h2 class="sec">📽️ 2 · Place the projector</h2>
+  <div class="callout info">Because your projector has <b>auto-focus &amp; auto-keystone</b>, placement is forgiving — but distance sets the image <i>size</i>. Use the calculator to get in the ballpark, then nudge until the picture exactly fills the 62.8"-wide screen.</div>
+  <div class="tool">
+    <div class="row">
+      <label class="fld">Screen diagonal (in)<input id="diag" type="number" value="72" oninput="calc()"></label>
+      <label class="fld">Throw ratio<input id="ratio" type="number" step="0.05" value="1.3" oninput="calc()"></label>
+      <label class="fld">Room depth (ft)<input id="depth" type="number" value="11" oninput="calc()"></label>
+    </div>
+    <div class="out" id="calcOut"></div>
+  </div>
+  <ol class="steps">
+    <li><b>Mount options:</b> a <b>shelf on the back wall</b>, a small <b>tripod/table behind the couch</b>, or <b>ceiling-mounted</b> (flip image in settings). Ceiling keeps it out of the way and stops anyone's head casting a shadow.</li>
+    <li><b>Line it up</b> square to the screen, roughly centered on the screen's height.</li>
+    <li><b>Fill the screen:</b> move it forward/back until the bright image exactly covers the white area, then let auto-focus sharpen it.</li>
+  </ol>
+  <div class="callout tip">🔎 <b>Don't know the exact throw ratio?</b> That's fine — the auto-keystone handles the rest. Start ~6.5–8 ft back, project, and slide it until it fits. Mini projectors are usually ~1.2–1.5:1.</div>
+
+  <!-- AUDIO -->
+  <h2 class="sec">🔊 3 · Wire the sound</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Connection</th><th>How</th><th>Best for</th></tr></thead>
+    <tbody>
+      <tr><td class="k">🥇 3.5mm AUX cable</td><td>Projector headphone-out → soundbar AUX-in</td><td><b>Most reliable, zero lip-sync lag</b> — recommended</td></tr>
+      <tr><td class="k">🥈 Bluetooth</td><td>Pair projector → soundbar over BT</td><td>No cable, but can drift out of sync on some apps</td></tr>
+      <tr><td class="k">🥉 Optical</td><td>If the projector has an optical out</td><td>Clean digital audio if available</td></tr>
+    </tbody>
+  </table></div>
+  <ol class="steps">
+    <li><b>Soundbar under the screen</b>, centered; <b>subwoofer on the floor</b> front-left or -right (bass is non-directional, so exact spot is flexible).</li>
+    <li>Set the projector's audio output to your chosen method (AUX/BT) and <b>turn its internal speaker down</b> so you only hear the soundbar.</li>
+    <li>If dialogue lags the picture, use the projector's <b>audio-delay / lip-sync</b> setting — AUX cable avoids this entirely.</li>
+  </ol>
+
+  <!-- BEST SETUP -->
+  <h2 class="sec">✨ 4 · Make it look/feel great</h2>
+  <ol class="steps">
+    <li><b>Go dark, not just window-less.</b> Paint the <b>front wall &amp; nearby ceiling matte dark grey/black</b> (or hang dark fabric). Light bouncing off a white wall next to the screen is what kills contrast — you've removed windows, so kill the reflections too.</li>
+    <li><b>Ventilation (important, no windows):</b> an 88 sq ft sealed room + projector heat + bodies = stuffy fast. Run a <b>quiet fan</b>, crack a door, or add a small vent. Keep the projector's intake/exhaust clear.</li>
+    <li><b>Acoustics:</b> small hard rooms echo. A <b>rug, the couch, and a couple of soft panels/blankets</b> on the side walls tighten the sound a lot for cheap.</li>
+    <li><b>Seating:</b> a single row ~<b>7 ft</b> from a 72" screen fills a comfortable field of view for 1080p. Closer feels bigger but shows pixels.</li>
+    <li><b>Bias light:</b> a dim <b>LED strip behind the screen</b> reduces eye strain in the pitch-dark room without hitting the image.</li>
+  </ol>
+
+  <!-- CHECKLIST -->
+  <h2 class="sec">✅ Setup checklist</h2>
+  <div class="callout info">Tick each as you go — saves in your browser.</div>
+  <div class="tool" id="chk"></div>
+  <div style="margin-top:8px"><button class="btn" onclick="resetChk()">↺ Uncheck all</button></div>
+
+  <!-- EXTRAS -->
+  <h2 class="sec">🛒 Nice-to-have extras</h2>
+  <ul style="font-size:.88rem;color:var(--muted);padding-left:20px">
+    <li><b style="color:var(--text)">Ceiling projector mount</b> — cleanest install, no shadows</li>
+    <li><b style="color:var(--text)">Matte black paint or dark fabric</b> for the front wall</li>
+    <li><b style="color:var(--text)">Quiet clip fan</b> for ventilation</li>
+    <li><b style="color:var(--text)">3.5mm AUX cable</b> (long) for lag-free audio</li>
+    <li><b style="color:var(--text)">Bias-light LED strip</b> + a rug &amp; soft side panels</li>
+    <li><b style="color:var(--text)">Fire Stick / streaming stick</b> if the built-in apps feel limited</li>
+  </ul>
+
+  <footer>Part of the <a href="../index.html">Home Projects Hub</a>. Throw distance is an estimate — your projector's real throw ratio may differ; auto-keystone &amp; focus let you fine-tune. Checklist saves in this browser only.</footer>
+</div>
+
+<script>
+  const $=s=>document.querySelector(s);
+  const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  function calc(){
+    const diag=+$('#diag').value||72, ratio=+$('#ratio').value||1.3, depthFt=+$('#depth').value||11;
+    const w=diag*0.8716, h=diag*0.4903;       // 16:9
+    const distIn=w*ratio, distFt=distIn/12;
+    const roomIn=depthFt*12;
+    let warn='';
+    if(distIn>roomIn-12) warn=`<div style="color:var(--danger);font-size:.83rem;margin-top:6px">⚠️ Needs more depth than you have — lower the throw ratio, use a shorter-throw spot, or accept a slightly smaller image.</div>`;
+    else warn=`<div style="color:var(--go);font-size:.83rem;margin-top:6px">✅ Fits your ${depthFt} ft room with ~${(depthFt - distFt).toFixed(1)} ft to spare behind the projector.</div>`;
+    $('#calcOut').innerHTML=`Image: <b>${w.toFixed(1)}"</b> wide × ${h.toFixed(1)}" tall &nbsp;·&nbsp; Projector distance: <b>${distFt.toFixed(1)} ft</b> (${Math.round(distIn)}") from the screen ${warn}`;
+  }
+  const CHK=[
+    ['Screen hung on the 8-ft front wall, centered','bottom edge 24–30" up, pulled taut'],
+    ['Black backing facing the wall','stops light bleed'],
+    ['Projector placed & image fills the screen','auto-focus done'],
+    ['Projector flipped if ceiling-mounted',''],
+    ['Soundbar under screen, sub on the floor',''],
+    ['Audio via 3.5mm AUX (or BT)','projector internal speaker down'],
+    ['Front wall/ceiling darkened','matte dark = contrast'],
+    ['Ventilation sorted (fan / cracked door)','windowless room heats up'],
+    ['Rug + soft panels for acoustics',''],
+    ['Seating ~7 ft from screen','single row'],
+    ['Both doors kept clear as walkways','']
+  ];
+  const KK=i=>'movie_chk_'+i;
+  function toggle(i){localStorage.setItem(KK(i),localStorage.getItem(KK(i))==='1'?'0':'1');renderChk();}
+  function resetChk(){CHK.forEach((_,i)=>localStorage.removeItem(KK(i)));renderChk();}
+  function renderChk(){$('#chk').innerHTML=CHK.map((c,i)=>{const on=localStorage.getItem(KK(i))==='1';return `<label class="chk ${on?'on':''}"><input type="checkbox" ${on?'checked':''} onchange="toggle(${i})"><span><b>${esc(c[0])}</b>${c[1]?` — ${esc(c[1])}`:''}</span></label>`;}).join('');}
+  calc(); renderChk();
+</script>
+</body>
+</html>
