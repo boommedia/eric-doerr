@@ -89,6 +89,22 @@
     </div>
     <div id="stage"></div>
     <div class="viscap" id="planInfo"></div>
+
+    <div class="lbl" style="margin-top:16px">➕ Add a piece (real size, to scale)</div>
+    <div class="row">
+      <label class="fld" style="flex:1;min-width:140px">Name<input id="pName" placeholder="e.g. Recliner"></label>
+      <label class="fld" style="min-width:95px">Width (ft)<input id="pW" type="number" step="0.5" value="3"></label>
+      <label class="fld" style="min-width:95px">Depth (ft)<input id="pD" type="number" step="0.5" value="3"></label>
+      <button class="btn" onclick="addPiece()">＋ Add</button>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <span style="font-size:.75rem;color:var(--muted);align-self:center">Quick add:</span>
+      <button class="btn" onclick="quick('Recliner',3,3.2)">🪑 Recliner</button>
+      <button class="btn" onclick="quick('Chaise',2.8,5.5)">🛋️ Chaise</button>
+      <button class="btn" onclick="quick('Loveseat',5,3)">💺 Loveseat</button>
+      <button class="btn" onclick="quick('Side table',1.5,1.5)">🔲 Table</button>
+    </div>
+    <div id="pieceList" style="margin-top:12px"></div>
   </div>
   <div class="callout tip">🚪 <b>Your two doors are diagonal — front-left (by the screen) and back-right (by the projector).</b> That's actually handy: they create a <b>cross-breeze</b> for airflow and keep entry/exit off the center aisle. Keep both <b>clear as walkways</b>, and mount the screen centered on the <b>8-ft front wall</b> (the door there is to the side, not behind the screen).</div>
 
@@ -261,14 +277,15 @@
   const SVGNS='http://www.w3.org/2000/svg';
   const PAD=22;                 // px border inside svg
   const K_ROOM='movie_room_v1';
+  // w/h are REAL FEET (footprint); x/y are centre as 0..1 of the room.
   const DEF={w:8,d:11,items:[
-    {id:'screen',t:'SCREEN',x:0.5,y:0.03,w:1.7,h:0.25,c:'#c792ea',fixed:'wall'},
-    {id:'soundbar',t:'soundbar',x:0.5,y:0.32,w:1.1,h:0.18,c:'#ffd479'},
-    {id:'sub',t:'sub',x:0.12,y:0.42,w:0.5,h:0.7,c:'#7ee787'},
-    {id:'seat',t:'SEAT',x:0.5,y:0.62,w:1.6,h:1.3,c:'#5a5570'},
-    {id:'proj',t:'PROJ',x:0.5,y:0.86,w:1.2,h:0.7,c:'#c792ea'},
-    {id:'door-1',t:'door',x:0.0,y:0.2,w:0.6,h:0.15,c:'#ffd479',door:true},
-    {id:'door-2',t:'door',x:1.0,y:0.8,w:0.6,h:0.15,c:'#ffd479',door:true}
+    {id:'screen',t:'SCREEN',x:0.5,y:0.03,w:5.2,h:0.3,c:'#c792ea'},
+    {id:'soundbar',t:'soundbar',x:0.5,y:0.3,w:1,h:0.35,c:'#ffd479'},
+    {id:'sub',t:'sub',x:0.12,y:0.42,w:0.6,h:0.9,c:'#7ee787'},
+    {id:'proj',t:'PROJ',x:0.5,y:0.86,w:0.9,h:0.7,c:'#c792ea'},
+    {id:'p-rec1',t:'Recliner',x:0.5,y:0.6,w:3,h:3.2,c:'#5a5570',movable:true},
+    {id:'door-1',t:'door',x:0.0,y:0.2,w:2.5,h:0.4,c:'#ffd479',door:true},
+    {id:'door-2',t:'door',x:1.0,y:0.8,w:2.5,h:0.4,c:'#ffd479',door:true}
   ]};
   let room=(()=>{try{const r=JSON.parse(localStorage.getItem(K_ROOM));return r&&r.items?r:JSON.parse(JSON.stringify(DEF));}catch(e){return JSON.parse(JSON.stringify(DEF));}})();
   let SC=30, W=0, H=0, drag=null;
@@ -319,7 +336,8 @@
     svg.addEventListener('pointermove',onDrag); svg.addEventListener('pointerup',endDrag); svg.addEventListener('pointerleave',endDrag);
     // info: proj -> screen distance in ft
     if(proj&&scr){const dxft=(proj.x-scr.x)*room.w, dyft=(proj.y-scr.y)*room.d; const dist=Math.hypot(dxft,dyft);
-      $('#planInfo').innerHTML=`Projector is <b style="color:#ffd479">${dist.toFixed(1)} ft</b> from the screen · seat, sub &amp; doors are yours to drag. Longer/shorter = bigger/smaller image.`;}
+      $('#planInfo').innerHTML=`Projector is <b style="color:#ffd479">${dist.toFixed(1)} ft</b> from the screen · everything is drawn <b>to scale</b> — drag to arrange, resize in the list below.`;}
+    renderPieceList();
   }
   function svgPt(e){const svg=$('#stage svg');const r=svg.getBoundingClientRect();const sx=W/r.width, sy=H/r.height;return{x:(e.clientX-r.left)*sx,y:(e.clientY-r.top)*sy};}
   function startDrag(e,it){e.preventDefault();drag=it;$('#stage svg').setPointerCapture&&e.target.closest('svg').setPointerCapture(e.pointerId);}
@@ -330,10 +348,37 @@
     if(drag.door){ // snap doors to nearest wall
       const dl=nx, dr=1-nx, dt=ny, db=1-ny; const m=Math.min(dl,dr,dt,db);
       if(m===dl)nx=0; else if(m===dr)nx=1; else if(m===dt)ny=0; else ny=1;
+    }else{ // keep furniture fully inside the walls
+      const hw=drag.w/room.w/2, hh=drag.h/room.d/2;
+      nx=Math.min(Math.max(nx,hw),1-hw); ny=Math.min(Math.max(ny,hh),1-hh);
     }
     drag.x=nx; drag.y=ny; render();
   }
   function endDrag(){if(drag){drag=null;saveRoom();}}
+
+  /* ---- add / edit / remove pieces (to scale) ---- */
+  const PC=['#5a5570','#4c6a8a','#7a5a8a','#8a6a4c','#4c8a6a'];
+  function pushPiece(name,w,d){
+    room.items.push({id:'p'+Date.now().toString(36),t:name||'Piece',x:0.5,y:0.5,
+      w:Math.max(0.5,+w||3),h:Math.max(0.5,+d||3),c:PC[room.items.filter(i=>i.movable).length%PC.length],movable:true});
+    saveRoom();rebuild();
+  }
+  function addPiece(){pushPiece($('#pName').value.trim()||'Piece',$('#pW').value,$('#pD').value);$('#pName').value='';}
+  function quick(name,w,d){pushPiece(name,w,d);}
+  function delPiece(id){room.items=room.items.filter(i=>i.id!==id);saveRoom();rebuild();}
+  function sizePiece(id,dim,v){const it=room.items.find(i=>i.id===id);if(it){it[dim]=Math.max(0.5,+v||0.5);saveRoom();render();}}
+  function renderPieceList(){
+    const el2=$('#pieceList'); if(!el2)return;
+    const list=room.items.filter(i=>i.movable);
+    if(!list.length){el2.innerHTML='<div style="color:var(--muted);font-size:.83rem">No furniture yet — quick-add above (try 2× Recliner + Chaise).</div>';return;}
+    el2.innerHTML=list.map(i=>`<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:6px 0;border-bottom:1px solid var(--line)">
+      <span style="width:12px;height:12px;border-radius:3px;background:${i.c};flex:none"></span>
+      <b style="min-width:90px">${esc(i.t)}</b>
+      <input type="number" step="0.5" value="${i.w}" style="width:64px" oninput="sizePiece('${i.id}','w',this.value)"> <span style="color:var(--muted);font-size:.78rem">×</span>
+      <input type="number" step="0.5" value="${i.h}" style="width:64px" oninput="sizePiece('${i.id}','h',this.value)"> <span style="color:var(--muted);font-size:.78rem">ft</span>
+      <button class="btn" style="padding:5px 10px;color:var(--danger)" onclick="delPiece('${i.id}')">✕</button>
+    </div>`).join('');
+  }
 
   $('#rw').value=room.w; $('#rd').value=room.d;
   rebuild();
