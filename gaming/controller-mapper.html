@@ -59,6 +59,16 @@
 
   <div class="callout info">🕹️ <b>Pick a game, then type what each button does.</b> The Nova Lite 2 has <b>remappable buttons</b> — build your ideal layout here, tweak it in the GameSir app to match, and it saves per game in your browser. Add any game with the ＋ box.</div>
 
+  <div class="callout info" style="background:rgba(255,212,121,.07);border-color:rgba(255,212,121,.3)">
+    🎛️ <b>Nova Lite 2 hardware tricks worth using:</b>
+    <ul style="margin:8px 0 0;padding-left:20px;font-size:.85rem;color:var(--muted)">
+      <li><b>2-way trigger locks</b> (the switches on the back of LT/RT): flip them to <b>short-pull</b> for <b>Apex/Warzone/REDSEC</b> — shooting registers faster, a real edge in gunfights. Flip to long-pull only for driving/racing throttle feel.</li>
+      <li><b>Hair-trigger mode:</b> with the triggers in the <b>long-pull</b> position, press <b>M + LT/RT</b> to arm hair-triggers.</li>
+      <li><b>Back buttons (M1/M2):</b> map your most-spammed action here — <b>jump</b> (so you can jump without leaving the aim stick — "claw"/bumper-jumper style), <b>ping</b>, or <b>heal</b>. Set them below and mirror it in the <b>GameSir app</b>.</li>
+      <li><b>Hall-effect sticks:</b> no stick drift — you can safely run a <b>small inner deadzone</b> in-game for more precise aim.</li>
+    </ul>
+  </div>
+
   <div class="gsel" id="gsel"></div>
 
   <div class="grid">
@@ -111,10 +121,11 @@
     ['🎯 Triggers & bumpers',[['lt','LT'],['rt','RT'],['lb','LB'],['rb','RB']]],
     ['🔘 Face buttons',[['a','A'],['b','B'],['x','X'],['y','Y']]],
     ['➕ D-Pad',[['dup','D-Up'],['ddown','D-Down'],['dleft','D-Left'],['dright','D-Right']]],
+    ['🎛️ Back / extra buttons',[['m1','Back M1'],['m2','Back M2'],['m','M (function)']]],
     ['☰ Menu',[['view','View'],['menu','Menu']]]
   ];
   const PRESETS={
-    'Apex Legends':{lstick:'Move',l3:'Crouch (toggle)',rstick:'Aim / look',r3:'Melee',lt:'Aim down sight',rt:'Fire',lb:'Tactical ability',rb:'Ping / ordnance',a:'Jump',b:'Crouch (hold)',x:'Interact / Reload',y:'Switch weapon',dup:'Ultimate ability',ddown:'Holster / utility',dleft:'Heal / shield',dright:'Shield / heal',view:'Inventory / Map',menu:'Menu'},
+    'Apex Legends':{lstick:'Move',l3:'Crouch (toggle)',rstick:'Aim / look',r3:'Melee',lt:'Aim down sight',rt:'Fire',lb:'Tactical ability',rb:'Ping / ordnance',a:'Jump',b:'Crouch (hold)',x:'Interact / Reload',y:'Switch weapon',dup:'Ultimate ability',ddown:'Holster / utility',dleft:'Heal / shield',dright:'Shield / heal',m1:'Jump (claw grip) / heal',m2:'Ping',m:'—',view:'Inventory / Map',menu:'Menu'},
     'Warzone':{lstick:'Move',l3:'Sprint / melee',rstick:'Aim / look',r3:'Melee / mount',lt:'ADS',rt:'Fire',lb:'Tactical',rb:'Lethal / ping',a:'Jump / mantle',b:'Crouch / slide',x:'Use / reload',y:'Switch weapon',dup:'Armor plate',ddown:'Prone',dleft:'Weapon 1',dright:'Weapon 2',view:'Map',menu:'Menu'},
     'Battlefield REDSEC':{lstick:'Move',l3:'Sprint',rstick:'Aim / look',r3:'Melee',lt:'ADS',rt:'Fire',lb:'Gadget',rb:'Grenade',a:'Jump / vault',b:'Crouch / prone',x:'Interact / enter vehicle',y:'Switch weapon',dup:'Spot / ping',ddown:'Prone',dleft:'Gadget 2',dright:'Request ammo/heal',view:'Scoreboard / map',menu:'Menu'}
   };
