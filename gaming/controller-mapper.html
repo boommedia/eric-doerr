@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎮 Controller Mapper — GameSir Nova Lite 2</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--ed:#ff8c42;--gold:#ffd479;--danger:#ff6b6b;--foot:#c792ea}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 75% -10%,rgba(76,194,255,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.6rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  h2.sec{font-size:1.12rem;border-left:4px solid var(--accent);padding-left:12px;margin:26px 0 12px}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--accent);color:#06121c;border-color:var(--accent)}
+  .callout{border-radius:12px;padding:13px 16px;font-size:.86rem;margin:14px 0}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout b{color:var(--text)} .callout a{color:var(--accent)}
+  .gsel{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0 14px}
+  .gbtn{background:var(--panel-2);border:1px solid var(--line);color:var(--muted);border-radius:20px;padding:7px 14px;font-size:.85rem;font-weight:600;cursor:pointer}
+  .gbtn.active{background:var(--accent);color:#06121c;border-color:var(--accent)}
+  .gbtn .x{margin-left:6px;opacity:.6}
+  .addg{display:flex;gap:6px}
+  .addg input{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:7px 10px;font:inherit;font-size:.85rem;width:150px}
+  svg.pad{width:100%;max-width:560px;height:auto;display:block;margin:6px auto 2px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .glabel{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin:14px 0 4px}
+  .brow{display:flex;gap:10px;align-items:center;padding:5px 0;border-bottom:1px solid var(--line)}
+  .brow:last-child{border-bottom:none}
+  .bkey{font-size:.74rem;font-weight:800;color:var(--accent);min-width:64px;font-family:ui-monospace,Menlo,Consolas,monospace}
+  .brow input{flex:1;background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:7px 10px;font:inherit;font-size:.85rem}
+  .brow input:focus{outline:none;border-color:var(--accent)}
+  .btn{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:8px 13px;font-weight:600;font-size:.82rem;cursor:pointer}
+  .btn.go{background:var(--accent);color:#06121c;border-color:var(--accent)}
+  details summary{cursor:pointer;color:var(--accent);font-size:.85rem;margin-top:14px}
+  textarea{width:100%;min-height:100px;background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:10px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.78rem;margin-top:8px}
+  footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./elite-labs.html">← Labs Center</a>
+    <h1>🎮 Controller Mapper</h1>
+    <div class="sub">Map every button of your <b>GameSir Nova Lite 2</b> per game — edit, add games, and save your layouts.</div>
+    <div class="guidenav">
+      <a class="gn" href="./elite-labs.html">🧪 Labs Center</a>
+      <a class="gn active" href="./controller-mapper.html">🎮 Controller Mapper</a>
+      <a class="gn" href="./one-handed-keypad.html">⌨️🖱️ Keypad + Mouse</a>
+      <a class="gn" href="./apex-legends.html">🎯 Apex</a>
+    </div>
+  </header>
+
+  <div class="callout info">🕹️ <b>Pick a game, then type what each button does.</b> The Nova Lite 2 has <b>remappable buttons</b> — build your ideal layout here, tweak it in the GameSir app to match, and it saves per game in your browser. Add any game with the ＋ box.</div>
+
+  <div class="gsel" id="gsel"></div>
+
+  <div class="grid">
+    <div>
+      <svg class="pad" viewBox="0 0 560 360" role="img" aria-label="GameSir Nova Lite 2 controller layout">
+        <!-- body -->
+        <path d="M90 120 q-70 -10 -78 70 q-8 90 40 120 q40 24 70 -20 l30 -46 h256 l30 46 q30 44 70 20 q48 -30 40 -120 q-8 -80 -78 -70 q-40 4 -60 26 h-200 q-20 -22 -60 -26 z" fill="#1a2029" stroke="#2c3644" stroke-width="3"/>
+        <!-- bumpers -->
+        <rect x="70" y="96" width="80" height="20" rx="10" fill="#212936" stroke="#4cc2ff" stroke-width="2"/><text x="110" y="110" text-anchor="middle" fill="#4cc2ff" font-size="12" font-weight="700" font-family="sans-serif">LB</text>
+        <rect x="410" y="96" width="80" height="20" rx="10" fill="#212936" stroke="#4cc2ff" stroke-width="2"/><text x="450" y="110" text-anchor="middle" fill="#4cc2ff" font-size="12" font-weight="700" font-family="sans-serif">RB</text>
+        <!-- triggers -->
+        <rect x="78" y="70" width="64" height="22" rx="10" fill="#212936" stroke="#ffd479" stroke-width="2"/><text x="110" y="86" text-anchor="middle" fill="#ffd479" font-size="12" font-weight="700" font-family="sans-serif">LT</text>
+        <rect x="418" y="70" width="64" height="22" rx="10" fill="#212936" stroke="#ffd479" stroke-width="2"/><text x="450" y="86" text-anchor="middle" fill="#ffd479" font-size="12" font-weight="700" font-family="sans-serif">RT</text>
+        <!-- left stick -->
+        <circle cx="110" cy="170" r="34" fill="#212936" stroke="#7ee787" stroke-width="2.5"/><circle cx="110" cy="170" r="9" fill="#7ee787"/><text x="110" y="222" text-anchor="middle" fill="#7ee787" font-size="10" font-family="sans-serif">L-Stick / L3</text>
+        <!-- dpad -->
+        <g fill="#212936" stroke="#c792ea" stroke-width="2">
+          <rect x="176" y="214" width="22" height="66" rx="4"/><rect x="154" y="236" width="66" height="22" rx="4"/></g>
+        <text x="187" y="300" text-anchor="middle" fill="#c792ea" font-size="10" font-family="sans-serif">D-Pad</text>
+        <!-- right stick -->
+        <circle cx="360" cy="238" r="34" fill="#212936" stroke="#7ee787" stroke-width="2.5"/><circle cx="360" cy="238" r="9" fill="#7ee787"/><text x="360" y="290" text-anchor="middle" fill="#7ee787" font-size="10" font-family="sans-serif">R-Stick / R3</text>
+        <!-- ABXY -->
+        <circle cx="450" cy="140" r="19" fill="#212936" stroke="#ffd479" stroke-width="2"/><text x="450" y="145" text-anchor="middle" fill="#ffd479" font-size="14" font-weight="800" font-family="sans-serif">Y</text>
+        <circle cx="416" cy="174" r="19" fill="#212936" stroke="#c792ea" stroke-width="2"/><text x="416" y="179" text-anchor="middle" fill="#c792ea" font-size="14" font-weight="800" font-family="sans-serif">X</text>
+        <circle cx="484" cy="174" r="19" fill="#212936" stroke="#ff6b6b" stroke-width="2"/><text x="484" y="179" text-anchor="middle" fill="#ff6b6b" font-size="14" font-weight="800" font-family="sans-serif">B</text>
+        <circle cx="450" cy="208" r="19" fill="#212936" stroke="#7ee787" stroke-width="2"/><text x="450" y="213" text-anchor="middle" fill="#7ee787" font-size="14" font-weight="800" font-family="sans-serif">A</text>
+        <!-- view / menu -->
+        <circle cx="238" cy="176" r="11" fill="#212936" stroke="#8b98a9" stroke-width="2"/><text x="238" y="200" text-anchor="middle" fill="#8b98a9" font-size="8" font-family="sans-serif">View</text>
+        <circle cx="322" cy="176" r="11" fill="#212936" stroke="#8b98a9" stroke-width="2"/><text x="322" y="200" text-anchor="middle" fill="#8b98a9" font-size="8" font-family="sans-serif">Menu</text>
+      </svg>
+      <div style="font-size:.78rem;color:var(--muted);text-align:center">GameSir Nova Lite 2 · Xbox-style layout (schematic)</div>
+    </div>
+
+    <div id="editor"></div>
+  </div>
+
+  <details><summary>💾 Back up / share your layouts</summary>
+    <div style="margin-top:8px"><button class="btn" onclick="doExport()">Export</button> <button class="btn" onclick="doImport()">Import</button></div>
+    <textarea id="io" placeholder="Export dumps all games & mappings as JSON. Paste to import."></textarea>
+  </details>
+
+  <footer>Part of the <a href="./elite-labs.html">Labs Center</a>. Apex defaults are a starting point — controller layouts vary, so edit to match yours and mirror it in the GameSir app. Saves in this browser only.</footer>
+</div>
+
+<script>
+  const $=s=>document.querySelector(s);
+  const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const GROUPS=[
+    ['🕹️ Sticks',[['lstick','L-Stick'],['l3','L3 (click)'],['rstick','R-Stick'],['r3','R3 (click)']]],
+    ['🎯 Triggers & bumpers',[['lt','LT'],['rt','RT'],['lb','LB'],['rb','RB']]],
+    ['🔘 Face buttons',[['a','A'],['b','B'],['x','X'],['y','Y']]],
+    ['➕ D-Pad',[['dup','D-Up'],['ddown','D-Down'],['dleft','D-Left'],['dright','D-Right']]],
+    ['☰ Menu',[['view','View'],['menu','Menu']]]
+  ];
+  const PRESETS={
+    'Apex Legends':{lstick:'Move',l3:'Crouch (toggle)',rstick:'Aim / look',r3:'Melee',lt:'Aim down sight',rt:'Fire',lb:'Tactical ability',rb:'Ping / ordnance',a:'Jump',b:'Crouch (hold)',x:'Interact / Reload',y:'Switch weapon',dup:'Ultimate ability',ddown:'Holster / utility',dleft:'Heal / shield',dright:'Shield / heal',view:'Inventory / Map',menu:'Menu'},
+    'Warzone':{lstick:'Move',l3:'Sprint / melee',rstick:'Aim / look',r3:'Melee / mount',lt:'ADS',rt:'Fire',lb:'Tactical',rb:'Lethal / ping',a:'Jump / mantle',b:'Crouch / slide',x:'Use / reload',y:'Switch weapon',dup:'Armor plate',ddown:'Prone',dleft:'Weapon 1',dright:'Weapon 2',view:'Map',menu:'Menu'},
+    'Battlefield REDSEC':{lstick:'Move',l3:'Sprint',rstick:'Aim / look',r3:'Melee',lt:'ADS',rt:'Fire',lb:'Gadget',rb:'Grenade',a:'Jump / vault',b:'Crouch / prone',x:'Interact / enter vehicle',y:'Switch weapon',dup:'Spot / ping',ddown:'Prone',dleft:'Gadget 2',dright:'Request ammo/heal',view:'Scoreboard / map',menu:'Menu'}
+  };
+  const K_GAMES='ctrl_games';
+  const KK=(g,c)=>'ctrl_'+g+'_'+c;
+  let games=(()=>{try{return JSON.parse(localStorage.getItem(K_GAMES))||null}catch(e){return null}})()||['Apex Legends','Warzone','Battlefield REDSEC'];
+  let game=games[0];
+  function saveGames(){localStorage.setItem(K_GAMES,JSON.stringify(games));}
+  function setVal(c,v){localStorage.setItem(KK(game,c),v);}
+  function getVal(c){const s=localStorage.getItem(KK(game,c));return s==null?((PRESETS[game]||{})[c]||''):s;}
+  function switchGame(g){game=g;renderSel();renderEditor();}
+  function addGame(){const n=($('#newGame').value||'').trim();if(!n)return;if(!games.includes(n)){games.push(n);saveGames();}game=n;$('#newGame').value='';renderSel();renderEditor();}
+  function delGame(g){if(games.length<=1)return;GROUPS.forEach(gr=>gr[1].forEach(([c])=>localStorage.removeItem(KK(g,c))));games=games.filter(x=>x!==g);saveGames();if(game===g)game=games[0];renderSel();renderEditor();}
+  function copyPreset(){if(confirm('Fill '+game+' from the Apex default layout?')){const p=PRESETS['Apex Legends'];Object.keys(p).forEach(c=>setVal(c,p[c]));renderEditor();}}
+  function renderSel(){
+    $('#gsel').innerHTML=games.map(g=>`<button class="gbtn ${g===game?'active':''}" onclick="switchGame(${JSON.stringify(g)})">${esc(g)}${games.length>1?` <span class="x" onclick="event.stopPropagation();delGame(${JSON.stringify(g)})">✕</span>`:''}</button>`).join('')+
+      `<span class="addg"><input id="newGame" placeholder="add a game…" onkeydown="if(event.key==='Enter')addGame()"><button class="btn" onclick="addGame()">＋</button></span>`;
+  }
+  function renderEditor(){
+    $('#editor').innerHTML=`<div style="font-size:.9rem;font-weight:700;margin-bottom:4px">${esc(game)} — button map</div>`+
+      GROUPS.map(gr=>`<div class="glabel">${gr[0]}</div>`+gr[1].map(([c,label])=>
+        `<div class="brow"><span class="bkey">${esc(label)}</span><input value="${esc(getVal(c))}" placeholder="—" oninput="setVal('${c}',this.value)"></div>`).join('')).join('')+
+      `<div style="margin-top:12px"><button class="btn go" onclick="copyPreset()">Fill from Apex default</button></div>`;
+  }
+  function doExport(){const o={games};games.forEach(g=>GROUPS.forEach(gr=>gr[1].forEach(([c])=>{const v=localStorage.getItem(KK(g,c));if(v!=null)o[KK(g,c)]=v;})));$('#io').value=JSON.stringify(o,null,2);}
+  function doImport(){try{const d=JSON.parse($('#io').value);if(Array.isArray(d.games)){games=d.games;saveGames();}Object.entries(d).forEach(([k,v])=>{if(k.startsWith('ctrl_'))localStorage.setItem(k,v);});game=games[0];renderSel();renderEditor();alert('Imported ✓');}catch(e){alert('Invalid JSON');}}
+  renderSel(); renderEditor();
+</script>
+</body>
+</html>
