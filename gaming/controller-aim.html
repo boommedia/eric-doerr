@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎯 Controller FPS Aim Tuning — smooth like the pros</title>
+<style>
+  :root{--bg:#0f1419;--panel:#1a2029;--panel-2:#212936;--line:#2c3644;--text:#e6edf3;--muted:#8b98a9;--accent:#4cc2ff;--accent-2:#7ee787;--ed:#ff8c42;--gold:#ffd479;--danger:#ff6b6b;--foot:#c792ea}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 75% -10%,rgba(76,194,255,.10),transparent),linear-gradient(160deg,#0d1117,#131a24);color:var(--text);line-height:1.55;padding-bottom:70px}
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px}
+  header{padding:34px 0 6px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  h1{font-size:1.6rem;margin:10px 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:.9rem}
+  h2.sec{font-size:1.13rem;border-left:4px solid var(--accent);padding-left:12px;margin:28px 0 12px}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--accent);color:#06121c;border-color:var(--accent)}
+  .callout{border-radius:12px;padding:14px 16px;font-size:.87rem;margin:14px 0}
+  .callout.info{background:rgba(76,194,255,.07);border:1px solid rgba(76,194,255,.28)}
+  .callout.go{background:rgba(126,231,135,.08);border:1px solid rgba(126,231,135,.35)}
+  .callout.tip{background:rgba(255,212,121,.06);border:1px solid rgba(255,212,121,.3)}
+  .callout b{color:var(--text)} .callout a{color:var(--accent)}
+  ol.steps{padding-left:20px;font-size:.9rem} ol.steps li{margin:7px 0} ol.steps b{color:var(--text)}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:10px 0}
+  table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:520px}
+  th,td{padding:9px 13px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  tbody tr:last-child td{border-bottom:none}
+  thead th{background:var(--panel-2);color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+  td.k{font-weight:600;color:var(--accent);white-space:nowrap}
+  .lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin:16px 0 6px}
+  .tool{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin:10px 0}
+  .symp{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+  .sb{background:var(--panel-2);border:1px solid var(--line);color:var(--muted);border-radius:20px;padding:8px 14px;font-size:.83rem;font-weight:600;cursor:pointer;text-align:left}
+  .sb.active{background:var(--danger);color:#1a0808;border-color:var(--danger)}
+  #fix{font-size:.9rem}
+  .gsel{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+  .gbtn{background:var(--panel-2);border:1px solid var(--line);color:var(--muted);border-radius:20px;padding:7px 14px;font-size:.83rem;font-weight:600;cursor:pointer}
+  .gbtn.active{background:var(--accent);color:#06121c;border-color:var(--accent)}
+  .srow{display:flex;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .srow:last-child{border-bottom:none}
+  .srow .sk{min-width:150px;font-weight:600}
+  .srow .rec{font-size:.78rem;color:var(--muted)}
+  .srow input{flex:1;min-width:120px;background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:7px 10px;font:inherit;font-size:.85rem}
+  .srow input:focus{outline:none;border-color:var(--accent)}
+  .btn{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:8px 13px;font-weight:600;font-size:.82rem;cursor:pointer}
+  label.chk{display:flex;gap:9px;align-items:flex-start;font-size:.86rem;color:var(--muted);padding:5px 0;cursor:pointer;border-bottom:1px solid var(--line)}
+  label.chk:last-child{border-bottom:none} label.chk input{width:auto;margin-top:3px} label.chk.on{color:var(--text)} label.chk b{color:var(--text)}
+  footer{color:var(--muted);font-size:.78rem;margin-top:30px} footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./elite-labs.html">← Labs Center</a>
+    <h1>🎯 Controller FPS Aim Tuning</h1>
+    <div class="sub">Why controller feels off after mouse — and the exact settings that make it smooth like the pros.</div>
+    <div class="guidenav">
+      <a class="gn" href="./elite-labs.html">🧪 Labs Center</a>
+      <a class="gn active" href="./controller-aim.html">🎯 Aim Tuning</a>
+      <a class="gn" href="./controller-mapper.html">🎮 Controller Mapper</a>
+      <a class="gn" href="./apex-legends.html">🎯 Apex</a>
+    </div>
+  </header>
+
+  <div class="callout info">🧠 <b>The one thing to understand:</b> a <b>mouse is position control</b> — move it, the crosshair jumps there instantly. A <b>stick is velocity control</b> — tilt it and the crosshair <i>moves at a speed</i>; more tilt = faster spin. You're <b>steering</b>, not teleporting. That's why flicks don't translate. Pros look smooth because they make <b>tiny stick inputs</b> and let <b>aim assist</b> do the fine tracking.</div>
+
+  <!-- WHAT YOU'RE MISSING -->
+  <h2 class="sec">✅ What you're probably missing</h2>
+  <ol class="steps">
+    <li><b>Aim assist is ON and you should lean on it.</b> On controller, the game adds <b>slowdown/friction near enemies</b> so your reticle "sticks." Pros aren't fighting it — they move gently and let it grab. Keep it on (usually default).</li>
+    <li><b>Your deadzone is too high.</b> A big deadzone means the stick must tilt far before <i>anything</i> happens — so small aim feels dead, then jumps = the "robotic/jerky" feel. Your <b>GameSir Nova Lite 2 has Hall-effect sticks (no drift)</b>, so you can run a <b>very low deadzone</b> — this alone smooths micro-aim hugely.</li>
+    <li><b>Your sensitivity is too high.</b> New players crank it and spin out. <b>Lower it</b> — especially <b>ADS (aim) sensitivity</b>. Slow is smooth.</li>
+    <li><b>Wrong response curve.</b> This is the "fine near center, fast at the edges" dial that makes small adjustments possible. Most beginners want a <b>curve (not raw linear)</b> until muscle memory builds.</li>
+    <li><b>Thumb technique.</b> Use the <b>pad of your thumb</b>, make <b>micro-movements</b>, and re-center. Big thumb swipes = overshoot.</li>
+  </ol>
+
+  <!-- THE SETTINGS -->
+  <h2 class="sec">🎛️ The settings that matter (in priority order)</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Setting</th><th>What it does</th><th>If it's wrong…</th><th>Starting point</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Deadzone</td><td>How far the stick moves before input registers</td><td>Too high = jerky/robotic, dead then jumpy</td><td><b>Very low</b> (hall-effect = safe) — lowest that doesn't drift</td></tr>
+      <tr><td class="k">Response curve</td><td>How stick tilt maps to turn speed</td><td>Too steep/linear = twitchy &amp; hard to fine-aim</td><td>A <b>curve</b> (Dynamic/Classic) as a beginner; try Linear later</td></tr>
+      <tr><td class="k">Look sensitivity</td><td>Overall turn speed</td><td>Too high = spins out of control</td><td><b>Moderate</b> — lower than feels exciting</td></tr>
+      <tr><td class="k">ADS sensitivity</td><td>Turn speed while aiming down sights</td><td>Too high = can't hold aim on target</td><td><b>Lower</b> than hip sens (~0.8–1.0×)</td></tr>
+      <tr><td class="k">Aim assist</td><td>Slowdown/tracking help near enemies</td><td>Off = you lose the pros' secret weapon</td><td><b>ON</b> (default) — don't fight it</td></tr>
+      <tr><td class="k">Outer threshold</td><td>How far to tilt for max turn speed</td><td>Too high = slow max turns</td><td>Low-ish so full tilt = full speed</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout go">🎯 <b>The 3-step fix, in order:</b> ① drop your <b>deadzone</b> low (your Hall-effect sticks make this safe), ② pick a <b>response curve</b> instead of raw linear, ③ <b>lower sensitivity</b> (especially ADS). Then play 30 min and adjust one thing at a time.</div>
+
+  <!-- TROUBLESHOOTER -->
+  <h2 class="sec">🩺 Symptom → fix</h2>
+  <div class="callout info">Tap what your aim feels like:</div>
+  <div class="tool">
+    <div class="symp" id="symp"></div>
+    <div id="fix"></div>
+  </div>
+
+  <!-- PER GAME SETTINGS SAVER -->
+  <h2 class="sec">🗂️ Your settings — per game</h2>
+  <div class="callout info">Record your numbers as you dial them in — pick a game, edit, it saves. Prefilled with sensible <b>starting points</b> (not final — tune to taste).</div>
+  <div class="tool">
+    <div class="gsel" id="gsel"></div>
+    <div id="settings"></div>
+    <div style="margin-top:10px"><button class="btn" onclick="resetGame()">↺ Reset this game to starting points</button></div>
+  </div>
+
+  <!-- DRILLS -->
+  <h2 class="sec">🏋️ Build the muscle memory</h2>
+  <div class="tool" id="drills"></div>
+  <div class="callout tip">⏱️ <b>Give it two weeks.</b> Controller aim is muscle memory — it feels wrong for the first few sessions no matter what, then clicks. Change <b>one setting at a time</b> so you can feel what each does. Warm up in the range/lobby before every session.</div>
+
+  <footer>Part of the <a href="./elite-labs.html">Labs Center</a>. Setting names differ per game &amp; patch — these are starting points; the in-game menu is the source of truth. Saves in this browser only.</footer>
+</div>
+
+<script>
+  const $=s=>document.querySelector(s);
+  const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+  /* symptom troubleshooter */
+  const SYMPTOMS=[
+    ['Too fast / spins out of control','Your <b>sensitivity is too high.</b> Lower <b>look sensitivity</b> a couple of notches, and lower <b>ADS sensitivity</b> more. Re-test — you want to be able to stop exactly on a target, not overshoot it.'],
+    ['Jerky / robotic / stutters on small aim','Classic <b>deadzone too high.</b> Drop your <b>deadzone</b> as low as it goes without the reticle drifting on its own — your Hall-effect sticks let you go very low. This is the single biggest smoothness fix.'],
+    ['Dead at first, then suddenly jumps','Deadzone too high <b>and</b> curve too aggressive. <b>Lower the deadzone</b>, and switch to a gentler <b>response curve</b> (Dynamic/Classic) so small tilts give small, smooth movement.'],
+    ['Overshoot the target constantly','Sensitivity too high or curve too linear. <b>Lower sensitivity</b>, use a <b>curve</b> for fine control near center, and make <b>smaller thumb inputs</b> — let aim assist pull you the last bit.'],
+    ["Can't track moving enemies","You're fighting <b>aim assist</b> or sens is too high. Slow down, keep your reticle <b>near</b> the enemy and let aim-assist slowdown grab them, and <b>lower sensitivity</b> so you can micro-adjust."],
+    ['Turning around feels slow','Sensitivity or <b>outer threshold</b> too conservative. Nudge <b>look sensitivity</b> up a little, or lower the outer threshold so full stick tilt = full turn speed. (Apex: add "Extra Yaw".)'],
+    ['Feels totally alien vs my mouse','Normal — it takes ~2 weeks of muscle memory. Set sane values (low deadzone, a curve, moderate sens, aim assist ON), <b>stop tweaking</b>, and just play &amp; warm up daily.']
+  ];
+  let sympI=-1;
+  function renderSymp(){
+    $('#symp').innerHTML=SYMPTOMS.map((s,i)=>`<button class="sb ${i===sympI?'active':''}" onclick="pickSymp(${i})">${esc(s[0])}</button>`).join('');
+    $('#fix').innerHTML=sympI<0?'<span style="color:var(--muted);font-size:.86rem">Pick a symptom above for the fix.</span>':`<div class="callout go" style="margin:0">🔧 ${SYMPTOMS[sympI][1]}</div>`;
+  }
+  function pickSymp(i){sympI=(sympI===i?-1:i);renderSymp();}
+
+  /* per-game settings */
+  const FIELDS=[
+    ['dz','Deadzone','as LOW as no-drift allows (hall-effect: tiny)'],
+    ['curve','Response curve','a curve (Dynamic/Classic) to start'],
+    ['look','Look sensitivity','moderate — lower than exciting'],
+    ['ads','ADS sensitivity','~0.8–1.0× of look'],
+    ['aa','Aim assist','ON (default)'],
+    ['outer','Outer threshold','low so full tilt = full speed']
+  ];
+  const PRESETS={
+    'Apex Legends':{dz:'Small (or custom ~2–4%)',curve:'Classic (or Advanced, curve ~ mid)',look:'3–4',ads:'3–4 / per-optic',aa:'On',outer:'low'},
+    'Warzone':{dz:'Min ~3, Max ~85',curve:'Dynamic (or Standard)',look:'6–7 H/V',ads:'~0.9× multipliers',aa:'On (Standard/Precision)',outer:'—'},
+    'Battlefield REDSEC':{dz:'low',curve:'default / classic',look:'moderate',ads:'lower than hip',aa:'On',outer:'low'}
+  };
+  const K_G='caim_games';
+  let games=(()=>{try{return JSON.parse(localStorage.getItem(K_G))||null}catch(e){return null}})()||['Apex Legends','Warzone','Battlefield REDSEC'];
+  let game=games[0];
+  const KK=(g,f)=>'caim_'+g+'_'+f;
+  const getV=f=>{const s=localStorage.getItem(KK(game,f));return s==null?((PRESETS[game]||{})[f]||''):s;};
+  function setV(f,v){localStorage.setItem(KK(game,f),v);}
+  function switchG(g){game=g;renderGsel();renderSettings();}
+  function resetGame(){FIELDS.forEach(([f])=>localStorage.removeItem(KK(game,f)));renderSettings();}
+  function renderGsel(){$('#gsel').innerHTML=games.map(g=>`<button class="gbtn ${g===game?'active':''}" onclick="switchG(${JSON.stringify(g)})">${esc(g)}</button>`).join('');}
+  function renderSettings(){
+    $('#settings').innerHTML=FIELDS.map(([f,label,rec])=>`<div class="srow"><span class="sk">${esc(label)}</span><input value="${esc(getV(f))}" oninput="setV('${f}',this.value)"><span class="rec">${esc(rec)}</span></div>`).join('');
+  }
+
+  /* drills */
+  const DRILLS=[
+    ['Warm up before every session','5 min in the firing range / warmup lobby — never queue cold'],
+    ['Track a moving dummy','strafe-follow it smoothly; let aim assist help'],
+    ['Stop-on-target drill','flick between two spots and STOP exactly, no overshoot'],
+    ['Strafe while aiming','move left/right and keep the reticle on target'],
+    ['Change ONE setting at a time','so you can feel what each does'],
+    ['Play daily for 2 weeks','muscle memory is the real fix']
+  ];
+  const KD=i=>'caim_drill_'+i;
+  function toggleD(i){localStorage.setItem(KD(i),localStorage.getItem(KD(i))==='1'?'0':'1');renderDrills();}
+  function renderDrills(){$('#drills').innerHTML=DRILLS.map((d,i)=>{const on=localStorage.getItem(KD(i))==='1';return `<label class="chk ${on?'on':''}"><input type="checkbox" ${on?'checked':''} onchange="toggleD(${i})"><span><b>${esc(d[0])}</b> — ${esc(d[1])}</span></label>`;}).join('');}
+
+  renderSymp(); renderGsel(); renderSettings(); renderDrills();
+</script>
+</body>
+</html>
