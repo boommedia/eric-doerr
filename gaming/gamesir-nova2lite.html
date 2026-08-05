@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎮 GameSir Nova 2 Lite — Pairing &amp; Setup</title>
+<style>
+  :root{
+    --bg:#0f1419; --panel:#1a2029; --panel-2:#212936; --line:#2c3644;
+    --text:#e6edf3; --muted:#8b98a9; --accent:#4cc2ff; --accent-2:#7ee787;
+    --shadow:0 8px 30px rgba(0,0,0,.4);
+    /* device accent — pulled from the controller's own orange stick rings */
+    --gs:#ff7a45; --gs-dim:rgba(255,122,69,.13);
+    --danger:#ff5f56; --danger-dim:rgba(255,95,86,.12);
+    --ok:#7ee787;
+    --mono:ui-monospace,"Cascadia Code","SF Mono",Consolas,"Liberation Mono",monospace;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;min-height:100vh;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1000px 500px at 70% -10%,rgba(255,122,69,.08),transparent),
+               linear-gradient(160deg,#0d1117,#131a24);
+    color:var(--text);line-height:1.6;
+  }
+  .wrap{max-width:940px;margin:0 auto;padding:40px 22px 80px}
+  .back{color:var(--accent);text-decoration:none;font-size:.85rem}
+  .back:hover{text-decoration:underline}
+  h1{font-size:1.9rem;margin:10px 0 6px;letter-spacing:-.02em;text-wrap:balance}
+  .sub{color:var(--muted);max-width:62ch}
+  .guidenav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .gn{font-size:.83rem;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);text-decoration:none;border-radius:9px;padding:7px 13px;font-weight:600}
+  .gn:hover{border-color:var(--accent);color:var(--accent)}
+  .gn.active{background:var(--accent);color:#06121c;border-color:var(--accent)}
+  .meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .chip{background:#263041;border:1px solid var(--line);border-radius:999px;padding:5px 13px;font-size:.78rem;color:var(--muted)}
+  .chip b{color:var(--text)}
+
+  h2.sec{
+    display:flex;align-items:center;gap:10px;margin:44px 0 16px;font-size:1.02rem;
+    color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700;
+  }
+  h2.sec::after{content:"";flex:1;height:1px;background:var(--line)}
+  h3{font-size:1.05rem;margin:0 0 8px}
+
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
+  .stack{display:flex;flex-direction:column;gap:18px}
+
+  /* ---- verdict banner ---- */
+  .verdict{
+    background:linear-gradient(150deg,rgba(255,122,69,.14),rgba(255,122,69,.03));
+    border:1px solid rgba(255,122,69,.42);border-radius:16px;padding:24px;margin-top:26px;
+  }
+  .verdict .eyebrow{
+    font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gs);margin-bottom:10px;
+  }
+  .verdict h3{font-size:1.3rem;margin:0 0 10px;letter-spacing:-.01em;text-wrap:balance}
+  .verdict p{margin:0 0 14px;color:#d7dee6}
+  .verdict p:last-child{margin-bottom:0}
+
+  /* ---- danger callout ---- */
+  .danger{
+    background:var(--danger-dim);border:1px solid rgba(255,95,86,.45);
+    border-radius:14px;padding:20px;
+  }
+  .danger .eyebrow{
+    font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--danger);margin-bottom:8px;
+  }
+  .danger p{margin:0 0 10px}
+  .danger p:last-child{margin-bottom:0}
+
+  /* ---- ordered fix path ---- */
+  ol.steps{list-style:none;counter-reset:s;margin:0;padding:0;display:flex;flex-direction:column;gap:16px}
+  ol.steps>li{counter-increment:s;display:flex;gap:16px;align-items:flex-start}
+  ol.steps>li::before{
+    content:counter(s);flex:0 0 32px;height:32px;border-radius:50%;
+    background:var(--gs-dim);border:1px solid rgba(255,122,69,.45);color:var(--gs);
+    display:grid;place-items:center;font-weight:800;font-size:.9rem;
+    font-variant-numeric:tabular-nums;margin-top:2px;
+  }
+  ol.steps .body{flex:1;min-width:0}
+  ol.steps h3{margin:4px 0 6px}
+  ol.steps p{margin:0 0 8px;color:var(--muted)}
+  ol.steps p:last-child{margin-bottom:0}
+  ol.steps b{color:var(--text)}
+
+  /* ---- tables ---- */
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+  table{border-collapse:collapse;width:100%;min-width:540px;font-size:.9rem}
+  th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{
+    background:var(--panel-2);color:var(--muted);font-size:.72rem;
+    text-transform:uppercase;letter-spacing:.07em;white-space:nowrap;
+  }
+  tbody tr:last-child td{border-bottom:none}
+  td b{color:var(--text)}
+  .yes{color:var(--ok);font-weight:700}
+  .no{color:var(--danger);font-weight:700}
+  .row-best{background:rgba(126,231,135,.05)}
+
+  /* ---- LED swatches ---- */
+  .led{display:inline-flex;align-items:center;gap:9px;white-space:nowrap;font-weight:600}
+  .dot{
+    width:13px;height:13px;border-radius:50%;flex:0 0 13px;
+    box-shadow:0 0 9px 1px currentColor;background:currentColor;
+  }
+  .c-blue{color:#4c8dff}.c-green{color:#4ade80}.c-red{color:#ff5f56}
+  .c-yellow{color:#fbbf24}.c-cyan{color:#22d3ee}.c-white{color:#e6edf3}
+
+  /* ---- key combos ---- */
+  kbd{
+    font-family:var(--mono);font-size:.82em;background:var(--panel-2);
+    border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;
+    padding:2px 7px;color:var(--text);white-space:nowrap;display:inline-block;
+  }
+  code{font-family:var(--mono);font-size:.88em;color:var(--gs);background:var(--gs-dim);padding:1px 6px;border-radius:5px}
+
+  /* ---- generic content ---- */
+  p{margin:0 0 12px}
+  ul.tight{margin:0;padding-left:20px;color:var(--muted)}
+  ul.tight li{margin-bottom:7px}
+  ul.tight li:last-child{margin-bottom:0}
+  ul.tight b{color:var(--text)}
+  a{color:var(--accent)}
+  .note{color:var(--muted);font-size:.86rem;margin-top:12px}
+
+  /* ---- two-up grid ---- */
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+
+  /* ---- cross-link cards ---- */
+  a.xlink{
+    display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);
+    border-radius:14px;padding:18px;text-decoration:none;color:inherit;
+    transition:transform .18s,border-color .18s,box-shadow .18s;
+  }
+  a.xlink:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:var(--shadow)}
+  a.xlink .icon{font-size:1.6rem;margin-bottom:8px}
+  a.xlink h3{margin:0 0 5px;font-size:1rem}
+  a.xlink p{margin:0;color:var(--muted);font-size:.86rem;flex:1}
+  a.xlink .go{margin-top:12px;font-size:.85rem;color:var(--accent);font-weight:600}
+
+  /* ---- checklist ---- */
+  .check{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+  .check:last-child{border-bottom:none}
+  .check input{
+    appearance:none;width:20px;height:20px;flex:0 0 20px;margin-top:2px;cursor:pointer;
+    border:1px solid var(--line);border-radius:6px;background:var(--panel-2);
+    transition:background .15s,border-color .15s;
+  }
+  .check input:checked{background:var(--accent-2);border-color:var(--accent-2)}
+  .check input:checked::after{content:"✓";display:grid;place-items:center;height:100%;color:#0d1117;font-weight:900;font-size:.85rem}
+  .check input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .check label{cursor:pointer;flex:1;font-size:.92rem}
+  .check input:checked+label{color:var(--muted);text-decoration:line-through}
+  .check label small{display:block;color:var(--muted);font-size:.82rem;text-decoration:none;margin-top:2px}
+  .check input:checked+label small{opacity:.65}
+
+  .bar{height:8px;background:var(--panel-2);border-radius:999px;overflow:hidden;margin:6px 0 18px;border:1px solid var(--line)}
+  .bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gs),var(--accent-2));transition:width .3s}
+  .barlabel{display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+
+  /* ---- editable notes ---- */
+  textarea{
+    width:100%;min-height:100px;resize:vertical;background:var(--panel-2);color:var(--text);
+    border:1px solid var(--line);border-radius:10px;padding:11px 13px;
+    font-family:inherit;font-size:.9rem;line-height:1.55;
+  }
+  textarea:focus{outline:none;border-color:var(--accent)}
+  .saved{font-size:.78rem;color:var(--accent-2);opacity:0;transition:opacity .3s}
+  .saved.show{opacity:1}
+  button.reset{
+    background:var(--panel-2);color:var(--muted);border:1px solid var(--line);
+    border-radius:9px;padding:8px 14px;font-size:.84rem;cursor:pointer;font-family:inherit;
+  }
+  button.reset:hover{border-color:var(--danger);color:var(--danger)}
+  button.reset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  /* ---- controller diagram ---- */
+  .padwrap{overflow-x:auto;margin:18px 0 22px}
+  svg.pad{display:block;width:100%;min-width:440px;max-width:620px;margin:0 auto;height:auto}
+  svg.pad .body{fill:var(--panel-2);stroke:#3a4658;stroke-width:2}
+  svg.pad .b{fill:#333e50;stroke:#4a586d;stroke-width:2;transition:fill .18s,stroke .18s}
+  svg.pad .stick{fill:#2a3444}
+  svg.pad .stickcap{fill:#3d4a5e;stroke:#55647c;stroke-width:2;pointer-events:none}
+  svg.pad .home{fill:#3d2a26;stroke:var(--gs);stroke-width:2}
+  svg.pad .gl{fill:var(--muted);font:700 15px var(--mono);text-anchor:middle;pointer-events:none}
+  svg.pad .gl-g{fill:var(--gs);font-size:16px}
+  svg.pad .gl-s{font-size:12px}
+  svg.pad .lead path{fill:none;stroke:#4a586d;stroke-width:1.5;stroke-dasharray:3 3}
+  svg.pad .lb{fill:var(--text);font:600 14px -apple-system,"Segoe UI",sans-serif}
+  svg.pad .b.hl{fill:var(--gs);stroke:#ffb08a;filter:drop-shadow(0 0 8px rgba(255,122,69,.85))}
+
+  .combolist{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+  button.combo{
+    display:flex;flex-direction:column;gap:5px;text-align:left;cursor:pointer;
+    background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:14px;
+    color:inherit;font-family:inherit;transition:border-color .18s,background .18s;
+  }
+  button.combo:hover,button.combo.on{border-color:var(--gs);background:var(--gs-dim)}
+  button.combo:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .ctitle{font-weight:700;font-size:.94rem}
+  .ckeys{font-size:.85rem;color:var(--text)}
+  .cnote{font-size:.8rem;color:var(--muted);line-height:1.45}
+
+  footer{margin-top:52px;color:var(--muted);font-size:.8rem;border-top:1px solid var(--line);padding-top:20px}
+  footer a{color:var(--accent);text-decoration:none}
+  footer a:hover{text-decoration:underline}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="./index.html">← Gaming</a>
+  <h1>🎮 GameSir Nova 2 Lite — Pairing &amp; Setup</h1>
+  <p class="sub">Why GameSir Connect won't let you pick your controller, how to get it paired to the PC properly, and how to set it up for Apex &amp; the rest.</p>
+  <div class="guidenav">
+    <a class="gn" href="./index.html">🎮 All Gaming</a>
+    <a class="gn active" href="./gamesir-nova2lite.html">🎮 Nova 2 Lite</a>
+    <a class="gn" href="./controller-aim.html">🎯 Aim Tuning</a>
+    <a class="gn" href="./controller-mapper.html">🎮 Controller Mapper</a>
+    <a class="gn" href="./apex-legends.html">🎯 Apex</a>
+  </div>
+  <div class="meta">
+    <span class="chip">🎮 <b>Nova 2 Lite</b></span>
+    <span class="chip">💻 GameSir Connect <b>v1.15.4</b></span>
+    <span class="chip">🪟 Windows 11</span>
+  </div>
+
+  <!-- ============ THE VERDICT ============ -->
+  <div class="verdict">
+    <div class="eyebrow">Most likely cause</div>
+    <h3>You're connected over Bluetooth. GameSir Connect can't see a controller over Bluetooth.</h3>
+    <p>That "Select controller" screen you're stuck on isn't asking you to pick a model — it's waiting for a controller it can actually talk to. GameSir's own documentation for the software is blunt about it: <b>connect to the PC via dongle or cable, in XInput mode</b>. Bluetooth is not on that list.</p>
+    <p>This is almost certainly the same reason pairing feels flaky in general — over Bluetooth the Nova 2 Lite presents itself to Windows as a generic HID gamepad, which is also the wrong mode for Apex and most modern PC games.</p>
+    <p><b>The 30-second fix:</b> plug the controller into the PC with the USB-C cable, then restart GameSir Connect.</p>
+  </div>
+
+  <!-- ============ BRICK WARNING ============ -->
+  <h2 class="sec">⚠️ Read this before you update anything</h2>
+  <div class="danger">
+    <div class="eyebrow">Do not skip</div>
+    <p><b>GameSir Connect supports the "Nova 2 Lite" but NOT the older "Nova Lite."</b> They are two different controllers with confusingly similar names, and GameSir warns that running the software against a plain Nova Lite <b>will brick it</b>.</p>
+    <p>Your screenshot shows <b>NOVA 2 LITE</b> selected, so you're on the right one — just never pick a different model tile to "see if that works." If a firmware update starts against the wrong model, you can lose the controller permanently.</p>
+  </div>
+
+  <!-- ============ BUTTON MAP ============ -->
+  <h2 class="sec">🗺️ Know your buttons</h2>
+  <div class="panel">
+    <p style="margin-top:0">Every combo below is <b>hold two buttons together</b>. Click a combo to light up the buttons it uses.</p>
+    <div class="padwrap">
+      <svg viewBox="0 0 640 400" class="pad" role="img" aria-label="GameSir Nova 2 Lite button layout diagram">
+        <!-- bumpers -->
+        <rect id="btn-lb" class="b" x="88"  y="52" width="104" height="30" rx="15"/>
+        <rect id="btn-rb" class="b" x="448" y="52" width="104" height="30" rx="15"/>
+        <!-- body -->
+        <path class="body" d="M205,72 L435,72 C525,72 606,112 611,192 C616,262 587,348 548,382
+                              C514,412 470,402 446,368 L403,306 L237,306 L194,368
+                              C170,402 126,412 92,382 C53,348 24,262 29,192 C34,112 115,72 205,72 Z"/>
+        <!-- left stick -->
+        <circle id="btn-ls" class="b stick" cx="180" cy="160" r="35"/>
+        <circle class="stickcap" cx="180" cy="160" r="23"/>
+        <!-- d-pad -->
+        <path id="btn-dpad" class="b" d="M243,232 h22 v22 h22 v22 h-22 v22 h-22 v-22 h-22 v-22 h22 z"/>
+        <!-- right stick -->
+        <circle id="btn-rs" class="b stick" cx="392" cy="244" r="35"/>
+        <circle class="stickcap" cx="392" cy="244" r="23"/>
+        <!-- face buttons -->
+        <circle id="btn-y" class="b" cx="470" cy="128" r="19"/><text class="gl" x="470" y="134">Y</text>
+        <circle id="btn-x" class="b" cx="432" cy="166" r="19"/><text class="gl" x="432" y="172">X</text>
+        <circle id="btn-b" class="b" cx="508" cy="166" r="19"/><text class="gl" x="508" y="172">B</text>
+        <circle id="btn-a" class="b" cx="470" cy="204" r="19"/><text class="gl" x="470" y="210">A</text>
+        <!-- centre cluster -->
+        <circle id="btn-view" class="b" cx="272" cy="140" r="10"/>
+        <circle id="btn-menu" class="b" cx="368" cy="140" r="10"/>
+        <circle id="btn-home" class="b home" cx="320" cy="178" r="20"/><text class="gl gl-g" x="320" y="185">G</text>
+        <circle id="btn-shot" class="b" cx="286" cy="222" r="11"/>
+        <circle id="btn-m"    class="b" cx="354" cy="222" r="11"/><text class="gl gl-s" x="354" y="227">M</text>
+        <!-- leader lines + labels for the three that matter -->
+        <g class="lead">
+          <path d="M320,198 L320,252 L262,252"/><text class="lb" x="256" y="256" text-anchor="end">Home  (the “G” logo)</text>
+          <path d="M286,233 L286,286 L262,286"/><text class="lb" x="256" y="290" text-anchor="end">Screenshot</text>
+          <path d="M354,233 L354,286 L392,286"/><text class="lb" x="398" y="290">M</text>
+        </g>
+      </svg>
+    </div>
+
+    <div id="combos" class="combolist">
+      <button class="combo" data-btns="btn-home btn-shot">
+        <span class="ctitle">Enter pairing mode</span>
+        <span class="ckeys"><kbd>Home</kbd> + <kbd>Screenshot</kbd> · hold 2s</span>
+        <span class="cnote">Light flash speeds up. This is the step people miss.</span>
+      </button>
+      <button class="combo" data-btns="btn-home btn-a btn-b btn-x btn-y">
+        <span class="ctitle">Change connection mode</span>
+        <span class="ckeys"><kbd>Home</kbd> + a face button · hold 2s</span>
+        <span class="cnote">Cycle them and read the light colour — you want green.</span>
+      </button>
+      <button class="combo" data-btns="btn-m">
+        <span class="ctitle">Turn turbo OFF</span>
+        <span class="ckeys">Double-press <kbd>M</kbd></span>
+        <span class="cnote">Do this if the light ever blinks red mid-match.</span>
+      </button>
+      <button class="combo" data-btns="btn-m btn-lb btn-rb">
+        <span class="ctitle">Toggle hair trigger</span>
+        <span class="ckeys"><kbd>M</kbd> + the trigger · hold 2s</span>
+        <span class="cnote">Shorter pull = faster ADS. Worth having on for Apex.</span>
+      </button>
+    </div>
+    <p class="note">Layouts vary slightly between production runs. If a combo doesn't respond, hold <kbd>Home</kbd> together with each small centre button in turn — there are only a few, and the light reacts when you hit the right one.</p>
+  </div>
+
+  <!-- ============ FIX PATH ============ -->
+  <h2 class="sec">🔧 Fix it — in this order</h2>
+  <div class="panel">
+    <ol class="steps">
+      <li>
+        <div class="body">
+          <h3>Plug it in with the USB-C cable</h3>
+          <p>Wired is the shortest path — there's no mode to select and no pairing to negotiate. GameSir's instruction for wired is literally just "connect the controller to the computer via the Type-C cable."</p>
+          <p>Two things that quietly break this: <b>a charge-only cable</b> (very common with cables that came with phones or power banks — it charges the controller but carries no data, so Windows never sees a device), and <b>front-panel or hub USB ports</b>. Use a known-good data cable in a <b>USB port on the back of the PC</b>, directly on the motherboard.</p>
+        </div>
+      </li>
+      <li>
+        <div class="body">
+          <h3>Fully close GameSir Connect, then reopen it</h3>
+          <p>The app scans for the controller when it starts. If it was already open when you plugged in, it may never re-scan. Close it from the tray as well, not just the window, then launch it again with the controller already connected.</p>
+        </div>
+      </li>
+      <li>
+        <div class="body">
+          <h3>If you'd rather go wireless, use the 2.4 GHz dongle — not Bluetooth</h3>
+          <p>Plug the USB receiver into a USB-A port, then hold the receiver-mode button on the controller until the <span class="led c-green"><span class="dot"></span>Home light flashes green</span>. Press the pairing button on the receiver. <b>Solid green = connected.</b></p>
+          <p>If it never catches, hold the reset button on the controller and press the receiver's pairing button again to restart pairing. On a first-ever connection you may also need <kbd>Home</kbd> + <kbd>Screenshot</kbd> held for 2 seconds to force pairing mode.</p>
+          <p>The dongle is the mode you want long-term anyway — it's XInput, it's low-latency, and GameSir Connect can see it.</p>
+        </div>
+      </li>
+      <li>
+        <div class="body">
+          <h3>Confirm the mode by the light, not by the button you pressed</h3>
+          <p>The Nova 2 Lite's Home light colour tells you which mode it actually landed in. That's your source of truth — the button-combo diagrams get misremembered constantly. See the decoder below.</p>
+          <p>You want <span class="led c-green"><span class="dot"></span>green</span> (2.4 GHz receiver) or a wired connection. If you're sitting on <span class="led c-blue"><span class="dot"></span>blue</span>, you're on Bluetooth and the software will keep ignoring you.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <!-- ============ CONNECTION COMPARISON ============ -->
+  <h2 class="sec">🔌 What each connection actually gets you</h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Connection</th>
+          <th>Home light</th>
+          <th>GameSir Connect</th>
+          <th>Good for games?</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-best">
+          <td><b>USB-C cable</b></td>
+          <td><span class="led c-green"><span class="dot"></span>Solid</span></td>
+          <td class="yes">✓ Yes</td>
+          <td class="yes">✓ Best latency</td>
+          <td>No pairing, no battery worry. Use this for firmware updates and config.</td>
+        </tr>
+        <tr class="row-best">
+          <td><b>2.4 GHz dongle</b></td>
+          <td><span class="led c-green"><span class="dot"></span>Green</span></td>
+          <td class="yes">✓ Yes</td>
+          <td class="yes">✓ Near-wired</td>
+          <td>XInput. The right everyday choice for Apex and other FPS.</td>
+        </tr>
+        <tr>
+          <td><b>Bluetooth</b></td>
+          <td><span class="led c-blue"><span class="dot"></span>Blue</span></td>
+          <td class="no">✗ No</td>
+          <td class="no">✗ Avoid</td>
+          <td>Shows up as "Wireless Controller." Generic HID, higher latency, no config access. <b>This is your current problem.</b></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Rule of thumb: <b>cable for configuring, dongle for playing, Bluetooth only for a phone or tablet.</b></p>
+
+  <!-- ============ WIRED VS DONGLE ============ -->
+  <h2 class="sec">⚡ Wired or dongle — which should you actually use?</h2>
+  <div class="verdict">
+    <div class="eyebrow">Verdict</div>
+    <h3>Use the dongle. The cable isn't buying you enough to be worth the tether.</h3>
+    <p>The number that settles it: the Nova 2 Lite runs <b>1000 Hz polling on both wired and the 2.4 GHz dongle</b>. The dongle is not a compromise mode on this controller — it's reporting your stick position a thousand times a second either way.</p>
+    <p>Wired is still measurably lower latency, but the gap is a handful of milliseconds. For reference, one frame at 144 fps is about 7 ms. You will not feel the difference in Apex; you <i>will</i> feel a cable snagging on your chair.</p>
+    <p><b>Keep the cable for two jobs:</b> firmware updates and GameSir Connect config (never update firmware wirelessly), and as the fallback when the battery dies mid-session — plugging in keeps you playing.</p>
+  </div>
+
+  <div class="grid2" style="margin-top:18px">
+    <div class="panel">
+      <h3>⚠️ Don't plug the dongle into a USB 3.0 port</h3>
+      <p class="note" style="margin-top:0">This is the single most common cause of 2.4 GHz stutter and dropouts, and almost nobody knows about it. <b>USB 3.0 ports leak broadband radio noise across 2.4–2.5 GHz</b> — the exact band your dongle uses. A USB 3.0 SSD or hub sitting next to the receiver can make a perfectly good wireless controller feel laggy and intermittent.</p>
+      <ul class="tight" style="margin-top:12px">
+        <li>Use a <b>USB 2.0 port</b> (usually black; USB 3.0 is typically blue).</li>
+        <li>Keep the dongle physically away from USB 3.0 devices and external drives.</li>
+        <li>If you only have USB 3.0, put the dongle on a <b>USB extension cable</b> and run it out onto the desk. Doubling the distance from the noise source cuts the interference power to a quarter.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>📶 Give the dongle line of sight</h3>
+      <p class="note" style="margin-top:0">A receiver plugged into the back of a PC that sits under a metal desk is transmitting through a steel panel to reach you. An extension cable that brings the dongle up onto the desk, pointed at where you actually sit, fixes more "wireless feels bad" complaints than any setting change.</p>
+      <p class="note">Also worth knowing: the battery is <b>600 mAh</b> and GameSir doesn't publish a runtime figure. Charge it on the same cable you use for config and you'll rarely get caught out.</p>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:18px">
+    <h3>When wired genuinely is the better call</h3>
+    <ul class="tight">
+      <li><b>Firmware updates and GameSir Connect config</b> — always. A dropout mid-flash is how controllers get bricked.</li>
+      <li><b>Ranked or tournament play</b> where you want zero variables — no battery, no interference, no pairing.</li>
+      <li><b>Your 2.4 GHz environment is crowded</b> — lots of Wi-Fi, wireless headset, wireless mouse and keyboard all fighting for the same band.</li>
+      <li><b>The battery is flat</b> and you want to keep playing.</li>
+    </ul>
+  </div>
+
+  <!-- ============ LED DECODER ============ -->
+  <h2 class="sec">💡 Home-light decoder</h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>Light</th><th>Mode it's in</th><th>What it means for you</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="led c-green"><span class="dot"></span>Green</span></td>
+          <td>Windows — 2.4 GHz receiver</td>
+          <td class="yes">Correct mode. Flashing = pairing, solid = connected.</td>
+        </tr>
+        <tr>
+          <td><span class="led c-blue"><span class="dot"></span>Blue</span></td>
+          <td>Windows Bluetooth (also iOS)</td>
+          <td class="no">Wrong mode for GameSir Connect. Switch to dongle or cable.</td>
+        </tr>
+        <tr>
+          <td><span class="led c-red"><span class="dot"></span>Red</span></td>
+          <td>Nintendo Switch</td>
+          <td>Wrong mode for PC entirely.</td>
+        </tr>
+        <tr>
+          <td><span class="led c-yellow"><span class="dot"></span>Yellow</span></td>
+          <td>Android</td>
+          <td>Wrong mode for PC.</td>
+        </tr>
+        <tr>
+          <td><span class="led c-cyan"><span class="dot"></span>Cyan</span></td>
+          <td>G-Touch (Android)</td>
+          <td>Wrong mode for PC.</td>
+        </tr>
+        <tr>
+          <td><span class="led c-white"><span class="dot"></span>Slow white</span></td>
+          <td>Calibration mode</td>
+          <td>You've entered stick/trigger calibration — finish it or power-cycle out.</td>
+        </tr>
+        <tr>
+          <td><span class="led c-red"><span class="dot"></span>Blinking red</span></td>
+          <td>Turbo is ON</td>
+          <td class="no">Buttons will fire repeatedly. Double-press <kbd>M</kbd> to turn it off.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Every mode switch is a button held with <kbd>Home</kbd> for a couple of seconds. Rather than memorising which face button maps to which mode, <b>hold a combo and read the colour</b> — cycle until you get green. On a first-ever connection in a new mode, follow it with <kbd>Home</kbd> + <kbd>Screenshot</kbd> for 2 seconds to enter pairing.</p>
+
+  <!-- ============ DONGLE PAIRING ============ -->
+  <h2 class="sec">📡 The dongle won't pair to the controller</h2>
+  <div class="danger" style="border-color:rgba(255,122,69,.45);background:var(--gs-dim)">
+    <div class="eyebrow" style="color:var(--gs)">The thing that misleads everyone</div>
+    <p><b>The Windows connect chime means Windows found the dongle. It tells you nothing about the controller.</b></p>
+    <p>The dongle is just a radio. It enumerates and chimes the moment it gets power, whether or not any controller is paired to it. Controller-to-dongle pairing is a separate handshake between those two devices — the PC isn't involved. Hearing the chime proves your USB port works. That's all.</p>
+  </div>
+
+  <div class="panel" style="margin-top:18px">
+    <h3>Pair them — order and timing both matter</h3>
+    <ol class="steps" style="margin-top:14px">
+      <li><div class="body"><h3>Power the controller on</h3><p>Hold <kbd>Home</kbd> until the light comes on. <b>If nothing lights up, the battery is flat</b> — charge it 30 minutes. A dead controller will never pair.</p></div></li>
+      <li><div class="body"><h3>Get it into 2.4 GHz mode — confirm by colour</h3><p>Hold the mode combo until the Home light goes <span class="led c-green"><span class="dot"></span>green</span>. Green is non-negotiable. If it's <span class="led c-blue"><span class="dot"></span>blue</span> it's hunting for Bluetooth and will ignore the dongle forever. Cycle combos until you get green.</p></div></li>
+      <li><div class="body"><h3>Now actually enter pairing mode — <kbd>Home</kbd> + <kbd>Screenshot</kbd> for 2s</h3><p><b>This is the step that traps almost everyone.</b> Selecting the mode and entering pairing are two different actions. A green light only means "I'm set to 2.4 GHz" — not "I'm listening for a dongle."</p><p>Tell them apart <b>by flash speed</b>: <span class="led c-green"><span class="dot"></span>slow flash</span> = mode selected, not pairing. <span class="led c-green"><span class="dot"></span>rapid flash</span> = actually pairing. You need the rapid one.</p></div></li>
+      <li><div class="body"><h3>Immediately press the pairing button on the dongle</h3><p>Within a couple of seconds — both sides time out fast. Look closely at the receiver: it may be a <b>tiny recessed hole needing a paperclip</b>, not an obvious button.</p></div></li>
+      <li><div class="body"><h3>Solid green = paired</h3><p>If the flash never speeds up, hold <b>reset</b> on the controller and start again from the <kbd>Home</kbd> + <kbd>Screenshot</kbd> step.</p></div></li>
+    </ol>
+    <p class="note"><b>Why it usually fails:</b> both sides have to be in pairing mode <i>at the same time</i>, and each times out after a few seconds. Selecting green then hunting for the dongle's button is usually too slow — know where that button is before you start.</p>
+    <p class="note"><b>Still nothing?</b> Move the dongle to a <b>rear USB 2.0 port</b> and retry. USB 3.0 noise hurts most during pairing — the initial handshake is a brief, low-power negotiation, the most fragile moment in the process. A front-panel USB 3.0 port is the worst case: 3.0 interference, a long internal cable, and a metal case between the dongle and your hands.</p>
+    <p class="note">⚡ <b>Stuck? Use the cable.</b> Wired needs no pairing whatsoever. Plug in, restart GameSir Connect, and you're configuring — then come back to the dongle when you're not blocked.</p>
+  </div>
+
+  <!-- ============ STILL STUCK ============ -->
+  <h2 class="sec">🩺 Still not detected?</h2>
+  <div class="stack">
+    <div class="panel">
+      <h3>Find out whether Windows sees it at all</h3>
+      <p>This splits the problem cleanly in two. Press <kbd>Win</kbd> + <kbd>R</kbd>, type <code>joy.cpl</code>, hit Enter.</p>
+      <ul class="tight">
+        <li><b>Controller is listed</b> → Windows is fine, the problem is GameSir Connect or the mode. Open Properties and wiggle the sticks to confirm input registers, then revisit the mode steps above.</li>
+        <li><b>Nothing listed</b> → Windows isn't seeing the hardware. That's a cable, port, or power problem, not a software one. Charge the controller for 30 minutes and try a different cable and a rear USB port.</li>
+      </ul>
+    </div>
+
+    <div class="grid2">
+      <div class="panel">
+        <h3>Close everything that grabs controllers</h3>
+        <p class="note" style="margin-top:0">Fully exit <b>Steam</b>, <b>DS4Windows</b>, <b>x360ce</b>, and any RGB or peripheral suite before launching GameSir Connect. Steam in particular claims controllers aggressively and can make the device invisible to other apps.</p>
+      </div>
+      <div class="panel">
+        <h3>Check Device Manager</h3>
+        <p class="note" style="margin-top:0">Look under <b>Human Interface Devices</b> and <b>Universal Serial Bus controllers</b> for a device with a yellow warning triangle. If you find one, right-click → <b>Uninstall device</b>, then unplug and replug the controller so Windows re-enumerates it.</p>
+      </div>
+      <div class="panel">
+        <h3>Charge it properly</h3>
+        <p class="note" style="margin-top:0">A deeply discharged controller can draw power without ever enumerating as a USB device. Leave it plugged in for 30 minutes before concluding anything is broken.</p>
+      </div>
+      <div class="panel">
+        <h3>Force-update mode</h3>
+        <p class="note" style="margin-top:0">GameSir Connect has a recovery path: hold a button combo while plugging in the USB cable to force the firmware update window open. Use this only as a last resort, only on the cable, and only with <b>Nova 2 Lite</b> selected.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ WHAT YOU CAN CONFIGURE ============ -->
+  <h2 class="sec">🎛️ Once it connects — what GameSir Connect gives you</h2>
+  <div class="panel">
+    <p>Everything here is stored <b>on the controller</b>, so it applies in every game without the software running in the background. Set it once, then close the app.</p>
+    <ul class="tight">
+      <li><b>Button remapping</b> — reassign face buttons, bumpers, and the rear buttons.</li>
+      <li><b>Stick deadzones &amp; response curves</b> — the single most impactful setting for FPS aim. Start with the smallest deadzone that doesn't drift when you let go.</li>
+      <li><b>Trigger travel / hair trigger</b> — shortens the pull so LT/RT fire almost instantly. Big win in Apex.</li>
+      <li><b>Vibration strength</b> — most competitive FPS players turn this off entirely; it moves your aim.</li>
+      <li><b>Turbo</b> — auto-repeat fire. <b>Leave this off</b> (see the warning below).</li>
+      <li><b>Firmware updates</b> — do these on the cable, never wireless.</li>
+    </ul>
+  </div>
+
+  <h2 class="sec">⌨️ On-controller shortcuts worth knowing</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>What you want</th><th>Do this</th><th>Confirmation</th></tr></thead>
+      <tbody>
+        <tr><td><b>Enter pairing mode</b></td><td><kbd>Home</kbd> + <kbd>Screenshot</kbd> for 2s</td><td>Home light flashes rapidly</td></tr>
+        <tr><td><b>Toggle hair trigger</b></td><td><kbd>M</kbd> + the trigger for 2s</td><td>Trigger pull becomes much shorter</td></tr>
+        <tr><td><b>Turn turbo off</b></td><td>Double-press <kbd>M</kbd></td><td>Red blinking stops</td></tr>
+        <tr><td><b>Swap A↔B or X↔Y</b></td><td>Hold the mapping button 2s</td><td>Layout swaps</td></tr>
+        <tr><td><b>Calibrate sticks &amp; triggers</b></td><td>Hold the calibration combo → rotate both sticks fully 2–3×, press each trigger 3×, press <kbd>A</kbd></td><td>Slow white light during, ends on <kbd>A</kbd></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="danger" style="margin-top:18px">
+    <div class="eyebrow">Turbo &amp; competitive FPS</div>
+    <p>Turbo turns a single press into rapid repeated presses. In <b>Apex, Warzone, and REDSEC</b> that's functionally a macro on your fire button, and it sits squarely in territory anti-cheat and TOS rules treat as an automation advantage. It also triggers accidentally more often than you'd think — <b>if you ever see the Home light blinking red mid-match, double-press <kbd>M</kbd>.</b></p>
+  </div>
+
+  <!-- ============ GAME SETUP ============ -->
+  <h2 class="sec">🎯 Apex setup — coming from mouse &amp; keyboard</h2>
+
+  <div class="verdict">
+    <div class="eyebrow">Answering the obvious question</div>
+    <h3>Yes — both. They do different jobs, and one setting must never be set in both places.</h3>
+    <p><b>GameSir Connect configures the hardware.</b> It writes to the controller itself, so it applies in every game whether or not the app is running. Physical stuff: how far a stick moves before it reports, how far a trigger travels, what the rear buttons send.</p>
+    <p><b>Apex configures the game.</b> How fast the camera turns, how aim assist behaves, what each button does in a match.</p>
+    <p><b>The trap: deadzone exists in both, and they stack.</b> Set a deadzone in GameSir Connect <i>and</i> in Apex and you get the sum of the two — a large dead patch where small stick movements do nothing and your aim feels mushy and disconnected. Same goes for response curves. <b>Pick one place for each and leave the other neutral.</b></p>
+  </div>
+
+  <div class="tablewrap" style="margin-top:18px">
+    <table>
+      <thead><tr><th>Setting</th><th>Set it here</th><th>Leave this alone</th></tr></thead>
+      <tbody>
+        <tr><td><b>Stick deadzone</b></td><td>GameSir Connect (hardware)</td><td>Apex → set to <b>None</b></td></tr>
+        <tr><td><b>Response curve</b></td><td>Apex (in-game)</td><td>GameSir Connect → leave the graph <b>straight</b></td></tr>
+        <tr><td><b>Sensitivity</b></td><td>Apex only</td><td>— not a hardware setting</td></tr>
+        <tr><td><b>Trigger travel / hair trigger</b></td><td>GameSir Connect only</td><td>— Apex has no equivalent</td></tr>
+        <tr><td><b>Rear buttons (L4 / R4)</b></td><td>GameSir Connect only</td><td>Apex can't see them — see below</td></tr>
+        <tr><td><b>Button layout</b></td><td>Apex (presets)</td><td>Don't remap face buttons in both</td></tr>
+        <tr><td><b>Vibration</b></td><td>Either — turn it off in GameSir Connect</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note"><b>Why the rear buttons must be done in GameSir Connect:</b> L4 and R4 aren't real gamepad buttons. Apex has never heard of them. The controller makes them <i>impersonate</i> a button you map them to — so you set L4 to send "A", and Apex just sees a normal A press. That's why they're invisible in Apex's own control menu.</p>
+
+  <h2 class="sec">🎛️ GameSir Connect — panel by panel</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Panel</th><th>Setting</th><th>Set to</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr class="row-best"><td rowspan="2"><b>Buttons</b></td><td>L4 →</td><td><b>A</b></td><td>Jump on your left index finger. Biggest single upgrade — you can jump while still aiming.</td></tr>
+        <tr class="row-best"><td>R4 →</td><td><b>B</b></td><td>Crouch/slide without taking your thumb off the aim stick.</td></tr>
+        <tr><td rowspan="2"><b>Vibrations</b></td><td>Left Grip Level</td><td><b>0</b></td><td rowspan="2">Yours are near max. Rumble physically shakes your aim during sustained fire — every competitive player runs it off.</td></tr>
+        <tr><td>Right Grip Level</td><td><b>0</b></td></tr>
+        <tr><td rowspan="2"><b>Sticks</b></td><td>Deadzone (L &amp; R)</td><td><b>As low as it goes without drift</b></td><td>Hall-effect sticks barely drift, so start at minimum. Test: set it, put the controller flat on the desk, watch the crosshair for 10 seconds. Creeping? Nudge it up one notch.</td></tr>
+        <tr><td>Anti-Deadzone (L &amp; R)</td><td><b>0</b></td><td>This <i>boosts</i> early stick output to cancel a game's built-in deadzone. Since you're setting Apex's deadzone to None, there's nothing to cancel — and it causes drift-like behaviour if overdone. Leave it.</td></tr>
+        <tr><td rowspan="2"><b>Triggers</b></td><td>Hair Trigger Mode (LT &amp; RT)</td><td><b>Adaptive Mode</b></td><td>Shortens the pull. Faster ADS and faster first shot. Apex fire is on/off anyway — you gain nothing from long travel.</td></tr>
+        <tr><td>Deadzone (LT &amp; RT)</td><td><b>Lower handle to minimum</b></td><td>The trigger actuates earlier in its travel.</td></tr>
+        <tr><td><b>Sticks</b></td><td>Response curve graph</td><td><b>Leave straight</b></td><td>You'll do curve work in Apex. Curving both compounds them into unpredictable acceleration.</td></tr>
+        <tr><td><b>Lights</b></td><td>Brightness</td><td>Low / off</td><td>Pure battery saving. No performance effect.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">While you're in there: the top bar has a <b>firmware update</b> icon with an orange dot on it — run that first, on the cable. Then calibrate the sticks once you've settled on a deadzone.</p>
+
+  <h2 class="sec">🔺 Apex — in-game settings</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Setting</th><th>Start at</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><b>Look Sensitivity</b></td><td>4</td><td>Lower than feels right coming from a mouse. If you consistently overshoot targets, drop to 3.</td></tr>
+        <tr><td><b>Look Sensitivity (ADS)</b></td><td>3</td><td>Slower while aimed = steadier tracking.</td></tr>
+        <tr><td><b>Response Curve</b></td><td><b>Classic</b> → later Linear</td><td>Classic is forgiving while your thumbs learn. <b>Linear</b> is 1:1 stick-to-turn with no acceleration — the closest thing to mouse feel, and where you'll likely end up. Switch after a week or two, not on day one.</td></tr>
+        <tr class="row-best"><td><b>Deadzone</b></td><td><b>None</b></td><td>You've already handled deadzone in hardware. Setting it here too stacks them.</td></tr>
+        <tr class="row-best"><td><b>Button Layout</b></td><td>Default</td><td>Your rear buttons already give you jump and crouch — you don't need Bumper Jumper on top.</td></tr>
+        <tr><td><b>Aim Assist</b></td><td>Always on</td><td>Not a toggle. But it <b>only works on XInput</b> — another reason to stay off Bluetooth.</td></tr>
+        <tr><td><b>Auto-Sprint</b></td><td><b>On</b></td><td>Removes a stick click from your rotation. Free win.</td></tr>
+        <tr><td><b>Crouch</b></td><td>Hold</td><td>Needed for slide timing. Easy now that it's on R4.</td></tr>
+        <tr><td><b>Aim (ADS)</b></td><td>Hold</td><td>Toggle feels good for a day, then betrays you in a fight.</td></tr>
+        <tr><td><b>Interact / Reload</b></td><td>Tap to Use &amp; Reload</td><td>Fewer button presses while looting.</td></tr>
+        <tr><td><b>Advanced Look Controls</b></td><td><b>Leave off</b></td><td>ALC exposes yaw/pitch speeds, ramp times and deadzones as raw numbers. Powerful, but you can't tune what you can't yet feel. Come back in a month.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="verdict" style="margin-top:22px">
+    <div class="eyebrow">What nobody tells mouse players</div>
+    <h3>Aim assist isn't automatic aimbot — you have to feed it movement.</h3>
+    <p>Apex's aim assist works by <b>slowing your crosshair and gently pulling it</b> when it's near an enemy — but the rotational part only really engages <b>while you're moving the left stick</b>. Stand still and you get a fraction of the benefit.</p>
+    <p>So the habit to build is the opposite of mouse instinct: <b>strafe left and right while you shoot.</b> Mouse players tend to plant their feet and aim precisely. On controller, moving <i>is</i> aiming. It's also strongest at close-to-mid range, which shapes how you should fight — push and brawl rather than duel at distance.</p>
+    <p><b>Three more adjustments coming from KBM:</b> your turn speed is capped, so <b>pre-aim</b> where enemies will be instead of expecting to flick; use the <b>left stick for fine horizontal correction</b> rather than tiny right-stick nudges; and accept that close range is now your strength, not your weakness.</p>
+  </div>
+
+  <div class="panel" style="margin-top:18px">
+    <h3>Your first week</h3>
+    <ul class="tight">
+      <li><b>Firing range, 20 minutes, before any match.</b> Strafe side to side while tracking a dummy. You're teaching your thumb what aim assist feels like when it grabs.</li>
+      <li><b>Resist raising sensitivity.</b> Everyone from mouse feels slow at first and cranks it. Overshooting targets is worse than turning slowly. Give it a week before changing.</li>
+      <li><b>Drill the rear buttons deliberately.</b> Jump and slide around the range until L4/R4 stop requiring thought — that's the whole reason they're worth mapping.</li>
+      <li><b>Change one thing at a time.</b> If you adjust sensitivity, curve and deadzone together, you learn nothing about which helped.</li>
+      <li><b>Expect two weeks.</b> The thumb muscle memory is genuinely new. It's not the settings.</li>
+    </ul>
+  </div>
+
+  <p style="margin-top:22px;color:var(--muted)">The in-game side is already covered in the hub — no point repeating it here:</p>
+  <div class="grid2">
+    <a class="xlink" href="./controller-aim.html">
+      <div class="icon">🎯</div>
+      <h3>Controller FPS Aim Tuning</h3>
+      <p>Deadzones, response curves, sensitivity and ADS multipliers in priority order, with a symptom → fix table and per-game saved settings.</p>
+      <div class="go">Tune your aim →</div>
+    </a>
+    <a class="xlink" href="./controller-mapper.html">
+      <div class="icon">🎮</div>
+      <h3>Controller Mapper</h3>
+      <p>Plan your button layout — including what to put on the Nova 2 Lite's rear buttons.</p>
+      <div class="go">Map your buttons →</div>
+    </a>
+    <a class="xlink" href="./apex-legends.html">
+      <div class="icon">🔺</div>
+      <h3>Apex Legends</h3>
+      <p>Settings, fundamentals, legend classes and the weapon meta, with an optimization checklist.</p>
+      <div class="go">Open guide →</div>
+    </a>
+    <a class="xlink" href="./warzone.html">
+      <div class="icon">🔫</div>
+      <h3>COD Warzone</h3>
+      <p>Performance settings, meta loadouts and Gunsmith, plus the buy-station/Gulag loop.</p>
+      <div class="go">Open guide →</div>
+    </a>
+  </div>
+
+  <!-- ============ CHECKLIST ============ -->
+  <h2 class="sec">✅ Work through it</h2>
+  <div class="panel">
+    <div class="barlabel"><span>Progress</span><span id="count">0 / 10</span></div>
+    <div class="bar"><span id="fill"></span></div>
+    <div id="checklist">
+      <div class="check"><input type="checkbox" id="c1"><label for="c1">Confirmed the controller is a <b>Nova 2 Lite</b>, not a Nova Lite<small>Wrong model + firmware update = bricked controller</small></label></div>
+      <div class="check"><input type="checkbox" id="c2"><label for="c2">Charged the controller for at least 30 minutes<small>A flat battery can look exactly like a dead USB port</small></label></div>
+      <div class="check"><input type="checkbox" id="c3"><label for="c3">Using a <b>data</b> USB-C cable, in a rear motherboard port<small>Charge-only cables are the most common false alarm</small></label></div>
+      <div class="check"><input type="checkbox" id="c4"><label for="c4">Closed Steam, DS4Windows and any other controller software<small>Steam claims controllers and hides them from other apps</small></label></div>
+      <div class="check"><input type="checkbox" id="c5"><label for="c5">Restarted GameSir Connect <b>after</b> plugging the controller in<small>It scans for devices at launch</small></label></div>
+      <div class="check"><input type="checkbox" id="c6"><label for="c6">Checked <code>joy.cpl</code> to see whether Windows detects it<small>Splits a software problem from a hardware one</small></label></div>
+      <div class="check"><input type="checkbox" id="c7"><label for="c7">Controller detected — GameSir Connect opened past the select screen</label></div>
+      <div class="check"><input type="checkbox" id="c8"><label for="c8">Paired the 2.4 GHz dongle and confirmed a <b>solid green</b> light<small>Your everyday playing mode — put the dongle in a USB 2.0 port, away from USB 3.0 devices</small></label></div>
+      <div class="check"><input type="checkbox" id="c9"><label for="c9">Ran the firmware update in GameSir Connect, on the cable<small>Orange dot in the top bar. Do this before anything else</small></label></div>
+      <div class="check"><input type="checkbox" id="c10"><label for="c10">Mapped <b>L4 → A</b> (jump) and <b>R4 → B</b> (crouch)<small>The biggest single upgrade — jump and slide without leaving the aim stick</small></label></div>
+      <div class="check"><input type="checkbox" id="c11"><label for="c11">Vibration to <b>0</b>, hair trigger <b>Adaptive</b>, stick deadzone minimum, anti-deadzone <b>0</b><small>Stored on the controller — applies to every game</small></label></div>
+      <div class="check"><input type="checkbox" id="c12"><label for="c12">Apex: deadzone <b>None</b>, sens 4 / ADS 3, Classic curve, auto-sprint on<small>Deadzone is set in hardware — setting it here too would stack them</small></label></div>
+      <div class="check"><input type="checkbox" id="c13"><label for="c13">Practised <b>strafing while shooting</b> in the firing range<small>Aim assist needs left-stick movement to properly engage</small></label></div>
+    </div>
+  </div>
+
+  <!-- ============ NOTES ============ -->
+  <h2 class="sec">📝 Your setup notes</h2>
+  <div class="panel">
+    <p class="note" style="margin-top:0">What actually worked, your deadzone numbers, per-game tweaks. Saves in this browser.</p>
+    <textarea id="notes" placeholder="e.g. Dongle in rear USB-A port, solid green. Deadzone 4, hair trigger on both. Rear buttons = jump (left) / crouch (right). Apex feels good at..."></textarea>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:12px;flex-wrap:wrap">
+      <span class="saved" id="saved">Saved ✓</span>
+      <button class="reset" id="reset">Clear checklist &amp; notes</button>
+    </div>
+  </div>
+
+  <footer>
+    Part of the <a href="../index.html">Home Projects Hub</a> · <a href="./index.html">Gaming</a><br>
+    Sources: <a href="https://gamesir.com/pages/gamesir-connect-software" target="_blank" rel="noopener">GameSir Connect</a> ·
+    <a href="https://gamesir.com/pages/tutorials-how-to-connect-nova-2-lite" target="_blank" rel="noopener">How to connect Nova 2 Lite</a> ·
+    <a href="https://gamesir.com/pages/faq-questions-about-nova-2-lite" target="_blank" rel="noopener">Nova 2 Lite FAQ</a>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var KEY = "gs-nova2lite-v1";
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('#checklist input[type=checkbox]'));
+  var notes = document.getElementById('notes');
+  var fill  = document.getElementById('fill');
+  var count = document.getElementById('count');
+  var saved = document.getElementById('saved');
+  var timer;
+
+  function read(){
+    try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
+    catch(e){ return {}; }
+  }
+  function write(){
+    var data = { notes: notes.value, checks: {} };
+    boxes.forEach(function(b){ data.checks[b.id] = b.checked; });
+    try { localStorage.setItem(KEY, JSON.stringify(data)); } catch(e){}
+    flash();
+  }
+  function flash(){
+    saved.classList.add('show');
+    clearTimeout(timer);
+    timer = setTimeout(function(){ saved.classList.remove('show'); }, 1400);
+  }
+  function progress(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    count.textContent = done + ' / ' + boxes.length;
+    fill.style.width = (done / boxes.length * 100) + '%';
+  }
+
+  /* ---- controller diagram: highlight the buttons a combo uses ---- */
+  var combos = Array.prototype.slice.call(document.querySelectorAll('button.combo'));
+  function clearPad(){
+    document.querySelectorAll('svg.pad .b.hl').forEach(function(el){ el.classList.remove('hl'); });
+    combos.forEach(function(c){ c.classList.remove('on'); });
+  }
+  function showCombo(c){
+    clearPad();
+    c.classList.add('on');
+    c.dataset.btns.split(' ').forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) el.classList.add('hl');
+    });
+  }
+  combos.forEach(function(c){
+    c.addEventListener('mouseenter', function(){ showCombo(c); });
+    c.addEventListener('focus',      function(){ showCombo(c); });
+    c.addEventListener('click',      function(){ showCombo(c); });
+  });
+
+  var data = read();
+  if (data.notes) notes.value = data.notes;
+  if (data.checks) boxes.forEach(function(b){ b.checked = !!data.checks[b.id]; });
+  progress();
+
+  boxes.forEach(function(b){
+    b.addEventListener('change', function(){ progress(); write(); });
+  });
+  notes.addEventListener('input', function(){
+    clearTimeout(timer);
+    timer = setTimeout(write, 500);
+  });
+  document.getElementById('reset').addEventListener('click', function(){
+    if (!confirm('Clear the checklist and your notes on this page?')) return;
+    boxes.forEach(function(b){ b.checked = false; });
+    notes.value = '';
+    try { localStorage.removeItem(KEY); } catch(e){}
+    progress();
+  });
+})();
+</script>
+</body>
+</html>
